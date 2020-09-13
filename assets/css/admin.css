@@ -1,0 +1,12 @@
+.notice {
+    line-height: 1.75;
+    padding: .5rem 0 .5rem .75rem;
+    border-left: solid 4px #12c5f1;
+    background: rgba(0, 0, 25, .025);
+}
+.btn {
+    margin-bottom: 5px;
+}
+.protected {
+    padding-left: 0!important;
+}
