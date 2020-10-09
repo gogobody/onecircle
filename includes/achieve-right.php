@@ -4,13 +4,28 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 <div class="col-12 col-md-4 text-center text-md-left">
 
     <div class="card user-container">
+        <?php if ($this->is('author')):?>
         <div class="mycicle-title"><h2><?php _e($this->getArchiveTitle()) ?></h2></div>
         <div class="iwNods">
             <div class="daMYau">
-                <span><?php _e($this->user->userSign);?>
-                </span>
+                <span><?php
+                    if($this->author->userSign){
+                        echo $this->author->userSign;
+                    }else{
+                        echo "太懒了，还没有个人签名!";
+                    }
+                    ?> </span>
             </div>
         </div>
+        <?php elseif ($this->is('category')):?>
+            <div class="mycicle-title"><h2><?php _e($this->getArchiveTitle()) ?></h2></div>
+            <div class="iwNods">
+                <div class="daMYau">
+                <span><?php _e(parseDesc2text($this->getDescription()));?>
+                </span>
+                </div>
+            </div>
+        <?php endif?>
     </div>
 
     <div class="card d-none d-md-block mycicle">

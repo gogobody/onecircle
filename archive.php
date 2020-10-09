@@ -35,16 +35,16 @@
                             </div>
                         </div>
                         <div class="sc-AxjAm sc-AxirZ kLKIKx">
-                            <button id="fans"  data-authorid="<? echo $this->author->uid ?>"
+                            <button data-authorid="<? echo $this->author->uid ?>"
                                 <?php
                                 if ($this->user->hasLogin()){
                                     if (DbFunc::statusFollow($this->user->uid,$this->author->uid)){
-                                        echo 'class="fansed">已关注';
+                                        echo 'class="fansed fan-event">已关注';
                                     }else{
-                                        echo 'class="fans">关注';
+                                        echo 'class="fans fan-event">关注';
                                     }
                                 }else{
-                                    echo 'class="fans">关注';
+                                    echo 'class="fans fan-event">关注';
                                 }
                                 ?>
                             </button>
@@ -291,14 +291,25 @@
                                             <a href="/author/<?php _e($fobj[$i]['uid'])?>"
                                                class="sc-AxjAm sc-AxirZ eGdPrb"><img
                                                         src="<?php _e(getUserV2exAvatar($fobj[$i]['mail']))?>"
-                                                        alt="再多一点可爱" size="40" class="sc-AxjAm jZLHXc">
+                                                        alt="再多一点可爱" class="sc-AxjAm jZLHXc">
                                                 <div  class="sc-AxjAm sc-AxirZ hkyonN">
                                                     <div class="sc-AxjAm oDrAC"><?php _e($fobj[$i]['name'])?></div>
                                                     <div class="sc-AxjAm hHqHSX ezzhLs"><?php _e($this->user->userSign);?></div>
                                                 </div>
                                             </a>
                                             <div class="sc-AxjAm sc-AxirZ hsyNhw">
-                                                <button  class="sc-AxjAm eOxanL">关注</button>
+                                                <button data-authorid="<?php _e($fobj[$i]['uid'])?>" <?php
+                                                if ($this->user->hasLogin()){
+                                                    if (DbFunc::statusFollow($this->user->uid,$fobj[$i]['uid'])){
+                                                        echo 'class="fansed-little fan-event">已关注';
+                                                    }else{
+                                                        echo 'class="fans-little fan-event">关注';
+                                                    }
+                                                }else{
+                                                    echo 'class="fans-little fan-event">关注';
+                                                }
+                                                ?>
+                                                </button>
                                             </div>
                                         </div>
                                     <?php endfor;?>
@@ -309,14 +320,25 @@
                                             <a href="/author/<?php _e($fobj[$i]['uid'])?>"
                                                class="sc-AxjAm sc-AxirZ eGdPrb"><img
                                                         src="<?php _e(getUserV2exAvatar($fobj[$i]['mail']))?>"
-                                                        alt="再多一点可爱" size="40" class="sc-AxjAm jZLHXc">
+                                                        alt="再多一点可爱" class="sc-AxjAm jZLHXc">
                                                 <div  class="sc-AxjAm sc-AxirZ hkyonN">
                                                     <div class="sc-AxjAm oDrAC"><?php _e($fobj[$i]['name'])?></div>
                                                     <div class="sc-AxjAm hHqHSX ezzhLs"><?php _e($this->user->userSign);?></div>
                                                 </div>
                                             </a>
                                             <div class="sc-AxjAm sc-AxirZ hsyNhw">
-                                                <button  class="sc-AxjAm eOxanL">关注</button>
+                                                <button data-authorid="<?php _e($fobj[$i]['uid'])?>" <?php
+                                                if ($this->user->hasLogin()){
+                                                    if (DbFunc::statusFollow($this->user->uid,$fobj[$i]['uid'])){
+                                                        echo 'class="fansed-little fan-event">已关注';
+                                                    }else{
+                                                        echo 'class="fans-little fan-event">关注';
+                                                    }
+                                                }else{
+                                                    echo 'class="fans-little fan-event">关注';
+                                                }
+                                                ?>
+                                                </button>
                                             </div>
                                         </div>
                                     <?php endfor;?>

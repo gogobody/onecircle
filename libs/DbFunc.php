@@ -41,6 +41,10 @@ class DbFunc
         $db = Typecho_Db::get();
         $prefix = $db->getPrefix();
         if (is_numeric($uid) && is_numeric($fid)) {
+            $row = $db->fetchRow($db->select('fid')->from('table.user_follow')->where('uid = ?', $uid)->where('fid = ?', $fid));
+            if (count($row) > 0) {
+                return false;
+            }
             $insert = $db->insert('table.user_follow')->rows(array('uid' => $uid, 'fid' => $fid));
             $db->query($insert);
             return true;

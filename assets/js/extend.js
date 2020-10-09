@@ -211,34 +211,42 @@ var indexInput = {
     archiveEventInit:function () {
         let that = this
         // 关注 event
-        let fanBtn = $("#fans")
+        let fanBtn = $(".fan-event")
         fanBtn.click(function (e){
             if (userId > 0 ){
                 let status
-                if (fanBtn.text() === "关注"){
+                let authorid = parseInt($(this).data("authorid"))
+                if ($.trim($(this).text()) === "关注"){
                     status = "follow"
                 }else {
                     status = "unfollow"
                 }
-                if(userId ===fanBtn.data("authorid")){
+                if(parseInt(userId) === authorid){
                     alert("自己不能关注自己！")
                 }
+                $(this).attr("disabled",true);
+                let btnThis = this
                 $.post('/',{
                     follow:status,
                     uid:userId,
-                    fid:fanBtn.data("authorid")
+                    fid:authorid
                 },function (res) {
                     if (res){
                         if (status === "unfollow"){
-                            fanBtn.text("关注")
-                            fanBtn.addClass("fans")
-                            fanBtn.removeClass("fansed")
+                            $(btnThis).text("关注")
+                            $(btnThis).addClass("fans")
+                            $(btnThis).removeClass("fansed")
+                            window.location.reload()
                         }else {
-                            fanBtn.text("已关注")
-                            fanBtn.addClass("fansed")
-                            fanBtn.removeClass("fans")
+                            $(btnThis).text("已关注")
+                            $(btnThis).addClass("fansed")
+                            $(btnThis).removeClass("fans")
+                            window.location.reload()
+
                         }
                     }
+                    $(btnThis).attr("disabled",false);
+
                 })
             }else {
                 alert("没有登录")

@@ -20,7 +20,13 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                         <a href=""><span style="color: rgb(64, 64, 64);"><? _e(DbFunc::getOtherFollowNum($this->user->uid));?></span>被关注</a>
                     </div>
                     <div class="user-info-introduction">
-                        <span><?php _e($this->user->userSign);?></span>
+                        <span><?php
+                            if($this->author->userSign){
+                                echo $this->author->userSign;
+                            }else{
+                                echo "太懒了，还没有个人签名!";
+                            }
+                            ?></span>
                     </div>
                 </div>
             <?php else: ?>

@@ -53,35 +53,15 @@ header {
     color: cornflowerblue;
 }
 
-.mobile-nav {
-    position: absolute;
-    right: 1.5rem;
-}
-
-.mobile-nav button:hover {
-    box-shadow: none;
-}
 
 @media (min-width: 768px) {
     #mobile-nav {
         display: block !important;
     }
 
-    .search-area {
-        right: 50px !important;
-    }
 }
 
-@media (min-width: 1200px) {
-    .search-area {
-        right: 20rem !important;
-    }
-}
 
-.search-area {
-    position: absolute;
-    right: 5rem;
-}
 
 /**
 重写modal
@@ -127,16 +107,7 @@ header {
 .search-button {
     margin-top: 20px;
 }
-.search-area {
-    outline: none;
-    border: none;
-    line-height: 48px;
-    color: #000;
-    background: none;
-}
-.search-area:focus, .close:focus {
-    outline: none;
-}
+
 .close {
     outline: none;
 }
@@ -146,14 +117,13 @@ header {
 /**
 导航
  */
-.nav-link {
+#mobile-nav .nav-link {
     text-align: center;
     height: 40px;
     color: #000;
     margin-bottom: 24px;
     padding: 0;
 }
-
 .nav-link.active {
     color: rgb(29, 161, 242);
 }
@@ -161,7 +131,6 @@ header {
 .nav-item:hover {
     background-color: #1da1f21a;
     color: #1da1f2;
-    border-radius: 25px;
 }
 
 .last-nav-item {
@@ -174,7 +143,9 @@ header {
 .last-nav-item:hover {
     background-color: rgb(8, 79, 117);
 }
-
+.navbar-right{
+    padding: 0;
+}
 .nav-icon {
     max-width: 24px;
     max-height: 24px;
@@ -186,6 +157,85 @@ header {
     font-size: 19px;
     vertical-align: middle;
     font-weight: 700;
+}
+.dropdown-menu {
+    border: none!important;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 2px 6px rgba(0,0,0,.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,.1);
+}
+
+.navbar.navbar-nav.navbar-right >li>a{
+    color: black;
+    padding: 10px 15px;
+    display: block;
+}
+.w-lg {
+    width: 280px;
+}
+.wrapper {
+    padding: 15px;
+}
+.bg-white {
+    color: #777;
+    background-color: #f9f9f9;
+}
+.box-shadow-wrap-lg {
+    -webkit-box-shadow: 0 2px 6px rgba(0,0,0,.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,.1);
+}
+.padder-lg {
+    padding-right: 30px;
+    padding-left: 30px;
+}
+.btn-rounded {
+    padding: 6px 15px;
+    border-radius: 50px;
+}
+.btn-gd-primary {
+    color: #fff;
+    border: none;
+    background: #448bff linear-gradient(45deg,#448bff,#44e9ff);
+    transition: all .2s ease;
+    line-height: 1.4;
+}
+.form-control {
+    border-color: rgba(135,150,165,.15);
+    border-width: 1px;
+    color: inherit;
+    box-shadow: none;
+    border-radius: 2px;
+    resize: vertical;
+
+}
+
+.active>.auto .text, .active>.text, .text-active {
+    display: none!important;
+}
+.banLogin_text {
+    display: none!important;
+}
+.navbar-nav i {
+    font-size: 14px;
+}
+.navbar-right .dropdown-menu {
+    right: 0;
+    left: auto;
+    font-size: 14px;
+}
+.navbar-right .dropdown-menu input{
+    font-size: 14px;
+}
+button:focus{
+    outline: none;
+}
+.navbar.navbar-expand-lg.navbar-light{
+    padding: 0;!important;
+}
+@media (max-width: 768px){
+    .navbar.navbar-nav.navbar-right.ml-auto {
+        /*flex-direction: row;*/
+    }
 }
 
 /**
@@ -2185,7 +2235,7 @@ archives
     width: 40px;
     height: 40px;
 }
-.eOxanL {
+.fans-little {
     box-sizing: border-box;
     margin: 0px;
     appearance: none;
@@ -2204,6 +2254,28 @@ archives
     min-width: 60px;
     font-size: 12px;
     padding: 8px 12px;
+}
+.fansed-little{
+    box-sizing: border-box;
+    margin: 0px;
+    appearance: none;
+    display: inline-block;
+    text-align: center;
+    line-height: inherit;
+    text-decoration: none;
+    color: rgb(3, 169, 245);
+    background-color: transparent;
+    border: 1px solid rgb(3, 169, 245);
+    border-radius: 999px;
+    cursor: pointer;
+    word-break: keep-all;
+    flex-shrink: 0;
+    min-width: 60px;
+    font-size: 12px;
+    padding: 8px 12px;
+}
+.fans-little:focus,.fansed-little:focus{
+    outline: none;
 }
 .ezzhLs {
     word-break: keep-all;
@@ -2272,13 +2344,7 @@ footer
     color: #0056b3;
 }
 
-.theme-dark .search-area {
-    color: rgba(255, 255, 255, 1);
-}
 
-.theme-dark .mobile-nav button {
-    color: rgba(255, 255, 255, 1);
-}
 
 .theme-dark .random-post {
     background: rgba(52, 50, 50, 0.7);
