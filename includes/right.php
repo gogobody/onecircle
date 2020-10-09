@@ -7,7 +7,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <?php if ($this->user->hasLogin()): ?>
                 <div class="card-header user-info" style="background-image: url(<?php echo getUserV2exAvatar($this->user->mail) ?>);"></div>
                 <div class="user-detail">
-                    <a href="/author/<?php echo $this->user->permalink();?>">
+                    <a href="/author/<?php echo $this->user->uid?>">
                         <div class="info">
                             <img class="avatar" src="<?php echo getUserV2exAvatar($this->user->mail)?>" alt="<?php echo $this->user->name ?>"/>
                         </div>

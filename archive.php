@@ -150,13 +150,13 @@
                                                             <!--                                    link-->
                                                             <?php if ($this->fields->articleType == "link"): ?>
                                                                 <div class="post-content-inner-link col-xl-12">
-                                                                    <a href="<?php echo parseFirstURL($this->content); ?>"
-                                                                       target="_blank" color="unset">
+                                                                    <? echo parseMarkdownBeforeText($this->text)?>
+                                                                    <a href="<?php echo parseFirstURL($this->content); ?>" target="_blank">
                                                                         <div class="link-container">
                                                                             <div class="link-banner">
-                                                                                <img src="https://cdn.jellow.site/icons/link.png">
+                                                                                <img src="<? echo Helper::options()->themeUrl . '/assets/img/link.png' ?>">
                                                                                 <div class="link-text">
-                                                                                    <?php echo $this->excerpt(70); ?>
+                                                                                    <?php echo parseMarkdownInText($this->text) ?>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
