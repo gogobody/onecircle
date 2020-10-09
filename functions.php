@@ -122,6 +122,7 @@ function getPostImg($archive)
  * @param $content
  * @return mixed
  */
+
 function parseFirstURL($content)
 {
     $preg = '/(https?|ssh|ftp):\/\/[^\s"]+/';

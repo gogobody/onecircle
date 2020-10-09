@@ -33,5 +33,5 @@ links
 签名设置
 ![index](READMEimgs/usersign.png)
 ### 感谢以下作者的辛苦付出
-- https://javascript-minifier.com/
+- compress https://javascript-minifier.com/
 - 修改自 [landstar](https://dyedd.cn) up to version :2.0.2

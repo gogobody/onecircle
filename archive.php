@@ -297,6 +297,7 @@
                                                     <div class="sc-AxjAm hHqHSX ezzhLs"><?php _e($this->user->userSign);?></div>
                                                 </div>
                                             </a>
+
                                             <div class="sc-AxjAm sc-AxirZ hsyNhw">
                                                 <button data-authorid="<?php _e($fobj[$i]['uid'])?>" <?php
                                                 if ($this->user->hasLogin()){

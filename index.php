@@ -208,6 +208,7 @@ $this->need('includes/header.php');
                                                     </div>
                                                 </a>
                                             </div>
+
                                             <!--                                    default-->
                                         <?php else: ?>
                                             <div class="post-content-inner col-xl-12">
