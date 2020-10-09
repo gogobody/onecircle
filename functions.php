@@ -199,9 +199,10 @@ function parseMarkdownInText($str,$num=15){
  * feedAtomUrl：该分类的feedAtom地址
  * @param $obj
  * @param int $cnt
+ * @param string $url
  * @return array
  */
-function getCategories($obj, $cnt = -1)
+function getCategories($obj, $cnt = -1, $url = '')
 {
     $categories = $obj->widget('Widget_Metas_Category_List');
     $arr = array();
@@ -218,7 +219,7 @@ function getCategories($obj, $cnt = -1)
                 $imgurl = $res[1][0];
                 $desc = $res[2][0];
             } else {
-                $imgurl = "https://www.easyicon.net/api/resizeApi.php?id=1171951&size=128";
+                $imgurl = $url;
                 $desc = $categories->description;
             }
 

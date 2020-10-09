@@ -32,7 +32,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <div class="mycicle-title"><h2>我的圈子</h2></div>
         <div class="mycicle-content">
             <?php
-            $arr = getCategories($this,10);
+            $arr = getCategories($this,10, $this->options->defaultSlugUrl);
             //            print_r($arr);
             $length = count($arr);
             for ($i=0;$i<$length;$i++){
