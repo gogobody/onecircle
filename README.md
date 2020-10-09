@@ -16,7 +16,11 @@
 
 
 ## 安装
-下载 release 的插件（带plugin字样）和 主题分别安装即可
+下载 release 的插件（带plugin字样）和 主题分别安装即可  
+
+**说明：**  
+如果要开启伪静态  
+我是按照默认 '默认风格 /archives/{cid}/'设置的，不保证其他的有效
 
 ##如何添加导航图标
 进入网址https://icons.getbootstrap.com/
