@@ -2,25 +2,25 @@
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 ?>
 <div class="col-12 col-md-3 text-center text-md-left">
-    <div class="card user-container">
-        <?php if ($this->is('index')): ?>
+    <?php if ($this->is('index')): ?>
+        <div class="card user-container">
             <?php if ($this->user->hasLogin()): ?>
-                <div class="card-header user-info" style="background-image: url(<?php echo getV2exAvatar($this) ?>);"></div>
+                <div class="card-header user-info" style="background-image: url(<?php echo getUserV2exAvatar($this->user->mail) ?>);"></div>
                 <div class="user-detail">
-                    <a>
+                    <a href="/author/<?php echo $this->user->permalink();?>">
                         <div class="info">
-                            <img class="avatar" src="<?php echo getV2exAvatar($this)?>" alt="<?php $this->author() ?>"/>
+                            <img class="avatar" src="<?php echo getUserV2exAvatar($this->user->mail)?>" alt="<?php echo $this->user->name ?>"/>
                         </div>
                     </a>
                     <div class="user-info-name">
-                        <a href=""><?php echo $this->author()?></a>
+                        <a href="/author/<?php echo $this->user->uid?>"><?php echo $this->user->name;?></a>
                     </div>
                     <div class="user-info-fans">
-                        <a href=""><span style="color: rgb(64, 64, 64);">62</span>关注</a>
-                        <a href=""><span style="color: rgb(64, 64, 64);">12</span>被关注</a>
+                        <a href=""><span style="color: rgb(64, 64, 64);"><? _e(DbFunc::getFollowNum($this->user->uid));?></span>关注</a>
+                        <a href=""><span style="color: rgb(64, 64, 64);"><? _e(DbFunc::getOtherFollowNum($this->user->uid));?></span>被关注</a>
                     </div>
                     <div class="user-info-introduction">
-                        <span><?php _e($this->options->selfIntroduction);?></span>
+                        <span><?php _e($this->user->userSign);?></span>
                     </div>
                 </div>
             <?php else: ?>
@@ -28,21 +28,19 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                 <div class="user-detail user-detail-padding">
                     <a>
                         <div class="info">
-                            <img class="avatar" src="<?php echo getV2exAvatar($this)?>" alt="<?php $this->author() ?>"/>
+                            <img class="avatar" src="<?php echo getUserV2exAvatar($this)?>" alt="<?php $this->author() ?>"/>
                         </div>
                     </a>
                     <div class="user-info-name">
                         <a href=""><?php echo $this->author()?></a>
                     </div>
                     <div class="user-info-fans">
-                        <a href=""><span style="color: rgb(64, 64, 64);">62</span>关注</a>
-                        <a href=""><span style="color: rgb(64, 64, 64);">12</span>被关注</a>
+                        <a href=""><span style="color: rgb(64, 64, 64);"><? _e(DbFunc::getFollowNum(1));?></span>关注</a>
+                        <a href=""><span style="color: rgb(64, 64, 64);"><? _e(DbFunc::getOtherFollowNum(1));?></span>被关注</a>
                     </div>
                     <div class="user-info-introduction">
-                        <span>个人简介</span>
-                        <?php
-                        print_r(getCategories($this,10));
-                        ?>
+                        <span>个人简介：</span>
+
                     </div>
                 </div>
 
@@ -72,10 +70,21 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
                 </div>
             <?php endif ?>
-        <?php else: ?>
-        <?php endif ?>
+        </div>
+        <?php elseif($this->is('page')): ?>
+        <?php else:?>
+        <div class="card user-container">
 
-    </div>
+            <div class="mycicle-title"><h2><?php _e($this->categories[0]['name']) ?></h2></div>
+            <div class="iwNods">
+                <div class="daMYau">
+                <span><?php _e(parseDesc2text($this->categories[0]['description']));?>
+                </span>
+                </div>
+            </div>
+        </div>
+    <?php endif ?>
+
     <div class="card d-none d-md-block mycicle">
         <div class="mycicle-title"><h2>我的圈子</h2></div>
         <div class="mycicle-content">
@@ -102,7 +111,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
     <div class="card recent-box d-none d-md-block">
         <h2 class="title">最近回复</h2>
         <ul class="list-unstyled">
-            <?php $this->widget('Widget_Comments_Recent', 'pageSize=3')->to($comments); ?>
+            <?php $this->widget('Widget_Comments_Recent', 'ignoreAuthor=true&pageSize=5')->to($comments); ?>
             <?php while ($comments->next()): ?>
                 <li class="media my-4">
                     <img class="recent-avatar mr-3"
@@ -112,6 +121,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                         <a class="content" href="<?php $comments->permalink(); ?>"
                            target="<?php $this->options->sidebarLinkOpen(); ?>">
                             <?php $comments->excerpt(35, '...'); ?>
+                            <?php echo contents::parseHide(contents::parseOwo($comments->excerpt(35, '...')));?>
                         </a>
                     </div>
                 </li>
@@ -122,6 +132,6 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <h4 class="title">可能感兴趣</h4>
         <?php theme_random_posts(); ?>
     </div>
-    <?php $this->need('includes/footer.php'); ?>
+
 </div>
 

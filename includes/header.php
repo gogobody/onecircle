@@ -8,11 +8,14 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/bootstrap.min.css'); ?>">
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/main.css'); ?>">
-    <?php if (!$this->is('index')): ?>
+    <?php if ($this->is('single')): ?>
         <!-- 文章 CSS -->
         <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/post.css'); ?>">
         <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/owo/owo.min.css'); ?>">
-        <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/jquery.fancybox.min.css'); ?>">
+
+    <?php endif; ?>
+    <link crossorigin="anonymous" integrity="sha384-Q8BgkilbsFGYNNiDqJm69hvDS7NCJWOodvfK/cwTyQD4VQA0qKzuPpvqNER1UC0F" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet">
+    <?php if ($this->is('index')):?>
     <?php endif; ?>
     <title><?php $this->archiveTitle(array(
             'category' => _t('分类 %s 下的文章'),
@@ -33,12 +36,12 @@
     <div class="container">
         <div class="d-flex">
             <div class="p-2">
-                <img class="site-logo" src="<?php $this->options->logoUrl() ?>"
-                     alt="<?php $this->options->title() ?>"/>
+                <img class="site-logo" src="<?php $this->options->logoUrl(); ?>"
+                     alt="<?php $this->options->title(); ?>"/>
                 <a class="site-name" href="<?php $this->options->siteUrl(); ?>"
-                   title="<?php $this->options->description() ?>"><?php $this->options->title() ?></a>
+                   title="<?php $this->options->description(); ?>"><?php $this->options->title(); ?></a>
             </div>
-            <div class="p-2 search-area" data-toggle="modal" data-target="#search-form">
+            <button class="p-2 search-area" type="button" data-toggle="collapse" data-target="#search-block" aria-expanded="false" aria-controls="search-block">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
@@ -46,7 +49,7 @@
                     <path fill-rule="evenodd"
                           d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
                 </svg>
-            </div>
+            </button>
             <div class="p-2 d-block d-md-none mobile-nav">
                 <button class="btn" type="button" data-toggle="collapse" data-target="#mobile-nav"
                         aria-expanded="false" aria-controls="mobile-nav">
@@ -59,31 +62,18 @@
                     </svg>
                 </button>
             </div>
-            <div class="modal" tabindex="-1" id="search-form">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">搜索</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form id="search" method="post" action="<?php $this->options->siteUrl(); ?>" role="search">
-                            <div class="modal-body">
-                                <label for="s" class="sr-only"><?php _e('搜索关键字'); ?></label>
-                                <input type="text" id="s" name="s" class="text form-control"
-                                       placeholder="<?php _e('输入关键字搜索'); ?>"/>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                                <button type="submit" class="btn btn-primary"><?php _e('搜索'); ?></button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+            <div class="search-block collapse" id="search-block">
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4>搜索</h4>
+                <form id="search" method="post" action="<?php $this->options->siteUrl(); ?>" role="search">
+                    <label for="s" class="sr-only"><?php _e('搜索关键字'); ?></label>
+                    <input type="text" id="s" name="s" class="text form-control"
+                           placeholder="<?php _e('输入关键字搜索'); ?>"/>
+                    <button type="submit" class="btn btn-primary float-right search-button"><?php _e('搜索'); ?></button>
+                </form>
             </div>
         </div>
     </div>
 </header>
-    
-    

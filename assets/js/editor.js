@@ -1,4 +1,6 @@
 $(function() {
+    let owo_ = $(".OwO")
+    let apiUrl = owo_.data("owo")
     if($('#wmd-button-row').length>0){
         $('#wmd-button-row').append('<li class="wmd-spacer wmd-spacer1"></li><li class="wmd-button" id="wmd-hide-button" style="" title="插入隐藏内容"><i class="far fa-eye-slash"></i></li>');
         $('#wmd-button-row').append('<li class="wmd-spacer wmd-spacer1"></li><li class="wmd-button" id="wmd-bili-button" style="" title="插入B站视频"><i class="fab fa-bimobject"></i></li>');
@@ -9,7 +11,7 @@ $(function() {
             logo: '<i class="far fa-grin-alt"></i>',
             container: document.getElementsByClassName('OwO')[0],
             target: document.getElementById('text'),
-            api: '../usr/themes/onecircle/assets/owo/OwO_02.json',
+            api: apiUrl,
             position: 'down',
             width: '400px',
             maxHeight: '250px'

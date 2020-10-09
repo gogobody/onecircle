@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <?php $this->need('includes/nav.php');?>
-        <div class="col-xl-7 col-md-6 col-12">
+        <div class="col-xl-7 col-md-6 col-12 page">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?php $this->options->siteUrl();?>">首页</a></li>
@@ -23,6 +23,6 @@
             <?php $this->need('includes/comments.php'); ?>
 
         </div>
-        <?php $this->need('includes/right.php');?>
     </div>
+    <?php $this->need('includes/right.php');?>
 </div>

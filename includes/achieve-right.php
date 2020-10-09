@@ -2,15 +2,17 @@
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 ?>
 <div class="col-12 col-md-4 text-center text-md-left">
+
     <div class="card user-container">
-        <div class="mycicle-title"><h2><?php _e($this->categories[0]['name']) ?></h2></div>
+        <div class="mycicle-title"><h2><?php _e($this->getArchiveTitle()) ?></h2></div>
         <div class="iwNods">
             <div class="daMYau">
-                <span><?php _e(parseDesc2text($this->categories[0]['description']));?>
+                <span><?php _e($this->user->userSign);?>
                 </span>
             </div>
         </div>
     </div>
+
     <div class="card d-none d-md-block mycicle">
         <div class="mycicle-title"><h2>我的圈子</h2></div>
         <div class="mycicle-content">
@@ -57,6 +59,5 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <h4 class="title">可能感兴趣</h4>
         <?php theme_random_posts(); ?>
     </div>
-    <?php $this->need('includes/footer.php'); ?>
 </div>
 

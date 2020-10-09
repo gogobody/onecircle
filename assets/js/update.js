@@ -9,7 +9,7 @@ document.getElementById('update-button').addEventListener('click',
             if (ajax.readyState === 4 && ajax.status === 200) {
                 let obj = JSON.parse(ajax.responseText);
                 let newest = parseFloat(obj.tag_name);
-                if (newest > version) {
+                if (newest.toString() > version.toString()) {
                     container.innerHTML =
                         '发现新主题版本：' + obj.name +
                         '。下载地址：<a href="' + obj.zipball_url + '">点击下载</a>' +

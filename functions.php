@@ -5,6 +5,7 @@ require_once 'libs/options.php';
 require_once 'libs/comments.php';
 require_once 'libs/utils.php';
 require_once 'libs/pageNav.php';
+require_once 'libs/DbFunc.php';
 /**
  * 注册文章解析 hook
  * From AlanDecode(https://imalan.cn)
@@ -58,6 +59,19 @@ function themeInit($archive)
         }
         exit('error');
     }
+    // follow
+    if ($archive->request->isPost() && $archive->request->follow){
+        if ($archive->request->follow == 'follow'){
+            exit(DbFunc::addFollow($archive->request->uid,$archive->request->fid));
+        }elseif ($archive->request->follow == 'unfollow'){
+            exit(DbFunc::cancleFollow($archive->request->uid,$archive->request->fid));
+        }elseif ($archive->request->follow == 'status'){
+            exit(DbFunc::statusFollow($archive->request->uid,$archive->request->fid));
+        }
+        exit('error');
+    }
+    // 初始化数据库设置
+    DbFunc::init();
 }
 
 
@@ -121,6 +135,41 @@ function getV2exAvatar($obj)
     return "//cdn.v2ex.com/gravatar/" . $mail . "?s=32&d=mp";
 }
 
+function getUserV2exAvatar($mail_)
+{
+    $mail = $mail_ ? md5($mail_) : '';
+    return "//cdn.v2ex.com/gravatar/" . $mail . "?s=32&d=mp";
+}
+/**
+ * markdown parse
+ * @param $str
+ * @param int $num
+ * @return false|string
+ */
+function parseMarkdownBeforeText($str,$num=15){
+    $pattern = '/(.*?)\[[\s\S]*?\]\([\s\S]*?\)/';
+    preg_match($pattern, $str, $match);
+    if (count($match) > 0 ){
+        return substr($match[1],0,$num);
+    }else{
+        return substr($str,0,$num);
+    }
+}
+
+/**
+ * @param $str
+ * @param int $num
+ * @return false|string
+ */
+function parseMarkdownInText($str,$num=15){
+    $pattern = '/\[([\s\S]*?)\]\([\s\S]*?\)/';
+    preg_match($pattern, $str, $match);
+    if (count($match) > 0 ){
+        return substr($match[1],0,$num);
+    }else{
+        return substr($str,0,$num);
+    }
+}
 
 /**
  * 获取所有分类
@@ -148,7 +197,7 @@ function getCategories($obj, $cnt = -1)
 {
     $categories = $obj->widget('Widget_Metas_Category_List');
     $arr = array();
-    $preg='/^<(.*)>([\s\S]*)/';
+    $preg = '/^<(.*)>([\s\S]*)/';
     if ($categories->have()) {
         $i = 0;
         while ($categories->next()) {
@@ -156,16 +205,16 @@ function getCategories($obj, $cnt = -1)
                 break;
             }
             $tmp = array();
-            preg_match_all($preg,$categories->description,$res); // res[0][0] 是匹配的整个串 [1] 是网址 [2]是内容
-            if (isset($res[1][0])){ // has img
+            preg_match_all($preg, $categories->description, $res); // res[0][0] 是匹配的整个串 [1] 是网址 [2]是内容
+            if (isset($res[1][0])) { // has img
                 $imgurl = $res[1][0];
                 $desc = $res[2][0];
-            }else{
+            } else {
                 $imgurl = "https://www.easyicon.net/api/resizeApi.php?id=1171951&size=128";
                 $desc = $categories->description;
             }
 
-            array_push($tmp, $categories->mid, $categories->name, $categories->permalink,$imgurl, $desc, $categories->count);
+            array_push($tmp, $categories->mid, $categories->name, $categories->permalink, $imgurl, $desc, $categories->count);
             array_push($arr, $tmp);
             $i = $i + 1;
         }
@@ -175,27 +224,32 @@ function getCategories($obj, $cnt = -1)
 
 }
 
+
 /**
  * 解析分类描述中的图片，格式<imgurl>
  * @param $desc
  * @return mixed|string
  */
-function parseDesc2img($desc){
-    $preg='/^<(.*)>([\s\S]*)/';
-    preg_match_all($preg,$desc,$res);
-    if (isset($res[1][0])){
+function parseDesc2img($desc)
+{
+    $preg = '/^<(.*)>([\s\S]*)/';
+    preg_match_all($preg, $desc, $res);
+    if (isset($res[1][0])) {
         return $res[1][0];
     }
     return "";
 }
-function parseDesc2text($desc){
-    $preg='/^<(.*)>([\s\S]*)/';
-    preg_match_all($preg,$desc,$res);
-    if (isset($res[2][0])){
+
+function parseDesc2text($desc)
+{
+    $preg = '/^<(.*)>([\s\S]*)/';
+    preg_match_all($preg, $desc, $res);
+    if (isset($res[2][0])) {
         return $res[2][0];
     }
-    return "";
+    return $desc;
 }
+
 /**
  * 时间友好化
  *
@@ -345,6 +399,8 @@ function thePrev($widget)
               </div>';
     }
 }
+
+
 
 /**
  * 获取主题版本号

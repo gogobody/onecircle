@@ -98,8 +98,9 @@
 }
 .article-list-plane {
     border: 1px solid #e5e9ef;
-    border-radius: 4px;
+    border-radius: 10px;
     text-align: center;
+    margin-top: 15px;
 }
 .article-list-plane .button {
     margin-top: 15px;
@@ -111,7 +112,7 @@
     line-height: 1.2;
 }
 .article-list-plane .button .label {
-    font-size: 18px;
+    font-size: 14px;
     color: #222;
 }
 .article-list-plane .button .title {
@@ -128,6 +129,126 @@
 img.emoji {
     width: 40px!important;
 }
+.flex-gird{
+    display: flex;
+}
+/**
+点赞
+ */
+.bseKGM {
+    box-sizing: border-box;
+    min-width: 0px;
+    flex-direction: column;
+    align-items: flex-start;
+    display: flex;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ececec;
+}
+.hWYvmd {
+    transition: all 0.2s ease 0s;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+.bqBMQE {
+    box-sizing: border-box;
+    margin: 0px 0px 12px;
+    min-width: 0px;
+    color: rgb(3, 169, 245);
+    text-decoration: none;
+    cursor: pointer;
+    background-color: rgb(242, 245, 248);
+    font-size: 14px;
+    border-radius: 999px;
+    padding: 4px 12px 4px 4px;
+}
+.bqBMQE:hover {
+    box-shadow: 0px 0px 2px;
+    text-decoration: none;
+}
+.dfDGBV {
+    margin-right: 6px;
+}
+.kVrFww {
+    box-sizing: border-box;
+    margin: 8px 0px 0px;
+    min-width: 0px;
+    flex-direction: row;
+    font-size: 13px;
+    display: flex;
+}
+.IsObJ {
+    box-sizing: border-box;
+    margin: 0px;
+    color: rgb(153, 153, 153);
+    font-size: 14px;
+    display: flex;
+    cursor: pointer;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    min-width: 120px;
+}
+.dEkSi {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.cdBzuL {
+    padding-left: 4px;
+    font-size: 14px;
+    line-height: 24px;
+}
+.dEkSi svg {
+    width: 100%;
+    height: 100%;
+}
+.eVjtUm {
+    fill: rgb(153, 153, 153);
+}
+.IsObJ svg:hover {
+    fill: rgb(95, 95, 95);
+}
+
+/**
+b站视频
+ */
+.bili-video {
+    position: relative;
+    width: 100%;
+}
+
+@media only screen and (max-width: 767px) {
+    .bili-video {
+        height: 15em;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .bili-video {
+        height: 20em;
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .bili-video {
+        height: 30em;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .bili-video {
+        height: 32em;
+    }
+}
+
 [data-fancybox=gallery] {
     box-sizing: border-box;
     margin: 0px;
@@ -236,6 +357,7 @@ b站视频
     font-size: 0.9rem;
     border: 1px solid #f0f2f7;
     margin-bottom: 1rem;
+    border-radius: 10px;
 }
 .article-comments h1{
     font-size: 1.75rem;
@@ -252,12 +374,17 @@ b站视频
     line-height: 1.2rem;
     color: #555;
 }
+.comment-content {
+    width: 100%;
+}
 .comment-list .comment-list .comment-list{
     padding-left: 0;
 }
 .comment-list a,
 .comment-respond a{
     font-style: normal;
+    word-break: break-all;
+    white-space: normal;
 }
 .comment-list a:hover,
 .comment-respond a:hover{
@@ -499,7 +626,7 @@ article table {
     display: inline-block;
     max-width: 100%;
     overflow: auto;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
     margin: auto;
 }
 article table thead {
@@ -618,8 +745,8 @@ article table td {
 .secret-label{
     position: relative;
     display: inline-block;
-    width: 40px;
-    height: 20px;
+    width: 30px;
+    height: 15px;
     background-color: #ccc;
     border: 1px solid #ccc;
     border-radius: 30px;
@@ -630,8 +757,9 @@ article table td {
     position: absolute;
     top: -1px;
     left: -1px;
-    width: 20px;
-    height: 20px;
+    transition: all 0.3s;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     background-color: #fff;
 }
@@ -662,6 +790,15 @@ article table td {
 #secret-button:checked + label.secret-label{
     background-color: #3a3f51;
 }
+.license {
+    font-size: .875em;
+    color: #999;
+    margin: 0 0 12px 0;
+}
+/**
+归档页面
+ */
+
 /**
 暗黑模式
  */

@@ -1,5 +1,7 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
+
 <?php $this->need('includes/header.php'); ?>
+
 <div class="container">
     <div class="row">
         <?php $this->need('includes/nav.php'); ?>
@@ -7,37 +9,46 @@
             <?php if ($this->is('author')): ?>
                 <div class="vxeHw">
                     <div class="kojXeB">
-                        <div class="ivcfJN"
-                             style="background-image: url(<?php echo getV2exAvatar($this) ?>)">
+                        <div class="ivcfJN" style="background-image: url(<?php echo getV2exAvatar($this) ?>)">
                             <div class="iNTHKr"></div>
                         </div>
                     </div>
                     <div class="biCwrr">
                         <div class="sc-AxjAm sc-AxirZ fUlriR">
-                            <div class="sc-AxjAm sc-AxirZ jnzuaU"><img
-                                        src="<?php echo getV2exAvatar($this) ?>"
-                                        class="sc-AxjAm irFFsx"></div>
-                            <h2 color="gray.0" font-size="24px" class="sc-AxjAm dDtTVx"><?php echo $this->author()?></h2>
-                            <div class="sc-AxjAm sc-AxirZ dZfkqf"><a font-size="3" color="gray.0"
-                                                                     href=""
-                                                                     class="sc-AxjAm OAorY FollowInfo__StyledLink-qfw29x-0 ffrrSB"><span>62</span>关注</a><a
-                                        font-size="3" color="gray.0" href=""
-                                        class="sc-AxjAm OAorY FollowInfo__StyledLink-qfw29x-0 dDeaQZ"><span>12</span>被关注</a>
+                            <div class="sc-AxjAm sc-AxirZ jnzuaU"><img src="<?php echo getV2exAvatar($this) ?>" class="sc-AxjAm irFFsx"></div>
+                            <h2 class="sc-AxjAm dDtTVx"><?php echo $this->author() ?></h2>
+                            <div class="sc-AxjAm sc-AxirZ dZfkqf">
+                                <a href="" class="sc-AxjAm OAorY  ffrrSB"><span><? _e(DbFunc::getFollowNum($this->author->uid));?></span> 关注</a>
+                                <a href="" class="sc-AxjAm OAorY  dDeaQZ"><span><? _e(DbFunc::getOtherFollowNum($this->author->uid));?></span> 被关注</a>
                             </div>
                             <div class="sc-AxjAm sc-AxirZ iiMLXg">
-                                <div color="gray.0" font-size="14px" class="sc-AxjAm kkFELj"><?php _e($this->options->selfIntroduction);?>
+                                <div class="sc-AxjAm kkFELj"><?php _e($this->author->userSign);?>
                                 </div>
                             </div>
-                            <div class="sc-AxjAm sc-AxirZ UserProfile___StyledFlex2-sc-1ufzt9g-7 cXyaML">
-                                <div class="sc-AxjAm bHdldX UserProfile__UserTag-sc-1ufzt9g-2 fXkMMP"><img
-                                            src="https://cdn.jellow.site/resources/userProfile/male@3x_6.0.png"
-                                            class="sc-AxjAm hzfjJS"></div>
-                                <div class="sc-AxjAm hXeItE UserProfile__UserTag-sc-1ufzt9g-2 fXkMMP">重庆</div>
-                                <div class="sc-AxjAm hXeItE UserProfile__UserTag-sc-1ufzt9g-2 fXkMMP">学生</div>
-                                <div class="sc-AxjAm hXeItE UserProfile__UserTag-sc-1ufzt9g-2 fXkMMP">天秤座</div>
+                            <div class="sc-AxjAm sc-AxirZ  cXyaML">
+                                <div class="sc-AxjAm bHdldX  fXkMMP">
+                                    <img src="https://cdn.jellow.site/resources/userProfile/male@3x_6.0.png" class="sc-AxjAm hzfjJS">
+                                </div>
+                                <div class="sc-AxjAm hXeItE  fXkMMP">重庆</div>
+                                <div class="sc-AxjAm hXeItE  fXkMMP">学生</div>
+                                <div class="sc-AxjAm hXeItE  fXkMMP">天秤座</div>
                             </div>
                         </div>
-                        <div class="kLKIKx"></div>
+                        <div class="sc-AxjAm sc-AxirZ kLKIKx">
+                            <button id="fans"  data-authorid="<? echo $this->author->uid ?>"
+                                <?php
+                                if ($this->user->hasLogin()){
+                                    if (DbFunc::statusFollow($this->user->uid,$this->author->uid)){
+                                        echo 'class="fansed">已关注';
+                                    }else{
+                                        echo 'class="fans">关注';
+                                    }
+                                }else{
+                                    echo 'class="fans">关注';
+                                }
+                                ?>
+                            </button>
+                        </div>
                     </div>
                 </div>
             <?php elseif ($this->is('category')): ?>
@@ -50,16 +61,21 @@
                     </div>
 
                     <div class="header-top-bottom">
-                        <div class="header-top-bottom-avatar"><img
-                                    src="<?php _e(parseDesc2img($this->categories[0]['description'])); ?>">
+                        <div class="header-top-bottom-avatar"><img src="<?php
+                            $imgurl = parseDesc2img($this->getDescription());
+                            if ($imgurl) {
+                                _e($imgurl);
+                            } else {
+                                _e($this->options->defaultSlugUrl());
+                            } ?>" alt="">
                         </div>
                         <div class="header-top-bottom-text">
                             <div class="htbt-left">
-                                <h2><?php _e($this->categories[0]['name']) ?></h2>
+                                <h2><?php _e($this->getArchiveTitle()) ?></h2>
                                 <div class="htbt-intr">
                                     <div class="htbt-intr-text">
-                                        <?php if ($this->categories[0]["count"] > 0) {
-                                            echo '已经发布了' . $this->categories[0]["count"] . '条post，快来一起讨论吧';
+                                        <?php if ($this->getTotal() > 0) {
+                                            echo '已经发布了' . $this->getTotal() . '条post，快来一起讨论吧';
                                         } else {
                                             echo '还没有人发布post，快来发布一条';
                                         } ?></div>
@@ -74,14 +90,29 @@
             <?php endif; ?>
             <div class="achieve-content">
                 <div class="col-12 col-md-8 outer">
+                    <?php
+                    $tArr = utils::parseUrlQuery(utils::GetCurUrl());
+                    if (count($tArr) == 0){
+                        $tabIndex = 0;
+                    }else{
+                        $tabIndex = $tArr['tabindex'];
+                    }
+                    ?>
+
                     <div class="react-tabs" data-tabs="true">
                         <ul class="react-tabs__tab-list">
-                            <li id="react-tabs-1" class="react-tabs__tab--selected react-tabs__tab">动态</li>
-                            <li id="react-tabs-2" class="react-tabs__tab">热门</li>
+                            <li id="react-tabs-1" data-tabindex="0" class="react-tabs__tab <?if($tabIndex==0){_e("react-tabs__tab--selected");}?>">动态</li>
+                            <?php if ($this->is('author')):?>
+                            <li id="react-tabs-2" data-tabindex="1" class="react-tabs__tab <?if($tabIndex==1){_e("react-tabs__tab--selected");}?>">关注</li>
+                            <li id="react-tabs-3" data-tabindex="2" class="react-tabs__tab <?if($tabIndex==2){_e("react-tabs__tab--selected");}?>">被关注</li>
+
+                            <?php else:?>
+                            <li id="react-tabs-4" data-tabindex="3" class="react-tabs__tab <?if($tabIndex==3){_e("react-tabs__tab--selected");}?>">热门</li>
+                            <?php endif;?>
                         </ul>
                         <div class="item-container">
                             <div class="react-tabs__tab-panel react-tabs__tab-panel--selected">
-                                <?php if ($this->have()): ?>
+                                <?php if ($this->have()&&$tabIndex==0): ?>
                                     <?php while ($this->next()): ?>
                                         <div class="item-inner">
                                             <article class="post-article"
@@ -253,6 +284,43 @@
                                             </article>
                                         </div>
                                     <?php endwhile; ?>
+                                <?php elseif($tabIndex==1):?>
+                                    <?php $fobj = DbFunc::getFollowObj($this->author->uid);?>
+                                    <?php for($i=0;$i<count($fobj);$i++): ?>
+                                        <div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr">
+                                            <a href="/author/<?php _e($fobj[$i]['uid'])?>"
+                                               class="sc-AxjAm sc-AxirZ eGdPrb"><img
+                                                        src="<?php _e(getUserV2exAvatar($fobj[$i]['mail']))?>"
+                                                        alt="再多一点可爱" size="40" class="sc-AxjAm jZLHXc">
+                                                <div  class="sc-AxjAm sc-AxirZ hkyonN">
+                                                    <div class="sc-AxjAm oDrAC"><?php _e($fobj[$i]['name'])?></div>
+                                                    <div class="sc-AxjAm hHqHSX ezzhLs"><?php _e($this->user->userSign);?></div>
+                                                </div>
+                                            </a>
+                                            <div class="sc-AxjAm sc-AxirZ hsyNhw">
+                                                <button  class="sc-AxjAm eOxanL">关注</button>
+                                            </div>
+                                        </div>
+                                    <?php endfor;?>
+                                <?php elseif($tabIndex==2):?>
+                                    <?php $fobj = DbFunc::getOtherFollowObj($this->author->uid);?>
+                                    <?php for($i=0;$i<count($fobj);$i++): ?>
+                                        <div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr">
+                                            <a href="/author/<?php _e($fobj[$i]['uid'])?>"
+                                               class="sc-AxjAm sc-AxirZ eGdPrb"><img
+                                                        src="<?php _e(getUserV2exAvatar($fobj[$i]['mail']))?>"
+                                                        alt="再多一点可爱" size="40" class="sc-AxjAm jZLHXc">
+                                                <div  class="sc-AxjAm sc-AxirZ hkyonN">
+                                                    <div class="sc-AxjAm oDrAC"><?php _e($fobj[$i]['name'])?></div>
+                                                    <div class="sc-AxjAm hHqHSX ezzhLs"><?php _e($this->user->userSign);?></div>
+                                                </div>
+                                            </a>
+                                            <div class="sc-AxjAm sc-AxirZ hsyNhw">
+                                                <button  class="sc-AxjAm eOxanL">关注</button>
+                                            </div>
+                                        </div>
+                                    <?php endfor;?>
+                                <?php elseif($tabIndex==3):?>
                                 <?php else: ?>
                                     <article class="post-article">
                                         <h5 class="post-title"><?php _e('还没有发布内容'); ?></h5>
@@ -261,20 +329,13 @@
                             </div>
                         </div>
                     </div>
-                    <?php $this->need('includes/pagination.php'); ?>
+                    <?php if ($tabIndex==0){$this->need('includes/pagination.php');} ?>
 
                 </div>
                 <?php $this->need('includes/achieve-right.php'); ?>
             </div>
 
-<!--            <h3 class="archive-title">--><?php //$this->archiveTitle(array(
-//                    'category' => _t('分类 %s 下的文章'),
-//                    'search' => _t('包含关键字 %s 的文章'),
-//                    'tag' => _t('标签 %s 下的文章'),
-//                    'author' => _t('%s 发布的文章')
-//                ), '', ''); ?><!--</h3>-->
-
-
-
+        </div>
     </div>
 </div>
+<?php $this->need('includes/footer.php'); ?>

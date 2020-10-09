@@ -1,9 +1,11 @@
-if($(".OwO").length > 0){
+let owo_ = $(".OwO")
+if(owo_.length > 0){
+    let apiUrl = owo_.data("owo")
     new OwO({
         logo: 'OωO',
         container: document.getElementsByClassName('OwO')[0],
         target: document.getElementsByClassName('owo-textarea')[0],
-        api: '../usr/themes/onecircle/assets/owo/OwO_02.json',
+        api: apiUrl,
         position: 'down',
         width: '400px',
         maxHeight: '250px'
