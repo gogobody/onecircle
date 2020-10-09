@@ -158,9 +158,9 @@ function parseMarkdownBeforeText($str,$num=15){
     $pattern = '/(.*?)\[[\s\S]*?\]\([\s\S]*?\)/';
     preg_match($pattern, $str, $match);
     if (count($match) > 0 ){
-        return substr($match[1],0,$num);
+        return mb_substr($match[1],0,$num);
     }else{
-        return substr($str,0,$num);
+        return mb_substr($str,0,$num);
     }
 }
 
@@ -173,9 +173,9 @@ function parseMarkdownInText($str,$num=15){
     $pattern = '/\[([\s\S]*?)\]\([\s\S]*?\)/';
     preg_match($pattern, $str, $match);
     if (count($match) > 0 ){
-        return substr($match[1],0,$num);
+        return mb_substr($match[1],0,$num);
     }else{
-        return substr($str,0,$num);
+        return mb_substr($str,0,$num);
     }
 }
 

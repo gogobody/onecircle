@@ -409,12 +409,14 @@ function submitForm() {
     let mon = myDate.getMonth() + 1; //获取当前月
     let date = myDate.getDate(); //获取当前日
     let datetime = year+"/"+mon+"/"+date
-    if(val.length > 0){
-        title.val(val.substring(0,15))
-    }
+
     if (indexInput.nowtype === 'default'){
         if (indexInput.additionArray.length > 0){
-            title.val("图文小记事~"+datetime)
+            if(val.length > 0 && val!==''){
+                title.val(val.substring(0,15))
+            }else{
+                title.val("图文小记事~"+datetime)
+            }
             indexInput.additionArray.forEach(function (value){
                 val = val + "![](" + value +")"
             })
@@ -422,7 +424,11 @@ function submitForm() {
         }
     }else if (indexInput.nowtype === 'link'){
         if (indexInput.additionArray.length > 0){
-            title.val("分享一个链接~"+datetime)
+            if(indexInput.additionArray[1].length > 0 && indexInput.additionArray[1] !== ''){
+                title.val(indexInput.additionArray[1].substring(0,15))
+            }else{
+                title.val("分享一个链接~"+datetime)
+            }
             val = val + "["+indexInput.additionArray[1] + "](" + indexInput.additionArray[0] +")"
         }
     }

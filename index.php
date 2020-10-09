@@ -22,7 +22,6 @@ $this->need('includes/header.php');
                         <form id="input-form" class="post-form"
                               action="<?php $security->index('/action/contents-post-edit?do=publish'); ?>" method="post"
                               name="write_post" target="nm_iframe"> <!--target="nm_iframe"-->
-                            <input type="hidden" id="title" name="title" value="<?php echo date("Y-m-d H:i:s"); ?>"/>
                             <!--以发布时间作标题，把这里的hidden改成text就能自定义标题了-->
                             <div class="textarea">
                                 <label for="text"></label><textarea name="text" rows="4" id="text" autocomplete="off"
@@ -92,8 +91,8 @@ $this->need('includes/header.php');
                             <input type="hidden" name="do" value="publish"/><!--公开，可以无视-->
                             <input type="hidden" id="articleType" name="fields[articleType]" value="default"/><!--文章类型-->
                             <input type="hidden" name="markdown" value="1"/><!--markdown-->
-                            <input type="hidden" id="post-title" name="title" value="1"/><!--title-->
-                            <input type="hidden" id="category" name="category[]" value="1"/><!--title-->
+                            <input type="hidden" id="post-title" name="title" value=""/><!--title-->
+                            <input type="hidden" id="category" name="category[]" value="1"/><!---->
 
                             <div class="ffdvlM">
                                 <div class="gDqTLX">
