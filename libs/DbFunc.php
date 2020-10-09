@@ -136,4 +136,11 @@ class DbFunc
         }
         return $newArr;
     }
+
+    public static function getUserObj($uid)
+    {
+        $db = Typecho_Db::get();
+        return $db->fetchRow($db->select('uid','name','mail','userSign')->from('table.users')->where('uid = ?', $uid));
+
+    }
 }

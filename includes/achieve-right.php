@@ -41,7 +41,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                     <img src="'.$arr[$i][3].'">
                     <div class="circle-item-link-right">
                         <div class="circle-item-link-title">'.$arr[$i][1].'</div>
-                        <div class="circle-item-link-info">[图片] #once more周六宜🚴‍♀️</div>
+                        <div class="circle-item-link-info">'.$arr[$i][4].'️</div>
                     </div>
                 </a>
             </div>';

@@ -3,25 +3,53 @@ console.log(' %c Theme onecircle %c https://github.com/gogobody/onecircle', 'col
 //初始化tooltip
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
+    // add message function
+    $.extend({
+        message: function (a) {
+            var b = {
+                title: "",
+                message: " 操作成功",
+                time: "3000",
+                type: "success",
+                showClose: true,
+                autoClose: true,
+                onClose: function () {
+                }
+            };
+            "string" == typeof a && (b.message = a), "object" == typeof a && (b = $.extend({}, b, a));
+            let c, d, e, f = b.showClose ? '<div class="c-message--close">×</div>' : "",
+                g = "" !== b.title ? '<h2 class="c-message__title">' + b.title + "</h2>" : "",
+                h = '<div class="c-message animated animate__slideInRight"><i class=" c-message--icon c-message--' + b.type + '"></i><div class="el-notification__group">' + g + '<div class="el-notification__content">' + b.message + "</div>" + f + "</div></div>",
+                i = $("body"), j = $(h);
+            d = function () {
+                j.addClass("animate__slideOutRight")
+                j.one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function () {
+                    e()
+                })
+            }
+            e = function () {
+                j.remove()
+                b.onClose(b)
+                clearTimeout(c)
+            }
+            $(".c-message").remove()
+            i.append(j)
+            j.one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function () {
+                j.removeClass("messageFadeInDown")
+            })
+            i.on("click", ".c-message--close", function (a) {
+                d()
+            })
+            b.autoClose && (c = setTimeout(function () {
+                d()
+            }, b.time))
+        }
+    });
 })
 
-//
-$('.close').on('click',function () {
-    $('.search-block').collapse('hide')
-})
-$('#search-block').on('show.bs.collapse', function () {
-    $('.nav-menu').css({'position':'relative','z-index':'-1'})
-    $('#carouselExampleIndicators').css({'position':'relative','z-index':'-1'})
-    $('.user-container').css({'position':'relative','z-index':'-1'})
-})
-$('#search-block').on('hidden.bs.collapse', function () {
-    $('.nav-menu').removeAttr('style')
-    $('#carouselExampleIndicators').removeAttr('style')
-    $('.user-container').removeAttr('style')
-})
 
-var indexInput = {
-    init:function(){
+const indexInput = {
+    init: function () {
         this.addPic = $(".addpic")
         this.addLink = $(".addlink")
         this.addPicBtn = $("#addpic")
@@ -32,24 +60,26 @@ var indexInput = {
         this.articleType = $("#articleType")
         this.indexEventInit()
         this.archiveEventInit()
+        this.login_ajax()
+        this.searchEventInit()
     },
-    changeType:function (type){
+    changeType: function (type) {
         let that = this
-        if(type === 'default'){
-            if(that.nowtype !== 'default'){
+        if (type === 'default') {
+            if (that.nowtype !== 'default') {
                 that.nowtype = 'default'
                 this.additionArray = []
                 this.articleType.val('default')
             }
-        }else if (type === 'link'){
-            if(that.nowtype !== 'link'){
+        } else if (type === 'link') {
+            if (that.nowtype !== 'link') {
                 that.nowtype = 'link'
                 this.additionArray = []
                 this.articleType.val('link')
             }
         }
     },
-    indexEventInit:function () {
+    indexEventInit: function () {
         // init input
         let that = this
         $("#addpic").click(function () {
@@ -70,7 +100,7 @@ var indexInput = {
             if (checkURL(val)) {
                 let node = '' +
                     '<div class="sc-AxjAm sc-AxirZ ciIrlj">\n' +
-                    '<div class="eHTuZC" style="background-image: url('+ val +');">\n' +
+                    '<div class="eHTuZC" style="background-image: url(' + val + ');">\n' +
                     '<div class="cPHQWG">\n' +
                     '<svg viewBox="0 0 17 17" fill="currentColor">\n' +
                     '<path d="M9.565 8.595l5.829 5.829a.686.686 0 01-.97.97l-5.83-5.83-5.828 5.83a.686.686 0 01-.97-.97l5.829-5.83-5.83-5.828a.686.686 0 11.97-.97l5.83 5.829 5.829-5.83a.686.686 0 01.97.97l-5.83 5.83z"></path>\n' +
@@ -83,11 +113,11 @@ var indexInput = {
                 that.addLinkBtn.addClass('btn-disable')
                 addPicInput.val('')
                 // pic close btn click function
-                $(".cPHQWG").click(function (){
-                    let imgUrl = $(this).parent().css("backgroundImage").replace('url(','').replace(')','')
-                    that.additionArray.splice($.inArray(imgUrl,that.additionArray),1);
+                $(".cPHQWG").click(function () {
+                    let imgUrl = $(this).parent().css("backgroundImage").replace('url(', '').replace(')', '')
+                    that.additionArray.splice($.inArray(imgUrl, that.additionArray), 1);
                     $(this).parent().parent().remove()
-                    if (that.additionArray.length === 0){
+                    if (that.additionArray.length === 0) {
                         that.addLinkBtn.removeClass('btn-disable')
                     }
                 })
@@ -131,7 +161,7 @@ var indexInput = {
                         // set addPic disable
                         that.addPicBtn.addClass('btn-disable')
                         // close closeTextareaBlk
-                        $(".sc-AxjAm.sc-AxirZ.ezTcmd").click(function (e){
+                        $(".sc-AxjAm.sc-AxirZ.ezTcmd").click(function (e) {
                             $(".kgcKxQ").css("display", "none")
                             e.stopPropagation();
                             that.addPicBtn.removeClass('btn-disable')
@@ -169,34 +199,34 @@ var indexInput = {
         let topicSearchBlk = $("#topic-search-downshift-input")
         topicSearchBlk.autoComplete({
             minChars: 0,
-            source: function(term, suggest){
+            source: function (term, suggest) {
                 term = term.toLowerCase();
                 let choices = allCategories; // from index.php
                 let matches = [];
-                for (let i=0; i<choices.length; i++)
+                for (let i = 0; i < choices.length; i++)
                     if (~choices[i][0].toLowerCase().indexOf(term)) matches.push(choices[i]);
-                if(matches.length === 0){
-                    matches.push(["未搜索到结果",-1,"",""])
+                if (matches.length === 0) {
+                    matches.push(["未搜索到结果", -1, "", ""])
                 }
                 suggest(matches);
             },
-            renderItem:function (item, search){
+            renderItem: function (item, search) {
                 // search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
                 // let re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
-                let tmpArr = new Array(...[item[0],item[1]])
-                if (item[1] === -1){
-                    return '<div class="autocomplete-suggestion" data-val="' +JSON.stringify(tmpArr).replace(/"/g,"'") + '" disabled>'+
+                let tmpArr = new Array(...[item[0], item[1]])
+                if (item[1] === -1) {
+                    return '<div class="autocomplete-suggestion" data-val="' + JSON.stringify(tmpArr).replace(/"/g, "'") + '" disabled>' +
                         '<div class="sc-AxjAm oDrAC" disabled>' + item[0] + "</div>" + '</div>';
                 }
-                return '<div class="autocomplete-suggestion" data-val="' + JSON.stringify(tmpArr).replace(/"/g,"'") + '">'+'<img src="'+ item[2] + '" class="sc-AxjAm gLHjJQ">'+
+                return '<div class="autocomplete-suggestion" data-val="' + JSON.stringify(tmpArr).replace(/"/g, "'") + '">' + '<img src="' + item[2] + '" class="sc-AxjAm gLHjJQ">' +
                     "<div class=\"sc-AxjAm oDrAC\">" + item[0] + "</div>" + '</div>';
             },
-            onSelect: function(e, term, item){
-                term = term.replace(/'/g,"\"")
+            onSelect: function (e, term, item) {
+                term = term.replace(/'/g, "\"")
                 let info = JSON.parse(term)
                 let mid = info[1]
                 let category = $("#category")
-                if(mid === -1){ // not found topic
+                if (mid === -1) { // not found topic
                     $("#topic-search-downshift-input").val('')
                     category.val(1)
                     return
@@ -208,36 +238,55 @@ var indexInput = {
         });
 
     },
-    archiveEventInit:function () {
+    searchEventInit: function () {
+        // search blk
+        let searchBtn = $('.search-block-icon')
+        let searchBlk = $('#search-block')
+        searchBtn.click(function () {
+            if (searchBlk.css('display') === 'none') {
+                searchBlk.slideDown()
+            } else {
+                $('.search-block').slideUp()
+            }
+        })
+        $('.close').on('click', function () {
+            $('.search-block').slideUp()
+        })
+    },
+    archiveEventInit: function () {
         let that = this
         // 关注 event
         let fanBtn = $(".fan-event")
-        fanBtn.click(function (e){
-            if (userId > 0 ){
+        fanBtn.click(function (e) {
+            if (userId > 0) {
                 let status
                 let authorid = parseInt($(this).data("authorid"))
-                if ($.trim($(this).text()) === "关注"){
+                if ($.trim($(this).text()) === "关注") {
                     status = "follow"
-                }else {
+                } else {
                     status = "unfollow"
                 }
-                if(parseInt(userId) === authorid){
-                    alert("自己不能关注自己！")
+                if (parseInt(userId) === authorid) {
+                    $.message({
+                        title: "提示",
+                        message: "自己不能关注自己！",
+                        type: "warning"
+                    })
                 }
-                $(this).attr("disabled",true);
+                $(this).attr("disabled", true);
                 let btnThis = this
-                $.post('/',{
-                    follow:status,
-                    uid:userId,
-                    fid:authorid
-                },function (res) {
-                    if (res){
-                        if (status === "unfollow"){
+                $.post('/', {
+                    follow: status,
+                    uid: userId,
+                    fid: authorid
+                }, function (res) {
+                    if (res) {
+                        if (status === "unfollow") {
                             $(btnThis).text("关注")
                             $(btnThis).addClass("fans")
                             $(btnThis).removeClass("fansed")
                             window.location.reload()
-                        }else {
+                        } else {
                             $(btnThis).text("已关注")
                             $(btnThis).addClass("fansed")
                             $(btnThis).removeClass("fans")
@@ -245,23 +294,88 @@ var indexInput = {
 
                         }
                     }
-                    $(btnThis).attr("disabled",false);
+                    $(btnThis).attr("disabled", false);
 
                 })
-            }else {
-                alert("没有登录")
+            } else {
+                $.message({
+                    title: "提示",
+                    message: "没有登录！",
+                    type: "warning"
+                })
 
             }
         })
         // archive tabs
-        $(".react-tabs__tab-list").children().each(function (index,val) {
+        $(".react-tabs__tab-list").children().each(function (index, val) {
             $(val).click(function (e) {
                 let tabindex = $(val).data("tabindex")
-                window.location.search = '?tabindex='+tabindex
+                window.location.search = '?tabindex=' + tabindex
             })
         })
-    }
-}
+    },
+    login_ajax: function () {
+        let loginSubmitForm = $("#login-submit")
+        let navLoginUser = $("#navbar-login-user")
+        let navLoginPsw = $("#navbar-login-password")
+
+        function a() {
+            loginSubmitForm.attr("disabled", !1).fadeTo("", 1)
+        }
+
+        $("#Login_form").submit(function () {
+            if ($(this).hasClass("banLogin")) return location.reload(), !1;
+            loginSubmitForm.attr("disabled", !0).fadeTo("slow", .5);
+            const b = navLoginUser.val(), c = navLoginPsw.val();
+            return "" === b ? ($.message({
+                title: "登录通知",
+                message: "必须填写用户名",
+                type: "warning"
+            }), navLoginUser.focus(), a(), !1) : "" === c ? ($.message({
+                title: "登录通知",
+                message: "请填写密码",
+                type: "warning"
+            }), navLoginPsw.focus(), a(), !1) : (loginSubmitForm.addClass("active"), $("#spin-login").addClass("show inline"), $.ajax({
+                url: $(this).attr("action"),
+                type: $(this).attr("method"),
+                data: $(this).serializeArray(),
+                error: function () {
+                    return $.message({
+                        title: "登录通知",
+                        message: "提交出错",
+                        type: "error"
+                    }), a(), !1
+                },
+                success: function (b) {
+                    b = $.parseHTML(b)
+                    loginSubmitForm.removeClass("active")
+                    $("#spin-login").removeClass("show inline");
+                    console.log(b)
+
+                    try {
+                        if ($("#Logged-in", b).length <= 0) return $.message({
+                            title: "登录通知",
+                            message: "用户名或者密码错误，请重试",
+                            type: "error"
+                        })
+                        a()
+                        b = $("#easyLogin", b).html(), $("#easyLogin").html(b)
+                        $.message({
+                            title: "登录通知",
+                            message: "登录成功:" + '&nbsp;<a onclick="location.reload();">' + "点击这里刷新页面，或等待自动刷新" + "</a>",
+                            type: "success"
+                        })
+                        setTimeout(function () {
+                            location.reload()
+                        }, 500)
+                    } catch (a) {
+                        alert("按下F12，查看输出错误信息")
+                    }
+                }
+            }), !1)
+        })
+    },
+};
 $(function () {
 
 

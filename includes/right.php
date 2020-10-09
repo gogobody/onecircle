@@ -30,27 +30,27 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                     </div>
                 </div>
             <?php else: ?>
-                <div class="card-header user-info" style="background-image: url(<?php echo getV2exAvatar($this) ?>);"></div>
+                <div class="card-header user-info" style="background-image: url(<?php echo getUserV2exAvatar(getBlogAdminInfo()['mail']) ?>);"></div>
                 <div class="user-detail user-detail-padding">
                     <a>
                         <div class="info">
-                            <img class="avatar" src="<?php echo getUserV2exAvatar($this)?>" alt="<?php $this->author() ?>"/>
+                            <img class="avatar" src="<?php echo getUserV2exAvatar(getBlogAdminInfo()['mail'])?>" alt="<?php echo getV2exAvatar(getBlogAdminInfo()['name']) ?>"/>
                         </div>
                     </a>
                     <div class="user-info-name">
-                        <a href=""><?php echo $this->author()?></a>
+                        <a href=""><?php echo getBlogAdminInfo()['name'] ?></a>
                     </div>
                     <div class="user-info-fans">
                         <a href=""><span style="color: rgb(64, 64, 64);"><? _e(DbFunc::getFollowNum(1));?></span>关注</a>
                         <a href=""><span style="color: rgb(64, 64, 64);"><? _e(DbFunc::getOtherFollowNum(1));?></span>被关注</a>
                     </div>
                     <div class="user-info-introduction">
-                        <span>个人简介：</span>
+                        <span><?php echo getBlogAdminInfo()['userSign'] ?></span>
 
                     </div>
                 </div>
 
-                <div class="card-footer user-detail">
+                <div class="card-footer user-detail" >
                     <?php Typecho_Widget::widget('Widget_Stat')->to($stat); ?>
                     <ul class="list-group list-group-horizontal">
                         <li>
@@ -72,7 +72,6 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                             </div>
                         </li>
                     </ul>
-                    <hr>
 
                 </div>
             <?php endif ?>
@@ -95,16 +94,16 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <div class="mycicle-title"><h2>我的圈子</h2></div>
         <div class="mycicle-content">
             <?php
-            $arr = getCategories($this,10);
-//            print_r($arr);
+            $arr = getCategories($this, 10);
+            //            print_r($arr);
             $length = count($arr);
-            for ($i=0;$i<$length;$i++){
+            for ($i = 0; $i < $length; $i++) {
                 echo '<div class="circle-item">
-                <a href="'.$arr[$i][2].'" class="circle-item-link">
-                    <img src="'.$arr[$i][3].'">
+                <a href="' . $arr[$i][2] . '" class="circle-item-link">
+                    <img src="' . $arr[$i][3] . '">
                     <div class="circle-item-link-right">
-                        <div class="circle-item-link-title">'.$arr[$i][1].'</div>
-                        <div class="circle-item-link-info">[图片] #once more周六宜🚴‍♀️</div>
+                        <div class="circle-item-link-title">' . $arr[$i][1] . '</div>
+                        <div class="circle-item-link-info">'.$arr[$i][4].'️</div>
                     </div>
                 </a>
             </div>';

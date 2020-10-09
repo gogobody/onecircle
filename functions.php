@@ -141,6 +141,13 @@ function getUserV2exAvatar($mail_)
     $mail = $mail_ ? md5($mail_) : '';
     return "//cdn.v2ex.com/gravatar/" . $mail . "?s=32&d=mp";
 }
+
+/**
+ * 获取博主信息
+ */
+function getBlogAdminInfo(){
+    return DbFunc::getUserObj(1);
+}
 /**
  * markdown parse
  * @param $str
