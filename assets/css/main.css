@@ -827,8 +827,6 @@ footer
     border-radius: 8px;
     box-sizing: border-box;
     margin: 0px 12px 0px 0px;
-    min-width: 0px;
-    max-width: 100%;
     width: 40px;
     height: 40px;
     border-style: none;
