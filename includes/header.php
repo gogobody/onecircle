@@ -8,13 +8,14 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/main.css'); ?>">
     <?php if ($this->is('single')): ?>
         <!-- 文章 CSS -->
         <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/post.css'); ?>">
         <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/owo/owo.min.css'); ?>">
 
     <?php endif; ?>
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/main.css'); ?>">
+
     <link crossorigin="anonymous" integrity="sha384-Q8BgkilbsFGYNNiDqJm69hvDS7NCJWOodvfK/cwTyQD4VQA0qKzuPpvqNER1UC0F"
           href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet">
     <?php if ($this->is('index')): ?>

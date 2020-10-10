@@ -28,7 +28,7 @@
                 <h1 class="article-title"><a href="<?php $this->permalink() ?>"><?php $this->title() ?></a></h1>
                 <div class="article-auth">
                     <img class="avatar"
-                         src="//cdn.v2ex.com/gravatar/<?php echo $this->author->mail ? md5($this->author->mail) : ''; ?>?s=32&d=mp"
+                         src="<?php echo getUserV2exAvatar($this->author->mail) ?>"
                          alt="<?php $this->author() ?>"/>
                     <a href="<?php $this->author->permalink(); ?>"><span><?php $this->author(); ?></span></a>
                     <?php if ($this->user->hasLogin()): ?>

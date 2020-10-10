@@ -121,7 +121,7 @@
                                                     <a href="<?php $this->author->permalink(); ?>">
                                                         <!--<?php $this->author->gravatar(40); ?>-->
                                                         <img class="avatar"
-                                                             src="//cdn.v2ex.com/gravatar/<?php echo $this->author->mail ? md5($this->author->mail) : ''; ?>?s=32&d=mp"
+                                                             src="<?php echo getUserV2exAvatar($this->author->mail); ?>"
                                                              alt="<?php $this->author() ?>"/>
                                                     </a>
                                                 </div>

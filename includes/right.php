@@ -120,12 +120,11 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <?php while ($comments->next()): ?>
                 <li class="media my-4">
                     <img class="recent-avatar mr-3"
-                         src="//cdn.v2ex.com/gravatar/<?php echo md5($comments->mail); ?>?s=40&d=mp"/>
+                         src="<?php echo getUserV2exAvatar($comments->mail,40); ?>"/>
                     <div class="media-body">
                         <h6 class="mt-0 mb-1"><?php $comments->author(false); ?></h6>
                         <a class="content" href="<?php $comments->permalink(); ?>"
                            target="<?php $this->options->sidebarLinkOpen(); ?>">
-                            <?php $comments->excerpt(35, '...'); ?>
                             <?php echo contents::parseHide(contents::parseOwo($comments->excerpt(35, '...')));?>
                         </a>
                     </div>
