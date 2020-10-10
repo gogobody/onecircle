@@ -41,7 +41,7 @@ class contents{
      */
     public static function parsePaopaoBiaoqingCallback($match)
     {
-        return '<img class="emoji" src="../usr/themes/onecircle/assets/owo/biaoqing/paopao/'. str_replace('%', '', urlencode($match[1])) . '_2x.png">';
+        return '<img class="emoji" src="/usr/themes/onecircle/assets/owo/biaoqing/paopao/'. str_replace('%', '', urlencode($match[1])) . '_2x.png">';
     }
 
     /**
@@ -51,7 +51,7 @@ class contents{
      */
     public static function parseAruBiaoqingCallback($match)
     {
-        return '<img class="emoji" src="../usr/themes/onecircle/assets/owo/biaoqing/aru/'. str_replace('%', '', urlencode($match[1])) . '_2x.png">';
+        return '<img class="emoji" src="/usr/themes/onecircle/assets/owo/biaoqing/aru/'. str_replace('%', '', urlencode($match[1])) . '_2x.png">';
     }
 
     /**
@@ -61,7 +61,7 @@ class contents{
      */
     public static function parseQuyinBiaoqingCallback($match)
     {
-        return '<img class="emoji" src="../usr/themes/onecircle/assets/owo/biaoqing/quyin/'. str_replace('%', '', urlencode($match[1])) . '.png">';
+        return '<img class="emoji" src="/usr/themes/onecircle/assets/owo/biaoqing/quyin/'. str_replace('%', '', urlencode($match[1])) . '.png">';
     }
     /**
      * 友链解析
@@ -166,7 +166,7 @@ class contents{
                     ->where('cid = ?',$match)
                 );
                 $val = Typecho_Widget::widget('Widget_Abstract_Contents')->push($articleArr[0]);
-                $banner = empty($result[0]['str_value'])?'../usr/themes/onecircle/assets/img/default.png':$result[0]['str_value'];
+                $banner = empty($result[0]['str_value'])?'/usr/themes/onecircle/assets/img/default.png':$result[0]['str_value'];
 
                 $replacement = '<div class="card bg-dark text-white">
                               <img src="'.$banner.'" class="card-img" alt="文章卡片">
