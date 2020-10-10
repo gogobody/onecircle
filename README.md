@@ -1,7 +1,7 @@
 ## onecircle 一个圈子，基于typecho
 
 ## 名字就叫一个圈子。
-## version：1.3
+## version：1.4
 ## 平台：typecho
 
 ### 想弄一个类社交圈子，开发了一部分，剩下慢慢折腾
@@ -58,5 +58,5 @@ links
 ![index](READMEimgs/usersign.png)
 ### 感谢以下作者的辛苦付出
 - compress https://javascript-minifier.com/
-- css compress https://cssminifier.com/
+- css compress https://www.runoob.com/csspack
 - 修改自 [landstar](https://dyedd.cn) up to version :2.0.2

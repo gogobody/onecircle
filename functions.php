@@ -130,16 +130,30 @@ function parseFirstURL($content)
     return $arr[0][0];
 }
 
+
+/** 对邮箱类型判定，并调用QQ头像的实现 */
+function isqq($email){
+    if($email){
+        if(strpos($email,"@qq.com") !==false){
+            $email=str_replace('@qq.com','',$email);
+            return "//q1.qlogo.cn/g?b=qq&nk=".$email."&s=100";
+        }else{
+            $email= md5($email);
+            return "//cdn.v2ex.com/gravatar/".$email."?";
+        }
+    }else{
+        return "//cdn.v2ex.com/gravatar/null?";
+    }
+}
+
 function getV2exAvatar($obj)
 {
-    $mail = $obj->author->mail ? md5($obj->author->mail) : '';
-    return "//cdn.v2ex.com/gravatar/" . $mail . "?s=32&d=mp";
+    return isqq($obj->author->mail);
 }
 
 function getUserV2exAvatar($mail_)
 {
-    $mail = $mail_ ? md5($mail_) : '';
-    return "//cdn.v2ex.com/gravatar/" . $mail . "?s=32&d=mp";
+    return isqq($mail_);
 }
 
 /**

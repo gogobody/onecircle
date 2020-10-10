@@ -568,7 +568,7 @@ button:focus{
     align-items: center;
     -webkit-box-pack: justify;
     justify-content: space-between;
-    width: 324px;
+    max-width: 324px;
     border-radius: 4px;
     padding: 12px;
     transition: all 0.2s ease 0s;
