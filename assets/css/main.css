@@ -2582,16 +2582,7 @@ owo
     top: 3px;
     z-index: 999999
 }
-.OwO-body:before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: -5px;
-    left: 30px;
-    width: 8px;
-    height: 5px;
-    background: url(../img/arrow.png) 0 -49px no-repeat;
-}
+
 .OwO.OwO-open .OwO-body {
     display:table;
 }
@@ -2746,7 +2737,7 @@ owo
     left: 30px;
     width: 8px;
     height: 5px;
-    background: url(../../img/arrow.png) 0 -49px no-repeat
+    background: url(../../assets/img/arrow.png) 0 -49px no-repeat
 }
 
 .OwO .OwO-logo:hover {
