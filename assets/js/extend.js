@@ -411,18 +411,21 @@ function submitForm() {
     let datetime = year+"/"+mon+"/"+date
 
     if (indexInput.nowtype === 'default'){
+        if(val.length > 0 && val!==''){
+            title.val(val.substring(0,15))
+        }else{
+            title.val("图文小记事~"+datetime)
+        }
         if (indexInput.additionArray.length > 0){
-            if(val.length > 0 && val!==''){
-                title.val(val.substring(0,15))
-            }else{
-                title.val("图文小记事~"+datetime)
-            }
             indexInput.additionArray.forEach(function (value){
                 val = val + "![](" + value +")"
             })
 
         }
     }else if (indexInput.nowtype === 'link'){
+        if(val.length > 0 && val!==''){
+            title.val(val.substring(0,15))
+        }
         if (indexInput.additionArray.length > 0){
             if(indexInput.additionArray[1].length > 0 && indexInput.additionArray[1] !== ''){
                 title.val(indexInput.additionArray[1].substring(0,15))
@@ -430,6 +433,13 @@ function submitForm() {
                 title.val("分享一个链接~"+datetime)
             }
             val = val + "["+indexInput.additionArray[1] + "](" + indexInput.additionArray[0] +")"
+        }else {
+            $.message({
+                title:"提示",
+                message:"请输入正确链接",
+                type:'warning'
+            })
+            return false;
         }
     }
     textarea.val(val)
