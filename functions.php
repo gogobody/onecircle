@@ -18,7 +18,7 @@ Typecho_Plugin::factory('Widget_Abstract_Contents')->excerptEx = array('contents
 Typecho_Plugin::factory('admin/write-post.php')->bottom = array('utils', 'addButton');
 Typecho_Plugin::factory('admin/write-page.php')->bottom = array('utils', 'addButton');
 /**
- * 评论接口 by 染念
+ * 评论接口 by gogobody
  */
 Typecho_Plugin::factory('Widget_Abstract_Comments')->contentEx = array('comments', 'parseContent');
 Typecho_Plugin::factory('Widget_Feedback')->comment = array('comments', 'insertSecret');

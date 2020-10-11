@@ -1,6 +1,7 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 ?>
+
 <div class="col-12 col-md-3 text-center text-md-left">
     <?php if ($this->is('index')): ?>
         <div class="card user-container">
@@ -77,6 +78,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <?php endif ?>
         </div>
         <?php elseif($this->is('page')): ?>
+        <?php elseif($this->is('search')): ?>
         <?php else:?>
         <div class="card user-container">
 
@@ -89,7 +91,6 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             </div>
         </div>
     <?php endif ?>
-
     <div class="card d-none d-md-block mycicle">
         <div class="mycicle-title"><h2>我的圈子</h2></div>
         <div class="mycicle-content">

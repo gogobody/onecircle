@@ -74,6 +74,7 @@
     clear: both;
     width: 100%;
     margin-top: 10px;
+    margin-bottom: 2rem;
 }
 .article-content > p img {
     width: 100%;
@@ -180,6 +181,8 @@ img.emoji {
     flex-direction: row;
     font-size: 13px;
     display: flex;
+    justify-content: space-around;
+    width: 100%;
 }
 .IsObJ {
     box-sizing: border-box;
@@ -191,7 +194,42 @@ img.emoji {
     flex-direction: row;
     -webkit-box-align: center;
     align-items: center;
-    min-width: 120px;
+}
+
+.IsObJ:hover .agree-btn {
+    color: rgb(224,36,94);
+    background-color: rgba(224,36,94,.1);
+    border-radius: 50%;
+}
+.IsObJ:hover .agree-num{
+    color: rgb(224,36,94);
+}
+.IsObJ:hover .agree-btn svg{
+    fill: rgb(224,36,94);
+
+}
+
+.IsObJ:hover .comment-btn {
+    color: rgb(23,191,99);
+    background-color: rgba(23,191,99,.1);
+    border-radius: 50%;
+}
+.IsObJ:hover .comment-num{
+    color: rgb(23,191,99);
+}
+.IsObJ:hover .comment-btn svg{
+    fill: rgba(23,191,99,.1);
+
+}
+
+.IsObJ:hover .share-btn {
+    color: rgb(29,161,242);
+    background-color: rgba(29,161,242,.1);
+    border-radius: 50%;
+}
+.IsObJ:hover .share-btn svg{
+    fill: rgb(29,161,242);
+
 }
 .dEkSi {
     box-sizing: border-box;
@@ -215,9 +253,7 @@ img.emoji {
 .eVjtUm {
     fill: rgb(153, 153, 153);
 }
-.IsObJ svg:hover {
-    fill: rgb(95, 95, 95);
-}
+
 
 /**
 b站视频

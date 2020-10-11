@@ -58,8 +58,10 @@ const indexInput = {
         this.additionArray = [] // for addPic and addLink
         this.nowtype = 'default' // for addPic and addLink, 'default,link'
         this.articleType = $("#articleType")
+        this.funcInit()
+    },
+    funcInit:function(){
         this.indexEventInit()
-        this.archiveEventInit()
         this.login_ajax()
         this.searchEventInit()
     },
@@ -123,7 +125,11 @@ const indexInput = {
                 })
 
             } else {
-                console.log("false")
+                $.message({
+                    title:"提示",
+                    message:"请输入正确的图片地址",
+                    type:"error"
+                })
 
             }
             $(this).html("添加")
@@ -171,7 +177,11 @@ const indexInput = {
                     $(innerThat).text("添加")
                 })
             } else {
-                console.log("false")
+                $.message({
+                    title:"提示",
+                    message:"请输入正确的地址",
+                    type:"error"
+                })
                 $(innerThat).text("添加")
             }
 
@@ -236,6 +246,38 @@ const indexInput = {
 
             }
         });
+        // 首页点赞
+        $('.content-action').each(function (i, n) {
+            $(n).find('.btn-like').on('click', function (e) {
+                $(this).get(0).disabled = true;  //  禁用点赞按钮
+                $.ajax({
+                    url:$(this).data('link'),
+                    type: 'post',
+                    data: 'agree=' + $(this).attr('data-cid'),
+                    async: true,
+                    timeout: 30000,
+                    cache: false,
+                    //  请求成功的函数
+                    success: function (data) {
+                        let re = /\d/;  //  匹配数字的正则表达式
+                        //  匹配数字
+                        if (re.test(data)) {
+                            //  把点赞按钮中的点赞数量设置为传回的点赞数量
+                            $($('.btn-like').find('span.agree-num')[i]).html(data);
+                        }
+                    },
+                    error: function () {
+                        //  如果请求出错就恢复点赞按钮
+                        $(this).get(0).disabled = false;
+                    },
+                });
+                e.stopPropagation()
+                return false;
+            })
+        })
+        $(".post-content-inner-link a").click(function (event) {
+            event.stopPropagation();
+        })
 
     },
     searchEventInit: function () {
@@ -252,6 +294,87 @@ const indexInput = {
         $('.close').on('click', function () {
             $('.search-block').slideUp()
         })
+    },
+    login_ajax: function () {
+        let loginSubmitForm = $("#login-submit")
+        let navLoginUser = $("#navbar-login-user")
+        let navLoginPsw = $("#navbar-login-password")
+
+        function a() {
+            loginSubmitForm.attr("disabled", !1).fadeTo("", 1)
+        }
+
+        $("#Login_form").submit(function () {
+            if ($(this).hasClass("banLogin")) return location.reload(), !1;
+            loginSubmitForm.attr("disabled", !0).fadeTo("slow", .5);
+            const b = navLoginUser.val(), c = navLoginPsw.val();
+            return "" === b ? ($.message({
+                title: "登录通知",
+                message: "必须填写用户名",
+                type: "warning"
+            }), navLoginUser.focus(), a(), !1) : "" === c ? ($.message({
+                title: "登录通知",
+                message: "请填写密码",
+                type: "warning"
+            }), navLoginPsw.focus(), a(), !1) : (loginSubmitForm.addClass("active"), $("#spin-login").addClass("show inline"),
+                $.ajax({
+                url: $(this).attr("action"),
+                type: $(this).attr("method"),
+                data: $(this).serializeArray(),
+                error: function () {
+                    return $.message({
+                        title: "登录通知",
+                        message: "提交出错",
+                        type: "error"
+                    }), a()
+                },
+                success: function (b) {
+                    b = $.parseHTML(b)
+                    loginSubmitForm.removeClass("active")
+                    $("#spin-login").removeClass("show inline");
+
+                    try {
+                        if ($("#Logged-in", b).length <= 0)
+                            return $.message({
+                                title: "登录通知",
+                                message: "用户名或者密码错误，请重试",
+                                type: "error"
+                            })
+                        a()
+                        b = $("#easyLogin", b).html(), $("#easyLogin").html(b)
+                        $.message({
+                            title: "登录通知",
+                            message: "登录成功:" + '&nbsp;<a onclick="location.reload();">' + "点击这里刷新页面，或等待自动刷新" + "</a>",
+                            type: "success"
+                        })
+                        setTimeout(function () {
+                            location.reload()
+                        }, 500)
+                    } catch (a) {
+                        alert("按下F12，查看输出错误信息")
+                    }
+                }
+            }), !1)
+        })
+    },
+    loginBan: function() {
+        let loginform = $("#Login_form")
+        loginform.hasClass("banLogin") || (loginform.addClass("banLogin"),
+            $("#navbar-login-user").attr("disabled", "disabled"),
+            $("#navbar-login-password").attr("disabled", "disabled"))
+    },
+    pjax_complete:function () {
+        this.init()
+        this.loginBan()
+    }
+};
+const archiveInit = {
+    init:function (){
+        this.funcInit()
+    },
+    funcInit:function(){
+        this.archiveEventInit()
+        this.commentInit()
     },
     archiveEventInit: function () {
         let that = this
@@ -313,77 +436,117 @@ const indexInput = {
                 window.location.search = '?tabindex=' + tabindex
             })
         })
+        // 文章点赞
+        $('#agree-btn').on('click', function () {
+            $(this).get(0).disabled = true;  //  禁用点赞按钮
+            $(this).children().css("fill","rgb(228, 88, 62)")
+            //  发送 AJAX 请求
+            $.ajax({
+                //  请求方式 post
+                type: 'post',
+                //  url 获取点赞按钮的自定义 url 属性
+                //  发送的数据 cid，直接获取点赞按钮的 cid 属性
+                data: 'agree=' + $(this).attr('data-cid'),
+                async: true,
+                timeout: 30000,
+                cache: false,
+                //  请求成功的函数
+                success: function (data) {
+                    let re = /\d/;  //  匹配数字的正则表达式
+                    //  匹配数字
+                    if (re.test(data)) {
+                        //  把点赞按钮中的点赞数量设置为传回的点赞数量
+                        $('.agree-num').html(data);
+                    }
+                },
+                error: function () {
+                    //  如果请求出错就恢复点赞按钮
+                    $(this).get(0).disabled = false;
+                },
+            });
+        });
     },
-    login_ajax: function () {
-        let loginSubmitForm = $("#login-submit")
-        let navLoginUser = $("#navbar-login-user")
-        let navLoginPsw = $("#navbar-login-password")
-
-        function a() {
-            loginSubmitForm.attr("disabled", !1).fadeTo("", 1)
-        }
-
-        $("#Login_form").submit(function () {
-            if ($(this).hasClass("banLogin")) return location.reload(), !1;
-            loginSubmitForm.attr("disabled", !0).fadeTo("slow", .5);
-            const b = navLoginUser.val(), c = navLoginPsw.val();
-            return "" === b ? ($.message({
-                title: "登录通知",
-                message: "必须填写用户名",
-                type: "warning"
-            }), navLoginUser.focus(), a(), !1) : "" === c ? ($.message({
-                title: "登录通知",
-                message: "请填写密码",
-                type: "warning"
-            }), navLoginPsw.focus(), a(), !1) : (loginSubmitForm.addClass("active"), $("#spin-login").addClass("show inline"), $.ajax({
-                url: $(this).attr("action"),
-                type: $(this).attr("method"),
+    commentInit: function () {
+        let $body = $('html,body');
+        let g = '.comment-list'
+            , h = '.comment-num'
+            , i = '.comment-reply a'
+            , j = '#textarea'
+            , k = ''
+            , l = '';
+        c();
+        $('#comment-form').submit(function () {
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'post',
                 data: $(this).serializeArray(),
                 error: function () {
-                    return $.message({
-                        title: "登录通知",
-                        message: "提交出错",
-                        type: "error"
-                    }), a(), !1
+                    alert("提交失败，请检查网络并重试或者联系管理员。");
+                    return false
                 },
-                success: function (b) {
-                    b = $.parseHTML(b)
-                    loginSubmitForm.removeClass("active")
-                    $("#spin-login").removeClass("show inline");
-                    console.log(b)
-
-                    try {
-                        if ($("#Logged-in", b).length <= 0) return $.message({
-                            title: "登录通知",
-                            message: "用户名或者密码错误，请重试",
-                            type: "error"
-                        })
-                        a()
-                        b = $("#easyLogin", b).html(), $("#easyLogin").html(b)
-                        $.message({
-                            title: "登录通知",
-                            message: "登录成功:" + '&nbsp;<a onclick="location.reload();">' + "点击这里刷新页面，或等待自动刷新" + "</a>",
-                            type: "success"
-                        })
-                        setTimeout(function () {
-                            location.reload()
-                        }, 500)
-                    } catch (a) {
-                        alert("按下F12，查看输出错误信息")
+                success: function (d) {
+                    if (!$(g, d).length) {
+                        alert("您输入的内容不符合规则或者回复太频繁，请修改内容或者稍等片刻。");
+                        return false
+                    } else {
+                        k = $(g, d).html().match(/id=\"?comment-\d+/g).join().match(/\d+/g).sort(function (a, b) {
+                            return a - b
+                        }).pop();
+                        if ($('.page-navigator .prev').length && l == "") {
+                            k = ''
+                        }
+                        if (l) {
+                            d = $('#comment-' + k, d).hide();
+                            if ($('#' + l).find(".comment-children").length <= 0) {
+                                $('#' + l).append("<div class='comment-children'><ol class='comment-list'><\/ol><\/div>")
+                            }
+                            if (k)
+                                $('#' + l + " .comment-children .comment-list").prepend(d);
+                            l = ''
+                        } else {
+                            d = $('#comment-' + k, d).hide();
+                            if (!$(g).length)
+                                $('.comment-detail').prepend("<h2 class='comment-num'>0 条评论<\/h2><ol class='comment-list'><\/ol>");
+                            $(g).prepend(d)
+                        }
+                        $('#comment-' + k).fadeIn();
+                        let f;
+                        $(h).length ? (f = parseInt($(h).text().match(/\d+/)),
+                            $(h).html($(h).html().replace(f, f + 1))) : 0;
+                        TypechoComment.cancelReply();
+                        $(j).val('');
+                        $(i + ', #cancel-comment-reply-link').unbind('click');
+                        c();
+                        if (k) {
+                            $body.animate({
+                                scrollTop: $('#comment-' + k).offset().top - 50
+                            }, 300)
+                        } else {
+                            $body.animate({
+                                scrollTop: $('#comments').offset().top - 50
+                            }, 300)
+                        }
                     }
                 }
-            }), !1)
-        })
-    },
-};
+            });
+            return false
+        });
+
+        function c() {
+            $(i).click(function () {
+                l = $(this).parent().parent().parent().attr("id")
+            });
+            $('#cancel-comment-reply-link').click(function () {
+                l = ''
+            })
+        }
+    }
+}
 $(function () {
 
 
-    $(".post-content-inner-link a").click(function (event) {
-        event.stopPropagation();
-    })
     indexInput.init()
-
+    archiveInit.init()
 
     // 根据时间
     let timeNow = new Date();
@@ -397,18 +560,24 @@ $(function () {
 })
 
 // prev link click event
-function submitForm() {
+function submitForm(ele) {
     // jquery 表单提交
     // add title
+    let i = $(ele)
+    i.val("发送中...")
     let title = $("#post-title")
+    // let inputForm = $("#input-form")
     // add pic and links
     let textarea = $("#text")
+    // let realtext = $("#realtext")
+
     let val = textarea.val()
     let myDate = new Date;
     let year = myDate.getFullYear(); //获取当前年
     let mon = myDate.getMonth() + 1; //获取当前月
     let date = myDate.getDate(); //获取当前日
     let datetime = year+"/"+mon+"/"+date
+
 
     if (indexInput.nowtype === 'default'){
         if(val.length > 0 && val!==''){
@@ -439,119 +608,97 @@ function submitForm() {
                 message:"请输入正确链接",
                 type:'warning'
             })
+            i.val("发送")
             return false;
         }
     }
-    textarea.val(val)
-    const len = textarea.length;
-    if (len === 0 || textarea.val() === '') {
+    // realtext.val(val)
+    const len = val.length;
+    if (len === 0 || val === '') {
+        $.message({
+            title:"提示",
+            message:"要不输入点东西吧~",
+            type:'warning'
+        })
+        i.val("发送")
         return false
     }
+    let data = {
+        title: title.val(),
+        text: val,
+        'fields[articleType]': indexInput.nowtype,
+        'markdown': 1,
+        'category[]': $("#category").val(),
+        visibility: 'publish',
+        allowComment: 1,
+        allowPing: 1,
+        allowFeed: 1,
+        do: 'publish'
+    }
+    $.post('/oneaction',{
+        type:'getsecuritytoken'
+    },function (res) {
+        if (res!=='error'){
+            console.log(res)
+            $.ajax({
+                url:'/action/contents-post-edit?do=publish&_='+res,
+                type:'post',
+                data:data,
+                success:function (res) {
+                    setTimeout(function (){
+                        $.pjax.reload('#pjax-container', {
+                            container: '#pjax-container',
+                            fragment: '#pjax-container',
+                            timeout: 8000
+                        })
+                        $.message({
+                            title: "提示",
+                            message: "发布成功，没出来的话就刷新一下吧",
+                            type: "success"
+                        })
+                    },600)
+                },
+                error:function (err){
+                    return $.message({
+                        title: "提示",
+                        message: "err:"+err,
+                        type: "error"
+                    })
+                }
+            })
+        }
+    })
+    // inputForm.ajaxSubmit(function (result) {
+    //     setTimeout(function () {
+    //         $.pjax.reload('#pjax-container', {
+    //             container: '#pjax-container',
+    //             fragment: '#pjax-container',
+    //             timeout: 8000
+    //         })
+    //     }, 1000)
+    // });
 
-
-    // $("#postForm").submit()
-
-    $("#input-form").ajaxSubmit(function (result) {
-        setTimeout(function () {
-            window.location.reload()
-        }, 1000)
-    });
     return false;
 }
 
 function checkURL(URL) {
-    var str = URL;
-    var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
-    var objExp = new RegExp(Expression);
+    const str = URL;
+    const Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+    const objExp = new RegExp(Expression);
     return objExp.test(str) === true;
 }
 
-//
-
-function ac() {
-    let $body = $('html,body');
-    let g = '.comment-list'
-        , h = '.comment-num'
-        , i = '.comment-reply a'
-        , j = '#textarea'
-        , k = ''
-        , l = '';
-    c();
-    $('#comment-form').submit(function() {
-        $.ajax({
-            url: $(this).attr('action'),
-            type: 'post',
-            data: $(this).serializeArray(),
-            error: function() {
-                alert("提交失败，请检查网络并重试或者联系管理员。");
-                return false
-            },
-            success: function(d) {
-                if (!$(g, d).length) {
-                    alert("您输入的内容不符合规则或者回复太频繁，请修改内容或者稍等片刻。");
-                    return false
-                } else {
-                    k = $(g, d).html().match(/id=\"?comment-\d+/g).join().match(/\d+/g).sort(function(a, b) {
-                        return a - b
-                    }).pop();
-                    if ($('.page-navigator .prev').length && l == "") {
-                        k = ''
-                    }
-                    if (l) {
-                        d = $('#comment-' + k, d).hide();
-                        if ($('#' + l).find(".comment-children").length <= 0) {
-                            $('#' + l).append("<div class='comment-children'><ol class='comment-list'><\/ol><\/div>")
-                        }
-                        if (k)
-                            $('#' + l + " .comment-children .comment-list").prepend(d);
-                        l = ''
-                    } else {
-                        d = $('#comment-' + k, d).hide();
-                        if (!$(g).length)
-                            $('.comment-detail').prepend("<h2 class='comment-num'>0 条评论<\/h2><ol class='comment-list'><\/ol>");
-                        $(g).prepend(d)
-                    }
-                    $('#comment-' + k).fadeIn();
-                    let f;
-                    $(h).length ? (f = parseInt($(h).text().match(/\d+/)),
-                        $(h).html($(h).html().replace(f, f + 1))) : 0;
-                    TypechoComment.cancelReply();
-                    $(j).val('');
-                    $(i + ', #cancel-comment-reply-link').unbind('click');
-                    c();
-                    if (k) {
-                        $body.animate({
-                            scrollTop: $('#comment-' + k).offset().top - 50
-                        }, 300)
-                    } else {
-                        $body.animate({
-                            scrollTop: $('#comments').offset().top - 50
-                        }, 300)
-                    }
-                }
-            }
-        });
-        return false
-    });
-
-    function c() {
-        $(i).click(function() {
-            l = $(this).parent().parent().parent().attr("id")
-        });
-        $('#cancel-comment-reply-link').click(function() {
-            l = ''
-        })
-    }
-}
-ac();
+// comment
 $(function () {
     $(window).scroll(function () {
-        var scroHei = $(window).scrollTop();
-        if (scroHei > 500) {
-            $('.back-to-top').fadeIn();
-            $('.back-to-top').css('top', '-200px');
+        let scroHei = $(window).scrollTop();
+        if (scroHei > 400) {
+            // $('.back-to-top').show()
+
+            $('.back-to-top').slideDown('fast');
         }else {
-            $('.back-to-top').fadeOut();
+
+            $('.back-to-top').slideUp('fast');
         }
     })
     $('.back-to-top').click(function () {
@@ -559,62 +706,115 @@ $(function () {
             scrollTop: 0
         }, 600);
     })
+
 })
-// 首页点赞
-$('.content-action').each(function (i, n) {
-    $(n).find('.btn-like').on('click', function (e) {
-        $(this).get(0).disabled = true;  //  禁用点赞按钮
-        $.ajax({
-            type: 'post',
-            data: 'agree=' + $(this).attr('data-cid'),
-            async: true,
-            timeout: 30000,
-            cache: false,
-            //  请求成功的函数
-            success: function (data) {
-                let re = /\d/;  //  匹配数字的正则表达式
-                //  匹配数字
-                if (re.test(data)) {
-                    //  把点赞按钮中的点赞数量设置为传回的点赞数量
-                    $($('.btn-like').find('span.agree-num')[i]).html(data);
-                }
-            },
-            error: function () {
-                //  如果请求出错就恢复点赞按钮
-                $(this).get(0).disabled = false;
-            },
-        });
-        e.stopPropagation()
-        return false;
-    })
-})
-// 文章点赞
-$('#agree-btn').on('click', function () {
-    $(this).get(0).disabled = true;  //  禁用点赞按钮
-    $(this).children().css("fill","rgb(228, 88, 62)")
-    //  发送 AJAX 请求
-    $.ajax({
-        //  请求方式 post
-        type: 'post',
-        //  url 获取点赞按钮的自定义 url 属性
-        //  发送的数据 cid，直接获取点赞按钮的 cid 属性
-        data: 'agree=' + $(this).attr('data-cid'),
-        async: true,
-        timeout: 30000,
-        cache: false,
-        //  请求成功的函数
-        success: function (data) {
-            let re = /\d/;  //  匹配数字的正则表达式
-            //  匹配数字
-            if (re.test(data)) {
-                //  把点赞按钮中的点赞数量设置为传回的点赞数量
-                $('.agree-num').html(data);
-            }
-        },
-        error: function () {
-            //  如果请求出错就恢复点赞按钮
-            $(this).get(0).disabled = false;
-        },
-    });
-});
+// 另一种 backTotop
+// var scrolltotop={
+//
+//     //startline: Integer. Number of pixels from top of doc scrollbar is scrolled before showing control
+//
+//     //scrollto: Keyword (Integer, or "Scroll_to_Element_ID"). How far to scroll document up when control is clicked on (0=top).
+//
+//     setting: {startline:100, scrollto: 0, scrollduration:500, fadeduration:[500, 100]},
+//
+//     controlHTML: '<img src="https://down.inwao.com/img/arrow5.png" />', //HTML for control, which is auto wrapped in DIV w/ ID="topcontrol"
+//
+//     controlattrs: {offsetx:30, offsety:30}, //offset of control relative to right/ bottom of window corner
+//
+//     anchorkeyword: 'javascript:scroll(0,0)', //Enter href value of HTML anchors on the page that should also act as "Scroll Up" links
+//
+//     state: {isvisible:false, shouldvisible:false},
+//
+//
+//     scrollup:function(){
+//
+//         if (!this.cssfixedsupport) //if control is positioned using JavaScript
+//
+//             this.$control.css({opacity:0}) //hide control immediately after clicking it
+//
+//         var dest=isNaN(this.setting.scrollto)? this.setting.scrollto : parseInt(this.setting.scrollto)
+//
+//         if (typeof dest=="string" && jQuery('#'+dest).length==1) //check element set by string exists
+//
+//             dest=jQuery('#'+dest).offset().top
+//
+//         else
+//
+//             dest=0
+//
+//         this.$body.animate({scrollTop: dest}, this.setting.scrollduration);
+//
+//     },
+//
+//
+//     keepfixed:function(){
+//
+//         var $window=jQuery(window)
+//
+//         var controlx=$window.scrollLeft() + $window.width() - this.$control.width() - this.controlattrs.offsetx
+//
+//         var controly=$window.scrollTop() + $window.height() - this.$control.height() - this.controlattrs.offsety
+//
+//         this.$control.css({left:controlx+'px', top:controly+'px'})
+//
+//     },
+//
+//
+//     togglecontrol:function(){
+//
+//
+//
+//         var scrolltop=jQuery(window).scrollTop()
+//
+//         if (!this.cssfixedsupport)
+//
+//             this.keepfixed()
+//
+//         this.state.shouldvisible=(scrolltop>=this.setting.startline)? true : false
+//
+//         if (this.state.shouldvisible && !this.state.isvisible){
+//
+//             this.$control.stop().animate({opacity:1}, this.setting.fadeduration[0])
+//
+//             this.state.isvisible=true
+//
+//         }
+//
+//         else if (this.state.shouldvisible==false && this.state.isvisible){
+//
+//             this.$control.stop().animate({opacity:0}, this.setting.fadeduration[1])
+//
+//             this.state.isvisible=false
+//
+//         }
+//     },
+//
+//     init:function(){
+//         jQuery(document).ready(function($){
+//             var mainobj=scrolltotop
+//             var iebrws=document.all
+//             mainobj.cssfixedsupport=!iebrws || iebrws && document.compatMode=="CSS1Compat" && window.XMLHttpRequest //not IE or IE7+ browsers in standards mode
+//             mainobj.$body=(window.opera)? (document.compatMode=="CSS1Compat"? $('html') : $('body')) : $('html,body')
+//             mainobj.$control=$('<div id="topcontrol">'+mainobj.controlHTML+'</div>')
+//                 .css({position:mainobj.cssfixedsupport? 'fixed' : 'absolute', bottom:mainobj.controlattrs.offsety, right:mainobj.controlattrs.offsetx, opacity:0, cursor:'pointer'})
+//                 .attr({title:'Scroll to Top'})
+//                 .click(function(){mainobj.scrollup(); return false})
+//                 .appendTo('body')
+//             if (document.all && !window.XMLHttpRequest && mainobj.$control.text()!='') //loose check for IE6 and below, plus whether control contains any text
+//                 mainobj.$control.css({width:mainobj.$control.width()}) //IE6- seems to require an explicit width on a DIV containing text
+//             mainobj.togglecontrol()
+//
+//             $('a[href="' + mainobj.anchorkeyword +'"]').click(function(){
+//                 mainobj.scrollup()
+//                 return false
+//             })
+//             $(window).bind('scroll resize', function(e){
+//                 mainobj.togglecontrol()
+//             })
+//         })
+//     }
+// }
+// scrolltotop.init()
+
+
 

@@ -7,7 +7,7 @@
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 $this->need('includes/header.php');
 ?>
-<div class="container">
+<div class="container" id="pjax-container">
     <div class="row">
         <?php $this->need('includes/nav.php'); ?>
         <div class="col-xl-7 col-md-6 col-12 archives">
@@ -55,3 +55,4 @@ $this->need('includes/header.php');
         <?php $this->need('includes/right.php'); ?>
     </div>
 </div>
+<?php $this->need('includes/footer.php'); ?>

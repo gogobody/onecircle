@@ -8,18 +8,16 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-    <?php if ($this->is('single')): ?>
-        <!-- 文章 CSS -->
-        <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/post.css'); ?>">
-        <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/owo/owo.min.css'); ?>">
+    <link href="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+    <!-- 文章 CSS -->
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/post.css'); ?>">
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/owo/owo.min.css'); ?>">
 
-    <?php endif; ?>
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/main.css'); ?>">
 
     <link crossorigin="anonymous" integrity="sha384-Q8BgkilbsFGYNNiDqJm69hvDS7NCJWOodvfK/cwTyQD4VQA0qKzuPpvqNER1UC0F"
           href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet">
-    <?php if ($this->is('index')): ?>
-    <?php endif; ?>
+
     <title><?php $this->archiveTitle(array(
             'category' => _t('分类 %s 下的文章'),
             'search' => _t('包含关键字 %s 的文章'),
@@ -132,7 +130,7 @@
 
                                 <li class="divider"></li>
                                 <li>
-                                    <a id="sign_out" href="<?php $this->options->logoutUrl() ?>">退出</a>
+                                    <a id="sign_out" no-pjax href="<?php $this->options->logoutUrl() ?>">退出</a>
                                 </li>
                             </ul>
                             <!-- / dropdown(已经登录) -->
@@ -156,8 +154,7 @@
                             <!-- dropdown(已经登录) -->
                             <div class="dropdown-menu w-lg wrapper bg-white animated fadeIn"
                                  aria-labelledby="navbarDropdown">
-                                <form id="Login_form" name="login" action="<?php $this->options->loginAction() ?>"
-                                      method="post">
+                                <form id="Login_form" name="login" action="<?php $this->options->loginAction() ?>" method="post">
                                     <div class="form-group">
                                         <label for="navbar-login-user">用户名</label>
                                         <input type="text" name="name" id="navbar-login-user" class="form-control"
@@ -166,22 +163,28 @@
                                         <label for="navbar-login-password">密码</label>
                                         <input autocomplete="" type="password" name="password" id="navbar-login-password"
                                                class="form-control" placeholder="密码"></div>
-                                    <button style="width: 100%" type="submit" id="login-submit" name="submitLogin"
+                                    <button style="width: 100%;margin-bottom: 10px" type="submit" id="login-submit" name="submitLogin"
                                             class="btn-rounded box-shadow-wrap-lg btn-gd-primary padder-lg">
                                         <span>登录</span>
 
                                         <span class="text-active">登录中...</span>
-                                        <span class="banLogin_text">刷新页面后登录</span>
+                                        <span class="banLogin_text">刷新页面后登录 </span>
+                                        <span id="ban-login" class="hide">
+                                            <svg  style="position: relative;top:-1px" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-clockwise animate-spin" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                              <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                                              <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                                            </svg>
+                                        </span>
                                         <i class="animate-spin  fontello fontello-spinner hide" id="spin-login"></i>
-                                        <i class="animate-spin fontello fontello-refresh hide" id="ban-login"></i>
                                     </button>
-                                    <a href="<?php $this->options->registerUrl(); ?>">
+                                    <a no-pjax href="<?php $this->options->registerUrl(); ?>">
                                         <button style="width: 100%" type="button"
                                                 class="btn-rounded box-shadow-wrap-lg btn-gd-mix padder-lg">
                                             <span>注册</span>
                                         </button>
                                     </a>
                                     <input type="hidden" name="referer" value="<?php $this->options->siteUrl(); ?>">
+                                </form>
                             </div>
 
                         </li>
@@ -211,12 +214,13 @@
                 <span aria-hidden="true">&times;</span>
             </button>
             <h4>搜索</h4>
-            <form id="search" method="post" action="<?php $this->options->siteUrl(); ?>" role="search">
+            <form name="search" method="post" action="<?php $this->options->siteUrl(); ?>" role="search">
                 <label for="s" class="sr-only"><?php _e('搜索关键字'); ?></label>
                 <input type="text" id="s" name="s" class="text form-control"
                        placeholder="<?php _e('输入关键字搜索'); ?>"/>
                 <button type="submit" class="btn btn-primary float-right search-button"><?php _e('搜索'); ?></button>
             </form>
+
         </div>
 
     </div>

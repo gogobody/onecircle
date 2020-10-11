@@ -1,7 +1,7 @@
 <?php
 /**
- * author:染念
- * time：2020-8-19 19：39
+ * author:gogobody
+ * time：2020-10-11 19：39
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 ?>

@@ -1,10 +1,10 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 ?>
-<div class="col-12 col-md-4 text-center text-md-left">
 
+<div class="col-12 col-md-4 text-center text-md-left">
+    <?php if ($this->is('author')):?>
     <div class="card user-container">
-        <?php if ($this->is('author')):?>
         <div class="mycicle-title"><h2><?php _e($this->getArchiveTitle()) ?></h2></div>
         <div class="iwNods">
             <div class="daMYau">
@@ -17,16 +17,22 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                     ?> </span>
             </div>
         </div>
-        <?php elseif ($this->is('category')):?>
+    </div>
+
+    <?php elseif ($this->is('category')):?>
+        <div class="card user-container">
+
             <div class="mycicle-title"><h2><?php _e($this->getArchiveTitle()) ?></h2></div>
             <div class="iwNods">
                 <div class="daMYau">
-                <span><?php _e(parseDesc2text($this->getDescription()));?>
+                <span><?php _e(parseDesc2text($this->getDescription())); ?>
                 </span>
                 </div>
             </div>
-        <?php endif?>
-    </div>
+        </div>
+    <?php elseif ($this->is('search')):?>
+
+    <?php endif?>
 
     <div class="card d-none d-md-block mycicle">
         <div class="mycicle-title"><h2>我的圈子</h2></div>

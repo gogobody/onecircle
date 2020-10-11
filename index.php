@@ -11,6 +11,8 @@
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 $this->need('includes/header.php');
 ?>
+
+
     <div class="container" id="pjax-container">
         <div class="row">
             <?php $this->need('includes/nav.php'); ?>
@@ -19,13 +21,13 @@ $this->need('includes/header.php');
                     <?php Typecho_Widget::widget('Widget_Security')->to($security); ?>
                     <div class="post share-post"> <!--按个人CSS的更改-->
                         <!--                    --><?php //$this->options->siteUrl(); ?><!--action/contents-post-edit-->
-                        <form id="input-form" class="post-form"
-                              action="<?php $security->index('/action/contents-post-edit?do=publish'); ?>" method="post"
+                        <form id="input-form" class="post-form" action="<?php $security->index('/action/contents-post-edit?do=publish'); ?>" method="post"
                               name="write_post" target="nm_iframe"> <!--target="nm_iframe"-->
                             <!--以发布时间作标题，把这里的hidden改成text就能自定义标题了-->
                             <div class="textarea">
-                                <label for="text"></label><textarea name="text" rows="4" id="text" autocomplete="off"
-                                                                    placeholder="分享你的想法..."></textarea>
+                                <label for="text"></label>
+                                <textarea rows="4" id="text" autocomplete="off" placeholder="分享你的想法..."></textarea>
+                                <input type="hidden" name="text"  id="realtext" autocomplete="off" placeholder="分享你的想法...">
 
                                 <div class="sc-AxjAm sc-AxirZ fbjukw">
 
@@ -37,7 +39,7 @@ $this->need('includes/header.php');
                                                     src="<? echo Helper::options()->themeUrl . '/assets/img/link.png' ?>"
                                                     class="bLGCpY">
                                             <div class="sc-AxjAm kKrDdN hHnMup">
-                                                百度一下，你就知道
+
                                             </div>
                                         </div>
                                         <div class="sc-AxjAm sc-AxirZ ezTcmd">
@@ -50,23 +52,6 @@ $this->need('includes/header.php');
                                     </div>
                                 </a>
 
-<!--                                <div>-->
-<!--                                    <div class="kmbcyV">-->
-<!--                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"-->
-<!--                                             xmlns="http://www.w3.org/2000/svg"-->
-<!--                                             class="TopicSearchInput___StyledSvgTopic2-sc-18mwgg9-3 jWruzX">-->
-<!--                                            <circle cx="10" cy="10" r="10" fill="#03A9F5"></circle>-->
-<!--                                            <circle cx="10" cy="10" r="5" fill="#A0E3FE"></circle>-->
-<!--                                        </svg>-->
-<!--                                        <div class="sc-AxjAm jbEtHF">未选择圈子</div>-->
-<!--                                        <div class="sc-AxjAm sc-AxirZ Icon-nxu6ip-0 kRBqga">-->
-<!--                                            <svg viewBox="0 0 16 17" fill="#404040">-->
-<!--                                                <path d="M9.904 8.608l-6.01 6.233a1.043 1.043 0 101.503 1.448l6.708-6.956c.39-.404.39-1.045 0-1.449L5.397.928a1.043 1.043 0 10-1.502 1.448l6.01 6.232z"></path>-->
-<!--                                            </svg>-->
-<!--                                        </div>-->
-<!---->
-<!--                                    </div>-->
-<!--                                </div>-->
                                 <div>
                                     <div role="combobox" aria-haspopup="listbox" aria-owns="topic-search-downshift-menu"
                                          aria-expanded="true" class="sc-AxjAm sc-AxirZ kWzaA-d"
@@ -119,7 +104,7 @@ $this->need('includes/header.php');
                                 </div>
                                 <div class="ezTcmd">
                                     <input type="button" class="pub eynkqj" value="发送" id="postForm"
-                                           onclick="submitForm()"/>
+                                           onclick="submitForm(this)"/>
                                 </div>
                             </div>
 
@@ -128,11 +113,11 @@ $this->need('includes/header.php');
                         <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
                     </div>
                     <div class="addpic sc-AxjAm sc-AxirZ XCHRv">
-                            <input type="text" placeholder="请输入图片链接" class="sc-AxjAm bwpEWU gsmhQy" value="">
+                        <input type="text" placeholder="请输入图片链接" class="sc-AxjAm bwpEWU gsmhQy" value="">
                         <button disabled class="sc-AxjAm eVNRGW">添加</button>
                     </div>
                     <div class="addlink sc-AxjAm sc-AxirZ XCHRv">
-                            <input type="text" placeholder="请输入链接" class="sc-AxjAm bwpEWU gsmhQy" value="">
+                        <input type="text" placeholder="请输入链接" class="sc-AxjAm bwpEWU gsmhQy" value="">
                         <button disabled class="sc-AxjAm eVNRGW">添加</button>
                     </div>
                     <div class="newmsg"></div>
@@ -295,7 +280,7 @@ $this->need('includes/header.php');
                                                 </button>
                                             </div>
                                             <div class="p-2">
-                                                <button class="button post-action btn-like"
+                                                <button class="button post-action btn-like" data-link="<?php _e($this->permalink())?>"
                                                         data-cid="<?php $this->cid(); ?>">
                                         <span style="display: flex;align-items: center;">
                                             <svg width="20" height="20" viewBox="0 0 16 16"
@@ -372,7 +357,7 @@ if($obj->have()){
 <script type="text/javascript">
     allCategories = <?php echo json_encode($arr);?>;
 </script>
-</body>
+
 <?php $this->need('includes/footer.php'); ?>
 
 
