@@ -1394,23 +1394,19 @@ achieve
 
 .bHdldX {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    min-width: 35px;
     background-color: rgba(3, 169, 245, 0.6);
 }
 
 .hXeItE {
     box-sizing: border-box;
     margin: 0px;
-    min-width: 0px;
     background-color: rgba(191, 191, 191, 0.6);
 }
 
 .hzfjJS {
     box-sizing: border-box;
     margin: 0px 4px 0px 0px;
-    min-width: 0px;
-    max-width: 100%;
     width: 16px;
     height: 16px;
 }
@@ -1517,18 +1513,6 @@ achieve
     }
 }
 
-@media screen and (min-width: 600px) {
-    .header-top-bottom-avatar {
-        width: 96px;
-        height: 96px;
-    }
-}
-
-@media screen and (min-width: 600px) {
-    .header-top-bottom-avatar {
-        top: -40px;
-    }
-}
 
 .header-top-bottom-avatar img {
     box-sizing: border-box;
@@ -1668,8 +1652,8 @@ achieve
     border-radius: 12px;
     display: flex;
     flex-direction: row;
-    padding: 0px 64px;
     background-color: rgb(255, 255, 255);
+    justify-content: space-around;
 }
 
 .react-tabs__tab--selected {
@@ -1691,6 +1675,8 @@ achieve
     user-select: none;
     padding: 12px;
     color: rgb(115, 115, 115);
+    word-break: keep-all;
+    white-space: nowrap;
 }
 
 .react-tabs__tab:not(:first-child) {
@@ -2785,3 +2771,34 @@ owo
     --animate-delay: 0.9s;
 }
 
+/**
+mobile fix
+ */
+@media screen and (min-width: 600px) {
+    .header-top-bottom-avatar {
+        width: 96px;
+        height: 96px;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .header-top-bottom-avatar {
+        top: -40px;
+    }
+
+}
+@media screen and (max-width: 720px) {
+    .biCwrr {
+        padding-left: 64px;
+        padding-right: 64px;
+        padding-top: 10px;
+        display: flex;
+        z-index: 1;
+    }
+    .col-12.col-md-4.text-center.text-md-left{
+        display: none;
+    }
+    .achieve-content .outer{
+        padding: 0;
+    }
+}

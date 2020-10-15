@@ -137,12 +137,18 @@ class utils
         echo '<script src="';
         Helper::options()->themeUrl('/assets/js/all.min.js');
         echo '"></script>';
+
+
         echo '<script src="';
-        Helper::options()->themeUrl('/assets/owo/owo_02.js');
+        Helper::options()->themeUrl('/assets/js/editor.min.js');
         echo '"></script>';
 
         echo '<script src="';
-        Helper::options()->themeUrl('/assets/js/editor.js');
+        Helper::options()->themeUrl('/assets/js/page.min.js');
+        echo '"></script>';
+
+        echo '<script src="';
+        Helper::options()->themeUrl('/assets/owo/owo_02.js');
         echo '"></script>';
 
         echo '<link rel="stylesheet" href="';

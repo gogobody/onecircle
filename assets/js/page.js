@@ -1,13 +1,12 @@
-const owoInit = function () {
-    let pres = document.querySelectorAll('pre');
-    let lineNumberClassName = 'line-numbers';
+var owoInit = function () {
+    var pres = document.querySelectorAll('pre');
+    var lineNumberClassName = 'line-numbers';
     pres.forEach(function (item, index) {
         item.className = item.className === '' ? lineNumberClassName : item.className + ' ' + lineNumberClassName;
     });
-
-    let owo_ = $(".OwO")
+    var owo_ = $(".OwO")
     if(owo_.length > 0){
-        let apiUrl = owo_.data("owo")
+        var apiUrl = owo_.data("owo")
         new OwO({
             logo: 'OωO',
             container: document.getElementsByClassName('OwO')[0],
@@ -19,15 +18,15 @@ const owoInit = function () {
         });
     }
 
-    let catalog_btn = document.getElementById('article-list-btn');
+    var catalog_btn = document.getElementById('article-list-btn');
     if (catalog_btn) {
         catalog_btn.addEventListener('click',function () {
             //生成文章目录
-            let index = 0;
-            let depth = 0;
-            let tocTreeHtml = '';
-            let tocTreeObj = document.getElementById('tocTree')
-            let postContentObj = document.getElementsByTagName('article')[0].querySelector('.article-content');
+            var index = 0;
+            var depth = 0;
+            var tocTreeHtml = '';
+            var tocTreeObj = document.getElementById('tocTree')
+            var postContentObj = document.getElementsByTagName('article')[0].querySelector('.article-content');
             postContentObj.innerHTML = postContentObj.innerHTML.replace(/<h([1-6])(.*?)>(.*?)<\/h\1>/ig, function (match, num, attrs, html) {
                 index++;
 
@@ -58,7 +57,7 @@ const owoInit = function () {
             });
     }
     $('.protected-btn').click(function() {
-        let surl=$(".protected").attr("action");
+        var surl=$(".protected").attr("action");
         $.ajax({
             type: "POST",
             url:surl,
@@ -76,10 +75,10 @@ const owoInit = function () {
             }
         });
     });
-    let holder = $('.comment-respond textarea').attr('placeholder');
+    var holder = $('.comment-respond textarea').attr('placeholder');
 // 私密
     $('#secret-button').click(function () {
-        let textareaDom = $('.comment-respond textarea');
+        var textareaDom = $('.comment-respond textarea');
         if($(this).is(':checked')) {
             textareaDom.attr('placeholder', '私密回复中')
         }else {

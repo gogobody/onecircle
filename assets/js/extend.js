@@ -17,7 +17,7 @@ $(function () {
                 }
             };
             "string" == typeof a && (b.message = a), "object" == typeof a && (b = $.extend({}, b, a));
-            let c, d, e, f = b.showClose ? '<div class="c-message--close">×</div>' : "",
+            var c, d, e, f = b.showClose ? '<div class="c-message--close">×</div>' : "",
                 g = "" !== b.title ? '<h2 class="c-message__title">' + b.title + "</h2>" : "",
                 h = '<div class="c-message animated animate__slideInRight"><i class=" c-message--icon c-message--' + b.type + '"></i><div class="el-notification__group">' + g + '<div class="el-notification__content">' + b.message + "</div>" + f + "</div></div>",
                 i = $("body"), j = $(h);
@@ -48,12 +48,13 @@ $(function () {
 })
 
 
-const indexInput = {
+var indexInput = {
     init: function () {
         this.addPic = $(".addpic")
         this.addLink = $(".addlink")
         this.addPicBtn = $("#addpic")
         this.addLinkBtn = $("#addlink")
+        this.uploadPic = $(".upload-pic")
         this.picParent = $(".sc-AxjAm.sc-AxirZ.fbjukw")
         this.additionArray = [] // for addPic and addLink
         this.nowtype = 'default' // for addPic and addLink, 'default,link'
@@ -66,7 +67,7 @@ const indexInput = {
         this.searchEventInit()
     },
     changeType: function (type) {
-        let that = this
+        var that = this
         if (type === 'default') {
             if (that.nowtype !== 'default') {
                 that.nowtype = 'default'
@@ -83,24 +84,27 @@ const indexInput = {
     },
     indexEventInit: function () {
         // init input
-        let that = this
-        $("#addpic").click(function () {
+        var that = this
+        $("#addpic").unbind('click').bind('click',function () {
             that.changeType('default')
             if (that.addPic.css("display") === "none") {
                 that.addPic.css("display", "flex")
+                that.uploadPic.css("display", "flex")
                 that.addLink.css("display", "none")
 
             } else {
                 that.addPic.css("display", "none")
+                that.uploadPic.css("display", "none")
+
             }
         })
 
-        $(".addpic button").click(function () {
+        $(".addpic button").unbind('click').bind('click',function () {
             $(this).html("解析中")
-            let addPicInput = $(".addpic input")
-            let val = addPicInput.val()
+            var addPicInput = $(".addpic input")
+            var val = addPicInput.val()
             if (checkURL(val)) {
-                let node = '' +
+                var node = '' +
                     '<div class="sc-AxjAm sc-AxirZ ciIrlj">\n' +
                     '<div class="eHTuZC" style="background-image: url(' + val + ');">\n' +
                     '<div class="cPHQWG">\n' +
@@ -116,7 +120,7 @@ const indexInput = {
                 addPicInput.val('')
                 // pic close btn click function
                 $(".cPHQWG").click(function () {
-                    let imgUrl = $(this).parent().css("backgroundImage").replace('url(', '').replace(')', '')
+                    var imgUrl = $(this).parent().css("backgroundImage").replace('url(', '').replace(')', '')
                     that.additionArray.splice($.inArray(imgUrl, that.additionArray), 1);
                     $(this).parent().parent().remove()
                     if (that.additionArray.length === 0) {
@@ -137,11 +141,12 @@ const indexInput = {
 
 
         // process add link
-        $("#addlink").click(function () {
+        $("#addlink").unbind('click').bind('click',function () {
             that.changeType('link')
 
             if (that.addLink.css("display") === "none") {
                 that.addPic.css("display", "none")
+                that.uploadPic.css("display", "none")
                 that.addLink.css("display", "flex")
             } else {
                 that.addLink.css("display", "none")
@@ -149,15 +154,15 @@ const indexInput = {
         })
         $(".addlink button").click(function () {
             $(this).text("解析中")
-            let val = $(".addlink input").val()
-            let innerThat = this
+            var val = $(".addlink input").val()
+            var innerThat = this
             if (checkURL(val)) {
                 $.post("/oneaction", {
                     type: "parsemeta",
                     url: val
                 }, function (res) {
                     if (res) {
-                        let inTextareaBlk = $(".sc-AxjAm.kgcKxQ")
+                        var inTextareaBlk = $(".sc-AxjAm.kgcKxQ")
                         inTextareaBlk.css("display", "block")
                         inTextareaBlk.attr("href", val)
                         $(".sc-AxjAm.kgcKxQ .hHnMup").html(res)
@@ -188,7 +193,7 @@ const indexInput = {
         })
         // process input
         $("#text").bind('input propertychange', function () {
-            let btn = $(".pub.eynkqj")
+            var btn = $(".pub.eynkqj")
             if ($(this).val()) {
                 btn.removeAttr("disabled")
             } else {
@@ -197,7 +202,7 @@ const indexInput = {
             }
         })
         $(".sc-AxjAm.bwpEWU.gsmhQy").bind('input propertychange', function () {
-            let btn = $(".sc-AxjAm.eVNRGW")
+            var btn = $(".sc-AxjAm.eVNRGW")
             if ($(this).val()) {
                 btn.removeAttr("disabled")
             } else {
@@ -206,14 +211,14 @@ const indexInput = {
         })
 
         // search blk
-        let topicSearchBlk = $("#topic-search-downshift-input")
+        var topicSearchBlk = $("#topic-search-downshift-input")
         topicSearchBlk.autoComplete({
             minChars: 0,
             source: function (term, suggest) {
                 term = term.toLowerCase();
-                let choices = allCategories; // from index.php
-                let matches = [];
-                for (let i = 0; i < choices.length; i++)
+                var choices = allCategories; // from index.php
+                var matches = [];
+                for (var i = 0; i < choices.length; i++)
                     if (~choices[i][0].toLowerCase().indexOf(term)) matches.push(choices[i]);
                 if (matches.length === 0) {
                     matches.push(["未搜索到结果", -1, "", ""])
@@ -222,8 +227,10 @@ const indexInput = {
             },
             renderItem: function (item, search) {
                 // search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-                // let re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
-                let tmpArr = new Array(...[item[0], item[1]])
+                // var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+                var tmpArr = new Array()
+                tmpArr[0] = item[0]
+                tmpArr[1] = item[1]
                 if (item[1] === -1) {
                     return '<div class="autocomplete-suggestion" data-val="' + JSON.stringify(tmpArr).replace(/"/g, "'") + '" disabled>' +
                         '<div class="sc-AxjAm oDrAC" disabled>' + item[0] + "</div>" + '</div>';
@@ -233,9 +240,9 @@ const indexInput = {
             },
             onSelect: function (e, term, item) {
                 term = term.replace(/'/g, "\"")
-                let info = JSON.parse(term)
-                let mid = info[1]
-                let category = $("#category")
+                var info = JSON.parse(term)
+                var mid = info[1]
+                var category = $("#category")
                 if (mid === -1) { // not found topic
                     $("#topic-search-downshift-input").val('')
                     category.val(1)
@@ -259,7 +266,7 @@ const indexInput = {
                     cache: false,
                     //  请求成功的函数
                     success: function (data) {
-                        let re = /\d/;  //  匹配数字的正则表达式
+                        var re = /\d/;  //  匹配数字的正则表达式
                         //  匹配数字
                         if (re.test(data)) {
                             //  把点赞按钮中的点赞数量设置为传回的点赞数量
@@ -282,23 +289,24 @@ const indexInput = {
     },
     searchEventInit: function () {
         // search blk
-        let searchBtn = $('.search-block-icon')
-        let searchBlk = $('#search-block')
-        searchBtn.click(function () {
+        var searchBtn = $('.search-block-icon')
+        var searchBlk = $('#search-block')
+        searchBtn.unbind('click').bind('click',function () {
+            console.log(searchBlk.css('display'))
             if (searchBlk.css('display') === 'none') {
                 searchBlk.slideDown()
             } else {
                 $('.search-block').slideUp()
             }
         })
-        $('.close').on('click', function () {
+        $('.close').unbind('click').bind('click', function () {
             $('.search-block').slideUp()
         })
     },
     login_ajax: function () {
-        let loginSubmitForm = $("#login-submit")
-        let navLoginUser = $("#navbar-login-user")
-        let navLoginPsw = $("#navbar-login-password")
+        var loginSubmitForm = $("#login-submit")
+        var navLoginUser = $("#navbar-login-user")
+        var navLoginPsw = $("#navbar-login-password")
 
         function a() {
             loginSubmitForm.attr("disabled", !1).fadeTo("", 1)
@@ -307,7 +315,7 @@ const indexInput = {
         $("#Login_form").submit(function () {
             if ($(this).hasClass("banLogin")) return location.reload(), !1;
             loginSubmitForm.attr("disabled", !0).fadeTo("slow", .5);
-            const b = navLoginUser.val(), c = navLoginPsw.val();
+            var b = navLoginUser.val(), c = navLoginPsw.val();
             return "" === b ? ($.message({
                 title: "登录通知",
                 message: "必须填写用户名",
@@ -358,7 +366,7 @@ const indexInput = {
         })
     },
     loginBan: function() {
-        let loginform = $("#Login_form")
+        var loginform = $("#Login_form")
         loginform.hasClass("banLogin") || (loginform.addClass("banLogin"),
             $("#navbar-login-user").attr("disabled", "disabled"),
             $("#navbar-login-password").attr("disabled", "disabled"))
@@ -368,7 +376,7 @@ const indexInput = {
         this.loginBan()
     }
 };
-const archiveInit = {
+var archiveInit = {
     init:function (){
         this.funcInit()
     },
@@ -377,13 +385,13 @@ const archiveInit = {
         this.commentInit()
     },
     archiveEventInit: function () {
-        let that = this
+        var that = this
         // 关注 event
-        let fanBtn = $(".fan-event")
+        var fanBtn = $(".fan-event")
         fanBtn.click(function (e) {
             if (userId > 0) {
-                let status
-                let authorid = parseInt($(this).data("authorid"))
+                var status
+                var authorid = parseInt($(this).data("authorid"))
                 if ($.trim($(this).text()) === "关注") {
                     status = "follow"
                 } else {
@@ -397,7 +405,7 @@ const archiveInit = {
                     })
                 }
                 $(this).attr("disabled", true);
-                let btnThis = this
+                var btnThis = this
                 $.post('/', {
                     follow: status,
                     uid: userId,
@@ -432,7 +440,7 @@ const archiveInit = {
         // archive tabs
         $(".react-tabs__tab-list").children().each(function (index, val) {
             $(val).click(function (e) {
-                let tabindex = $(val).data("tabindex")
+                var tabindex = $(val).data("tabindex")
                 window.location.search = '?tabindex=' + tabindex
             })
         })
@@ -452,7 +460,7 @@ const archiveInit = {
                 cache: false,
                 //  请求成功的函数
                 success: function (data) {
-                    let re = /\d/;  //  匹配数字的正则表达式
+                    var re = /\d/;  //  匹配数字的正则表达式
                     //  匹配数字
                     if (re.test(data)) {
                         //  把点赞按钮中的点赞数量设置为传回的点赞数量
@@ -467,8 +475,8 @@ const archiveInit = {
         });
     },
     commentInit: function () {
-        let $body = $('html,body');
-        let g = '.comment-list'
+        var $body = $('html,body');
+        var g = '.comment-list'
             , h = '.comment-num'
             , i = '.comment-reply a'
             , j = '#textarea'
@@ -510,7 +518,7 @@ const archiveInit = {
                             $(g).prepend(d)
                         }
                         $('#comment-' + k).fadeIn();
-                        let f;
+                        var f;
                         $(h).length ? (f = parseInt($(h).text().match(/\d+/)),
                             $(h).html($(h).html().replace(f, f + 1))) : 0;
                         TypechoComment.cancelReply();
@@ -549,9 +557,9 @@ $(function () {
     archiveInit.init()
 
     // 根据时间
-    let timeNow = new Date();
+    var timeNow = new Date();
 // 获取当前小时
-    let hours = timeNow.getHours();
+    var hours = timeNow.getHours();
     // if (hours > 6 && hours < 19) {
     //     $('body').removeClass('theme-dark')
     // } else {
@@ -563,20 +571,20 @@ $(function () {
 function submitForm(ele) {
     // jquery 表单提交
     // add title
-    let i = $(ele)
+    var i = $(ele)
     i.val("发送中...")
-    let title = $("#post-title")
-    // let inputForm = $("#input-form")
+    var title = $("#post-title")
+    // var inputForm = $("#input-form")
     // add pic and links
-    let textarea = $("#text")
-    // let realtext = $("#realtext")
+    var textarea = $("#text")
+    // var realtext = $("#realtext")
 
-    let val = textarea.val()
-    let myDate = new Date;
-    let year = myDate.getFullYear(); //获取当前年
-    let mon = myDate.getMonth() + 1; //获取当前月
-    let date = myDate.getDate(); //获取当前日
-    let datetime = year+"/"+mon+"/"+date
+    var val = textarea.val()
+    var myDate = new Date;
+    var year = myDate.getFullYear(); //获取当前年
+    var mon = myDate.getMonth() + 1; //获取当前月
+    var date = myDate.getDate(); //获取当前日
+    var datetime = year+"/"+mon+"/"+date
 
 
     if (indexInput.nowtype === 'default'){
@@ -613,7 +621,7 @@ function submitForm(ele) {
         }
     }
     // realtext.val(val)
-    const len = val.length;
+    var len = val.length;
     if (len === 0 || val === '') {
         $.message({
             title:"提示",
@@ -623,7 +631,7 @@ function submitForm(ele) {
         i.val("发送")
         return false
     }
-    let data = {
+    var data = {
         title: title.val(),
         text: val,
         'fields[articleType]': indexInput.nowtype,
@@ -682,16 +690,16 @@ function submitForm(ele) {
 }
 
 function checkURL(URL) {
-    const str = URL;
-    const Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
-    const objExp = new RegExp(Expression);
+    var str = URL;
+    var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+    var objExp = new RegExp(Expression);
     return objExp.test(str) === true;
 }
 
 // comment
 $(function () {
     $(window).scroll(function () {
-        let scroHei = $(window).scrollTop();
+        var scroHei = $(window).scrollTop();
         if (scroHei > 400) {
             // $('.back-to-top').show()
 

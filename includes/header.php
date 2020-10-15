@@ -10,10 +10,10 @@
     <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
     <!-- 文章 CSS -->
-    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/post.css'); ?>">
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/post.min.css'); ?>">
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/owo/owo.min.css'); ?>">
 
-    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/main.css'); ?>">
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/main.min.css'); ?>">
 
     <link crossorigin="anonymous" integrity="sha384-Q8BgkilbsFGYNNiDqJm69hvDS7NCJWOodvfK/cwTyQD4VQA0qKzuPpvqNER1UC0F"
           href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet">

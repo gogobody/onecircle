@@ -23,7 +23,7 @@
 <?php //endif; ?>
 <script src="<?php $this->options->themeUrl('assets/js/prism.js'); ?>"></script>
 <script src="<?php $this->options->themeUrl('/assets/owo/owo_02.js'); ?>"></script>
-<script src="<?php $this->options->themeUrl('assets/js/page.js'); ?>"></script>
+<script src="<?php $this->options->themeUrl('assets/js/page.min.js'); ?>"></script>
 <script crossorigin="anonymous" integrity="sha384-Zm+UU4tdcfAm29vg+MTbfu//q5B/lInMbMCr4T8c9rQFyOv6PlfQYpB5wItcXWe7" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
 <?php
@@ -34,7 +34,7 @@
 ?>
 <script>userId=<?echo $userId?></script>
 
-<script src="<?php $this->options->themeUrl('assets/js/extend.js'); ?>"></script>
+<script src="<?php $this->options->themeUrl('assets/js/extend.min.js'); ?>"></script>
 <?php if ($this->options->jsPushBaidu):?>
     <script src="<?php $this->options->themeUrl('assets/js/push.js'); ?>"></script>
 <?php endif;?>
@@ -58,6 +58,11 @@
             archiveInit.init()
             owoInit();
             NProgress.done();
+            if (typeof smms_node!="undefined" && typeof smms!="undefined"){
+                smms_node.init()
+                smms.init()
+            }
+
             //if ($('.OwO').length > 0) {
             //    if (typeof OwO !== 'undefined') DUOSHUO.EmbedThread('.ds-thread'); else $.getScript(<?php //$this->options->themeUrl('assets/js/prism.js'); ?>//);
             //}
