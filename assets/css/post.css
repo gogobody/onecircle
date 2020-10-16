@@ -7,6 +7,7 @@
     box-sizing: border-box;
     min-width: 0px;
     background-color: rgb(255, 255, 255);
+    align-self: baseline;
     /*align-items: flex-start;*/
     /*flex-direction: column;*/
     /*display: flex;*/
@@ -289,49 +290,66 @@ b站视频
     }
 }
 
-[data-fancybox=gallery] {
-    box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    width: 100%;
-    gap: 4px;
-}
+/*[data-fancybox=gallery] {*/
+/*    box-sizing: border-box;*/
+/*    margin: 0px;*/
+/*    min-width: 0px;*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: space-between;*/
+/*    flex-wrap: wrap;*/
+/*    width: 100%;*/
+/*    gap: 4px;*/
+/*}*/
 
 [data-fancybox=gallery] img {
-    display: flex;
+    height: 100%;
+    /*display: flex;*/
+    /*border-radius: 10px;*/
+    /*max-height: 320px;*/
+    /*object-fit: cover;*/
+    /*background-size: cover;*/
+    /*margin: 0px;*/
+    /*overflow: hidden;*/
+    /*transition: all 0.2s ease 0s;*/
+}
+/*[data-fancybox=gallery] img:hover {*/
+/*    opacity: 0.8;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*[data-fancybox=gallery] img:nth-last-child(1):first-child {*/
+/*    box-sizing: border-box;*/
+/*    margin: 0px;*/
+/*    width: auto;*/
+/*}*/
+/*[data-fancybox=gallery] img:nth-last-child(2):first-child,*/
+/*[data-fancybox=gallery] img:nth-last-child(2):first-child ~ img {*/
+/*    width: 45%;*/
+/*}*/
+/*[data-fancybox=gallery] img:nth-last-child(3):first-child,*/
+/*[data-fancybox=gallery] img:nth-last-child(3):first-child ~ img {*/
+/*    width: 33%;*/
+/*}*/
+/*[data-fancybox=gallery] img:nth-last-child(4):first-child,*/
+/*[data-fancybox=gallery] img:nth-last-child(4):first-child ~ img {*/
+/*    max-width: 45%;*/
+/*}*/
+.fancybox-single-img{
+    display: block;
+}
+.fancybox-single-img img{
+    box-sizing: border-box;
+    margin: 0;
+    width: auto!important;
+    height: fit-content;
     border-radius: 10px;
     max-height: 320px;
     object-fit: cover;
     background-size: cover;
-    margin: 0px;
     overflow: hidden;
-    transition: all 0.2s ease 0s;
-}
-[data-fancybox=gallery] img:hover {
-    opacity: 0.8;
-    cursor: pointer;
-}
-
-[data-fancybox=gallery] img:nth-last-child(1):first-child {
-    box-sizing: border-box;
-    margin: 0px;
-    width: auto;
-}
-[data-fancybox=gallery] img:nth-last-child(2):first-child,
-[data-fancybox=gallery] img:nth-last-child(2):first-child ~ img {
-    width: 45%;
-}
-[data-fancybox=gallery] img:nth-last-child(3):first-child,
-[data-fancybox=gallery] img:nth-last-child(3):first-child ~ img {
-    width: 33%;
-}
-[data-fancybox=gallery] img:nth-last-child(4):first-child,
-[data-fancybox=gallery] img:nth-last-child(4):first-child ~ img {
-    max-width: 45%;
+    transition: all .2s ease 0s;
+    max-width: 100%;
 }
 
 .article-content img {

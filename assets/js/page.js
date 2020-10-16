@@ -10,7 +10,7 @@ var owoInit = function () {
         new OwO({
             logo: 'OωO',
             container: document.getElementsByClassName('OwO')[0],
-            target: document.getElementsByClassName('owo-textarea')[0],
+            target: document.getElementsByClassName('owo-textarea')[0]||document.getElementById('text'),
             api: apiUrl,
             position: 'down',
             width: '400px',

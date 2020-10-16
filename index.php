@@ -16,7 +16,7 @@ $this->need('includes/header.php');
     <div class="container" id="pjax-container">
         <div class="row">
             <?php $this->need('includes/nav.php'); ?>
-            <div class="col-xl-7 col-md-6 col-12">
+            <div class="col-xl-7 col-md-6 col-12 main-content">
                 <?php if ($this->user->hasLogin()): //判断是否登录 ?>
                     <?php Typecho_Widget::widget('Widget_Security')->to($security); ?>
                     <div class="post share-post"> <!--按个人CSS的更改-->
@@ -122,7 +122,7 @@ $this->need('includes/header.php');
                         <button disabled class="sc-AxjAm eVNRGW">添加</button>
                     </div>
                     <div class="row XCHRv upload-pic">
-                        <div id="zz-img-show"></div><div class="zz-add-img "><input id="zz-img-file" type="file" accept="image/*" multiple="multiple"><button id="zz-img-add" type="button"><span class="chevereto-pup-button-icon"><svg class="chevereto-pup-button-icon" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M76.7 87.5c12.8 0 23.3-13.3 23.3-29.4 0-13.6-5.2-25.7-15.4-27.5 0 0-3.5-0.7-5.6 1.7 0 0 0.6 9.4-2.9 12.6 0 0 8.7-32.4-23.7-32.4 -29.3 0-22.5 34.5-22.5 34.5 -5-6.4-0.6-19.6-0.6-19.6 -2.5-2.6-6.1-2.5-6.1-2.5C10.9 25 0 39.1 0 54.6c0 15.5 9.3 32.7 29.3 32.7 2 0 6.4 0 11.7 0V68.5h-13l22-22 22 22H59v18.8C68.6 87.4 76.7 87.5 76.7 87.5z" style="fill: currentcolor;"></path></svg></span><span class="chevereto-pup-button-text">上传图片</span></button></div>
+                        <div id="zz-img-show"></div><div class="zz-add-img "><input id="zz-img-file" type="file" accept="image/*" multiple="multiple"><button id="zz-img-add" type="button"><span class="chevereto-pup-button-icon"><svg class="chevereto-pup-button-icon" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M76.7 87.5c12.8 0 23.3-13.3 23.3-29.4 0-13.6-5.2-25.7-15.4-27.5 0 0-3.5-0.7-5.6 1.7 0 0 0.6 9.4-2.9 12.6 0 0 8.7-32.4-23.7-32.4 -29.3 0-22.5 34.5-22.5 34.5 -5-6.4-0.6-19.6-0.6-19.6 -2.5-2.6-6.1-2.5-6.1-2.5C10.9 25 0 39.1 0 54.6c0 15.5 9.3 32.7 29.3 32.7 2 0 6.4 0 11.7 0V68.5h-13l22-22 22 22H59v18.8C68.6 87.4 76.7 87.5 76.7 87.5z" style="fill: currentcolor;"></path></svg></span><span class="chevereto-pup-button-text">上传</span></button></div>
                     </div>
                     <div class="newmsg"></div>
                 <?php endif; ?>
@@ -217,21 +217,7 @@ $this->need('includes/header.php');
                                             <?php else: ?>
                                                 <div class="post-cover col-xl-12">
                                                     <div class="post-cover-img-container">
-                                                        <?php
-                                                        $images = getPostImg($this);
-                                                        $length = count($images);
-                                                        if ($length > 0) {
-                                                            if ($length == 1) {
-                                                                echo "<div class='post-cover-inner'><img src='$images[0]' class='post-cover-img' alt='cover'></div>";
-                                                            } else {
-                                                                echo "<div class='post-cover-inner-more post-cover-inner-auto-rows-$length'>";
-                                                                for ($i = 0; $i < $length; $i++) {
-                                                                    echo "<div style='background-image:url($images[$i]);' class='post-cover-img-more' alt='cover'></div>";
-                                                                }
-                                                                echo "</div>";
-                                                            }
-                                                        }
-                                                        ?>
+                                                       <?php ehco9gridPics($this);?>
                                                     </div>
                                                 </div>
                                             <? endif; ?>
@@ -345,22 +331,7 @@ $this->need('includes/header.php');
             <?php $this->need('includes/right.php'); ?>
         </div>
     </div>
-<?php
-// get categories for index search
-$this->widget('Widget_Metas_Category_List')->to($obj);
-$arr = array();
-if($obj->have()){
-    while($obj->next()){
-        $tmp = array();
-        array_push($tmp,$obj->name,$obj->mid,parseDesc2img($obj->description),parseDesc2text($obj->description));
-        array_push($arr,$tmp);
-    }
-}
 
-?>
-<script type="text/javascript">
-    allCategories = <?php echo json_encode($arr);?>;
-</script>
 
 <?php $this->need('includes/footer.php'); ?>
 

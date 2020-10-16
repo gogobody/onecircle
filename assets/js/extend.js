@@ -292,7 +292,7 @@ var indexInput = {
         var searchBtn = $('.search-block-icon')
         var searchBlk = $('#search-block')
         searchBtn.unbind('click').bind('click',function () {
-            console.log(searchBlk.css('display'))
+            // console.log(searchBlk.css('display'))
             if (searchBlk.css('display') === 'none') {
                 searchBlk.slideDown()
             } else {
@@ -438,12 +438,56 @@ var archiveInit = {
             }
         })
         // archive tabs
-        $(".react-tabs__tab-list").children().each(function (index, val) {
-            $(val).click(function (e) {
-                var tabindex = $(val).data("tabindex")
-                window.location.search = '?tabindex=' + tabindex
+        var react_tabs = $(".react-tabs__tab-list")
+        if(react_tabs.length > 0 ){
+            var baseoffset = react_tabs.first().offset().left
+            var line =  $('.line')
+            var init_offset = $('.react-tabs__tab-list li').first().offset().left-baseoffset
+            line.css({
+                'transform': 'translateX(' + init_offset + 'px)'
             })
-        })
+            line.show()
+            react_tabs.children().each(function (index, val) {
+                $(val).click(function (e) {
+                    var tabindex = $(val).data("tabindex")
+                    $(this).addClass('react-tabs__tab--selected').siblings().removeClass('react-tabs__tab--selected');
+                    line.width($(val).width());
+                    var left = $(val).offset().left - baseoffset;
+                    line.css({
+                        'transform': 'translateX(' + left + 'px)'
+                    })
+                    $.ajax({
+                        url:'?tabindex=' + tabindex,
+                        method:'get',
+                        success:function (res){
+                            var html_node = $.parseHTML(res)
+                            try {
+                                var items = $(".item-container",html_node)
+                                if (items.length <= 0){
+                                    return $.message({
+                                        title: "通知",
+                                        message: "服务器返回错误，请重试",
+                                        type: "error"
+                                    })
+                                }else {
+                                    var real_html = items.html()
+                                    if ($(".pagination",html_node).length <= 0){
+                                        $(".pagination").css("display","none")
+                                    }else {
+                                        $(".pagination").css("display","flex")
+                                    }
+                                    $(".item-container").html(real_html)
+                                }
+                            }catch (e) {
+                                console.log(e)
+                            }
+                        }
+                    })
+                    // window.location.search = '?tabindex=' + tabindex
+                })
+            })
+        }
+
         // 文章点赞
         $('#agree-btn').on('click', function () {
             $(this).get(0).disabled = true;  //  禁用点赞按钮
@@ -483,16 +527,24 @@ var archiveInit = {
             , k = ''
             , l = '';
         c();
-        $('#comment-form').submit(function () {
+        var commentForm = $('#comment-form')
+        var commentBtn = $(".submit.btn.comment-submit")
+        commentBtn.unbind('click').bind('click',function (e) {
+            $(this).attr("disabled",true)
+            commentForm.submit()
+        })
+        commentForm.submit(function () {
             $.ajax({
                 url: $(this).attr('action'),
                 type: 'post',
                 data: $(this).serializeArray(),
                 error: function () {
                     alert("提交失败，请检查网络并重试或者联系管理员。");
+                    commentBtn.attr("disabled",false)
                     return false
                 },
                 success: function (d) {
+                    commentBtn.attr("disabled",false)
                     if (!$(g, d).length) {
                         alert("您输入的内容不符合规则或者回复太频繁，请修改内容或者稍等片刻。");
                         return false
@@ -594,6 +646,7 @@ function submitForm(ele) {
             title.val("图文小记事~"+datetime)
         }
         if (indexInput.additionArray.length > 0){
+            val = val + '\n'
             indexInput.additionArray.forEach(function (value){
                 val = val + "![](" + value +")"
             })
@@ -647,7 +700,7 @@ function submitForm(ele) {
         type:'getsecuritytoken'
     },function (res) {
         if (res!=='error'){
-            console.log(res)
+            // console.log(res)
             $.ajax({
                 url:'/action/contents-post-edit?do=publish&_='+res,
                 type:'post',

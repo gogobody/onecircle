@@ -127,6 +127,9 @@ class utils
         }
         echo $row['views'];
     }
+
+
+
     /**
      * 编辑界面添加Button
      *
@@ -134,6 +137,23 @@ class utils
      */
     public static function addButton()
     {
+        echo '<div class="pop_main" style="display:none;position:fixed;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-moz-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);-o-transform:translate(-50%,-50%);transform:translate(-50%,-50%);padding:10px;background-color:wheat;border-radius:10px">
+        <div class="pop_con">
+            <div class="pop_title">
+                <h3>插入图册</h3>
+                <a href="#" style="position:absolute;top:0;right:6px;padding:5px;font-size:22px;font-weight:bold;">×</a>
+            </div>
+            <div class="pop_detail">
+                <label>每行输入一个网址</label><textarea id="input-num" type="text" rows="3" cols="70" style="outline:0;border:1px solid #ccc;border-radius:3px;"></textarea>
+            </div>
+            <div class="pop_footer" style="margin: 12px 0">
+                <input type="button" value="取 消" class="cancel" style="float: left;margin-left: 10px;">
+                <input type="button" value="确 定" class="confirm" style="float:right;margin-right: 10px;">                 
+            </div>
+        </div>
+        <div class="mask"></div>
+    </div>';
+
         echo '<script src="';
         Helper::options()->themeUrl('/assets/js/all.min.js');
         echo '"></script>';

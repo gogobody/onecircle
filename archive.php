@@ -98,8 +98,9 @@
                         $tabIndex = $tArr['tabindex'];
                     }
                     ?>
-
                     <div class="react-tabs" data-tabs="true">
+                        <div class="line"></div>
+
                         <ul class="react-tabs__tab-list">
                             <li id="react-tabs-1" data-tabindex="0" class="react-tabs__tab <?if($tabIndex==0){_e("react-tabs__tab--selected");}?>">动态</li>
                             <?php if ($this->is('author')):?>
@@ -182,21 +183,7 @@
                                                                 <?php else: ?>
                                                                     <div class="post-cover col-xl-12">
                                                                         <div class="post-cover-img-container">
-                                                                            <?php
-                                                                            $images = getPostImg($this);
-                                                                            $length = count($images);
-                                                                            if ($length > 0) {
-                                                                                if ($length == 1) {
-                                                                                    echo "<div class='post-cover-inner'><img src='$images[0]' class='post-cover-img' alt='cover'></div>";
-                                                                                } else {
-                                                                                    echo "<div class='post-cover-inner-more post-cover-inner-auto-rows-$length'>";
-                                                                                    for ($i = 0; $i < $length; $i++) {
-                                                                                        echo "<div style='background-image:url($images[$i]);' class='post-cover-img-more' alt='cover'></div>";
-                                                                                    }
-                                                                                    echo "</div>";
-                                                                                }
-                                                                            }
-                                                                            ?>
+                                                                            <?php ehco9gridPics($this);?>
                                                                         </div>
                                                                     </div>
                                                                 <? endif; ?>
@@ -286,6 +273,7 @@
                                     <?php endwhile; ?>
                                 <?php elseif($tabIndex==1):?>
                                     <?php $fobj = DbFunc::getFollowObj($this->author->uid);?>
+                                    <?php if (count($fobj)>0):?>
                                     <?php for($i=0;$i<count($fobj);$i++): ?>
                                         <div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr">
                                             <a href="/author/<?php _e($fobj[$i]['uid'])?>"
@@ -314,9 +302,16 @@
                                             </div>
                                         </div>
                                     <?php endfor;?>
+                                    <?php else:?>
+                                        <article class="post-article">
+                                            <h6 class="post-title"><?php _e('还没关注别人'); ?></h6>
+                                        </article>
+                                    <?php endif ?>
                                 <?php elseif($tabIndex==2):?>
                                     <?php $fobj = DbFunc::getOtherFollowObj($this->author->uid);?>
-                                    <?php for($i=0;$i<count($fobj);$i++): ?>
+                                    <?php if (count($fobj)>0):?>
+
+                                        <?php for ($i = 0; $i < count($fobj); $i++): ?>
                                         <div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr">
                                             <a href="/author/<?php _e($fobj[$i]['uid'])?>"
                                                class="sc-AxjAm sc-AxirZ eGdPrb"><img
@@ -343,10 +338,15 @@
                                             </div>
                                         </div>
                                     <?php endfor;?>
+                                    <?php else:?>
+                                    <article class="post-article">
+                                        <h6 class="post-title"><?php _e('还没有人关注你哦'); ?></h6>
+                                    </article>
+                                    <?php endif ?>
                                 <?php elseif($tabIndex==3):?>
                                 <?php else: ?>
                                     <article class="post-article">
-                                        <h5 class="post-title"><?php _e('还没有发布内容'); ?></h5>
+                                        <h6 class="post-title"><?php _e('还没有发布内容'); ?></h6>
                                     </article>
                                 <?php endif; ?>
                             </div>

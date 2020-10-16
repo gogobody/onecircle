@@ -127,10 +127,23 @@ class contents{
     }
     public static function fancybox($text)
     {
-        $reg = '#<img(.*?)src="(.*?)"(.*)>#sm';
-        if (preg_match($reg, $text)) {
-            return preg_replace($reg, '<a data-fancybox="gallery" href="$2"><img$1 src="$2"$3></a>', $text);
+        $pattern =  '/<p>(\s|[\r\n])*(<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>)(\s|[\r\n])*<\/p>/i';
+        $pattern_img =  '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';
+        preg_match_all($pattern, $text, $match);
+        if (!empty($match[2][0])){ // so its a gallery and $0 is <p> $1 = \t\r $2=<img>...</img> $3 ...
+            $imgs_str = $match[2][0];
+
+            preg_match_all($pattern_img, $imgs_str, $imgs);
+            $img_count = count($imgs[0]) > 9 ? 9:count($imgs[0]) ;
+
+            $imgs_str = preg_replace($pattern_img, '<a class="post-cover-img-more" data-fancybox="gallery" href="$1"><img class="post-cover-img-more" style="background-image: url('."$1".')" ></a>', $imgs_str);
+            return preg_replace($pattern, '<div class="post-cover-img-container"><div class="post-cover-inner-more post-cover-inner-auto-rows-'.$img_count.'">'.$imgs_str.'</div></div>', $text);
+        }else {
+            if (preg_match($pattern_img, $text)) {
+                return preg_replace($pattern_img, '<a class="fancybox-single-img" data-fancybox="gallery" href="$2">$0</a>', $text);
+            }
         }
+
         return $text;
     }
     public static function biliVideo($text)

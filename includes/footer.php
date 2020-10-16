@@ -1,5 +1,22 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
 
+<?php
+// get categories for index search
+if ($this->is('index')){
+    $this->widget('Widget_Metas_Category_List')->to($obj);
+    $arr = array();
+    if($obj->have()){
+        while($obj->next()){
+            $tmp = array();
+            array_push($tmp,$obj->name,$obj->mid,parseDesc2img($obj->description),parseDesc2text($obj->description));
+            array_push($arr,$tmp);
+        }
+    }
+    echo '<script type="text/javascript">allCategories = '.json_encode($arr).'</script>';
+}
+?>
+
+
 <footer class="container footer">
     &copy; <?php echo date('Y'); ?>
     <a class="footer-item" href="<?php $this->options->siteUrl(); ?>"><?php $this->options->title(); ?></a>
@@ -15,7 +32,7 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery.form/3.09/jquery.form.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.js"></script>
-<script src="https://s3.pstatp.com/cdn/expire-1-M/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.js"></script>
 <?php $this->options->jsEcho(); ?>
 <?php //if (!$this->is('index')): ?>
 
@@ -60,6 +77,9 @@
             NProgress.done();
             if (typeof smms_node!="undefined" && typeof smms!="undefined"){
                 smms_node.init()
+                smms.init()
+            }
+            if (typeof smms!="undefined"){
                 smms.init()
             }
 

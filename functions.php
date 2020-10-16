@@ -6,6 +6,8 @@ require_once 'libs/comments.php';
 require_once 'libs/utils.php';
 require_once 'libs/pageNav.php';
 require_once 'libs/DbFunc.php';
+
+
 /**
  * 注册文章解析 hook
  * From AlanDecode(https://imalan.cn)
@@ -17,6 +19,7 @@ Typecho_Plugin::factory('Widget_Abstract_Contents')->excerptEx = array('contents
  */
 Typecho_Plugin::factory('admin/write-post.php')->bottom = array('utils', 'addButton');
 Typecho_Plugin::factory('admin/write-page.php')->bottom = array('utils', 'addButton');
+
 /**
  * 评论接口 by gogobody
  */
@@ -103,14 +106,16 @@ function getPostImg($archive)
 {
     $img = array();
     //  匹配 img 的 src 的正则表达式
-    preg_match_all("/<img.*?src=\"(.*?)\".*?\/?>/i", $archive->content, $img);
+    $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';//匹配img标签的正则表达式
+    $preg2 = '/background-image:[ ]?url\([&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif))/i';//匹配背景的url的正则表达式
+
+    preg_match_all($preg, $archive->content, $allImg);//这里匹配所有的img
+    preg_match_all($preg2, $archive->content, $allImg2);//这里匹配所有的背景img
+    $img = array_merge($allImg[1],$allImg2[1]);
+/*    preg_match_all("/<img.*?src=\"(.*?)\".*?\/?>/i", $archive->content, $img);*/
     //  判断是否匹配到图片
-    if (count($img) > 0 && count($img[0]) > 0) {
-        //  返回图片
-        if (count($img) > 9) {
-            return array_slice($img, 0, 9);
-        }
-        return $img[1];
+    if (!empty($img)) {
+        return $img;
     } else {
         //  如果没有匹配到就返回 none
         return array();
@@ -158,6 +163,37 @@ function getV2exAvatar($obj,$size=100)
 function getUserV2exAvatar($mail_,$size=100)
 {
     return isqq($mail_,$size);
+}
+
+/**
+ * 输出主页9宫格图片
+ * @param $this_
+ *
+ */
+function ehco9gridPics($this_){
+    $images = getPostImg($this_);
+    $length = count($images);
+    if ($length > 0) {
+        if ($length == 1) {
+            echo "<div class='post-cover-inner'><img src='$images[0]' class='post-cover-img' alt='cover'></div>";
+        } else {
+            $more_img_flag = false;
+            if ($length > 9) { // 9宫格显示图片
+                $more_img_flag = true;
+                $length = 9;
+            }
+            echo "<div class='post-cover-inner-more post-cover-inner-auto-rows-$length'>";
+            for ($i = 0; $i < $length; $i++) {
+                if ($i == 8 && $more_img_flag) { // 9宫格最后一张
+                    echo "<div style='background-image:url($images[$i]);' class='post-cover-img-more' alt='cover'><div class='more-pic'>" . $length . "+</div></div>";
+                } else {
+                    echo "<div style='background-image:url($images[$i]);' class='post-cover-img-more' alt='cover'></div>";
+                }
+            }
+            echo "</div>";
+        }
+    }
+
 }
 
 /**
