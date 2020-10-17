@@ -377,34 +377,34 @@ b站视频
 /**
 b站视频
  */
-.video {
-    position: relative;
-    width: 100%;
-}
+/*.video {*/
+/*    position: relative;*/
+/*    width: 100%;*/
+/*}*/
 
-@media only screen and (max-width: 767px) {
-    .video {
-        height: 15em;
-    }
-}
+/*@media only screen and (max-width: 767px) {*/
+/*    .video {*/
+/*        height: 15em;*/
+/*    }*/
+/*}*/
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-    .video {
-        height: 20em;
-    }
-}
+/*@media only screen and (min-width: 768px) and (max-width: 991px) {*/
+/*    .video {*/
+/*        height: 20em;*/
+/*    }*/
+/*}*/
 
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
-    .video {
-        height: 30em;
-    }
-}
+/*@media only screen and (min-width: 992px) and (max-width: 1199px) {*/
+/*    .video {*/
+/*        height: 30em;*/
+/*    }*/
+/*}*/
 
-@media only screen and (min-width: 1200px) {
-    .video {
-        height: 32em;
-    }
-}
+/*@media only screen and (min-width: 1200px) {*/
+/*    .video {*/
+/*        height: 32em;*/
+/*    }*/
+/*}*/
 /**
  * comments
  */

@@ -34,8 +34,10 @@ function themeFields(Typecho_Widget_Helper_Layout $layout)
     if (preg_match("/write-post.php/", $_SERVER['REQUEST_URI'])) {
         $articleType = new Typecho_Widget_Helper_Form_Element_Select('articleType', array(
             'default' => '默认',
-            'link' => '纯链接'
-        ), 'articletype', _t('文章类型'), _t('见wiki说明'));
+            'link' => '纯链接',
+            'video' => '视频',
+            'bilibili' => 'B站',
+        ), 'default', _t('文章类型'), _t('见wiki说明'));
         $layout->addItem($articleType);
 
         $banner = new Typecho_Widget_Helper_Form_Element_Text('banner', NULL, NULL, _t('文章头图'), _t('输入一个图片 url，作为缩略图显示在文章列表，没有则不显示'));
@@ -145,7 +147,9 @@ function isqq($email,$size=100){
     if($email){
         if(strpos($email,"@qq.com") !==false){
             $email=str_replace('@qq.com','',$email);
-            return "//q1.qlogo.cn/g?b=qq&nk=".$email."&s=".$size;
+            return "https://q.qlogo.cn/g?b=qq&nk=".$email."&s=100";
+//            return "http://q2.qlogo.cn/headimg_dl?dst_uin=".$email."&spec=100";
+//            return "//q1.qlogo.cn/g?b=qq&nk=".$email."&s=".$size;
         }else{
             $email= md5($email);
             return "//cdn.v2ex.com/gravatar/".$email."?&s=".$size;
@@ -165,36 +169,6 @@ function getUserV2exAvatar($mail_,$size=100)
     return isqq($mail_,$size);
 }
 
-/**
- * 输出主页9宫格图片
- * @param $this_
- *
- */
-function ehco9gridPics($this_){
-    $images = getPostImg($this_);
-    $length = count($images);
-    if ($length > 0) {
-        if ($length == 1) {
-            echo "<div class='post-cover-inner'><img src='$images[0]' class='post-cover-img' alt='cover'></div>";
-        } else {
-            $more_img_flag = false;
-            if ($length > 9) { // 9宫格显示图片
-                $more_img_flag = true;
-                $length = 9;
-            }
-            echo "<div class='post-cover-inner-more post-cover-inner-auto-rows-$length'>";
-            for ($i = 0; $i < $length; $i++) {
-                if ($i == 8 && $more_img_flag) { // 9宫格最后一张
-                    echo "<div style='background-image:url($images[$i]);' class='post-cover-img-more' alt='cover'><div class='more-pic'>" . $length . "+</div></div>";
-                } else {
-                    echo "<div style='background-image:url($images[$i]);' class='post-cover-img-more' alt='cover'></div>";
-                }
-            }
-            echo "</div>";
-        }
-    }
-
-}
 
 /**
  * 获取博主信息
@@ -311,6 +285,52 @@ function parseDesc2text($desc)
         return $res[2][0];
     }
     return $desc;
+}
+
+
+/**
+ * 输出主页9宫格图片
+ * @param $this_
+ *
+ */
+function ehco9gridPics($this_){
+    $images = getPostImg($this_);
+    $length = count($images);
+    if ($length > 0) {
+        if ($length == 1) {
+            echo "<div class='post-cover-inner'><img src='$images[0]' class='post-cover-img' alt='cover'></div>";
+        } else {
+            $more_img_flag = false;
+            if ($length > 9) { // 9宫格显示图片
+                $more_img_flag = true;
+                $length = 9;
+            }
+            echo "<div class='post-cover-inner-more post-cover-inner-auto-rows-$length'>";
+            for ($i = 0; $i < $length; $i++) {
+                if ($i == 8 && $more_img_flag) { // 9宫格最后一张
+                    echo "<div style='background-image:url($images[$i]);' class='post-cover-img-more' alt='cover'><div class='more-pic'>" . $length . "+</div></div>";
+                } else {
+                    echo "<div style='background-image:url($images[$i]);' class='post-cover-img-more' alt='cover'></div>";
+                }
+            }
+            echo "</div>";
+        }
+    }
+}
+
+/**
+ * 解析一个视频链接
+ * @param $content
+ * @return mixed
+ */
+function parseFirstVideo($content) {
+    $pattern = '/<div class="embed-responsive embed-responsive-4by3.*?<\/iframe><\/div>/i';
+    preg_match($pattern, $content, $match);
+    if (empty($match)){
+        return $content;
+    }else{
+        return $match[0];
+    }
 }
 
 /**

@@ -150,7 +150,7 @@ class contents{
     {
         $reg = '/\[bilibili bv="(.+?)" p="(.+?)"]/sm';
         if (preg_match($reg, $text)) {
-            $replacement = '<iframe class="video" src="//player.bilibili.com/player.html?bvid=$1&page=$2" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>';
+            $replacement = '<div class="embed-responsive embed-responsive-4by3"><iframe class="video embed-responsive-item" src="//player.bilibili.com/player.html?bvid=$1&page=$2" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe></div>';
             return preg_replace($reg, $replacement, $text);
         }
         return $text;
@@ -159,7 +159,7 @@ class contents{
     {
         $reg = '/\[video src="(.+?)"]/sm';
         if (preg_match($reg, $text)) {
-            $replacement = '<iframe class="video" src="$1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>';
+            $replacement = '<div class="embed-responsive embed-responsive-4by3"><iframe class="video" src="$1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>';
             return preg_replace($reg, $replacement, $text);
         }
         return $text;

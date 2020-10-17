@@ -18,113 +18,7 @@ $this->need('includes/header.php');
             <?php $this->need('includes/nav.php'); ?>
             <div class="col-xl-7 col-md-6 col-12 main-content">
                 <?php if ($this->user->hasLogin()): //判断是否登录 ?>
-                    <?php Typecho_Widget::widget('Widget_Security')->to($security); ?>
-                    <div class="post share-post"> <!--按个人CSS的更改-->
-                        <!--                    --><?php //$this->options->siteUrl(); ?><!--action/contents-post-edit-->
-                        <form id="input-form" class="post-form" action="<?php $security->index('/action/contents-post-edit?do=publish'); ?>" method="post"
-                              name="write_post" target="nm_iframe"> <!--target="nm_iframe"-->
-                            <!--以发布时间作标题，把这里的hidden改成text就能自定义标题了-->
-                            <div class="textarea">
-                                <label for="text"></label>
-                                <textarea rows="4" id="text" autocomplete="off" placeholder="分享你的想法..."></textarea>
-                                <input type="hidden" name="text"  id="realtext" autocomplete="off" placeholder="分享你的想法...">
-
-                                <div class="sc-AxjAm sc-AxirZ fbjukw">
-
-                                </div>
-
-                                <a href="http://www.baidu.com" target="_blank" class="sc-AxjAm kgcKxQ">
-                                    <div class="sc-AxjAm sc-AxirZ gITPLH bwqALa">
-                                        <div class="sc-AxjAm sc-AxirZ jLaetV"><img
-                                                    src="<? echo Helper::options()->themeUrl . '/assets/img/link.png' ?>"
-                                                    class="bLGCpY">
-                                            <div class="sc-AxjAm kKrDdN hHnMup">
-
-                                            </div>
-                                        </div>
-                                        <div class="sc-AxjAm sc-AxirZ ezTcmd">
-                                            <div class="sc-AxjAm sc-AxirZ hyliOy">
-                                                <svg viewBox="0 0 17 17" fill="#ccc">
-                                                    <path d="M9.565 8.595l5.829 5.829a.686.686 0 01-.97.97l-5.83-5.83-5.828 5.83a.686.686 0 01-.97-.97l5.829-5.83-5.83-5.828a.686.686 0 11.97-.97l5.83 5.829 5.829-5.83a.686.686 0 01.97.97l-5.83 5.83z"></path>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <div>
-                                    <div role="combobox" aria-haspopup="listbox" aria-owns="topic-search-downshift-menu"
-                                         aria-expanded="true" class="sc-AxjAm sc-AxirZ kWzaA-d"
-                                         style="position: relative;">
-                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                             xmlns="http://www.w3.org/2000/svg"
-                                             class="hoZbnH">
-                                            <circle cx="10" cy="10" r="10" fill="#03A9F5"></circle>
-                                            <circle cx="10" cy="10" r="5" fill="#A0E3FE"></circle>
-                                        </svg>
-                                        <input type="text" id="topic-search-downshift-input" aria-autocomplete="list"
-                                               aria-controls="topic-search-downshift-menu"
-                                               aria-labelledby="topic-search-downshift-label" autocomplete="on"
-                                               placeholder="查找更多圈子"
-                                               class="sc-AxjAm jgskPb cAmOCm"
-                                               value="">
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="hidden" id="allowComment" name="allowComment" value="1" checked="true"/>
-                            <!--允许评论-->
-                            <input type="hidden" name="do" value="publish"/><!--公开，可以无视-->
-                            <input type="hidden" id="articleType" name="fields[articleType]" value="default"/><!--文章类型-->
-                            <input type="hidden" name="markdown" value="1"/><!--markdown-->
-                            <input type="hidden" id="post-title" name="title" value=""/><!--title-->
-                            <input type="hidden" id="category" name="category[]" value="1"/><!---->
-
-                            <div class="ffdvlM">
-                                <div class="gDqTLX">
-                                    <div id="addpic"
-                                         class="sc-AxjAm sc-AxirZ csRQBH bvFLMj">
-                                        <div class="sc-AxjAm sc-AxirZ  dEkSi">
-                                            <svg viewBox="0 0 22 20" fill="currentColor">
-                                                <path d="M3 5.5a1 1 0 00-1 1v10a1 1 0 001 1h13a1 1 0 001-1v-10a1 1 0 00-1-1H3zm0-2h13a3 3 0 013 3v10a3 3 0 01-3 3H3a3 3 0 01-3-3v-10a3 3 0 013-3zm1.5 6a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm.488 6.155c.203-1.296.656-1.976 1.337-2.21.276-.094.609.009 1.55.495 1.57.811 2.416 1.025 3.567.457 1.115-.55 1.568-1.39 1.837-2.754l.064-.339c.13-.703.216-.954.35-1.083.341-.328.583-.359.989-.127a1 1 0 10.991-1.737 2.665 2.665 0 00-3.366.422c-.549.528-.723 1.039-.93 2.16l-.06.317c-.16.812-.336 1.138-.76 1.347-.368.182-.743.087-1.765-.44-1.446-.747-2.113-.953-3.117-.609-1.474.506-2.355 1.827-2.663 3.79a1 1 0 101.976.311zM6 2.5a1 1 0 110-2h12a4 4 0 014 4v9a1 1 0 01-2 0v-9a2 2 0 00-2-2H6z"></path>
-                                            </svg>
-                                        </div>
-                                        <div class="sc-AxjAm blMNOE bwQUKf">图片
-                                        </div>
-                                    </div>
-                                    <div id="addlink"
-                                         class="sc-AxjAm sc-AxirZ csRQBH">
-                                        <div class="sc-AxjAm sc-AxirZ Icon-nxu6ip-0 dEkSi">
-                                            <svg viewBox="0 0 22 22" fill="currentColor">
-                                                <path d="M11.707 4.919a1 1 0 01-1.414-1.414l.848-.849a5.8 5.8 0 018.203 8.203l-2.546 2.545a5.8 5.8 0 01-8.202 0 1 1 0 111.414-1.414 3.8 3.8 0 005.374 0l2.546-2.546a3.8 3.8 0 00-5.374-5.374l-.849.849zM10.293 17.08a1 1 0 011.414 1.414l-.848.849a5.8 5.8 0 11-8.203-8.203l2.546-2.545a5.8 5.8 0 018.202 0 1 1 0 01-1.414 1.414 3.8 3.8 0 00-5.374 0L4.07 12.556a3.8 3.8 0 105.374 5.374l.849-.849z"></path>
-                                            </svg>
-                                        </div>
-                                        <div class="sc-AxjAm blMNOE bwQUKf">链接
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="ezTcmd">
-                                    <input type="button" class="pub eynkqj" value="发送" id="postForm"
-                                           onclick="submitForm(this)"/>
-                                </div>
-                            </div>
-
-
-                        </form>
-                        <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
-                    </div>
-                    <div class="addpic sc-AxjAm sc-AxirZ XCHRv">
-                        <input type="text" placeholder="请输入图片链接" class="sc-AxjAm bwpEWU gsmhQy" value="">
-                        <button disabled class="sc-AxjAm eVNRGW">添加</button>
-
-                    </div>
-                    <div class="addlink sc-AxjAm sc-AxirZ XCHRv">
-                        <input type="text" placeholder="请输入链接" class="sc-AxjAm bwpEWU gsmhQy" value="">
-                        <button disabled class="sc-AxjAm eVNRGW">添加</button>
-                    </div>
-                    <div class="row XCHRv upload-pic">
-                        <div id="zz-img-show"></div><div class="zz-add-img "><input id="zz-img-file" type="file" accept="image/*" multiple="multiple"><button id="zz-img-add" type="button"><span class="chevereto-pup-button-icon"><svg class="chevereto-pup-button-icon" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M76.7 87.5c12.8 0 23.3-13.3 23.3-29.4 0-13.6-5.2-25.7-15.4-27.5 0 0-3.5-0.7-5.6 1.7 0 0 0.6 9.4-2.9 12.6 0 0 8.7-32.4-23.7-32.4 -29.3 0-22.5 34.5-22.5 34.5 -5-6.4-0.6-19.6-0.6-19.6 -2.5-2.6-6.1-2.5-6.1-2.5C10.9 25 0 39.1 0 54.6c0 15.5 9.3 32.7 29.3 32.7 2 0 6.4 0 11.7 0V68.5h-13l22-22 22 22H59v18.8C68.6 87.4 76.7 87.5 76.7 87.5z" style="fill: currentcolor;"></path></svg></span><span class="chevereto-pup-button-text">上传</span></button></div>
-                    </div>
-                    <div class="newmsg"></div>
+                <?$this->need('includes/index-input.php');?>
                 <?php endif; ?>
 
 <!--暂时取消首页幻灯片-->
@@ -152,7 +46,7 @@ $this->need('includes/header.php');
 <!--                --><?php //endif; ?>
                 <div class="list">
                     <?php while ($this->next()): ?>
-                        <article class="post-article" onclick="window.location = '<?php $this->permalink(); ?>';">
+                        <article class="post-article" onclick="window.location='<?php $this->permalink(); ?>'">
                             <div class="post-article-left">
                                 <a onclick="event.stopPropagation();" href="<?php $this->author->permalink(); ?>">
                                     <!--<?php $this->author->gravatar(40); ?>-->
@@ -181,24 +75,23 @@ $this->need('includes/header.php');
                                 <!--content-->
                                 <div class="post-content">
                                     <div class="row">
-                                        <!--                                    link-->
+                                        <!-- link-->
                                         <?php if ($this->fields->articleType == "link"): ?>
-                                            <div class="post-content-inner-link col-xl-12">
-                                                <? echo parseMarkdownBeforeText($this->text)?>
-                                                <a href="<?php echo parseFirstURL($this->content); ?>" target="_blank">
-                                                    <div class="link-container">
-                                                        <div class="link-banner">
-                                                            <img src="<? echo Helper::options()->themeUrl . '/assets/img/link.png' ?>">
-                                                            <div class="link-text">
-                                                                <?php echo parseMarkdownInText($this->text) ?>
-                                                            </div>
+                                        <div class="post-content-inner-link col-xl-12">
+                                            <? echo parseMarkdownBeforeText($this->text)?>
+                                            <a class="link-a" href="<?php echo parseFirstURL($this->content); ?>" target="_blank">
+                                                <div class="link-container link-a">
+                                                    <div class="link-banner">
+                                                        <img src="<? echo Helper::options()->themeUrl . '/assets/img/link.png' ?>">
+                                                        <div class="link-text">
+                                                            <?php echo parseMarkdownInText($this->text) ?>
                                                         </div>
                                                     </div>
-                                                </a>
-                                            </div>
-
-                                            <!--                                    default-->
-                                        <?php else: ?>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!-- default-->
+                                        <?php elseif ($this->fields->articleType == "default"): ?>
                                             <div class="post-content-inner col-xl-12">
                                                 <?php if ($this->fields->excerpt && $this->fields->excerpt != ''): ?>
                                                     <?php echo $this->fields->excerpt; ?>
@@ -207,23 +100,53 @@ $this->need('includes/header.php');
                                                 <? endif; ?>
                                             </div>
                                             <?php if ($this->fields->banner && $this->fields->banner != ''): ?>
-                                                <div class="post-cover col-xl-12">
-                                                    <div class="post-cover-inner">
-                                                        <img src="<?php echo $this->fields->banner; ?>"
-                                                             class="post-cover-img"
-                                                             alt="cover">
-                                                    </div>
+                                            <div class="post-cover col-xl-12">
+                                                <div class="post-cover-inner">
+                                                    <img src="<?php echo $this->fields->banner; ?>"
+                                                         class="post-cover-img"
+                                                         alt="cover">
                                                 </div>
+                                            </div>
                                             <?php else: ?>
-                                                <div class="post-cover col-xl-12">
-                                                    <div class="post-cover-img-container">
-                                                       <?php ehco9gridPics($this);?>
-                                                    </div>
+                                            <div class="post-cover col-xl-12">
+                                                <div class="post-cover-img-container">
+                                                   <?php ehco9gridPics($this);?>
                                                 </div>
+                                            </div>
                                             <? endif; ?>
+                                            <!-- videos -->
+                                        <?php elseif ($this->fields->articleType == "video" || $this->fields->articleType == "bilibili"): ?>
+                                            <div class="post-content-inner col-xl-12">
+                                                <?php if ($this->fields->excerpt && $this->fields->excerpt != ''): ?>
+                                                    <?php echo $this->fields->excerpt; ?>
+                                                <?php else: ?>
+                                                    <?php echo $this->excerpt(70); ?>
+                                                <? endif; ?>
+                                            </div>
+                                            <div class="post-cover col-xl-12" onclick="event.stopPropagation();return false">
+                                                <a onclick="videoToggle('#collapse<?_e($this->cid)?>',this)" href="#collapse<?_e($this->cid)?>" data-toggle="collapse" class="toggle-player collapsed" rel="button" aria-expanded="false"
+                                                   aria-controls="collapse<?_e($this->cid)?>" data-controls="collapse<?_e($this->cid)?>">
+                                                    <div class="">
+                                                        <span class="expand">
+                                                            <svg class="bi bi-arrows-angle-contract" width=".7em" height=".7em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                              <path fill-rule="evenodd" d="M9.5 2.036a.5.5 0 0 1 .5.5v3.5h3.5a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5z"/>
+                                                              <path fill-rule="evenodd" d="M14.354 1.646a.5.5 0 0 1 0 .708l-4.5 4.5a.5.5 0 1 1-.708-.708l4.5-4.5a.5.5 0 0 1 .708 0zm-7.5 7.5a.5.5 0 0 1 0 .708l-4.5 4.5a.5.5 0 0 1-.708-.708l4.5-4.5a.5.5 0 0 1 .708 0z"/>
+                                                              <path fill-rule="evenodd" d="M2.036 9.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V10h-3.5a.5.5 0 0 1-.5-.5z"/>
+                                                            </svg>
+                                                        </span>
+                                                        <span>收缩</span>
+                                                    </div>
+                                                </a>
+
+                                                <div class="collapse show" id="collapse<?_e($this->cid)?>">
+                                                    <?php echo parseFirstVideo($this->content);?>
+                                                </div>
+                                            </div>
+                                        <?php else:?>
+
                                         <?php endif; ?>
                                     </div>
-                                    <!--                                action-->
+                                    <!-- action-->
                                     <div class="content-action">
                                         <!--分类-->
                                         <div class="topic-container">

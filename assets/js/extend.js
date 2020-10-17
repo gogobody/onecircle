@@ -50,14 +50,16 @@ $(function () {
 
 var indexInput = {
     init: function () {
-        this.addPic = $(".addpic")
-        this.addLink = $(".addlink")
+        this.addArea = $(".add-area")
+        this.addAreaBtn = $(".add-area button")
         this.addPicBtn = $("#addpic")
         this.addLinkBtn = $("#addlink")
+        this.addVideoBtn = $("#addvideo")
+        this.addBilibiliBtn = $("#addbilibili")
         this.uploadPic = $(".upload-pic")
-        this.picParent = $(".sc-AxjAm.sc-AxirZ.fbjukw")
-        this.additionArray = [] // for addPic and addLink
-        this.nowtype = 'default' // for addPic and addLink, 'default,link'
+        this.showPanel = $(".show-panel.fbjukw")
+        this.additionArray = [] // for addPic and addLink ,....
+        this.nowtype = 'default' // for addPic and addLink, 'default,link,video,bilibili'
         this.articleType = $("#articleType")
         this.funcInit()
     },
@@ -66,130 +68,201 @@ var indexInput = {
         this.login_ajax()
         this.searchEventInit()
     },
+    resetInputStatus:function(){// reset status when change nowtype
+        this.additionArray = []
+
+    },
     changeType: function (type) {
-        var that = this
-        if (type === 'default') {
-            if (that.nowtype !== 'default') {
-                that.nowtype = 'default'
-                this.additionArray = []
-                this.articleType.val('default')
-            }
-        } else if (type === 'link') {
-            if (that.nowtype !== 'link') {
-                that.nowtype = 'link'
-                this.additionArray = []
-                this.articleType.val('link')
-            }
+        if (this.nowtype !== type) {
+            this.nowtype = type
+            this.articleType.val(type)
+            this.resetInputStatus()
+            $(".add-area input").val('')
         }
+    },
+    doParseDefaultFunc:function(this_,that){
+        $(this_).html("解析中")
+        var addAreaInput = $(".add-area input")
+        var val = addAreaInput.val()
+        if (checkURL(val)) {
+            var node = '' +
+                '<div class="sc-AxjAm sc-AxirZ ciIrlj">\n' +
+                '<div class="eHTuZC" style="background-image: url(' + val + ');">\n' +
+                '<div class="cPHQWG">\n' +
+                '<svg viewBox="0 0 17 17" fill="currentColor">\n' +
+                '<path d="M9.565 8.595l5.829 5.829a.686.686 0 01-.97.97l-5.83-5.83-5.828 5.83a.686.686 0 01-.97-.97l5.829-5.83-5.83-5.828a.686.686 0 11.97-.97l5.83 5.829 5.829-5.83a.686.686 0 01.97.97l-5.83 5.83z"></path>\n' +
+                '</svg>\n' +
+                '</div>\n' +
+                '</div>\n' +
+                '</div>'
+            that.showPanel.append(node)
+            that.additionArray.push(val)
+            that.addPicBtn.siblings().addClass('btn-disable')
+            addAreaInput.val('')
+            // pic close btn click function
+            $(".cPHQWG").unbind('click').bind('click',function () {
+                var imgUrl = $(this).parent().css("backgroundImage").replace('url(', '').replace(')', '')
+                that.additionArray.splice($.inArray(imgUrl, that.additionArray), 1);
+                $(this).parent().parent().remove()
+                if (that.additionArray.length === 0) {
+                    that.addPicBtn.siblings().removeClass('btn-disable')
+                }
+            })
+
+        } else {
+            $.message({
+                title:"提示",
+                message:"请输入正确的图片地址",
+                type:"error"
+            })
+
+        }
+        $(this_).html("添加")
+
+    },
+    doParseLinkFunc:function(this_,that){
+        $(this_).text("解析中")
+        var val = $(".add-area input").val()
+        if (checkURL(val)) {
+            $.post("/oneaction", {
+                type: "parsemeta",
+                url: val
+            }, function (res) {
+                if (res) {
+                    var inTextareaBlk = $(".sc-AxjAm.kgcKxQ")
+                    inTextareaBlk.css("display", "block")
+                    inTextareaBlk.attr("href", val)
+                    $(".sc-AxjAm.kgcKxQ .hHnMup").html(res)
+                    that.additionArray = [] // reset additionArr
+                    that.additionArray.push(val)
+                    that.additionArray.push(res)
+                    // set other disable
+                    that.addLink.siblings().addClass('btn-disable')
+                    // close closeTextareaBlk
+                    $(".sc-AxjAm.sc-AxirZ.ezTcmd").unbind('click').bind('click',function (e) {
+                        $(".kgcKxQ").css("display", "none")
+                        e.stopPropagation();
+                        that.addLink.siblings().removeClass('btn-disable')
+                        return false;
+                    })
+                }
+                $(this_).text("添加")
+            })
+        } else {
+            $.message({
+                title:"提示",
+                message:"请输入正确的地址",
+                type:"error"
+            })
+            $(this_).text("添加")
+        }
+    },
+    doParseVideoFunc:function(this_,that){
+        var addAreaInput = $(".add-area input")
+        var val = addAreaInput.val()
+        if (checkURL(val)){
+            that.additionArray.push(val)
+            var node =
+                '<div class="show-panel-inner"><div class="jLaetV"><div class="hHnMup">'+ val +'</div></div>\n' +
+                '<div class="ezTcmd show-close">\n' +
+                '<div class="hyliOy">\n' +
+                '<svg viewBox="0 0 17 17" fill="#ccc">\n' +
+                '<path d="M9.565 8.595l5.829 5.829a.686.686 0 01-.97.97l-5.83-5.83-5.828 5.83a.686.686 0 01-.97-.97l5.829-5.83-5.83-5.828a.686.686 0 11.97-.97l5.83 5.829 5.829-5.83a.686.686 0 01.97.97l-5.83 5.83z"></path>\n' +
+                '</svg>\n' +
+                '</div>\n' +
+                '</div></div>'
+            that.showPanel.append(node)
+            that.addVideoBtn.siblings().addClass('btn-disable')
+            addAreaInput.val('')
+            $(".show-close").unbind('click').bind('click',function () {
+                var videoUrl = $(this).siblings().text()
+                that.additionArray.splice($.inArray(videoUrl, that.additionArray), 1);
+                $(this).parent().remove()
+                if (that.additionArray.length === 0) {
+                    that.addVideoBtn.siblings().removeClass('btn-disable')
+                }
+            })
+        }else {
+            $.message({
+                title:"提示",
+                message:"请输入正确的视频地址",
+                type:"error"
+            })
+
+        }
+
+    },
+    doParseBilibiliFunc:function(this_,that){
+        var addAreaInput = $(".add-area input")
+        var val = addAreaInput.val()
+        that.additionArray.push(val)
+        var node =
+            '<div class="show-panel-inner"><div class="jLaetV"><div class="hHnMup">'+ val +'</div></div>\n' +
+            '<div class="ezTcmd show-close">\n' +
+            '<div class="hyliOy">\n' +
+            '<svg viewBox="0 0 17 17" fill="#ccc">\n' +
+            '<path d="M9.565 8.595l5.829 5.829a.686.686 0 01-.97.97l-5.83-5.83-5.828 5.83a.686.686 0 01-.97-.97l5.829-5.83-5.83-5.828a.686.686 0 11.97-.97l5.83 5.829 5.829-5.83a.686.686 0 01.97.97l-5.83 5.83z"></path>\n' +
+            '</svg>\n' +
+            '</div>\n' +
+            '</div></div>'
+        that.showPanel.append(node)
+        that.addBilibiliBtn.siblings().addClass('btn-disable')
+        addAreaInput.val('')
+        $(".show-close").unbind('click').bind('click',function () {
+            var bvnum = $(this).siblings().text()
+            that.additionArray.splice($.inArray(bvnum, that.additionArray), 1);
+            $(this).parent().remove()
+            if (that.additionArray.length === 0) {
+                that.addBilibiliBtn.siblings().removeClass('btn-disable')
+            }
+        })
     },
     indexEventInit: function () {
         // init input
         var that = this
         $("#addpic").unbind('click').bind('click',function () {
+            $(".add-area input").attr("placeholder","请输入图片链接")
+            if (that.nowtype !== 'default'){
+                that.addArea.show()
+                that.uploadPic.show()
+            }else {
+                that.addArea.toggle()
+                that.uploadPic.toggle()
+            }
             that.changeType('default')
-            if (that.addPic.css("display") === "none") {
-                that.addPic.css("display", "flex")
-                that.uploadPic.css("display", "flex")
-                that.addLink.css("display", "none")
 
-            } else {
-                that.addPic.css("display", "none")
-                that.uploadPic.css("display", "none")
-
-            }
-        })
-
-        $(".addpic button").unbind('click').bind('click',function () {
-            $(this).html("解析中")
-            var addPicInput = $(".addpic input")
-            var val = addPicInput.val()
-            if (checkURL(val)) {
-                var node = '' +
-                    '<div class="sc-AxjAm sc-AxirZ ciIrlj">\n' +
-                    '<div class="eHTuZC" style="background-image: url(' + val + ');">\n' +
-                    '<div class="cPHQWG">\n' +
-                    '<svg viewBox="0 0 17 17" fill="currentColor">\n' +
-                    '<path d="M9.565 8.595l5.829 5.829a.686.686 0 01-.97.97l-5.83-5.83-5.828 5.83a.686.686 0 01-.97-.97l5.829-5.83-5.83-5.828a.686.686 0 11.97-.97l5.83 5.829 5.829-5.83a.686.686 0 01.97.97l-5.83 5.83z"></path>\n' +
-                    '</svg>\n' +
-                    '</div>\n' +
-                    '</div>\n' +
-                    '</div>'
-                that.picParent.append(node)
-                that.additionArray.push(val)
-                that.addLinkBtn.addClass('btn-disable')
-                addPicInput.val('')
-                // pic close btn click function
-                $(".cPHQWG").click(function () {
-                    var imgUrl = $(this).parent().css("backgroundImage").replace('url(', '').replace(')', '')
-                    that.additionArray.splice($.inArray(imgUrl, that.additionArray), 1);
-                    $(this).parent().parent().remove()
-                    if (that.additionArray.length === 0) {
-                        that.addLinkBtn.removeClass('btn-disable')
-                    }
-                })
-
-            } else {
-                $.message({
-                    title:"提示",
-                    message:"请输入正确的图片地址",
-                    type:"error"
-                })
-
-            }
-            $(this).html("添加")
         })
 
 
         // process add link
-        $("#addlink").unbind('click').bind('click',function () {
-            that.changeType('link')
-
-            if (that.addLink.css("display") === "none") {
-                that.addPic.css("display", "none")
-                that.uploadPic.css("display", "none")
-                that.addLink.css("display", "flex")
-            } else {
-                that.addLink.css("display", "none")
+        $("#addlink,#addvideo,#addbilibili").unbind('click').bind('click',function () {
+            that.uploadPic.hide()
+            var type = $(this).data("type")
+            if (type==='link'){
+                $(".add-area input").attr("placeholder","请输入链接")
+            }else if (type === 'video'){
+                $(".add-area input").attr("placeholder","请输入视频链接")
+            }else if (type === 'bilibili'){
+                $(".add-area input").attr("placeholder","请输入bv号")
             }
+            if (that.nowtype !== type){
+                that.addArea.show()
+            }else{
+                that.addArea.toggle()
+            }
+            that.changeType(type)
+
         })
-        $(".addlink button").click(function () {
-            $(this).text("解析中")
-            var val = $(".addlink input").val()
-            var innerThat = this
-            if (checkURL(val)) {
-                $.post("/oneaction", {
-                    type: "parsemeta",
-                    url: val
-                }, function (res) {
-                    if (res) {
-                        var inTextareaBlk = $(".sc-AxjAm.kgcKxQ")
-                        inTextareaBlk.css("display", "block")
-                        inTextareaBlk.attr("href", val)
-                        $(".sc-AxjAm.kgcKxQ .hHnMup").html(res)
-                        that.additionArray = [] // reset additionArr
-                        that.additionArray.push(val)
-                        that.additionArray.push(res)
-                        // set addPic disable
-                        that.addPicBtn.addClass('btn-disable')
-                        // close closeTextareaBlk
-                        $(".sc-AxjAm.sc-AxirZ.ezTcmd").click(function (e) {
-                            $(".kgcKxQ").css("display", "none")
-                            e.stopPropagation();
-                            that.addPicBtn.removeClass('btn-disable')
-                            return false;
-                        })
-                    }
-                    $(innerThat).text("添加")
-                })
-            } else {
-                $.message({
-                    title:"提示",
-                    message:"请输入正确的地址",
-                    type:"error"
-                })
-                $(innerThat).text("添加")
+        this.addAreaBtn.unbind('click').bind('click',function () {
+            if (that.nowtype === 'default'){
+                that.doParseDefaultFunc(this,that)
+            }else if (that.nowtype === 'link'){
+                that.doParseLinkFunc(this,that)
+            }else if (that.nowtype === 'video'){
+                that.doParseVideoFunc(this,that)
+            }else if (that.nowtype === 'bilibili'){
+                that.doParseBilibiliFunc(this,that)
             }
-
         })
         // process input
         $("#text").bind('input propertychange', function () {
@@ -619,7 +692,7 @@ $(function () {
     // }
 })
 
-// prev link click event
+// index input prev link click event
 function submitForm(ele) {
     // jquery 表单提交
     // add title
@@ -638,11 +711,11 @@ function submitForm(ele) {
     var date = myDate.getDate(); //获取当前日
     var datetime = year+"/"+mon+"/"+date
 
-
+    if(val.length > 0 && val!==''){
+        title.val(val.substring(0,15))
+    }
     if (indexInput.nowtype === 'default'){
-        if(val.length > 0 && val!==''){
-            title.val(val.substring(0,15))
-        }else{
+        if(val.length === 0 || val ===''){
             title.val("图文小记事~"+datetime)
         }
         if (indexInput.additionArray.length > 0){
@@ -653,9 +726,6 @@ function submitForm(ele) {
 
         }
     }else if (indexInput.nowtype === 'link'){
-        if(val.length > 0 && val!==''){
-            title.val(val.substring(0,15))
-        }
         if (indexInput.additionArray.length > 0){
             if(indexInput.additionArray[1].length > 0 && indexInput.additionArray[1] !== ''){
                 title.val(indexInput.additionArray[1].substring(0,15))
@@ -671,6 +741,24 @@ function submitForm(ele) {
             })
             i.val("发送")
             return false;
+        }
+    }else if (indexInput.nowtype === 'video'){
+        if (indexInput.additionArray.length > 0){
+            if(val.length === 0 || val ===''){
+                title.val("分享视频~"+datetime)
+            }
+            indexInput.additionArray.forEach(function (value){
+                val = val+ '\n[video src="'+ value +'"]\n'
+            })
+        }
+    }else if (indexInput.nowtype === 'bilibili'){
+        if (indexInput.additionArray.length > 0){
+            if(val.length === 0 || val ===''){
+                title.val("分享bilibili视频~"+datetime)
+            }
+            indexInput.additionArray.forEach(function (value){
+                val = val+ '\n[bilibili bv="'+ value +'" p="1"]\n'
+            })
         }
     }
     // realtext.val(val)
@@ -741,7 +829,28 @@ function submitForm(ele) {
 
     return false;
 }
+// video toggle
+function videoToggle(idselector,this_){
+    if(!$(this_).hasClass('video-slim')){
+        $(this_).children().children('span:first-child').html('<svg width=".7em" height=".7em" viewBox="0 0 16 16" class="bi bi-arrows-angle-expand" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
+            '<path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"/>\n' +
+            '</svg>')
+        $(this_).children().children('span:last-child').text('展开')
+        $(this_).addClass('video-slim')
+    }else {
+        $(this_).children().children('span:first-child').html('<svg class="bi bi-arrows-angle-contract" width=".7em" height=".7em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
+            '  <path fill-rule="evenodd" d="M9.5 2.036a.5.5 0 0 1 .5.5v3.5h3.5a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5z"/>\n' +
+            '  <path fill-rule="evenodd" d="M14.354 1.646a.5.5 0 0 1 0 .708l-4.5 4.5a.5.5 0 1 1-.708-.708l4.5-4.5a.5.5 0 0 1 .708 0zm-7.5 7.5a.5.5 0 0 1 0 .708l-4.5 4.5a.5.5 0 0 1-.708-.708l4.5-4.5a.5.5 0 0 1 .708 0z"/>\n' +
+            '  <path fill-rule="evenodd" d="M2.036 9.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V10h-3.5a.5.5 0 0 1-.5-.5z"/>\n' +
+            '</svg>')
+        $(this_).children().children('span:last-child').text('收缩')
+        $(this_).removeClass('video-slim')
 
+
+    }
+
+    $(idselector).collapse('toggle');
+}
 function checkURL(URL) {
     var str = URL;
     var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;

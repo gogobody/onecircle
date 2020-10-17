@@ -408,7 +408,7 @@ button:focus{
 }
 
 .post-article-left img {
-    border-radius: 999px;
+    border-radius: 50%;
     width: 40px;
     height: 40px;
 
@@ -516,6 +516,7 @@ button:focus{
     overflow: hidden;
 }
 
+
 .post-cover {
     margin-top: 10px;
     border-radius: 4px;
@@ -532,7 +533,9 @@ button:focus{
     border-radius: 10px;
     overflow: hidden;
 }
-
+.embed-responsive {
+    margin-top: 10px;
+}
 .post-cover-inner-more {
     box-sizing: border-box;
     min-width: 0px;
@@ -597,13 +600,14 @@ button:focus{
     align-items: center;
     -webkit-box-pack: justify;
     justify-content: space-between;
-    max-width: 324px;
     border-radius: 4px;
     padding: 12px;
     transition: all 0.2s ease 0s;
     margin: unset;
 }
-
+.link-a{
+    max-width: 324px;
+}
 .link-container:hover {
     background-color: rgb(233, 238, 242);
 }
@@ -1787,7 +1791,9 @@ achieve
     align-items: stretch;
     display: flex;
 }
-
+.post-form{
+    margin-bottom: 0;
+}
 #input-form .textarea {
     box-sizing: border-box;
     margin: 0px;
@@ -1819,7 +1825,26 @@ achieve
 #input-form textarea:focus {
     outline: none;
 }
-
+.show-panel-inner{
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    max-width: 200px;
+    background-color: #f2f5f8;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+.show-panel-inner:hover{
+    background-color: #e9eef2;
+}
+.show-panel-inner .jLaetV{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.show-panel-inner .hyliOy{
+    margin-left: 5px;
+}
 .kmbcyV {
     box-sizing: border-box;
     margin: 0px;
@@ -1866,6 +1891,7 @@ achieve
     justify-content: space-between;
     padding-top: 12px;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .gDqTLX {
@@ -1876,6 +1902,8 @@ achieve
     align-items: center;
     padding-left: 4px;
     display: flex;
+    flex-wrap: wrap;
+
 }
 
 .ezTcmd {
@@ -1990,6 +2018,9 @@ achieve
     box-shadow: rgb(219, 219, 219) 0px -1px 0px 0px;
     padding: 20px;
     background-color: rgb(245, 248, 250);
+    display: flex;
+}
+.add-area,.upload-pic {
     display: none;
 }
 
@@ -2827,5 +2858,26 @@ mobile fix
     }
     .right-panel,.main-content {
         padding: 0;
+    }
+    .post-cover-inner-more{
+        grid-auto-rows: minmax(110px,110px);
+    }
+    .post-article{
+        padding: 24px 14px 24px 4px;
+    }
+    /*user avatar*/
+    .post-article-left img {
+        width:35px;
+        height:35px;
+    }
+    .dEkSi{
+        width: 30px;
+        height: 30px;
+    }
+    .blMNOE{
+        padding: 0;
+    }
+    .eynkqj{
+        padding: 5px 10px;
     }
 }

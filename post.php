@@ -35,7 +35,7 @@
                         <a href="<?php $this->options->adminUrl(); ?>write-post.php?cid=<?php echo $this->cid; ?>">编辑</a>
                     <?php endif; ?>
                 </div>
-                <!--                元数据-->
+                <!--     元数据-->
                 <div class="article-meta">
                     <span class="article-category">
                         <?php $this->category(' '); ?>
@@ -45,7 +45,7 @@
                     <div class="article-data"><span><?php utils::getPostView($this); ?>阅读 <?php echo $agree['agree']; ?>点赞</span>
                     </div>
                 </div>
-                <!--                content-->
+                <!--     content-->
                 <div class="article-content">
                     <?php if ($this->hidden || $this->titleshow): ?>
                         <form action="<?php echo Typecho_Widget::widget('Widget_Security')->getTokenUrl($this->permalink); ?>"
@@ -63,6 +63,7 @@
                             </div>
                         </form>
                     <?php else: ?>
+
                         <?php $this->content(); ?>
                     <?php endif; ?>
                 </div>
