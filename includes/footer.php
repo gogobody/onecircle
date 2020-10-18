@@ -64,13 +64,14 @@ if ($this->is('index')){
 
     $(document).on('pjax:send',
         function() {
-            $('#loader-wrapper').addClass("in");
+            $("#pjax-container").fadeOut();
             NProgress.start();
+
         })
 
     $(document).on('pjax:complete',
         function() {
-            $('#loader-wrapper').removeClass("in");
+            $("#pjax-container").fadeIn();
             indexInput.pjax_complete()
             archiveInit.init()
             owoInit();

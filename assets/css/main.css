@@ -33,6 +33,26 @@ keyfram
     animation: spin 2s infinite linear;
     display: inline-block;
 }
+/*#pjax-container, .animation{*/
+/*    animation: fade-in-top 1s infinite;*/
+/*    animation-iteration-count: 1;*/
+/*}*/
+
+/*@keyframes fade-in-top{*/
+/*    from{*/
+/*        opacity:0;*/
+/*    }to{*/
+/*         opacity:1;*/
+/*     }*/
+/*}*/
+/*@-webkit-keyframes fade-in-top{*/
+/*    from{*/
+/*        opacity:0;*/
+/*    }to{*/
+/*         opacity:1;*/
+/*     }*/
+/*}*/
+
 /**
 头部
  */
@@ -546,6 +566,12 @@ button:focus{
     border-radius: 24px;
     gap: 4px;
     grid-auto-rows: minmax(120px, 200px);
+}
+.post-cover-inner-more br{
+    display: none;
+}
+.post-cover-inner-auto-rows-1 {
+    grid-template-columns: 1fr;
 }
 
 .post-cover-inner-auto-rows-2 {
@@ -1273,6 +1299,7 @@ achieve
     background-size: cover;
     background-position: center center;
     overflow: hidden;
+    background-color: dimgray;
 }
 
 .iNTHKr {

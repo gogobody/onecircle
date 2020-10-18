@@ -54,12 +54,12 @@ $(function () {
                 //隐藏弹窗的主界面
                 var imgarr = $("#input-num").val().split('\n')
                 myField = document.getElementById('text');
-                var text = '\n\n';
+                var text = '\n\n[gallery]';
                 for (var i = 0; i < imgarr.length; i++) {
                     var j = i + 1
                     text = text + '!['+j+'](' + imgarr[i] + ')'
                 }
-                text = text + '\n\n'
+                text = text + '[endgallery]\n\n'
                 insertAtCursor(myField, text);
                 $('.pop_main').hide("fast")
             })

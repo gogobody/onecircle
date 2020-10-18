@@ -67,6 +67,7 @@ var indexInput = {
         this.indexEventInit()
         this.login_ajax()
         this.searchEventInit()
+        this.articleClickInit()
     },
     resetInputStatus:function(){// reset status when change nowtype
         this.additionArray = []
@@ -444,6 +445,15 @@ var indexInput = {
             $("#navbar-login-user").attr("disabled", "disabled"),
             $("#navbar-login-password").attr("disabled", "disabled"))
     },
+    articleClickInit:function(){
+        if ($.support.pjax) {
+            $("article[do-pjax]").unbind('click').bind('click',function (e){
+                var url = $(this).data('url')
+                console.log("aaa")
+                $.pjax({url:url,container:'#pjax-container'});
+            })
+        }
+    },
     pjax_complete:function () {
         this.init()
         this.loginBan()
@@ -690,6 +700,13 @@ $(function () {
     // } else {
     //     $('body').addClass('theme-dark')
     // }
+    // 加载不出时触发
+    $(function(){
+        $('img').on('error',function(){
+            $(this).attr("src","https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3031618999,450259559&fm=11&gp=0.jpg");
+        })
+    })
+
 })
 
 // index input prev link click event
@@ -719,11 +736,11 @@ function submitForm(ele) {
             title.val("图文小记事~"+datetime)
         }
         if (indexInput.additionArray.length > 0){
-            val = val + '\n'
+            val = val + '\n[gallery]'
             indexInput.additionArray.forEach(function (value){
                 val = val + "![](" + value +")"
             })
-
+            val = val + '[endgallery]\n'
         }
     }else if (indexInput.nowtype === 'link'){
         if (indexInput.additionArray.length > 0){
