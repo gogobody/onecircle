@@ -10,6 +10,7 @@
 
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 $this->need('includes/header.php');
+$this->need('components/index/index-sticky.php')
 ?>
     <div class="container" id="pjax-container">
         <div class="row">

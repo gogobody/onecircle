@@ -411,11 +411,12 @@ button:focus{
     flex-direction: row;
     display: flex;
     cursor: pointer;
-
+    position: relative;
     padding: 24px;
     border-radius: 12px;
     transition: all 0.2s ease 0s;
     margin-bottom: 12px;
+    overflow: hidden;
 }
 
 .post-article-left {
@@ -447,6 +448,66 @@ button:focus{
 .post-article:hover {
     background-color: rgb(248, 250, 251);
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px, rgba(157, 182, 200, 0.1) 0px 1px 20px;
+}
+
+
+/** 修正摘要列表定位方式 */
+
+/** NEW 图标文字版样式 **/
+.post-article .new-icon{
+    position: absolute;
+    right: -45px;
+    top: -20px;
+    display: block;
+    width: 120px;
+    height: 24px;
+    line-height: 24px;
+    background: #4caf50;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    transform: rotate(36deg);
+    transform-origin: 0% 0%;
+}
+
+/** 置顶图标文字版样式 **/
+.sticky-icon {
+    position: absolute;
+    padding: 0;
+    right: -45px;
+    top: -20px;
+    display: block;
+    width: 120px;
+    height: 24px;
+    line-height: 24px;
+    background: #ff5e52;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    transform: rotate(36deg);
+    transform-origin: 0% 0%;
+}
+@media (max-width:640px){
+    .sticky-icon {
+        position: absolute;
+        padding: 0;
+        right: -45px;
+        left: auto;
+        top: -20px;
+        display: block;
+        width: 120px;
+        height: 24px;
+        line-height: 24px;
+        background: #ff5e52;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 500;
+        text-align: center;
+        transform: rotate(36deg);
+        transform-origin: 0% 0%;
+    }
 }
 
 .post-title {
@@ -1208,6 +1269,7 @@ right
     padding: 5px 15px 0 15px;
     border-radius: 12px;
     margin-bottom: 12px;
+    word-break: break-all;
 }
 
 .recent-box ul {
@@ -2622,7 +2684,7 @@ owo
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none
+    user-select: none;
 }
 
 .OwO.OwO-open .OwO-logo {
@@ -2906,5 +2968,8 @@ mobile fix
     }
     .eynkqj{
         padding: 5px 10px;
+    }
+    .OwO{ /*mobile style owo fix*/
+        top: 1px;
     }
 }

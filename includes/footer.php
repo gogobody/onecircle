@@ -25,7 +25,8 @@ if ($this->is('index')){
            href="http://beian.miit.gov.cn/"> <?php $this->options->recordNo(); ?></a>
     <?php endif ?>
     <?php $this->options->footerEcho(); ?>
-    <span class="footer-item">| Designed by <b title="">gogobody</b></span>
+    <!--可以去除主题版权信息，最好保留版权信息或者添加主题信息到友链，谢谢你的理解-->
+    <span class="footer-item">&nbsp;|&nbsp;Powered by <a target="_blank" href="http://www.typecho.org">Typecho</a>&nbsp;|&nbsp;Designed by <b title="author info"><a target="_blank" href="https://github.com/gogobody/onecircle">gogobody</a></b></span>
 </footer>
 
 <script crossorigin="anonymous" integrity="sha384-LVoNJ6yst/aLxKvxwp6s2GAabqPczfWh6xzm38S/YtjUyZ+3aTKOnD/OJVGYLZDl" src="//lib.baomitu.com/jquery/3.5.0/jquery.min.js"></script>

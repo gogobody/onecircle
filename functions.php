@@ -31,6 +31,7 @@ Typecho_Plugin::factory('Widget_Feedback')->comment = array('comments', 'insertS
  */
 function themeFields(Typecho_Widget_Helper_Layout $layout)
 {
+
     if (preg_match("/write-post.php/", $_SERVER['REQUEST_URI'])) {
         $articleType = new Typecho_Widget_Helper_Form_Element_Select('articleType', array(
             'default' => '默认',
@@ -51,6 +52,7 @@ function themeFields(Typecho_Widget_Helper_Layout $layout)
 
 function themeInit($archive)
 {
+
     //评论回复楼层最高999层.这个正常设置最高只有7层
     Helper::options()->commentsMaxNestingLevels = 999;
     //强制评论关闭反垃圾保护

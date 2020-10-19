@@ -3,7 +3,7 @@ document.getElementById('update-button').addEventListener('click',
         let container = document.getElementById('check-update');
         let ajax = new XMLHttpRequest();
         container.style.display = 'block';
-        ajax.open('get', 'https://api.github.com/gogobody/dyedd/onecircle/releases/latest');
+        ajax.open('get', 'https://api.github.com/gogobody/onecircle/releases/latest');
         ajax.send();
         ajax.onreadystatechange = function () {
             if (ajax.readyState === 4 && ajax.status === 200) {

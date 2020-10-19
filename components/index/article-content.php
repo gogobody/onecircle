@@ -51,16 +51,16 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <div class="content-action">
                 <!--分类-->
                 <div class="topic-container">
-                                        <span style="display: flex;align-items: center;">
-                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                 xmlns="http://www.w3.org/2000/svg" class="container-svg"><circle
-                                                    cx="10"
-                                                    cy="10" r="10"
-                                                    fill="#03A9F5"></circle><circle
-                                                    cx="10" cy="10" r="5" fill="#A0E3FE"></circle></svg>
-                                        <?php $this->category(','); ?>
+                    <span style="display: flex;align-items: center;">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                             xmlns="http://www.w3.org/2000/svg" class="container-svg"><circle
+                                cx="10"
+                                cy="10" r="10"
+                                fill="#03A9F5"></circle><circle
+                                cx="10" cy="10" r="5" fill="#A0E3FE"></circle></svg>
+                    <?php $this->category(','); ?>
 
-                                        </span>
+                    </span>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
@@ -126,5 +126,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
         </div>
     </div>
+    <?php $this->sticky();?>
+
 </article>
 

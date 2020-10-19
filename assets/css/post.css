@@ -433,6 +433,7 @@ b站视频
 }
 .comment-content {
     width: 100%;
+    word-break: break-all;
 }
 .comment-content img{
     width: 80%;
@@ -860,84 +861,8 @@ article table td {
 归档页面
  */
 
-/**
-暗黑模式
- */
-.theme-dark .breadcrumb {
-    background: rgba(52,50,50,0.7);
-    padding: 10px;
-}
-.theme-dark .article-title a {
-    color: rgba(255,255,255,0.87);
-}
-.theme-dark .article-auth span {
-    color: rgba(255,255,255,0.6);
-}
-.theme-dark .article-list-plane .button .label {
-    color: rgba(255,255,255,0.6);
-}
-.theme-dark .article-content {
-    color: rgba(255,255,255,0.87);
-}
-.theme-dark .reply2view {
-    background: #292727;
-    color: rgba(255,255,255,0.6) !important;
-}
-.theme-dark .article-list-plane {
-    border: 1px solid rgba(255,255,255,0.6);
-}
-.theme-dark .article-auth {
-    border: none;
-}
-.theme-dark .article-comments {
-    background: rgba(52,50,50,0.7);
-    border: none;
-}
-.theme-dark .article-comments h1 {
-    color: rgba(255,255,255,0.87);
-}
-.theme-dark .article-comments h2 {
-    color: rgba(255,255,255,0.87);
-}
-.theme-dark hr {
-    border-top: 1px solid rgba(255,255,255,0.6);
-}
-.theme-dark .comment-time {
-    color: rgba(255,255,255,0.6);
-}
-.theme-dark .comment-content {
-    color: rgba(255,255,255,0.6);
-}
-.theme-dark article table td {
-    background: #fff;
-}
-.theme-dark .article-meta {
-    border-bottom: none;
-}
-.theme-dark .article-content h4 {
-    border-bottom: 1px solid rgba(255,255,255,0.6);
-}
-.theme-dark .article-content blockquote::before {
-    content: "\201C";
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 0;
-    width: 80px;
-    height: 60px;
-    font-size: 70px;
-    line-height: 60px;
-    color: rgba(255,255,255,0.87);
-    font-family: sans-serif;
-    text-align: center;
-    z-index: 1;
-}
-.theme-dark .article-content blockquote p {
-    color: rgba(255,255,255,0.6);
-}
-.theme-dark .secret {
-    color: rgba(52,50,50,0.7);
-}
-.theme-dark .comment-respond textarea {
-    background: #ececec;
+@media screen and (max-width: 768px) {
+    .article-container{
+        padding: 10px;
+    }
 }

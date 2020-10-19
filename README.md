@@ -1,7 +1,7 @@
 ## onecircle 一个圈子，基于typecho
 
 ## 名字就叫一个圈子。
-## version：1.8
+## version：1.9
 ## 平台：typecho
 
 ### 想弄一个类社交圈子，开发了一部分，剩下慢慢折腾
@@ -19,7 +19,7 @@
 v1.6 支持 pjax，以及前台登录发布文章，加入progress动画
 v1.7 bugs fix
 v1.8 gallery 支持，优化前台图片显示，后台添加编辑按钮
-
+v1.9 更新gallery 样式，添加置顶设置
 ## 安装
 下载 release 的插件（带plugin字样）和 主题分别安装即可  
 
