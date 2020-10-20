@@ -17,8 +17,8 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                         <a href="/author/<?php echo $this->user->uid?>"><?php echo $this->user->name;?></a>
                     </div>
                     <div class="user-info-fans">
-                        <a href=""><span style="color: rgb(64, 64, 64);"><? _e(DbFunc::getFollowNum($this->user->uid));?></span>关注</a>
-                        <a href=""><span style="color: rgb(64, 64, 64);"><? _e(DbFunc::getOtherFollowNum($this->user->uid));?></span>被关注</a>
+                        <a href=""><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getFollowNum($this->user->uid));?></span>关注</a>
+                        <a href=""><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getOtherFollowNum($this->user->uid));?></span>被关注</a>
                     </div>
                     <div class="user-info-introduction">
                         <span><?php
@@ -42,8 +42,8 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                         <a href=""><?php echo getBlogAdminInfo()['name'] ?></a>
                     </div>
                     <div class="user-info-fans">
-                        <a href=""><span style="color: rgb(64, 64, 64);"><? _e(DbFunc::getFollowNum(1));?></span>关注</a>
-                        <a href=""><span style="color: rgb(64, 64, 64);"><? _e(DbFunc::getOtherFollowNum(1));?></span>被关注</a>
+                        <a href=""><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getFollowNum(1));?></span>关注</a>
+                        <a href=""><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getOtherFollowNum(1));?></span>被关注</a>
                     </div>
                     <div class="user-info-introduction">
                         <span><?php echo getBlogAdminInfo()['userSign'] ?></span>
@@ -95,22 +95,30 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <div class="mycicle-title"><h2>我的圈子</h2></div>
         <div class="mycicle-content">
             <?php
-            $arr = getCategories($this, 10, $this->options->defaultSlugUrl);
-            //            print_r($arr);
+            $arr = CircleFollow::getFollowObj($this->user->uid,10,$this->options->defaultSlugUrl);
             $length = count($arr);
-            for ($i = 0; $i < $length; $i++) {
-                echo '<div class="circle-item">
-                <a href="' . $arr[$i][2] . '" class="circle-item-link">
-                    <img src="' . $arr[$i][3] . '">
-                    <div class="circle-item-link-right">
-                        <div class="circle-item-link-title">' . $arr[$i][1] . '</div>
-                        <div class="circle-item-link-info">'.$arr[$i][4].'️</div>
-                    </div>
-                </a>
-            </div>';
-            }
+            if ($length > 0):
             ?>
-
+            <?for ($i = 0; $i < $length; $i++): ?>
+                <div class="circle-item">
+                    <a href="<? echo $arr[$i][2] ?>" class="circle-item-link">
+                        <img src="<? echo $arr[$i][3] ?>">
+                        <div class="circle-item-link-right">
+                            <div class="circle-item-link-title"><? echo $arr[$i][1] ?></div>
+                            <div class="circle-item-link-info"><? echo $arr[$i][4] ?></div>
+                        </div>
+                    </a>
+                </div>
+            <? endfor;?>
+            <? else:?>
+            <div class="circle-item">
+                <?php if ($this->user->hasLogin()): ?>
+                <small>还没有关注圈子~</small>
+                <? else:?>
+                <small>登录后可见</small>
+                <? endif;?>
+            </div>
+            <? endif;?>
         </div>
     </div>
 

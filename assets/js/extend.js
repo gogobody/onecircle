@@ -235,7 +235,7 @@ var indexInput = {
         })
 
 
-        // process add link
+        // process add link click
         $("#addlink,#addvideo,#addbilibili").unbind('click').bind('click',function () {
             that.uploadPic.hide()
             var type = $(this).data("type")
@@ -327,35 +327,7 @@ var indexInput = {
 
             }
         });
-        // 首页点赞
-        $('.content-action').each(function (i, n) {
-            $(n).find('.btn-like').on('click', function (e) {
-                $(this).get(0).disabled = true;  //  禁用点赞按钮
-                $.ajax({
-                    url:$(this).data('link'),
-                    type: 'post',
-                    data: 'agree=' + $(this).attr('data-cid'),
-                    async: true,
-                    timeout: 30000,
-                    cache: false,
-                    //  请求成功的函数
-                    success: function (data) {
-                        var re = /\d/;  //  匹配数字的正则表达式
-                        //  匹配数字
-                        if (re.test(data)) {
-                            //  把点赞按钮中的点赞数量设置为传回的点赞数量
-                            $($('.btn-like').find('span.agree-num')[i]).html(data);
-                        }
-                    },
-                    error: function () {
-                        //  如果请求出错就恢复点赞按钮
-                        $(this).get(0).disabled = false;
-                    },
-                });
-                e.stopPropagation()
-                return false;
-            })
-        })
+
         $(".post-content-inner-link a").click(function (event) {
             event.stopPropagation();
         })
@@ -439,39 +411,80 @@ var indexInput = {
             }), !1)
         })
     },
-    loginBan: function() {
+    loginBan: function() { // no use now
         var loginform = $("#Login_form")
         loginform.hasClass("banLogin") || (loginform.addClass("banLogin"),
             $("#navbar-login-user").attr("disabled", "disabled"),
             $("#navbar-login-password").attr("disabled", "disabled"))
     },
+    resetLoginAction:function (){
+        $.post('/oneaction',{type:"getsecurl",url:window.location.href},function (res) {
+            if (checkURL(res)){
+                $("#Login_form").attr('action',res)
+            }
+        })
+    },
     articleClickInit:function(){
         if ($.support.pjax) {
             $("article[do-pjax]").unbind('click').bind('click',function (e){
                 var url = $(this).data('url')
-                console.log("aaa")
+
                 $.pjax({url:url,container:'#pjax-container'});
             })
         }
+        // 首页点赞
+        $('.content-action').each(function (i, n) {
+            $(n).find('.btn-like').on('click', function (e) {
+                $(this).get(0).disabled = true;  //  禁用点赞按钮
+                $.ajax({
+                    url:$(this).data('link'),
+                    type: 'post',
+                    data: 'agree=' + $(this).attr('data-cid'),
+                    async: true,
+                    timeout: 30000,
+                    cache: false,
+                    //  请求成功的函数
+                    success: function (data) {
+                        var re = /\d/;  //  匹配数字的正则表达式
+                        //  匹配数字
+                        if (re.test(data)) {
+                            //  把点赞按钮中的点赞数量设置为传回的点赞数量
+                            $($('.btn-like').find('span.agree-num')[i]).html(data);
+                        }
+                    },
+                    error: function () {
+                        //  如果请求出错就恢复点赞按钮
+                        $(this).get(0).disabled = false;
+                    },
+                });
+                e.stopPropagation()
+                return false;
+            })
+        })
     },
     pjax_complete:function () {
         this.init()
-        this.loginBan()
+        // this.loginBan()
+        this.resetLoginAction()
     }
 };
 var archiveInit = {
     init:function (){
+        this.archAuthorTabs = $(".react-tabs__tab-list")
         this.funcInit()
     },
     funcInit:function(){
         this.archiveEventInit()
         this.commentInit()
+        this.fansFuncInit()
+        this.circleFuncInit()
+        this.archAuthorTabShowInit()
+        this.archAuthorTabsClickInit()
     },
-    archiveEventInit: function () {
-        var that = this
+    fansFuncInit:function(){
         // 关注 event
         var fanBtn = $(".fan-event")
-        fanBtn.click(function (e) {
+        fanBtn.unbind('click').bind('click',function (e) {
             if (userId > 0) {
                 var status
                 var authorid = parseInt($(this).data("authorid"))
@@ -486,10 +499,12 @@ var archiveInit = {
                         message: "自己不能关注自己！",
                         type: "warning"
                     })
+                    return ;
                 }
                 $(this).attr("disabled", true);
                 var btnThis = this
                 $.post('/', {
+                    followuser:1,
                     follow: status,
                     uid: userId,
                     fid: authorid
@@ -499,12 +514,12 @@ var archiveInit = {
                             $(btnThis).text("关注")
                             $(btnThis).addClass("fans")
                             $(btnThis).removeClass("fansed")
-                            window.location.reload()
+                            // window.location.reload()
                         } else {
                             $(btnThis).text("已关注")
                             $(btnThis).addClass("fansed")
                             $(btnThis).removeClass("fans")
-                            window.location.reload()
+                            // window.location.reload()
 
                         }
                     }
@@ -520,16 +535,75 @@ var archiveInit = {
 
             }
         })
-        // archive tabs
+    },
+    circleFuncInit:function(){
+        // 关注 圈子event
+        var circleBtn = $(".circle-event")
+        circleBtn.unbind('click').bind('click',function (e) {
+            if (userId > 0) {
+                var status
+                var circleid = parseInt($(this).data("categoryid"))
+                if ($.trim($(this).text()) === "加入") {
+                    status = "follow"
+                } else {
+                    status = "unfollow"
+                }
+
+                $(this).attr("disabled", true);
+                var btnThis = this
+                $.post('/', {
+                    followcircle:1,
+                    follow: status,
+                    uid: userId,
+                    mid: circleid
+                }, function (res) {
+                    if (res) {
+                        if (status === "unfollow") {
+                            $(btnThis).text("加入")
+                            $(btnThis).addClass("fans")
+                            $(btnThis).removeClass("fansed")
+                            // window.location.reload()
+                        } else {
+                            $(btnThis).text("已加入")
+                            $(btnThis).addClass("fansed")
+                            $(btnThis).removeClass("fans")
+                            // window.location.reload()
+
+                        }
+                    }
+                    $(btnThis).attr("disabled", false);
+
+                })
+            } else {
+                $.message({
+                    title: "提示",
+                    message: "没有登录！",
+                    type: "warning"
+                })
+
+            }
+        })
+    },
+    archAuthorTabShowInit:function(){
+        // archive author tabs
         var react_tabs = $(".react-tabs__tab-list")
         if(react_tabs.length > 0 ){
             var baseoffset = react_tabs.first().offset().left
-            var line =  $('.line')
             var init_offset = $('.react-tabs__tab-list li').first().offset().left-baseoffset
+            var line =  $('.line')
             line.css({
                 'transform': 'translateX(' + init_offset + 'px)'
             })
             line.show()
+        }
+    },
+    archAuthorTabsClickInit:function(){
+        // archive tabs
+        var that = this
+        var react_tabs = $(".react-tabs__tab-list")
+        if(react_tabs.length > 0 ){
+            var baseoffset = react_tabs.first().offset().left
+            var line =  $('.line')
             react_tabs.children().each(function (index, val) {
                 $(val).click(function (e) {
                     var tabindex = $(val).data("tabindex")
@@ -539,6 +613,8 @@ var archiveInit = {
                     line.css({
                         'transform': 'translateX(' + left + 'px)'
                     })
+                    // $.pjax({url:'?tabindex=' + tabindex,container:'.react-tabs'});
+
                     $.ajax({
                         url:'?tabindex=' + tabindex,
                         method:'get',
@@ -560,16 +636,21 @@ var archiveInit = {
                                         $(".pagination").css("display","flex")
                                     }
                                     $(".item-container").html(real_html)
+                                    // reinit click functions
+                                    that.fansFuncInit()
+                                    indexInput.articleClickInit()
                                 }
                             }catch (e) {
                                 console.log(e)
                             }
                         }
                     })
-                    // window.location.search = '?tabindex=' + tabindex
                 })
             })
         }
+    },
+    archiveEventInit: function () {
+        var that = this
 
         // 文章点赞
         $('#agree-btn').on('click', function () {
@@ -683,6 +764,10 @@ var archiveInit = {
                 l = ''
             })
         }
+    },
+    pjax_complete:function () {
+        this.archiveEventInit()
+        this.commentInit()
     }
 }
 $(function () {
@@ -870,7 +955,7 @@ function videoToggle(idselector,this_){
 }
 function checkURL(URL) {
     var str = URL;
-    var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+    var Expression = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/;
     var objExp = new RegExp(Expression);
     return objExp.test(str) === true;
 }

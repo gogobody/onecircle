@@ -288,8 +288,8 @@ header {
     padding: 0;
 }
 .nav-icon {
-    max-width: 24px;
-    max-height: 24px;
+    width: 24px;
+    height: 24px;
 }
 
 .nav-item-text {
@@ -844,7 +844,10 @@ button:focus{
     padding: 4px 12px 4px 4px;
     width: fit-content;
 }
-
+.topic-container-items{
+    display: flex;
+    align-items: center;
+}
 .topic-container a {
     color: rgb(3, 169, 245);
 }
@@ -991,7 +994,10 @@ footer
     font-weight: 400;
     color: rgb(153, 153, 153);
 }
-
+/*recommend right*/
+.mycicle-content .bITJVr{
+    padding: 8px 16px 8px;
+}
 .footer-item {
     color: #8590a6;
 }
@@ -1753,7 +1759,7 @@ achieve
 }
 
 .react-tabs__tab-list {
-    margin: 0px 0px 8px;
+    margin: -8px 0px 8px;
     border-radius: 12px;
     display: flex;
     flex-direction: row;
@@ -1774,11 +1780,12 @@ achieve
     background-color: rgb(255, 228, 17);
     margin-top: 5px;
     position: relative;
-    top: 43px;
+    top: 33px;
     left: 0;
     margin-left: 12px;
     transition: all 0.3s;
     display: none;
+    z-index: 33;
 }
 
 .react-tabs__tab {
@@ -2971,5 +2978,18 @@ mobile fix
     }
     .OwO{ /*mobile style owo fix*/
         top: 1px;
+    }
+    .header-top-bottom{
+        padding-left: 12px;
+        padding-right: 20px;
+    }
+    .header-top-bottom-avatar{
+        top: 0;
+    }
+    .htbt-right button{
+        padding: 7px 15px;
+    }
+    .achieve-container .achieve-header{
+        padding: 7px 0 17px;
     }
 }

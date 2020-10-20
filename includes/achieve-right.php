@@ -39,7 +39,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <div class="mycicle-content">
             <?php
             $arr = getCategories($this,10, $this->options->defaultSlugUrl);
-            //            print_r($arr);
+//                        print_r($arr);
             $length = count($arr);
             for ($i=0;$i<$length;$i++){
                 echo '<div class="circle-item">

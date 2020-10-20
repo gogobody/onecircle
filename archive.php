@@ -1,5 +1,39 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
+<?// $this->setDefault(array('order'=>'table.contents.views','desc'=>true));var_dump($this);?>
+<?php
+    $tArr = utils::parseUrlQuery(utils::GetCurUrl());
+    if (count($tArr) == 0){
+        $tabIndex = 0;
+    }else{
+        $tabIndex = $tArr['tabindex'];
+    }
+    if ($tabIndex == 3) {
+        //清空原有文章的列队
+        $this->row = [];
+        $this->stack = [];
+        $this->length = 0;
 
+        $db = Typecho_Db::get();
+
+        $sqlt = $this->getCountSql();
+        $sqlt->order('views',Typecho_Db::SORT_DESC);
+//    var_dump($sqlt->__toString());
+
+        $this->setCountSql($sqlt);
+//    var_dump($this->getCountSql()->__toString());
+        $sqlt_clone = clone $sqlt;
+        $cnt = $this->size($sqlt_clone); // 获取 sql 结果数量
+        $sqlt->page($this->_currentPage, $this->parameter->pageSize);
+        $achives_ = $db->fetchAll($sqlt);
+        foreach($achives_ as $_post) $this->push($_post); //压入列队
+        $this->setTotal($cnt);
+//        $this->setTotal($this->length);
+
+    }
+
+
+
+?>
 <?php $this->need('includes/header.php'); ?>
 
 <div class="container" id="pjax-container">
@@ -18,8 +52,8 @@
                             <div class="sc-AxjAm sc-AxirZ jnzuaU"><img src="<?php echo getV2exAvatar($this) ?>" class="sc-AxjAm irFFsx"></div>
                             <h2 class="sc-AxjAm dDtTVx"><?php echo $this->author() ?></h2>
                             <div class="sc-AxjAm sc-AxirZ dZfkqf">
-                                <a href="" class="sc-AxjAm OAorY  ffrrSB"><span><? _e(DbFunc::getFollowNum($this->author->uid));?></span> 关注</a>
-                                <a href="" class="sc-AxjAm OAorY  dDeaQZ"><span><? _e(DbFunc::getOtherFollowNum($this->author->uid));?></span> 被关注</a>
+                                <a href="" class="sc-AxjAm OAorY  ffrrSB"><span><? _e(UserFollow::getFollowNum($this->author->uid));?></span> 关注</a>
+                                <a href="" class="sc-AxjAm OAorY  dDeaQZ"><span><? _e(UserFollow::getOtherFollowNum($this->author->uid));?></span> 被关注</a>
                             </div>
                             <div class="sc-AxjAm sc-AxirZ iiMLXg">
                                 <div class="sc-AxjAm kkFELj"><?php _e($this->author->userSign);?>
@@ -38,7 +72,7 @@
                             <button data-authorid="<? echo $this->author->uid ?>"
                                 <?php
                                 if ($this->user->hasLogin()){
-                                    if (DbFunc::statusFollow($this->user->uid,$this->author->uid)){
+                                    if (UserFollow::statusFollow($this->user->uid,$this->author->uid)){
                                         echo 'class="fansed fan-event">已关注';
                                     }else{
                                         echo 'class="fans fan-event">关注';
@@ -55,14 +89,14 @@
                 <div class="achieve-header">
                     <div class="achieve-header-top">
                         <div class="header-top-img"
-                             style='background-image: url(<?php _e(parseDesc2img($this->categories[0]['description'])); ?>)'>
+                             style='background-image: url(<?php _e(parseDesc2img($this->options->defaultSlugUrl,$this->categories[0]['description'])); ?>)'>
                             <div class="header-top-img-inner"></div>
                         </div>
                     </div>
 
                     <div class="header-top-bottom">
                         <div class="header-top-bottom-avatar"><img src="<?php
-                            $imgurl = parseDesc2img($this->getDescription());
+                            $imgurl = parseDesc2img($this->options->defaultSlugUrl,$this->getDescription());
                             if ($imgurl) {
                                 _e($imgurl);
                             } else {
@@ -82,7 +116,19 @@
                                 </div>
                             </div>
                             <div class="htbt-right">
-                                <button>已加入</button>
+                                <button data-categoryid="<? echo $this->getPageRow()['mid'] ?>"
+                                <?php
+                                if ($this->user->hasLogin()){
+                                    if (CircleFollow::statusFollow($this->user->uid,$this->getPageRow()['mid'])){
+                                        echo 'class="fansed circle-event">已加入';
+                                    }else{
+                                        echo 'class="fans circle-event">加入';
+                                    }
+                                }else{
+                                    echo 'class="fans circle-event">加入';
+                                }
+                                ?>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -90,14 +136,7 @@
             <?php endif; ?>
             <div class="achieve-content">
                 <div class="col-12 col-md-8 outer">
-                    <?php
-                    $tArr = utils::parseUrlQuery(utils::GetCurUrl());
-                    if (count($tArr) == 0){
-                        $tabIndex = 0;
-                    }else{
-                        $tabIndex = $tArr['tabindex'];
-                    }
-                    ?>
+
                     <div class="react-tabs" data-tabs="true">
                         <div class="line"></div>
 
@@ -120,7 +159,7 @@
                                         </div>
                                     <?php endwhile; ?>
                                 <?php elseif($tabIndex==1):?>
-                                    <?php $fobj = DbFunc::getFollowObj($this->author->uid);?>
+                                    <?php $fobj = UserFollow::getFollowObj($this->author->uid);?>
                                     <?php if (count($fobj)>0):?>
                                     <?php for($i=0;$i<count($fobj);$i++): ?>
                                         <div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr">
@@ -137,7 +176,7 @@
                                             <div class="sc-AxjAm sc-AxirZ hsyNhw">
                                                 <button data-authorid="<?php _e($fobj[$i]['uid'])?>" <?php
                                                 if ($this->user->hasLogin()){
-                                                    if (DbFunc::statusFollow($this->user->uid,$fobj[$i]['uid'])){
+                                                    if (UserFollow::statusFollow($this->user->uid,$fobj[$i]['uid'])){
                                                         echo 'class="fansed-little fan-event">已关注';
                                                     }else{
                                                         echo 'class="fans-little fan-event">关注';
@@ -156,7 +195,7 @@
                                         </article>
                                     <?php endif ?>
                                 <?php elseif($tabIndex==2):?>
-                                    <?php $fobj = DbFunc::getOtherFollowObj($this->author->uid);?>
+                                    <?php $fobj = UserFollow::getOtherFollowObj($this->author->uid);?>
                                     <?php if (count($fobj)>0):?>
 
                                         <?php for ($i = 0; $i < count($fobj); $i++): ?>
@@ -173,7 +212,7 @@
                                             <div class="sc-AxjAm sc-AxirZ hsyNhw">
                                                 <button data-authorid="<?php _e($fobj[$i]['uid'])?>" <?php
                                                 if ($this->user->hasLogin()){
-                                                    if (DbFunc::statusFollow($this->user->uid,$fobj[$i]['uid'])){
+                                                    if (UserFollow::statusFollow($this->user->uid,$fobj[$i]['uid'])){
                                                         echo 'class="fansed-little fan-event">已关注';
                                                     }else{
                                                         echo 'class="fans-little fan-event">关注';
@@ -192,15 +231,22 @@
                                     </article>
                                     <?php endif ?>
                                 <?php elseif($tabIndex==3):?>
+                                    <?php while ($this->next()): ?>
+                                        <div class="item-inner">
+                                            <? $this->need('components/index/article-content.php'); ?>
+                                        </div>
+                                    <?php endwhile; ?>
                                 <?php else: ?>
                                     <article class="post-article">
                                         <h6 class="post-title"><?php _e('还没有发布内容'); ?></h6>
                                     </article>
                                 <?php endif; ?>
                             </div>
+
                         </div>
                     </div>
-                    <?php if ($tabIndex==0){$this->need('includes/pagination.php');} ?>
+
+                    <?php if ($tabIndex==0 || $tabIndex == 3){$this->need('includes/pagination.php');} ?>
 
                 </div>
                 <?php $this->need('includes/achieve-right.php'); ?>

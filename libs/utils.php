@@ -323,6 +323,11 @@ class utils
         parse_str($query,$arr);
         return $arr;
     }
+
+    /**
+     * get now url
+     * @return mixed|string
+     */
     public static function GetCurUrl()
     {
         if(!empty($_SERVER["REQUEST_URI"]))

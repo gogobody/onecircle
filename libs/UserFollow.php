@@ -1,11 +1,12 @@
 <?php
 
-class DbFunc
+class UserFollow
 {
 
-    // create user follow table
     public static function init()
     {
+        // create user follow table
+
         $db = Typecho_Db::get();
         $prefix = $db->getPrefix();
         $sql = 'SHOW TABLES LIKE "' . $prefix . 'user_follow' . '"';
@@ -23,6 +24,8 @@ class DbFunc
                                   PRIMARY KEY (`id`)
                                 )');
         }
+
+        // create user circle fans follow table
 
     }
 

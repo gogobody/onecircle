@@ -8,7 +8,7 @@ if ($this->is('index')){
     if($obj->have()){
         while($obj->next()){
             $tmp = array();
-            array_push($tmp,$obj->name,$obj->mid,parseDesc2img($obj->description),parseDesc2text($obj->description));
+            array_push($tmp,$obj->name,$obj->mid,parseDesc2img($this->options->defaultSlugUrl,$obj->description),parseDesc2text($obj->description));
             array_push($arr,$tmp);
         }
     }
@@ -50,13 +50,16 @@ if ($this->is('index')){
         $userId = $this->user->uid;
     }
 ?>
-<script>userId=<?echo $userId?></script>
+<script>
+    userId=<?echo $userId?>
+</script>
 
 <script src="<?php $this->options->themeUrl('assets/js/extend.min.js'); ?>"></script>
 <?php if ($this->options->jsPushBaidu):?>
     <script src="<?php $this->options->themeUrl('assets/js/push.js'); ?>"></script>
 <?php endif;?>
 <script>
+
     $(document).pjax('a[href^="<?php Helper::options()->siteUrl()?>"]:not(a[target="_blank"], a[no-pjax],form,#id_iframe)', {
         container: '#pjax-container',//
         fragment: '#pjax-container',

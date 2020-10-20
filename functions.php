@@ -5,9 +5,11 @@ require_once 'libs/options.php';
 require_once 'libs/comments.php';
 require_once 'libs/utils.php';
 require_once 'libs/pageNav.php';
-require_once 'libs/DbFunc.php';
-
-
+require_once 'libs/UserFollow.php';
+require_once 'libs/CircleFollow.php';
+require_once 'libs/route.php';
+require_once 'widget/Widget_Users_Random.php';
+require_once 'widget/Widget_Metas_Random.php';
 /**
  * 注册文章解析 hook
  * From AlanDecode(https://imalan.cn)
@@ -25,6 +27,7 @@ Typecho_Plugin::factory('admin/write-page.php')->bottom = array('utils', 'addBut
  */
 Typecho_Plugin::factory('Widget_Abstract_Comments')->contentEx = array('comments', 'parseContent');
 Typecho_Plugin::factory('Widget_Feedback')->comment = array('comments', 'insertSecret');
+
 /**
  * 文章与独立页自定义字段
  * @param Typecho_Widget_Helper_Layout $layout
@@ -57,28 +60,11 @@ function themeInit($archive)
     Helper::options()->commentsMaxNestingLevels = 999;
     //强制评论关闭反垃圾保护
     Helper::options()->commentsAntiSpam = false;
-    //  点赞
-    if ($archive->request->isPost() && $archive->request->agree) {
-        if ($archive->request->agree == $archive->cid) {
-            exit(utils::agree($archive->cid));
-        } elseif ($archive->is('index')) {
-            exit(utils::agree($archive->request->agree));
-        }
-        exit('error');
-    }
-    // follow
-    if ($archive->request->isPost() && $archive->request->follow){
-        if ($archive->request->follow == 'follow'){
-            exit(DbFunc::addFollow($archive->request->uid,$archive->request->fid));
-        }elseif ($archive->request->follow == 'unfollow'){
-            exit(DbFunc::cancleFollow($archive->request->uid,$archive->request->fid));
-        }elseif ($archive->request->follow == 'status'){
-            exit(DbFunc::statusFollow($archive->request->uid,$archive->request->fid));
-        }
-        exit('error');
-    }
+    parseRout($archive);
     // 初始化数据库设置
-    DbFunc::init();
+    UserFollow::init();
+    CircleFollow::init();
+
 }
 
 
@@ -176,7 +162,7 @@ function getUserV2exAvatar($mail_,$size=100)
  * 获取博主信息
  */
 function getBlogAdminInfo(){
-    return DbFunc::getUserObj(1);
+    return UserFollow::getUserObj(1);
 }
 /**
  * markdown parse
@@ -228,26 +214,31 @@ function parseMarkdownInText($str,$num=15){
  * feedRssUrl：该分类的feedRss地址
  * feedAtomUrl：该分类的feedAtom地址
  * @param $obj
- * @param int $cnt
- * @param string $url
+ * @param int $cnt nums
+ * @param string $url default pic
+ * @param bool $random
  * @return array
  */
-function getCategories($obj, $cnt = -1, $url = '')
+function getCategories($obj, $cnt = -1, $url = '', $random = false)
 {
-    $categories = $obj->widget('Widget_Metas_Category_List');
+    if ($random && $cnt)
+        $categories = $obj->widget('Widget_Metas_Random',array('limit'=>$cnt,'sort' => 'RAND()'));
+    else if ($random)
+        $categories = $obj->widget('Widget_Metas_Random',array('sort' => 'RAND()'));
+    else if ($cnt)
+        $categories = $obj->widget('Widget_Metas_Random',array('limit'=>$cnt));
+    else
+        $categories = $obj->widget('Widget_Metas_Category_List');
+
     $arr = array();
     $preg = '/^<(.*)>([\s\S]*)/';
     if ($categories->have()) {
-        $i = 0;
         while ($categories->next()) {
-            if ($cnt > 0 && $i >= $cnt) {
-                break;
-            }
             $tmp = array();
-            preg_match_all($preg, $categories->description, $res); // res[0][0] 是匹配的整个串 [1] 是网址 [2]是内容
-            if (isset($res[1][0])) { // has img
-                $imgurl = $res[1][0];
-                $desc = $res[2][0];
+            preg_match($preg, $categories->description, $res); // res[0][0] 是匹配的整个串 [1] 是网址 [2]是内容
+            if (isset($res[1])) { // has img
+                $imgurl = $res[1];
+                $desc = $res[2];
             } else {
                 $imgurl = $url;
                 $desc = $categories->description;
@@ -255,7 +246,6 @@ function getCategories($obj, $cnt = -1, $url = '')
 
             array_push($tmp, $categories->mid, $categories->name, $categories->permalink, $imgurl, $desc, $categories->count);
             array_push($arr, $tmp);
-            $i = $i + 1;
         }
     }
 
@@ -266,17 +256,18 @@ function getCategories($obj, $cnt = -1, $url = '')
 
 /**
  * 解析分类描述中的图片，格式<imgurl>
+ * @param $defaultSlugUrl
  * @param $desc
  * @return mixed|string
  */
-function parseDesc2img($desc)
+function parseDesc2img($defaultSlugUrl,$desc)
 {
     $preg = '/^<(.*)>([\s\S]*)/';
-    preg_match_all($preg, $desc, $res);
-    if (isset($res[1][0])) {
-        return $res[1][0];
+    preg_match($preg, $desc, $res);
+    if (isset($res[1])) {
+        return $res[1];
     }
-    return "";
+    return $defaultSlugUrl;
 }
 
 function parseDesc2text($desc)
