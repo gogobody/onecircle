@@ -48,7 +48,9 @@ function threadedComments($comments, $options)
                 </div>
                 <div class="comment-reply">
                     <?php if(in_array(get_user_group(), ['administrator', 'editor'])):Typecho_Widget::widget('Widget_Security')->to($security);?>
-                        <a href="<?php $security->index('/action/comments-edit?do=delete&coid='.$comments->coid); ?>" onclick="return p_del()"> 删除</a>
+                        <a href="<?php $security->index('/action/comments-edit?do=delete&coid='.$comments->coid); ?>" onclick="return p_del()"> <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-exclamation" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                            </svg>删除</a>
                         <script>
                             function p_del() {
                                 let msg = "您真的确定要删除吗？";
@@ -147,11 +149,16 @@ function threadedComments($comments, $options)
                         </button>
                     </div>
                     <div class="comment-reply-cancel">
-                        <?php $comments->cancelReply('取消'); ?>
+                        <?php $comments->cancelReply('<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+</svg>取消'); ?>
                     </div>
                     <hr/>
                 </form>
             </div>
+        <?php if ($this->options->commentsThreaded): ?>
+            <script>(function(){window.TypechoComment={dom:function(id){return document.getElementById(id)},create:function(tag,attr){var el=document.createElement(tag);for(var key in attr){el.setAttribute(key,attr[key])}return el},reply:function(cid,coid){var comment=this.dom(cid),parent=comment.parentNode,response=this.dom('<?php $this->respondId(); ?>'),input=this.dom('comment-parent'),form='form'==response.tagName?response:response.getElementsByTagName('form')[0],textarea=response.getElementsByTagName('textarea')[0];if(null==input){input=this.create('input',{'type':'hidden','name':'parent','id':'comment-parent'});form.appendChild(input)}input.setAttribute('value',coid);if(null==this.dom('comment-form-place-holder')){var holder=this.create('div',{'id':'comment-form-place-holder'});response.parentNode.insertBefore(holder,response)}comment.appendChild(response);this.dom('cancel-comment-reply-link').style.display='';if(null!=textarea&&'text'==textarea.name){textarea.focus()}return false},cancelReply:function(){var response=this.dom('<?php $this->respondId(); ?>'),holder=this.dom('comment-form-place-holder'),input=this.dom('comment-parent');if(null!=input){input.parentNode.removeChild(input)}if(null==holder){return true}this.dom('cancel-comment-reply-link').style.display='none';holder.parentNode.insertBefore(response,holder);return false}}})();</script>
+        <?php endif; ?>
         <?php else: ?>
             <h2 id="comment-closed"><?php _e('评论功能已关闭'); ?></h2>
         <?php endif; ?>

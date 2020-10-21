@@ -350,15 +350,19 @@ var indexInput = {
         })
     },
     login_ajax: function () {
+        var that = this
         var loginSubmitForm = $("#login-submit")
         var navLoginUser = $("#navbar-login-user")
         var navLoginPsw = $("#navbar-login-password")
 
-        function a() {
-            loginSubmitForm.attr("disabled", !1).fadeTo("", 1)
+        function showbtn() {
+            loginSubmitForm.attr("disabled", true).fadeTo("", 1)
         }
-
+        this.canLogin = true // prevent multi submit
         $("#Login_form").submit(function () {
+            if (!that.canLogin) return
+            that.canLogin = false
+
             if ($(this).hasClass("banLogin")) return location.reload(), !1;
             loginSubmitForm.attr("disabled", !0).fadeTo("slow", .5);
             var b = navLoginUser.val(), c = navLoginPsw.val();
@@ -366,21 +370,22 @@ var indexInput = {
                 title: "登录通知",
                 message: "必须填写用户名",
                 type: "warning"
-            }), navLoginUser.focus(), a(), !1) : "" === c ? ($.message({
+            }), navLoginUser.focus(), showbtn(), !1) : "" === c ? ($.message({
                 title: "登录通知",
                 message: "请填写密码",
                 type: "warning"
-            }), navLoginPsw.focus(), a(), !1) : (loginSubmitForm.addClass("active"), $("#spin-login").addClass("show inline"),
+            }), navLoginPsw.focus(), showbtn(), !1) : (loginSubmitForm.addClass("active"), $("#spin-login").addClass("show inline"),
                 $.ajax({
                 url: $(this).attr("action"),
                 type: $(this).attr("method"),
                 data: $(this).serializeArray(),
                 error: function () {
+                    that.canLogin = true
                     return $.message({
                         title: "登录通知",
                         message: "提交出错",
                         type: "error"
-                    }), a()
+                    }), showbtn()
                 },
                 success: function (b) {
                     b = $.parseHTML(b)
@@ -388,13 +393,17 @@ var indexInput = {
                     $("#spin-login").removeClass("show inline");
 
                     try {
-                        if ($("#Logged-in", b).length <= 0)
+                        if ($("#Logged-in", b).length <= 0){
+                            that.canLogin = true
+                            showbtn()
                             return $.message({
                                 title: "登录通知",
                                 message: "用户名或者密码错误，请重试",
                                 type: "error"
                             })
-                        a()
+                        }
+
+                        showbtn()
                         b = $("#easyLogin", b).html(), $("#easyLogin").html(b)
                         $.message({
                             title: "登录通知",
@@ -406,6 +415,7 @@ var indexInput = {
                         }, 500)
                     } catch (a) {
                         alert("按下F12，查看输出错误信息")
+                        that.canLogin = true
                     }
                 }
             }), !1)
@@ -419,9 +429,11 @@ var indexInput = {
     },
     resetLoginAction:function (){
         $.post('/oneaction',{type:"getsecurl",url:window.location.href},function (res) {
-            if (checkURL(res)){
-                $("#Login_form").attr('action',res)
-            }
+            $("#Login_form").attr('action',res)
+            //
+            // if (checkURL(res)){
+            //
+            // }
         })
     },
     articleClickInit:function(){
@@ -820,7 +832,13 @@ function submitForm(ele) {
         if(val.length === 0 || val ===''){
             title.val("图文小记事~"+datetime)
         }
-        if (indexInput.additionArray.length > 0){
+        if (indexInput.additionArray.length === 1){
+            val = val + '\n\n'
+            indexInput.additionArray.forEach(function (value){
+                val = val + "![](" + value +")"
+            })
+            val = val + '\n\n'
+        }else if (indexInput.additionArray.length > 1){
             val = val + '\n[gallery]'
             indexInput.additionArray.forEach(function (value){
                 val = val + "![](" + value +")"
@@ -931,6 +949,7 @@ function submitForm(ele) {
 
     return false;
 }
+
 // video toggle
 function videoToggle(idselector,this_){
     if(!$(this_).hasClass('video-slim')){

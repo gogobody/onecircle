@@ -36,10 +36,10 @@
 ?>
 <?php $this->need('includes/header.php'); ?>
 
-<div class="container" id="pjax-container">
+<div class="container-lg" id="pjax-container">
     <div class="row">
         <?php $this->need('includes/nav.php'); ?>
-        <div class="col-xl-10 col-md-9 col-12 achieve-container">
+        <div class="col-xl-10 col-md-10 col-12 achieve-container">
             <?php if ($this->is('author')): ?>
                 <div class="vxeHw">
                     <div class="kojXeB">

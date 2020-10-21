@@ -7,7 +7,7 @@
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 $this->need('includes/header.php');
 ?>
-<div class="container">
+<div class="container-lg">
     <div class="row">
         <?php $this->need('includes/nav.php');?>
         <div class="col-xl-7 col-md-6 col-12">

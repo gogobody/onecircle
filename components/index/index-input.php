@@ -4,10 +4,10 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  * 主页的 发布 板块
  */
 ?>
-<?php Typecho_Widget::widget('Widget_Security')->to($security); ?>
+
 <div class="post share-post"> <!--按个人CSS的更改-->
     <!--                    --><?php //$this->options->siteUrl(); ?><!--action/contents-post-edit-->
-    <form id="input-form" class="post-form" action="<?php $security->index('/action/contents-post-edit?do=publish'); ?>" method="post"
+    <form id="input-form" class="post-form" action="<?php $this->options->loginAction(); ?>" method="post"
           name="write_post" target="nm_iframe"> <!--target="nm_iframe"-->
         <!--以发布时间作标题，把这里的hidden改成text就能自定义标题了-->
         <div class="textarea">

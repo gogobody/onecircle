@@ -13,7 +13,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             while ($users->next()):
             ?>
             <div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr">
-                <a href="/author/4" class="sc-AxjAm sc-AxirZ eGdPrb"><img src="<?php _e(getUserV2exAvatar($users->mail))?>" alt="再多一点可爱" class="sc-AxjAm jZLHXc">
+                <a href="<? _e($users->permalink);?>" class="sc-AxjAm sc-AxirZ eGdPrb"><img src="<?php _e(getUserV2exAvatar($users->mail))?>" alt="再多一点可爱" class="sc-AxjAm jZLHXc">
                     <div class="sc-AxjAm sc-AxirZ hkyonN">
                         <div class="sc-AxjAm oDrAC"><? $users->screenName()?></div>
                         <div class="sc-AxjAm hHqHSX ezzhLs"><?if($users->userSign)_e($users->userSign);else _e('太懒了还没有签名');?></div>

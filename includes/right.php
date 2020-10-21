@@ -134,7 +134,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                         <h6 class="mt-0 mb-1"><?php $comments->author(false); ?></h6>
                         <a class="content" href="<?php $comments->permalink(); ?>"
                            target="<?php $this->options->sidebarLinkOpen(); ?>">
-                            <?php echo contents::parseHide(contents::parseOwo($comments->excerpt(35, '...')));?>
+                            <?php echo contents::parseHide($comments->excerpt(35, '...'));?>
                         </a>
                     </div>
                 </li>

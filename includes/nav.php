@@ -5,7 +5,7 @@
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 ?>
-<div class="col-md-3 col-xl-2 collapse" id="mobile-nav">
+<div class="col-md-2 col-xl-2 collapse" id="mobile-nav">
         <div class="nav-menu">
             <nav class="nav flex-column">
                 <a<?php if ($this->is('index')): ?> class="nav-link active"<?php else:?> class="nav-link"<?php endif; ?>
