@@ -63,9 +63,9 @@
                                 <div class="sc-AxjAm bHdldX  fXkMMP">
                                     <img src="https://cdn.jellow.site/resources/userProfile/male@3x_6.0.png" class="sc-AxjAm hzfjJS">
                                 </div>
-                                <div class="sc-AxjAm hXeItE  fXkMMP">重庆</div>
-                                <div class="sc-AxjAm hXeItE  fXkMMP">学生</div>
-                                <div class="sc-AxjAm hXeItE  fXkMMP">天秤座</div>
+                                <? foreach(utils::parseUserTag($this->author->userTag) as $val):?>
+                                <div class="sc-AxjAm hXeItE  fXkMMP"><? _e($val);?></div>
+                                <? endforeach;?>
                             </div>
                         </div>
                         <div class="sc-AxjAm sc-AxirZ kLKIKx">

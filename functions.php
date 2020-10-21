@@ -133,15 +133,15 @@ function parseFirstURL($content)
  */
 function isqq($email,$size=100){
     if($email){
-        if(strpos($email,"@qq.com") !==false){
-            $email=str_replace('@qq.com','',$email);
-            return "https://q.qlogo.cn/g?b=qq&nk=".$email."&s=100";
-//            return "http://q2.qlogo.cn/headimg_dl?dst_uin=".$email."&spec=100";
-//            return "//q1.qlogo.cn/g?b=qq&nk=".$email."&s=".$size;
-        }else{
-            $email= md5($email);
-            return "//cdn.v2ex.com/gravatar/".$email."?&s=".$size;
-        }
+//        if(strpos($email,"@qq.com") !==false){
+//            $email=str_replace('@qq.com','',$email);
+//            return "https://q.qlogo.cn/g?b=qq&nk=".$email."&s=100";
+//        }else{
+//
+//        }
+        $email= md5($email);
+//        return "https://dn-qiniu-avatar.qbox.me/avatar/".$email."?&s=".$size;
+        return "//cdn.v2ex.com/gravatar/".$email."?&s=".$size;
     }else{
         return "//cdn.v2ex.com/gravatar/null?&s=".$$size;
     }

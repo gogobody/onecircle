@@ -351,6 +351,16 @@ class utils
     }
 
     /**
+     * 解析 userTag 字段
+     * @param $userTag
+     * @param int $num
+     * @return false|string[]
+     */
+    public static function parseUserTag($userTag,$num = 5){
+        $tags = explode(',',$userTag);
+        return array_slice($tags,0,$num);
+    }
+    /**
      * 输出归档页时间轴
      *
      * @param $post
