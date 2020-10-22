@@ -1473,6 +1473,7 @@ achieve
     margin: 0px;
     min-width: 0px;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .irFFsx {
@@ -2944,6 +2945,23 @@ owo
 
 .OwO .OwO-logo:hover {
     color: #6d757a
+}
+.loading-container{
+    padding: 8px;
+    color: rgb(95, 95, 95);
+    font-size: 14px;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    display: flex;
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    flex-direction: row;
+}
+.loading-container .loading-svg{
+    width: 42px;
 }
 
 /* This changes all the animations globally */

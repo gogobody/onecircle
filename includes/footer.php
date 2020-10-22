@@ -69,6 +69,10 @@ if ($this->is('index')){
     $(document).on('pjax:send',
         function() {
             $("#pjax-container").fadeOut();
+            $.showloading({
+                selector:'header',
+                choice: 'after'
+            })
             NProgress.start();
 
         })
@@ -80,6 +84,7 @@ if ($this->is('index')){
             archiveInit.init()
             owoInit();
             NProgress.done();
+            $.rmloading()
             if (typeof smms_node!="undefined" && typeof smms!="undefined"){
                 smms_node.init()
                 smms.init()
