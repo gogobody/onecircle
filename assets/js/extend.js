@@ -873,6 +873,14 @@ function submitForm(ele) {
             indexInput.additionArray.forEach(function (value){
                 val = val+ '\n[video src="'+ value +'"]\n'
             })
+        }else {
+            $.message({
+                title:"提示",
+                message:"请输入正确链接",
+                type:'warning'
+            })
+            i.val("发送")
+            return false;
         }
     }else if (indexInput.nowtype === 'bilibili'){
         if (indexInput.additionArray.length > 0){
@@ -882,6 +890,14 @@ function submitForm(ele) {
             indexInput.additionArray.forEach(function (value){
                 val = val+ '\n[bilibili bv="'+ value +'" p="1"]\n'
             })
+        }else {
+            $.message({
+                title:"提示",
+                message:"请输入正确链接",
+                type:'warning'
+            })
+            i.val("发送")
+            return false;
         }
     }
     // realtext.val(val)
