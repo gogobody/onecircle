@@ -171,7 +171,7 @@ function getBlogAdminInfo(){
  * @return false|string
  */
 function parseMarkdownBeforeText($str,$num=15){
-    $pattern = '/(.*?)\[[\s\S]*?\]\([\s\S]*?\)/';
+    $pattern = '/([\s\S]*)\[[\s\S]*?\]\([\s\S]*?\)/';
     preg_match($pattern, $str, $match);
     if (count($match) > 0 ){
         return mb_substr($match[1],0,$num);
