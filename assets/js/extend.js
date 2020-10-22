@@ -366,11 +366,13 @@ var indexInput = {
             if ($(this).hasClass("banLogin")) return location.reload(), !1;
             loginSubmitForm.attr("disabled", !0).fadeTo("slow", .5);
             var b = navLoginUser.val(), c = navLoginPsw.val();
-            return "" === b ? ($.message({
+            return "" === b ? (
+                that.canLogin = true,
+                $.message({
                 title: "登录通知",
                 message: "必须填写用户名",
                 type: "warning"
-            }), navLoginUser.focus(), showbtn(), !1) : "" === c ? ($.message({
+            }), navLoginUser.focus(), showbtn(), !1) : "" === c ? (that.canLogin = true,$.message({
                 title: "登录通知",
                 message: "请填写密码",
                 type: "warning"
@@ -410,6 +412,7 @@ var indexInput = {
                             message: "登录成功:" + '&nbsp;<a onclick="location.reload();">' + "点击这里刷新页面，或等待自动刷新" + "</a>",
                             type: "success"
                         })
+                        that.canLogin = true
                         setTimeout(function () {
                             location.reload()
                         }, 500)
@@ -949,7 +952,29 @@ function submitForm(ele) {
 
     return false;
 }
-
+// delete post
+function del_article(this_, $cid){
+    var msg = "您真的确定要删除吗？";
+    var url = $(this_).attr("href")
+    if (confirm(msg) === true){
+        $.ajax({
+            url:url,
+            method: 'post',
+            success:function (res) {
+                // console.log("aaa",res)
+            },
+            error:function (res) {
+                // console.log("err",res)
+                $.message({
+                    title: "提示",
+                    message: "删除成功！",
+                    type: "info"
+                })
+            }
+        })
+    }
+    return false;
+}
 // video toggle
 function videoToggle(idselector,this_){
     if(!$(this_).hasClass('video-slim')){

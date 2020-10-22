@@ -30,9 +30,6 @@
 //        $this->setTotal($this->length);
 
     }
-
-
-
 ?>
 <?php $this->need('includes/header.php'); ?>
 
@@ -56,14 +53,13 @@
                                 <a href="" class="sc-AxjAm OAorY  dDeaQZ"><span><? _e(UserFollow::getOtherFollowNum($this->author->uid));?></span> 被关注</a>
                             </div>
                             <div class="sc-AxjAm sc-AxirZ iiMLXg">
-                                <div class="sc-AxjAm kkFELj"><?php _e($this->author->userSign);?>
-                                </div>
+                                <div class="sc-AxjAm kkFELj"><?php _e($this->getPageRow()['userSign']);?></div>
                             </div>
                             <div class="sc-AxjAm sc-AxirZ  cXyaML">
                                 <div class="sc-AxjAm bHdldX  fXkMMP">
                                     <img src="https://cdn.jellow.site/resources/userProfile/male@3x_6.0.png" class="sc-AxjAm hzfjJS">
                                 </div>
-                                <? foreach(utils::parseUserTag($this->author->userTag) as $val):?>
+                                <? foreach(utils::parseUserTag($this->getPageRow()['userTag']) as $val):?>
                                 <div class="sc-AxjAm hXeItE  fXkMMP"><? _e($val);?></div>
                                 <? endforeach;?>
                             </div>

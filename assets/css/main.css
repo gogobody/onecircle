@@ -1024,6 +1024,7 @@ footer
     font-size: 12px;
     font-weight: 400;
     color: rgb(153, 153, 153);
+    text-align: left;
 }
 /*recommend right*/
 .mycicle-content .bITJVr{
@@ -3035,6 +3036,10 @@ mobile fix
     }
     .navbar.navbar-nav.navbar-right>li>a{
         padding: 10px;
+    }
+    .img-40px {
+        width: 25px!important;
+        height: 25px;
     }
 
 }

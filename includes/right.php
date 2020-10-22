@@ -17,8 +17,8 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                         <a href="/author/<?php echo $this->user->uid?>"><?php echo $this->user->name;?></a>
                     </div>
                     <div class="user-info-fans">
-                        <a href=""><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getFollowNum($this->user->uid));?></span>关注</a>
-                        <a href=""><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getOtherFollowNum($this->user->uid));?></span>被关注</a>
+                        <a href="/author/<?php echo $this->user->uid?> ?>"><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getFollowNum($this->user->uid));?></span>关注</a>
+                        <a href="/author/<?php echo $this->user->uid?>"><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getOtherFollowNum($this->user->uid));?></span>被关注</a>
                     </div>
                     <div class="user-info-introduction">
                         <span><?php

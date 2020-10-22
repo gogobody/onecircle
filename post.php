@@ -1,5 +1,7 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
-<?php $this->need('includes/header.php'); ?>
+<?php $this->need('includes/header.php');
+checkPermission($this->author->uid,$this->user->uid)
+?>
 <div class="container-lg" id="pjax-container">
     <div class="row">
         <?php $this->need('includes/nav.php'); ?>
@@ -31,8 +33,10 @@
                          src="<?php echo getUserV2exAvatar($this->author->mail) ?>"
                          alt="<?php $this->author() ?>"/>
                     <a href="<?php $this->author->permalink(); ?>"><span><?php $this->author(); ?></span></a>
-                    <?php if ($this->user->hasLogin()): ?>
+                    <?php if ($this->user->hasLogin() && checkPermission($this->author->uid,$this->user->uid)): ?>
                         <a href="<?php $this->options->adminUrl(); ?>write-post.php?cid=<?php echo $this->cid; ?>">编辑</a>
+                        <?php Typecho_Widget::widget('Widget_Security')->to($security); ?>
+                        <a href="<?php $security->index('/action/contents-post-edit?do=delete&cid='.$this->cid); ?>" onclick="javascript:return del_article(this,<? _e($this->cid);?>)">删除</a>
                     <?php endif; ?>
                 </div>
                 <!--     元数据-->

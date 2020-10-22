@@ -476,7 +476,25 @@ function thePrev($widget)
     }
 }
 
-
+/**
+ * check permission
+ */
+function checkPermission($check_uid,$login_uid){
+    $db = Typecho_Db::get();
+    $row = $db->fetchRow($db->select('group')->from('table.users')->where('uid = ?',$login_uid));
+    if (!empty($row)){
+        if ($row["group"] == 'administrator'){
+            return true;
+        }else {
+            if ($check_uid == $login_uid){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+    return false;
+}
 
 /**
  * 获取主题版本号
