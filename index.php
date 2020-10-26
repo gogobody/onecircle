@@ -31,6 +31,7 @@ if ($this->user->hasLogin()){
     $this->need('components/recommend/recommend-rand-sticky.php');
 }
 //Typecho_Widget::widget('Widget_Users_Admin')->to($users);
+
 ?>
 
 <div class="container-lg" id="pjax-container">

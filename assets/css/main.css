@@ -1029,9 +1029,13 @@ footer
 /*recommend */
 .diary-content{
     padding: 10px 0;
-    background: white;
+    background: #fff;
     margin-bottom: 10px;
     border-radius: 10px;
+}
+.diary-content:hover{
+    background-color: #f8fafb;
+    box-shadow: rgba(0,0,0,.2) 0 1px 3px, rgba(157,182,200,.1) 0 1px 20px;
 }
 .diary-content .mycicle-title{
     padding: 0 24px 12px 24px;
@@ -1056,6 +1060,7 @@ footer
     padding: 10px;
     margin: 5px;
     align-items: flex-end;
+    box-shadow: rgba(0,0,0,.2) 0 1px 3px, rgba(157,182,200,.1) 0 1px 20px;
 }
 .circle-diary-bottom{
     position: absolute;
