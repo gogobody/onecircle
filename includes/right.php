@@ -17,7 +17,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                         <a href="/author/<?php echo $this->user->uid?>"><?php echo $this->user->name;?></a>
                     </div>
                     <div class="user-info-fans">
-                        <a href="/author/<?php echo $this->user->uid?> ?>"><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getFollowNum($this->user->uid));?></span>关注</a>
+                        <a href="/author/<?php echo $this->user->uid?>"><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getFollowNum($this->user->uid));?></span>关注</a>
                         <a href="/author/<?php echo $this->user->uid?>"><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getOtherFollowNum($this->user->uid));?></span>被关注</a>
                     </div>
                     <div class="user-info-introduction">
@@ -42,8 +42,8 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                         <a href=""><?php echo getBlogAdminInfo()['name'] ?></a>
                     </div>
                     <div class="user-info-fans">
-                        <a href=""><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getFollowNum(1));?></span>关注</a>
-                        <a href=""><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getOtherFollowNum(1));?></span>被关注</a>
+                        <a href="/author/<?php echo getBlogAdminInfo()['uid']?>"><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getFollowNum(1));?></span>关注</a>
+                        <a href="/author/<?php echo getBlogAdminInfo()['uid']?>"><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getOtherFollowNum(1));?></span>被关注</a>
                     </div>
                     <div class="user-info-introduction">
                         <span><?php echo getBlogAdminInfo()['userSign'] ?></span>
@@ -92,7 +92,12 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         </div>
     <?php endif ?>
     <div class="card d-none d-md-block mycicle">
-        <div class="mycicle-title"><h2>我的圈子</h2></div>
+        <div class="mycicle-title">
+            <h2>我的圈子</h2>
+            <a href="/metas">
+                <svg t="1603601049059" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3178" width="24" height="24"><path d="M391.88 600.132c17.667 0 31.988 14.321 31.988 31.987v271.894c0 17.666-14.321 31.987-31.987 31.987H119.987C102.321 936 88 921.679 88 904.013V632.119c0-17.666 14.321-31.987 31.987-31.987h271.894z m463.818 0c17.667 0 31.988 14.321 31.988 31.987v271.894c0 17.666-14.321 31.987-31.988 31.987H583.805c-17.666 0-31.987-14.321-31.987-31.987V632.119c0-17.666 14.321-31.987 31.987-31.987h271.893zM734.374 97.369L926.63 289.626c12.492 12.492 12.492 32.746 0 45.238L734.374 527.12c-12.492 12.492-32.746 12.492-45.238 0L496.88 334.864c-12.492-12.492-12.492-32.746 0-45.238L689.136 97.37c12.492-12.492 32.746-12.492 45.238 0zM391.88 136.314c17.666 0 31.987 14.321 31.987 31.988v271.893c0 17.666-14.321 31.987-31.987 31.987H119.987c-17.666 0-31.987-14.321-31.987-31.987V168.302c0-17.667 14.321-31.988 31.987-31.988h271.894z m319.874 40.22L576.044 312.245l135.711 135.711 135.711-135.711-135.711-135.711z" p-id="3179" fill="#707070"></path></svg>
+            </a>
+        </div>
         <div class="mycicle-content">
             <?php
             $arr = CircleFollow::getFollowObj($this->user->uid,10,$this->options->defaultSlugUrl);

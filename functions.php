@@ -28,6 +28,8 @@ Typecho_Plugin::factory('admin/write-page.php')->bottom = array('utils', 'addBut
 Typecho_Plugin::factory('Widget_Abstract_Comments')->contentEx = array('comments', 'parseContent');
 Typecho_Plugin::factory('Widget_Feedback')->comment = array('comments', 'insertSecret');
 
+
+
 /**
  * 文章与独立页自定义字段
  * @param Typecho_Widget_Helper_Layout $layout
@@ -60,6 +62,7 @@ function themeInit($archive)
     Helper::options()->commentsMaxNestingLevels = 999;
     //强制评论关闭反垃圾保护
     Helper::options()->commentsAntiSpam = false;
+    // parse route
     parseRout($archive);
     // 初始化数据库设置
     UserFollow::init();
@@ -94,7 +97,6 @@ function get_comment($coid)
  */
 function getPostImg($archive)
 {
-    $img = array();
     //  匹配 img 的 src 的正则表达式
     $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';//匹配img标签的正则表达式
     $preg2 = '/background-image:[ ]?url\([&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif))/i';//匹配背景的url的正则表达式
@@ -125,6 +127,76 @@ function parseFirstURL($content)
     return $arr[0][0];
 }
 
+/**
+ * @param $content
+ * @return array
+ */
+function parseFirstImg($content)
+{
+    //  匹配 img 的 src 的正则表达式
+    $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';//匹配img标签的正则表达式
+    $preg2 = '/background-image:[ ]?url\([&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif))/i';//匹配背景的url的正则表达式
+    $img = array();
+    preg_match($preg, $content, $allImg);//这里匹配所有的img
+    preg_match($preg2, $content, $allImg2);//这里匹配所有的背景img
+    if (!empty($allImg)){
+        array_push($img,$allImg[1]);
+    }
+    if (!empty($allImg2)){
+        array_push($img,$allImg2[1]);
+    }
+    //  判断是否匹配到图片
+    if (!empty($img)) {
+        return $img;
+    } else {
+        //  如果没有匹配到就返回 none
+        return array();
+    }
+}
+
+/**
+ * @param $content
+ * @return array
+ */
+function parseMarkdownFirstImg($content)
+{
+    //  匹配 img 的 src 的正则表达式
+    $preg = '/!\[.*\]\((.+)\)/i';//匹配img标签的正则表达式
+    preg_match($preg, $content, $Img);//这里匹配所有的img
+    $img_ = array();
+    if (!empty($Img)){
+        array_push($img_,$Img[1]);
+    }
+    return $img_;
+}
+
+function getRandRecommendImgs($cnt_ = 10){
+    $db = Typecho_Db::get();
+    $prefix = $db->getPrefix();
+    $select = "SELECT t.cid,t.text,t.authorId,f.str_value as ftype FROM ".$prefix."contents t LEFT JOIN ".$prefix."fields f ON t.cid = f.cid AND t.type = 'post' AND t.status = 'publish' AND f.name = 'articleType' AND f.str_value = 'default' WHERE f.str_value = 'default'";
+    $rows = $db->fetchAll($select);
+    shuffle($rows);
+    $cnt = 0;
+    $ret = array();
+    foreach ($rows as $row){
+        if ($cnt == $cnt_){
+            break;
+        }
+        $res = parseMarkdownFirstImg($row['text']);
+        if (!empty($res)){
+            $cnt = $cnt + 1;
+            $usersec = $db->select('screenName')->from('table.users')->where('uid = ?',$row['authorId']);
+            $userq = $db->fetchRow($usersec);
+            array_push($ret,array(
+                "cid" => $row['cid'],
+                "screenName" => $userq["screenName"],
+                "email" => $userq["mail"],
+                "img" => $res[0]
+            ));
+        }
+    }
+    return $ret;
+}
 
 /** 对邮箱类型判定，并调用QQ头像的实现
  * @param $email
@@ -477,7 +549,8 @@ function thePrev($widget)
 }
 
 /**
- * check permission
+ * check article manage permission
+ * is administrator or userself
  */
 function checkPermission($check_uid,$login_uid){
     $db = Typecho_Db::get();
@@ -491,6 +564,23 @@ function checkPermission($check_uid,$login_uid){
             }else{
                 return false;
             }
+        }
+    }
+    return false;
+}
+
+/**
+ * only administrator can edit circle
+ * @param $login_uid
+ * @return bool
+ * @throws Typecho_Db_Exception
+ */
+function checkCircleEditPermission($login_uid){
+    $db = Typecho_Db::get();
+    $row = $db->fetchRow($db->select('group')->from('table.users')->where('uid = ?',$login_uid));
+    if (!empty($row)) {
+        if ($row["group"] == 'administrator') {
+            return true;
         }
     }
     return false;

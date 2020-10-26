@@ -67,7 +67,8 @@ class UserFollow
         $db = Typecho_Db::get();
         $prefix = $db->getPrefix();
         if (is_numeric($uid) && is_numeric($fid)) {
-            $insert = $db->delete('table.user_follow')->rows(array('uid' => $uid, 'fid' => $fid));
+//            $insert = $db->delete('table.user_follow')->rows(array('uid' => $uid, 'fid' => $fid));
+            $insert = $db->delete('table.user_follow')->where('uid = ? and fid = ?',$uid,$fid);
             $db->query($insert);
             return true;
         }

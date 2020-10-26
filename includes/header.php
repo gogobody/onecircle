@@ -48,13 +48,14 @@
                     <a class="navbar-brand mb-0 h1 p-2 mr-auto" href="<?php $this->options->siteUrl(); ?>">
                         <img class="site-logo" src="<?php $this->options->logoUrl(); ?>" loading="lazy"
                              alt="<?php $this->options->title(); ?>"/>
-                        <?php $this->options->title(); ?>
+                        <span class="nav-title"><?php $this->options->title(); ?></span>
                     </a>
                 </nav>
             </div>
             <div class="col-6 col-md-3 col-lg-4 col-xl-3 mobile-nopading">
                 <div class="" id="">
                     <ul class="navbar navbar-nav navbar-right ml-auto header__content header__content--end">
+
                         <li class="nav-item search-block-icon" aria-expanded="false"
                             aria-controls="search-block">
                             <a class="nav-link" href="#">

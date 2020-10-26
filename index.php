@@ -31,17 +31,35 @@ if ($this->user->hasLogin()){
     $this->need('components/recommend/recommend-rand-sticky.php');
 }
 //Typecho_Widget::widget('Widget_Users_Admin')->to($users);
-
 ?>
 
 <div class="container-lg" id="pjax-container">
     <div class="row">
         <?php $this->need('includes/nav.php'); ?>
         <div class="col-xl-7 col-md-7 col-12 main-content">
-            <?php if ($this->user->hasLogin()): //判断是否登录 ?>
+            <?php if ($this->user->hasLogin() && !$recommend): //判断是否登录 ?>
                 <? $this->need('components/index/index-input.php'); ?>
             <?php endif; ?>
 
+            <? if($recommend):?>
+            <!-- 圈友日记 -->
+            <div class="diary-content">
+                <div class="mycicle-title">
+                    <h2>圈友日记</h2>
+                </div>
+                <div class="circle-diary">
+                    <?php $imgs = getRandRecommendImgs(8); foreach ($imgs as $rimg):?>
+                        <?php $this->widget('Widget_Archive@indexxiu', 'pageSize=1&type=post', 'cid='.$rimg['cid'])->to($archive_); ?>
+                        <a href="<? _e($archive_->permalink()); ?>" class="circle-diary-bg" style="background-image: url('<?_e($rimg['img']);?>')">
+                            <div class="circle-diary-bottom">
+                                <div class="circle-diary-avatar"><img class="img-circle img-thumbnail" src="<?_e(getUserV2exAvatar($rimg['email']));?>"></div>
+                                <div class="circle-diary-name"><?_e($rimg['screenName']);?></div>
+                            </div>
+                        </a>
+                    <? endforeach;?>
+                </div>
+            </div>
+            <? endif; ?>
             <div class="list">
                 <?php while ($this->next()): ?>
                     <? $this->need('components/index/article-content.php'); ?>

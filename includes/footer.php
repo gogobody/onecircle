@@ -69,11 +69,11 @@ if ($this->is('index')){
     $(document).on('pjax:send',
         function() {
             $("#pjax-container").fadeOut();
+            NProgress.start();
             $.showloading({
                 selector:'header',
                 choice: 'after'
             })
-            NProgress.start();
 
         })
 
@@ -82,6 +82,7 @@ if ($this->is('index')){
             $("#pjax-container").fadeIn();
             indexInput.pjax_complete()
             archiveInit.init()
+            recommendInit.pjax_complete()
             owoInit();
             NProgress.done();
             $.rmloading()
@@ -92,10 +93,7 @@ if ($this->is('index')){
             if (typeof smms!="undefined"){
                 smms.init()
             }
-
-            //if ($('.OwO').length > 0) {
-            //    if (typeof OwO !== 'undefined') DUOSHUO.EmbedThread('.ds-thread'); else $.getScript(<?php //$this->options->themeUrl('assets/js/prism.js'); ?>//);
-            //}
+            //
         })
 </script>
 <?php $this->footer(); ?>

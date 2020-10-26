@@ -67,7 +67,8 @@ class CircleFollow
         $db = Typecho_Db::get();
         $prefix = $db->getPrefix();
         if (is_numeric($uid) && is_numeric($mid)) {
-            $insert = $db->delete('table.circle_follow')->rows(array('uid' => $uid, 'mid' => $mid));
+//            $insert = $db->delete('table.circle_follow')->rows(array('uid' => $uid, 'mid' => $mid)); // delete all
+            $insert = $db->delete('table.circle_follow')->where('uid = ? and mid = ?',$uid,$mid);
             $db->query($insert);
             return true;
         }
@@ -164,5 +165,16 @@ class CircleFollow
         $db = Typecho_Db::get();
         return $db->fetchRow($db->select('mid', 'name', 'slug','description')->from('table.metas')->where('mid = ?', $mid));
 
+    }
+
+    /**
+     * 改变圈子的分类
+     * @param $mid
+     * @param $changetomid
+     */
+    public static function changeCircleCat($mid,$changetomid){
+        $db = Typecho_Db::get();
+        $update = $db->update('table.metas')->rows(array('tagid'=>$changetomid))->where('mid = ?',$mid);
+        return $db->query($update);
     }
 }

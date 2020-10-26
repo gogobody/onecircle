@@ -56,8 +56,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                              xmlns="http://www.w3.org/2000/svg" class="container-svg"><circle
                                 cx="10"
                                 cy="10" r="10"
-                                fill="#03A9F5"></circle><circle
-                                cx="10" cy="10" r="5" fill="#A0E3FE"></circle></svg>
+                                fill="#03A9F5"></circle><circle cx="10" cy="10" r="5" fill="#A0E3FE"></circle></svg>
                     <?php $this->category(',');?>
 
                     </span>

@@ -1026,7 +1026,64 @@ footer
     color: rgb(153, 153, 153);
     text-align: left;
 }
-/*recommend right*/
+/*recommend */
+.diary-content{
+    padding: 10px 0;
+    background: white;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+.diary-content .mycicle-title{
+    padding: 0 24px 12px 24px;
+}
+.circle-diary{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    align-content: flex-start;
+    padding: 20px;
+}
+.circle-diary-bg{
+    display: flex;
+    width: 22%;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: all .2s ease 0s;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
+    align-items: flex-end;
+}
+.circle-diary-bottom{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+}
+.circle-diary-bottom .circle-diary-avatar img{
+    width: 21px;
+    height: 21px;
+    padding: 1px;
+}
+.circle-diary-avatar{
+    display: flex;
+    align-self: center;
+    align-items: center;
+}
+.circle-diary-name {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    color: white;
+    margin-left: 4px;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+}
 .mycicle-content .bITJVr{
     padding: 8px 16px 8px;
 }
@@ -1727,8 +1784,6 @@ achieve
 
 .header-top-bottom-text .htbt-right {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
     display: flex;
 }
 
@@ -1744,9 +1799,8 @@ achieve
 
 .htbt-right {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
     display: flex;
+    margin-left: 4px;
 }
 
 .htbt-right button {
@@ -2634,6 +2688,7 @@ footer
  */
 .footer{
     text-align: center;
+    margin-top: 20px;
 }
 
 /**
@@ -2789,20 +2844,7 @@ owo
 .OwO.OwO-open .OwO-body {
     display:table;
 }
-@media (max-width: 450px) {
-    .OwO .OwO-body {
-        width: 100% !important;
-        position: absolute;
-        top: 38px;
-    }
-}
 
-@media (max-width: 991px) {
-    .OwO .OwO-body {
-        position: absolute;
-        top: 38px;
-    }
-}
 
 .OwO .OwO-body .OwO-items {
     -webkit-user-select: none;
@@ -2964,6 +3006,16 @@ owo
     width: 42px;
 }
 
+/* circle manage*/
+
+.circle-management{
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+#pills-tabContent{
+    border-top: 1px solid rgba(0,0,0,.05);
+}
 /* This changes all the animations globally */
 :root {
     --animate-duration: 500ms;
@@ -2973,6 +3025,7 @@ owo
 /**
 mobile fix
  */
+
 
 
 @media screen and (min-width: 600px) {
@@ -2986,10 +3039,18 @@ mobile fix
         padding: 0;
     }
 }
+
+@media (max-width: 991px) {
+    .OwO .OwO-body {
+        position: absolute;
+        top: 38px;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .biCwrr {
-        padding-left: 64px;
-        padding-right: 64px;
+        padding-left: 20px;
+        padding-right: 20px;
         padding-top: 10px;
         display: flex;
         z-index: 1;
@@ -3007,7 +3068,7 @@ mobile fix
         grid-auto-rows: minmax(110px,110px);
     }
     .post-article{
-        padding: 24px 14px 24px 4px;
+        padding: 12px 10px 6px 4px;
     }
     /*user avatar*/
     .post-article-left img {
@@ -3059,6 +3120,30 @@ mobile fix
         width: 25px!important;
         height: 25px;
     }
+    /* archive*/
+    .achieve-container{
+        padding: 0;
+    }
+    .achieve-content .item-container .item-inner{
+        padding-bottom: 0;
+    }
+    /*circle-management*/
+    .circle-management .htbt-right button{
+        padding: 8px 12px;
+        max-height: 34px;
+        font-size: 12px;
+    }
+}
 
+
+@media (max-width: 450px) {
+    .OwO .OwO-body {
+        width: 100% !important;
+        position: absolute;
+        top: 38px;
+    }
+    .circle-diary-bg {
+        width: 45%;
+    }
 }
 

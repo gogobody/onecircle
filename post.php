@@ -73,7 +73,7 @@ checkPermission($this->author->uid,$this->user->uid)
                 </div>
                 <!--tag-->
 
-                <p class="tags"><?php $this->tags(' ', true, ''); ?></p>
+<!--                <p class="tags">--><?php //$this->tags(' ', true, ''); ?><!--</p>-->
                 <p class="license"><?php echo $this->options->LicenseInfo ? $this->options->LicenseInfo : '' ?></p>
                 <!--点赞-->
                 <div class="sc-AxjAm sc-AxirZ bseKGM">

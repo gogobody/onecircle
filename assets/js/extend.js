@@ -809,13 +809,77 @@ var archiveInit = {
         this.archiveEventInit()
         this.commentInit()
     }
+};
+var recommendInit = {
+    init:function (){
+        this.autoDirayWith()
+    },
+    autoDirayWith:function (e) {
+       var bgs = document.getElementsByClassName("circle-diary-bg");
+       for (var i =0;i<bgs.length;i++){
+           bgs[i].style.height = bgs[i].offsetWidth;
+       }
+    },
+    pjax_complete:function (){
+        this.autoDirayWith()
+    }
 }
+var tagsManageInit = {
+    init:function () {
+        this.circleEditBtn()
+    },
+    circleEditBtn:function(){
+        var ebtn = $(".circle-item .edit-btn button")
+        var editSaveBtn = $("#circle-edit-save")
+        var catiod = -1
+        ebtn.unbind('click').bind('click',function (e) {
+
+            catiod = parseInt($(this).data("categoryid"))
+            var name = $(this).data("name")
+            $("#selectCircle").val(name)
+            $('#changeCatagModal').modal('show')
+
+        })
+        editSaveBtn.unbind('click').bind('click',function (e) {
+            if(!catiod>0) return
+            var selectId = $("#changeCircle").val()
+            $.ajax({
+                data:{
+                    changeCircleCat:1,
+                    mid:catiod,
+                    changetomid:selectId
+                },
+                method:'POST',
+                success:function (res) {
+                    if (res ==='success'){
+                        $.message({
+                            title:"通知",
+                            message:"更改成功，刷新后可见",
+                            type:"info"
+                        })
+                    }
+                    $('#changeCatagModal').modal('hide')
+                },
+                error:function (e){
+                    console.log(e)
+                    $('#changeCatagModal').modal('hide')
+                }
+            })
+        })
+    },
+    pjax_complete:function () {
+        
+    },
+
+};
+
 $(function () {
 
 
     indexInput.init()
     archiveInit.init()
-
+    tagsManageInit.init()
+    recommendInit.init()
     // 根据时间
     var timeNow = new Date();
 // 获取当前小时
@@ -1003,6 +1067,11 @@ function del_article(this_, $cid){
             method: 'post',
             success:function (res) {
                 // console.log("aaa",res)
+                $.message({
+                    title: "提示",
+                    message: "删除成功！",
+                    type: "info"
+                })
             },
             error:function (res) {
                 // console.log("err",res)
