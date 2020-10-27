@@ -50,7 +50,7 @@ if ($this->user->hasLogin()){
                 </div>
                 <div class="circle-diary">
                     <?php $imgs = getRandRecommendImgs(8); foreach ($imgs as $rimg):?>
-                        <?php $this->widget('Widget_Archive@'.$rimg['cid'], 'pageSize=1&type=post', 'cid='.$rimg['cid'])->to($archive_); ?>
+                        <?php $this->widget('Widget_Archive@_'.$rimg['cid'], 'pageSize=1&type=post', 'cid='.$rimg['cid'])->to($archive_); ?>
                         <a href="<? _e($archive_->permalink()); ?>" class="circle-diary-bg" style="background-image: url('<?_e($rimg['img']);?>')">
                             <div class="circle-diary-bottom">
                                 <div class="circle-diary-avatar"><img class="img-circle img-thumbnail" src="<?_e(getUserV2exAvatar($rimg['email']));?>"></div>

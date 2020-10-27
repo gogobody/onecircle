@@ -1,6 +1,5 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
 <?php $this->need('includes/header.php');
-checkPermission($this->author->uid,$this->user->uid)
 ?>
 <div class="container-lg" id="pjax-container">
     <div class="row">
