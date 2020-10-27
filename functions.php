@@ -185,7 +185,7 @@ function getRandRecommendImgs($cnt_ = 10){
         $res = parseMarkdownFirstImg($row['text']);
         if (!empty($res)){
             $cnt = $cnt + 1;
-            $usersec = $db->select('screenName')->from('table.users')->where('uid = ?',$row['authorId']);
+            $usersec = $db->select('screenName','mail')->from('table.users')->where('uid = ?',$row['authorId']);
             $userq = $db->fetchRow($usersec);
             array_push($ret,array(
                 "cid" => $row['cid'],
