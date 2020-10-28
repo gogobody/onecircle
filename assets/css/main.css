@@ -275,6 +275,7 @@ header {
 }
 .nav-link.active {
     color: rgb(29, 161, 242);
+    background-color: #86abc3!important;
 }
 
 .nav-item:hover {

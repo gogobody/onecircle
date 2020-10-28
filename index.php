@@ -45,8 +45,10 @@ if ($this->user->hasLogin()){
             <? if($recommend):?>
             <!-- 圈友日记 -->
             <div class="diary-content">
+                <a href="<? _e(Typecho_Common::url('/metas',$this->options->rootUrl));?>">
                 <div class="mycicle-title">
                     <h2>圈友日记</h2>
+                    <a href="<? _e(Typecho_Common::url('/metas',$this->options->rootUrl));?>"><h2>更多</h2></a>
                 </div>
                 <div class="circle-diary">
                     <?php $imgs = getRandRecommendImgs(8); foreach ($imgs as $rimg):?>
@@ -59,6 +61,7 @@ if ($this->user->hasLogin()){
                         </a>
                     <? endforeach;?>
                 </div>
+                </a>
             </div>
             <? endif; ?>
             <div class="list">
