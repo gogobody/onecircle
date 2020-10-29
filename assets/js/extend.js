@@ -918,7 +918,7 @@ function submitForm(ele) {
     var datetime = year+"/"+mon+"/"+date
 
     if(val.length > 0 && val!==''){
-        title.val(val.substring(0,15))
+        title.val(val.substring(0,20))
     }
     if (indexInput.nowtype === 'default'){
         if(val.length === 0 || val ===''){

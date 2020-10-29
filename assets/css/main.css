@@ -273,11 +273,14 @@ header {
     margin-bottom: 24px;
     padding: 0;
 }
-.nav-link.active {
-    color: rgb(29, 161, 242);
+#pills-tabContent .nav-link.active {
+    /*color: rgb(29, 161, 242);*/
     background-color: #86abc3!important;
 }
-
+#pills-tab .nav-link.active {
+    /*color: rgb(29, 161, 242);*/
+    background-color: #86abc3!important;
+}
 .nav-item:hover {
     background-color: #1da1f21a;
     color: #1da1f2;
