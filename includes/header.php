@@ -74,7 +74,7 @@
                                 <a class="nav-link" href="#" id="navbarDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                                    <span class="hidden-sm hidden-md"><?php _e($this->user->name);?></span>
+                                    <span class="hidden-sm hidden-md hidden-lg"><?php _e($this->user->name);?></span>
                                     <b class="caret "></b><!--下三角符号-->
                                     <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm">
                                     <img class="img-circle img-40px" src="<?_e(getUserV2exAvatar($this->user->mail))?>">

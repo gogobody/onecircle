@@ -3118,7 +3118,11 @@ owo
 mobile fix
  */
 
-
+@media screen and (max-width:1199px) {
+    .caret,.hidden-lg{
+        display: none;
+    }
+}
 
 @media screen and (min-width: 600px) {
     .header-top-bottom-avatar {
