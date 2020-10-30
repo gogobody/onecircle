@@ -353,7 +353,10 @@ b站视频
 }
 
 .article-content img {
-    width: 100%;
+    /*width: 100%;*/
+}
+.article-content .kQHfHM {
+    background-color: rgb(242, 245, 248)!important;
 }
 .article-content .card-img {
     width: auto;

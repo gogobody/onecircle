@@ -14,19 +14,19 @@ require_once 'widget/Widget_Metas_Random.php';
  * 注册文章解析 hook
  * From AlanDecode(https://imalan.cn)
  */
-Typecho_Plugin::factory('Widget_Abstract_Contents')->contentEx = array('contents', 'parseContent');
-Typecho_Plugin::factory('Widget_Abstract_Contents')->excerptEx = array('contents', 'parseContent');
+Typecho_Plugin::factory('Widget_Abstract_Contents')->contentEx_1000 = array('contents', 'parseContent');
+Typecho_Plugin::factory('Widget_Abstract_Contents')->excerptEx_1000 = array('contents', 'parseContent');
 /**
  * 后台编辑按钮
  */
-Typecho_Plugin::factory('admin/write-post.php')->bottom = array('utils', 'addButton');
-Typecho_Plugin::factory('admin/write-page.php')->bottom = array('utils', 'addButton');
+Typecho_Plugin::factory('admin/write-post.php')->bottom_1000 = array('utils', 'addButton');
+Typecho_Plugin::factory('admin/write-page.php')->bottom_1000 = array('utils', 'addButton');
 
 /**
  * 评论接口 by gogobody
  */
-Typecho_Plugin::factory('Widget_Abstract_Comments')->contentEx = array('comments', 'parseContent');
-Typecho_Plugin::factory('Widget_Feedback')->comment = array('comments', 'insertSecret');
+Typecho_Plugin::factory('Widget_Abstract_Comments')->contentEx_1000 = array('comments', 'parseContent');
+Typecho_Plugin::factory('Widget_Feedback')->comment_1000 = array('comments', 'insertSecret');
 
 
 
@@ -43,6 +43,8 @@ function themeFields(Typecho_Widget_Helper_Layout $layout)
             'link' => '纯链接',
             'video' => '视频',
             'bilibili' => 'B站',
+            'focususer' => '关注用户',
+            'repost' => '转发'
         ), 'default', _t('文章类型'), _t('见wiki说明'));
         $layout->addItem($articleType);
 
@@ -62,6 +64,10 @@ function themeInit($archive)
     Helper::options()->commentsMaxNestingLevels = 999;
     //强制评论关闭反垃圾保护
     Helper::options()->commentsAntiSpam = false;
+    //将最新的评论展示在前
+    Helper::options()->commentsOrder = 'DESC';
+    //关闭检查评论来源URL与文章链接是否一致判断
+    Helper::options()->commentsCheckReferer = false;
     // parse route
     parseRout($archive);
     // 初始化数据库设置

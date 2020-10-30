@@ -15,9 +15,22 @@ class contents{
             $text = contents::blankReplace($text);
             $text = contents::biliVideo($text);
             $text = contents::video($text);
-            if (!self::$frag)
-                $text = contents::fancybox($text);
+            if($widget->fields->articleType == 'default'){
+                if (!self::$frag)
+                    $text = contents::fancybox($text);
+            }elseif ($widget->fields->articleType == 'focususer'){
+                // 关注
+                $text = contents::focusUsers($text);
+            }elseif ($widget->fields->articleType == 'repost'){
+                // 转发
+                $text = contents::repostArticle($text,Helper::options()->defaultSlugUrl);
+            }
+
+
             $text = contents::cidToContent($text);
+
+            // 转发
+
         }
         return $text;
     }
@@ -182,8 +195,14 @@ class contents{
                     ->where('type = ?', 'post')
                     ->where('cid = ?',$match)
                 );
+
                 $val = Typecho_Widget::widget('Widget_Abstract_Contents')->push($articleArr[0]);
-                $banner = empty($result[0]['str_value'])?'/usr/themes/onecircle/assets/img/default.png':$result[0]['str_value'];
+                if ($result[0]['name'] =="banner"){
+                    $banner = empty($result[0]['str_value'])?'/usr/themes/onecircle/assets/img/default.png':$result[0]['str_value'];
+
+                }else{
+                    $banner = '/usr/themes/onecircle/assets/img/default.png';
+                }
 
                 $replacement = '<div class="card bg-dark text-white">
                               <img src="'.$banner.'" class="card-img" alt="文章卡片">
@@ -199,4 +218,26 @@ class contents{
         return $text;
     }
 
+    // [focususer href="user href" avatar="user avatar" username="user name" sign="wojiushiwo" ]
+    public static function focusUsers($text){
+        $pattern = '/\[focususer.*?href="(.*?)" avatar="(.*?)" username="(.*?)" sign="(.*?)".*?]/i';
+        if(preg_match($pattern, $text, $match)){
+            $replacement = '<div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr"><a href="$1" class="sc-AxjAm sc-AxirZ eGdPrb"><img src="$2" alt="再多一点可爱" class="sc-AxjAm jZLHXc"><div class="sc-AxjAm sc-AxirZ hkyonN"><div class="sc-AxjAm oDrAC">$3</div><div class="sc-AxjAm hHqHSX ezzhLs">$4</div></div></a></div>';
+            return preg_replace($pattern, $replacement, $text);
+        }
+        return $text;
+    }
+    // [repost.*?bannerimg="(.*?) repousername="(.*?)" repostext="(.*?)" categoryname="(.*?)" categoryhref="(.*?)".*?]
+    public static function repostArticle($text,$url_){
+        $pattern = '/\[repost.*?bannerimg="(.*?)" repousername="(.*?)" repostext="(.*?)" category=["\'](.*?)["\']\]/i';
+        if(preg_match($pattern, $text, $match)){
+            if ($match[1]){ // if has img
+                $replacement = '<div class="repost-container"><a class="repost-content"><img src="$1" class="repost-banner"><div class="repost-text">$2:$3</div></a><div class="repost-category">$4</div></div>';
+            }else{
+                $replacement = '<div class="repost-container"><a class="repost-content"><img src="'.$url_.'" class="repost-banner"><div class="repost-text">$2:$3</div></a><div class="repost-category">$4</div></div>';
+            }
+            return preg_replace($pattern, $replacement, $text);
+        }
+        return $text;
+    }
 }

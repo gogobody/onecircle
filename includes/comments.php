@@ -9,8 +9,6 @@ function threadedComments($comments, $options)
             $commentClass .= ' comment-by-user';
         }
     }
-    $commentLevelClass = $comments->levels > 0 ? ' comment-child' : ' comment-parent';
-
     ?>
     <li class="comment-list-item<?php
     if ($comments->levels > 0) {
@@ -29,11 +27,11 @@ function threadedComments($comments, $options)
                         <?php elseif ($comments->url): ?>
                         <a href="<?php echo $comments->url ?>" target="_blank" rel="external nofollow">
                             <?php endif; ?>
-                            <img class="avatar" src="<?php echo getUserV2exAvatar($comments->mail); ?>"  alt=""/>
+                            <img class="avatar" src="//cdn.v2ex.com/gravatar/<?php echo $comments->mail?md5($comments->mail):''; ?>?s=64&d=mp" />
                             <?php $comments->author(); ?>
                             <?php if ($comments->authorId === $comments->ownerId): ?>
                                 <span class="comment-author-title">作者</span>
-                            <?php endif ?>
+                            <?php endif; ?>
                             <?php if ($comments->authorId > 0 || $comments->url): ?>
                         </a>
                     <?php endif; ?>
@@ -47,7 +45,10 @@ function threadedComments($comments, $options)
                     <?php $comments->content();?>
                 </div>
                 <div class="comment-reply">
-                    <?php if(in_array(get_user_group(), ['administrator', 'editor'])):Typecho_Widget::widget('Widget_Security')->to($security);?>
+                    <?php
+                    if(in_array(get_user_group(), ['administrator', 'editor'])):
+                        Typecho_Widget::widget('Widget_Security')->to($security);
+                        ?>
                         <a href="<?php $security->index('/action/comments-edit?do=delete&coid='.$comments->coid); ?>" onclick="return p_del()"> <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-exclamation" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
                             </svg>删除</a>
@@ -72,7 +73,9 @@ function threadedComments($comments, $options)
 <?php } ?>
 
 <div class="article-comments">
-    <?php $this->comments()->to($comments);?>
+    <?php
+    $this->comments()->to($comments);
+    ?>
     <h6 id="comments"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
         </svg> 评论区</h6>
@@ -80,7 +83,7 @@ function threadedComments($comments, $options)
     <div class="comment-detail">
         <?php if ($comments->have()): ?>
             <h6 id="comment-num"><?php $this->commentsNum(_t('暂无评论'), _t('1 条评论'), _t('%d 条评论')); ?></h6>
-            <br>
+
             <?php $comments->listComments(); ?>
             <div class="page-pagination">
                 <?php
@@ -104,63 +107,63 @@ function threadedComments($comments, $options)
                 ?>
             </div>
         <?php endif; ?>
+    </div>
 
-        <?php if($this->allow('comment')): ?>
-            <div id="<?php $this->respondId(); ?>" class="comment-respond">
-                <form method="post" action="<?php $this->commentUrl() ?>" id="comment-form" class="comment-form" role="form">
-                    <?php if($this->user->hasLogin()): ?>
-                        <div class="comment-respond-author">
-                            <a href="<?php $this->options->profileUrl(); ?>" target="_blank" rel="external nofollow">
-                                <img class="user-head" src="<?php echo getUserV2exAvatar($this->user->mail); ?>" />
-                            </a>
-                        </div>
-                    <?php else: ?>
-                        <div class="comment-respond-author">
-                            <img class="user-head" src="<?php echo getUserV2exAvatar(''); ?>" />
-                            <div class="form-row">
-                                <div class="col-6 col-md-4">
-                                    <input type="text" name="author" class="form-control form-control-sm"
-                                           placeholder="昵称" required value="<?php $this->remember('author'); ?>" />
-                                </div>
-                                <div class="col-6 col-md-4">
-                                    <input type="text" name="url" class="form-control form-control-sm"
-                                           placeholder="网站" value="<?php $this->remember('url'); ?>"
-                                        <?php if ($this->options->commentsRequireURL): ?> required<?php endif; ?> />
-                                </div>
-                                <div class="col">
-                                    <input type="text" name="mail" class="form-control form-control-sm"
-                                           placeholder="邮箱" value="<?php $this->remember('mail'); ?>"
-                                        <?php if ($this->options->commentsRequireMail): ?> required<?php endif; ?> />
-                                </div>
+    <?php if($this->allow('comment')): ?>
+        <div id="<?php $this->respondId(); ?>" class="comment-respond">
+            <form method="post" action="<?php $this->commentUrl(); ?>" id="comment-form" class="comment-form" role="form">
+                <?php if($this->user->hasLogin()): ?>
+                    <div class="comment-respond-author">
+                        <a href="<?php $this->options->profileUrl(); ?>" target="_blank" rel="external nofollow">
+                            <img class="user-head" src="//cdn.v2ex.com/gravatar/<?php echo md5($this->user->mail); ?>?s=80&d=mp" />
+                        </a>
+                    </div>
+                <?php else: ?>
+                    <div class="comment-respond-author">
+                        <img class="user-head" src="//cdn.v2ex.com/gravatar/<?php echo ''; ?>?s=64&d=mp" />
+                        <div class="form-row">
+                            <div class="col-6 col-md-4">
+                                <input type="text" name="author" class="form-control form-control-sm"
+                                       placeholder="昵称" required value="<?php $this->remember('author'); ?>" />
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <input type="text" name="url" class="form-control form-control-sm"
+                                       placeholder="网站" value="<?php $this->remember('url'); ?>"
+                                    <?php if ($this->options->commentsRequireURL): ?> required<?php endif; ?> />
+                            </div>
+                            <div class="col">
+                                <input type="text" name="mail" class="form-control form-control-sm"
+                                       placeholder="邮箱" value="<?php $this->remember('mail'); ?>"
+                                    <?php if ($this->options->commentsRequireMail): ?> required<?php endif; ?> />
                             </div>
                         </div>
-                    <?php endif; ?>
-                    <div class="comment-action">
-                        <textarea type="text" class="textarea-container form-control owo-textarea" rows="4" name="text" id="textarea" placeholder="温暖的社区欢迎友爱的评论" required></textarea>
-                        <span class="OwO" data-owo="<?php $this->options->themeUrl('/assets/owo/OwO_02.json')?>"></span>
-                        <input type="checkbox" id="secret-button" name="secret">
-                        <label for="secret-button" class="secret-label" data-toggle="tooltip" data-placement="top" title="开启该功能，您的评论仅作者和评论双方可见">
-                            <span class="circle"></span>
-                        </label>
-                        <button type="button" class="submit btn comment-submit">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-square-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
-                            </svg>
-                        </button>
                     </div>
-                    <div class="comment-reply-cancel">
-                        <?php $comments->cancelReply('<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <?php endif; ?>
+                <div class="comment-action">
+                    <textarea type="text" class="textarea-container form-control owo-textarea" rows="4" name="text" id="textarea" placeholder="发条友善的评论" required></textarea>
+                    <span class="OwO" data-owo="<?php $this->options->themeUrl('/assets/owo/OwO_02.json')?>"></span>
+                    <input type="checkbox" id="secret-button" name="secret">
+                    <label for="secret-button" class="secret-label" data-toggle="tooltip" data-placement="top" title="开启该功能，您的评论仅作者和评论双方可见">
+                        <span class="circle"></span>
+                    </label>
+                    <button type="submit" class="submit btn comment-submit">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-square-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="comment-reply-cancel">
+                    <?php $comments->cancelReply('<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
 </svg>取消'); ?>
-                    </div>
-                    <hr/>
-                </form>
-            </div>
-        <?php if ($this->options->commentsThreaded): ?>
-            <script>(function(){window.TypechoComment={dom:function(id){return document.getElementById(id)},create:function(tag,attr){var el=document.createElement(tag);for(var key in attr){el.setAttribute(key,attr[key])}return el},reply:function(cid,coid){var comment=this.dom(cid),parent=comment.parentNode,response=this.dom('<?php $this->respondId(); ?>'),input=this.dom('comment-parent'),form='form'==response.tagName?response:response.getElementsByTagName('form')[0],textarea=response.getElementsByTagName('textarea')[0];if(null==input){input=this.create('input',{'type':'hidden','name':'parent','id':'comment-parent'});form.appendChild(input)}input.setAttribute('value',coid);if(null==this.dom('comment-form-place-holder')){var holder=this.create('div',{'id':'comment-form-place-holder'});response.parentNode.insertBefore(holder,response)}comment.appendChild(response);this.dom('cancel-comment-reply-link').style.display='';if(null!=textarea&&'text'==textarea.name){textarea.focus()}return false},cancelReply:function(){var response=this.dom('<?php $this->respondId(); ?>'),holder=this.dom('comment-form-place-holder'),input=this.dom('comment-parent');if(null!=input){input.parentNode.removeChild(input)}if(null==holder){return true}this.dom('cancel-comment-reply-link').style.display='none';holder.parentNode.insertBefore(response,holder);return false}}})();</script>
-        <?php endif; ?>
-        <?php else: ?>
-            <h2 id="comment-closed"><?php _e('评论功能已关闭'); ?></h2>
-        <?php endif; ?>
-    </div>
+                </div>
+                <hr/>
+            </form>
+        </div>
+    <?php if ($this->options->commentsThreaded): ?>
+        <script>(function(){window.TypechoComment={dom:function(id){return document.getElementById(id)},create:function(tag,attr){var el=document.createElement(tag);for(var key in attr){el.setAttribute(key,attr[key])}return el},reply:function(cid,coid){var comment=this.dom(cid),parent=comment.parentNode,response=this.dom('<?php $this->respondId(); ?>'),input=this.dom('comment-parent'),form='form'==response.tagName?response:response.getElementsByTagName('form')[0],textarea=response.getElementsByTagName('textarea')[0];if(null==input){input=this.create('input',{'type':'hidden','name':'parent','id':'comment-parent'});form.appendChild(input)}input.setAttribute('value',coid);if(null==this.dom('comment-form-place-holder')){var holder=this.create('div',{'id':'comment-form-place-holder'});response.parentNode.insertBefore(holder,response)}comment.appendChild(response);this.dom('cancel-comment-reply-link').style.display='';if(null!=textarea&&'text'==textarea.name){textarea.focus()}return false},cancelReply:function(){var response=this.dom('<?php $this->respondId(); ?>'),holder=this.dom('comment-form-place-holder'),input=this.dom('comment-parent');if(null!=input){input.parentNode.removeChild(input)}if(null==holder){return true}this.dom('cancel-comment-reply-link').style.display='none';holder.parentNode.insertBefore(response,holder);return false}}})();</script>
+    <?php endif; ?>
+    <?php else: ?>
+        <h2 id="comment-closed"><?php _e('评论功能已关闭'); ?></h2>
+    <?php endif; ?>
 </div>

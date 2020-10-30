@@ -75,6 +75,7 @@ $(function () {
 
 var indexInput = {
     init: function () {
+        this.loginUserName = ""
         this.addArea = $(".add-area")
         this.addAreaBtn = $(".add-area button")
         this.addPicBtn = $("#addpic")
@@ -390,8 +391,8 @@ var indexInput = {
 
             if ($(this).hasClass("banLogin")) return location.reload(), !1;
             loginSubmitForm.attr("disabled", !0).fadeTo("slow", .5);
-            var b = navLoginUser.val(), c = navLoginPsw.val();
-            return "" === b ? (
+            var username_ = navLoginUser.val(), c = navLoginPsw.val();
+            return "" === username_ ? (
                 that.canLogin = true,
                 $.message({
                 title: "登录通知",
@@ -438,6 +439,7 @@ var indexInput = {
                             type: "success"
                         })
                         that.canLogin = true
+                        that.loginUserName = username_
                         setTimeout(function () {
                             location.reload()
                         }, 500)
@@ -520,10 +522,87 @@ var archiveInit = {
         this.circleFuncInit()
         this.archAuthorTabShowInit()
         this.archAuthorTabsClickInit()
+        this.repostFuncInit()
+    },
+    postRepostArticle:function(excert,rbannerimg,repousername,repostext,category){
+        // 转发 默认 发到 category 1
+        var fromusernm = indexInput.loginUserName
+        var data = {
+            title: fromusernm +"转发了"+repostext.substring(0,20),
+            text: "[repost bannerimg=\""+rbannerimg+"\" repousername=\""+repousername+"\" repostext=\""+repostext+"\" category=\'"+category+"\']",
+            'fields[articleType]': 'repost',
+            'fields[excerpt]': excert,
+            'markdown': 1,
+            'category[]': 1,
+            visibility: 'publish',
+            allowComment: 1,
+            allowPing: 1,
+            allowFeed: 1,
+            do: 'publish'
+        }
+        postArticle(data,false);
+
+    },
+    repostFuncInit:function (){
+        var repostComment = $("#repostComment")
+        $(".share-btn").unbind('click').bind('click',function (e) {
+            $("#repostModal").modal('show')
+            $('#repostModal').on('shown.bs.modal', function () {
+                repostComment.focus();//获取焦点
+            });
+        })
+        $("#repostBtn").unbind("click").bind("click",function (e){
+            var comment = repostComment.val()
+            // get article img
+            var imgReg = /<img.*?(?:>|\/>)/i;
+            var srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i;
+            var str = $(".article-content").html()
+            var arr = str.match(imgReg);
+            var imgurl = ''
+            if(arr && arr.length > 0){
+                img_ = arr[0].match(srcReg)
+                if (img_ && img_.length > 0){
+                    imgurl = img_[1]
+                }
+            }
+            // get article img end
+            var repousername = repostComment.data("username")
+            var repostext = repostComment.data("excerpt")
+            var category = repostComment.data("category")
+            if (repostext === 'undefine') repostext = ''
+            archiveInit.postRepostArticle(comment,imgurl,repousername,repostext,category)
+            $("#repostModal").modal('hide')
+        })
+    },
+    postFansArticle:function(tohref,toavatar,tousername,tosign){
+        $.post("/oneaction",{type:"getfocusmid"},function (res) {
+            if (res){
+                var mid = parseInt(res)
+                var fromusernm = indexInput.loginUserName
+                var data = {
+                    title: fromusernm +"关注了圈友"+tousername,
+                    text: "[focususer href=\""+tohref+"\" avatar=\""+toavatar+"\" username=\""+ tousername+"\" sign=\""+tosign+"\" ]",
+                    'fields[articleType]': 'focususer',
+                    'fields[excerpt]': "关注了圈友"+tousername,
+                    'markdown': 1,
+                    'category[]': mid,
+                    visibility: 'publish',
+                    allowComment: 1,
+                    allowPing: 1,
+                    allowFeed: 1,
+                    do: 'publish'
+                }
+                postArticle(data,false);
+            }else {
+                console.log(res)
+            }
+        })
+
     },
     fansFuncInit:function(){
         // 关注 event
         var fanBtn = $(".fan-event")
+        var that = this
         fanBtn.unbind('click').bind('click',function (e) {
             if (userId > 0) {
                 var status
@@ -560,7 +639,16 @@ var archiveInit = {
                             $(btnThis).addClass("fansed")
                             $(btnThis).removeClass("fans")
                             // window.location.reload()
-
+                            // 关注事件有 40% 概率发一条 post
+                            var rate_ = Math.random()
+                            if (rate_ <= 0.4){
+                                var focusEle = $(btnThis).parent().siblings()
+                                var userhref = focusEle.attr("href")
+                                var usreavatr = focusEle.children("img").attr("src")
+                                var username = focusEle.children("div").children(".oDrAC").text()
+                                var usersign = focusEle.children("div").children(".ezzhLs").text()
+                                that.postFansArticle(userhref,usreavatr,username,usersign)
+                            }
                         }
                     }
                     $(btnThis).attr("disabled", false);
@@ -808,6 +896,7 @@ var archiveInit = {
     pjax_complete:function () {
         this.archiveEventInit()
         this.commentInit()
+        this.repostFuncInit()
     }
 };
 var recommendInit = {
@@ -898,6 +987,44 @@ $(function () {
 
 })
 
+// post article
+function postArticle(data,needRefresh){
+    $.post('/oneaction',{
+        type:'getsecuritytoken'
+    },function (res) {
+        if (res!=='error'){
+            // console.log(res)
+            $.ajax({
+                url:'/action/contents-post-edit?do=publish&_='+res,
+                type:'post',
+                data:data,
+                success:function (res) {
+                    if (needRefresh){
+                        setTimeout(function (){
+                            $.pjax.reload('#pjax-container', {
+                                container: '#pjax-container',
+                                fragment: '#pjax-container',
+                                timeout: 8000
+                            })
+                            $.message({
+                                title: "提示",
+                                message: "发布成功，没出来的话就刷新一下吧",
+                                type: "success"
+                            })
+                        },600)
+                    }
+                },
+                error:function (err){
+                    return $.message({
+                        title: "提示",
+                        message: "err:"+err,
+                        type: "error"
+                    })
+                }
+            })
+        }
+    })
+}
 // index input prev link click event
 function submitForm(ele) {
     // jquery 表单提交
@@ -1012,39 +1139,8 @@ function submitForm(ele) {
         allowFeed: 1,
         do: 'publish'
     }
-    $.post('/oneaction',{
-        type:'getsecuritytoken'
-    },function (res) {
-        if (res!=='error'){
-            // console.log(res)
-            $.ajax({
-                url:'/action/contents-post-edit?do=publish&_='+res,
-                type:'post',
-                data:data,
-                success:function (res) {
-                    setTimeout(function (){
-                        $.pjax.reload('#pjax-container', {
-                            container: '#pjax-container',
-                            fragment: '#pjax-container',
-                            timeout: 8000
-                        })
-                        $.message({
-                            title: "提示",
-                            message: "发布成功，没出来的话就刷新一下吧",
-                            type: "success"
-                        })
-                    },600)
-                },
-                error:function (err){
-                    return $.message({
-                        title: "提示",
-                        message: "err:"+err,
-                        type: "error"
-                    })
-                }
-            })
-        }
-    })
+    postArticle(data,true);
+
     // inputForm.ajaxSubmit(function (result) {
     //     setTimeout(function () {
     //         $.pjax.reload('#pjax-container', {

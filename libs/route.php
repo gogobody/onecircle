@@ -30,7 +30,7 @@ function rootRouteFunc($archive)
             } elseif ($archive->is('index')) {
                 exit(utils::agree($archive->request->agree));
             }
-            exit('error');
+            exit('error agree');
         } // follow user
         else if ($archive->request->followuser) {
             if ($archive->request->follow == 'follow') {
@@ -40,7 +40,7 @@ function rootRouteFunc($archive)
             } elseif ($archive->request->follow == 'status') {
                 exit(UserFollow::statusFollow($archive->request->uid, $archive->request->fid));
             }
-            exit('error');
+            exit('error follow');
         } // follow circle
         else if ($archive->request->followcircle) {
             if ($archive->request->follow == 'follow') {
@@ -50,13 +50,13 @@ function rootRouteFunc($archive)
             } elseif ($archive->request->follow == 'status') {
                 exit(CircleFollow::statusFollow($archive->request->uid, $archive->request->mid));
             }
-            exit('error');
+            exit('error follow');
         }
         else if ($archive->request->changeCircleCat){
             CircleFollow::changeCircleCat($archive->request->mid,$archive->request->changetomid);
             exit('success');
         }
-        header("HTTP/1.1 404 OK");
-        exit('error');
+//        header("HTTP/1.1 404 OK");
+//        exit('error');
     }
 }

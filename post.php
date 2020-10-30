@@ -141,6 +141,32 @@
         </div>
         <?php $this->need('includes/right.php'); ?>
     </div>
-
+    <!-- Modal -->
+    <div class="modal fade" id="repostModal" tabindex="-1" aria-labelledby="repostModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="repostModalLabel">转发：</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">评论:</span>
+                        </div>
+                        <input type="text" id="repostComment" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                               value='<a href="<?php $this->author->permalink(); ?>">@<?php $this->author(); ?></a>:<?php $this->excerpt(10);?>'
+                            data-username="<?php $this->author() ?>" data-excerpt="<?php $this->excerpt(20);?>" data-category='<?$this->category(' ')?>'>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-outline-info btn-sm" id="repostBtn">转发</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <?php $this->need('includes/footer.php'); ?>
