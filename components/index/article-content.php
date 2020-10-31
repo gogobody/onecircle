@@ -12,7 +12,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <a onclick="event.stopPropagation();" href="<?php $this->author->permalink(); ?>">
                 <!--<?php $this->author->gravatar(40); ?>-->
                 <img class="avatar"
-                     src="<?php echo getUserV2exAvatar($this->author->mail); ?>"
+                     src="<?php echo getUserV2exAvatar($this->author->mail,$this->author->userAvatar); ?>"
                      alt="<?php $this->author() ?>"/>
             </a>
         </div>
@@ -123,7 +123,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <a onclick="event.stopPropagation();" href="<?php $this->author->permalink(); ?>">
                 <!--<?php $this->author->gravatar(40); ?>-->
                 <img class="avatar"
-                     src="<?php echo getUserV2exAvatar($this->author->mail); ?>"
+                     src="<?php echo getUserV2exAvatar($this->author->mail,$this->author->userAvatar); ?>"
                      alt="<?php $this->author() ?>"/>
             </a>
         </div>

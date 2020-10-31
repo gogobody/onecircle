@@ -6,11 +6,11 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
     <?php if ($this->is('index')): ?>
         <div class="card user-container">
             <?php if ($this->user->hasLogin()): ?>
-                <div class="card-header user-info" style="background-image: url(<?php echo getUserV2exAvatar($this->user->mail) ?>);"></div>
+                <div class="card-header user-info" style="background-image: url(<?php echo getUserBackgroundImg($this->user->mail,$this->user->userBackImg) ?>);"></div>
                 <div class="user-detail">
                     <a href="/author/<?php echo $this->user->uid?>">
                         <div class="info">
-                            <img class="avatar" src="<?php echo getUserV2exAvatar($this->user->mail)?>" alt="<?php echo $this->user->name ?>"/>
+                            <img class="avatar" src="<?php echo getUserV2exAvatar($this->user->mail,$this->user->userAvatar)?>" alt="<?php echo $this->user->name ?>"/>
                         </div>
                     </a>
                     <div class="user-info-name">
@@ -31,11 +31,11 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                     </div>
                 </div>
             <?php else: ?>
-                <div class="card-header user-info" style="background-image: url(<?php echo getUserV2exAvatar(getBlogAdminInfo()['mail']) ?>);"></div>
+                <div class="card-header user-info" style="background-image: url(<?php echo getUserBackgroundImg(getBlogAdminInfo()['mail'],getBlogAdminInfo()['userBackImg']) ?>);"></div>
                 <div class="user-detail user-detail-padding">
                     <a>
                         <div class="info">
-                            <img class="avatar" src="<?php echo getUserV2exAvatar(getBlogAdminInfo()['mail'])?>" alt="<?php echo getV2exAvatar(getBlogAdminInfo()['name']) ?>"/>
+                            <img class="avatar" src="<?php echo getUserV2exAvatar(getBlogAdminInfo()['mail'],getBlogAdminInfo()['userAvatar'])?>" alt="<?php echo getBlogAdminInfo()['name'] ?>"/>
                         </div>
                     </a>
                     <div class="user-info-name">
@@ -134,7 +134,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <?php while ($comments->next()): ?>
                 <li class="media my-4">
                     <img class="recent-avatar mr-3"
-                         src="<?php echo getUserV2exAvatar($comments->mail,40); ?>"/>
+                         src="<?php echo getUserV2exAvatar($comments->mail,UserFollow::getUserObjFromMail($comments->mail)['userAvatar'],40); ?>"/>
                     <div class="media-body">
                         <h6 class="mt-0 mb-1"><?php $comments->author(false); ?></h6>
                         <a class="content" href="<?php $comments->permalink(); ?>"

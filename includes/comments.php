@@ -27,7 +27,7 @@ function threadedComments($comments, $options)
                         <?php elseif ($comments->url): ?>
                         <a href="<?php echo $comments->url ?>" target="_blank" rel="external nofollow">
                             <?php endif; ?>
-                            <img class="avatar" src="//cdn.v2ex.com/gravatar/<?php echo $comments->mail?md5($comments->mail):''; ?>?s=64&d=mp" />
+                            <img class="avatar" src="<?php echo getUserV2exAvatar($comments->mail,UserFollow::getUserObjFromMail($comments->mail)['userAvatar']); ?>" />
                             <?php $comments->author(); ?>
                             <?php if ($comments->authorId === $comments->ownerId): ?>
                                 <span class="comment-author-title">作者</span>
@@ -115,7 +115,7 @@ function threadedComments($comments, $options)
                 <?php if($this->user->hasLogin()): ?>
                     <div class="comment-respond-author">
                         <a href="<?php $this->options->profileUrl(); ?>" target="_blank" rel="external nofollow">
-                            <img class="user-head" src="//cdn.v2ex.com/gravatar/<?php echo md5($this->user->mail); ?>?s=80&d=mp" />
+                            <img class="user-head" src="<?php echo getUserV2exAvatar($comments->mail,$this->user->userAvatar,40); ?>" />
                         </a>
                     </div>
                 <?php else: ?>

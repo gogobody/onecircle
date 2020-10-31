@@ -29,7 +29,7 @@
 <!--                <h1 class="article-title"><a href="--><?php //$this->permalink() ?><!--">--><?php //$this->title() ?><!--</a></h1>-->
                 <div class="article-auth">
                     <img class="avatar"
-                         src="<?php echo getUserV2exAvatar($this->author->mail) ?>"
+                         src="<?php echo getUserV2exAvatar($this->author->mail,$this->author->userAvatar) ?>"
                          alt="<?php $this->author() ?>"/>
                     <a href="<?php $this->author->permalink(); ?>"><span><?php $this->author(); ?></span></a>
                     <?php if ($this->user->hasLogin() && checkPermission($this->author->uid,$this->user->uid)): ?>
@@ -162,7 +162,7 @@
                         </div>
                         <input type="text" id="repostComment" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                value='<a href="<?php $this->author->permalink(); ?>">@<?php $this->author(); ?></a>:<?php $this->excerpt(10);?>'
-                            data-username="<?php $this->author() ?>" data-excerpt="<?php $this->excerpt(20);?>" data-category='<?$this->category(' ')?>'
+                            data-username="<?php $this->author() ?>" data-excerpt="<?php $this->excerpt(70);?>" data-category='<?$this->category(' ')?>'
                         data-posthref="<?php _e($this->permalink());?>">
                     </div>
                 </div>

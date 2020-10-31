@@ -123,7 +123,7 @@ class UserFollow
         $arr = $db->fetchAll($db->select('fid')->from('table.user_follow')->where('uid = ?', $uid));
         $newArr = [];
         for ($i = 0; $i < count($arr) && $i < $num; $i++) {
-            $obj = $db->fetchRow($db->select('uid', 'name', 'mail','screenName')->from('table.users')->where('uid = ?', $arr[$i]));
+            $obj = $db->fetchRow($db->select('uid', 'name', 'mail','screenName','userAvatar','userBackImg')->from('table.users')->where('uid = ?', $arr[$i]));
             array_push($newArr, $obj);
         }
         return $newArr;
@@ -135,16 +135,27 @@ class UserFollow
         $arr = $db->fetchAll($db->select('uid')->from('table.user_follow')->where('fid = ?', $uid));
         $newArr = [];
         for ($i = 0; $i < count($arr) && $i < $num; $i++) {
-            $obj = $db->fetchRow($db->select('uid', 'name', 'mail','screenName')->from('table.users')->where('uid = ?', $arr[$i]));
+            $obj = $db->fetchRow($db->select('uid', 'name', 'mail','screenName','userAvatar','userBackImg')->from('table.users')->where('uid = ?', $arr[$i]));
             array_push($newArr, $obj);
         }
         return $newArr;
     }
 
+    /**
+     * @param $uid
+     * @return array|mixed
+     * @throws Typecho_Db_Exception
+     */
     public static function getUserObj($uid)
     {
         $db = Typecho_Db::get();
-        return $db->fetchRow($db->select('uid','name','mail','userSign')->from('table.users')->where('uid = ?', $uid));
+        return $db->fetchRow($db->select('uid','name','mail','userSign','userAvatar','userBackImg')->from('table.users')->where('uid = ?', $uid));
 
+    }
+
+    public static function getUserObjFromMail($mail)
+    {
+        $db = Typecho_Db::get();
+        return $db->fetchRow($db->select('uid','name','mail','userSign','userAvatar','userBackImg')->from('table.users')->where('mail = ?', $mail));
     }
 }

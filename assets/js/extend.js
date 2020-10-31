@@ -384,6 +384,9 @@ var indexInput = {
         function showbtn() {
             loginSubmitForm.attr("disabled", true).fadeTo("", 1)
         }
+        function enableBtn(){
+            loginSubmitForm.attr("disabled", false).fadeTo("", 1)
+        }
         this.canLogin = true // prevent multi submit
         $("#Login_form").submit(function () {
             if (!that.canLogin) return
@@ -413,7 +416,7 @@ var indexInput = {
                         title: "登录通知",
                         message: "提交出错",
                         type: "error"
-                    }), showbtn()
+                    }), enableBtn()
                 },
                 success: function (b) {
                     b = $.parseHTML(b)
@@ -423,7 +426,7 @@ var indexInput = {
                     try {
                         if ($("#Logged-in", b).length <= 0){
                             that.canLogin = true
-                            showbtn()
+                            enableBtn()
                             return $.message({
                                 title: "登录通知",
                                 message: "用户名或者密码错误，请重试",

@@ -7,13 +7,13 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 ?>
 <div class="vxeHw">
     <div class="kojXeB">
-        <div class="ivcfJN" style="background-image: url(<?php echo getV2exAvatar($this) ?>)">
+        <div class="ivcfJN" style="background-image: url(<?php echo getUserBackgroundImg($this->author->mail,$this->author->userBackImg) ?>)">
             <div class="iNTHKr"></div>
         </div>
     </div>
     <div class="biCwrr">
         <div class="sc-AxjAm sc-AxirZ fUlriR">
-            <div class="sc-AxjAm sc-AxirZ jnzuaU"><img src="<?php echo getV2exAvatar($this) ?>" class="sc-AxjAm irFFsx"></div>
+            <div class="sc-AxjAm sc-AxirZ jnzuaU"><img src="<?php echo getUserV2exAvatar($this->author->mail,$this->author->userAvatar) ?>" class="sc-AxjAm irFFsx"></div>
             <h2 class="sc-AxjAm dDtTVx"><?php echo $this->author() ?></h2>
             <div class="sc-AxjAm sc-AxirZ dZfkqf">
                 <a href="" class="sc-AxjAm OAorY  ffrrSB"><span><? _e(UserFollow::getFollowNum($this->author->uid));?></span> 关注</a>
@@ -26,7 +26,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                 <div class="sc-AxjAm bHdldX  fXkMMP">
                     <img src="https://cdn.jellow.site/resources/userProfile/male@3x_6.0.png" class="sc-AxjAm hzfjJS">
                 </div>
-                <? foreach(utils::parseUserTag($this->getPageRow()['userTag']) as $val):?>
+                <? foreach(utils::parseUserTag($this->author->userTag) as $val):?>
                     <div class="sc-AxjAm hXeItE  fXkMMP"><? _e($val);?></div>
                 <? endforeach;?>
             </div>

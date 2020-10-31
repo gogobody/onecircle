@@ -191,13 +191,14 @@ function getRandRecommendImgs($cnt_ = 10){
         $res = parseMarkdownFirstImg($row['text']);
         if (!empty($res)){
             $cnt = $cnt + 1;
-            $usersec = $db->select('screenName','mail')->from('table.users')->where('uid = ?',$row['authorId']);
+            $usersec = $db->select('screenName','mail','userAvatar')->from('table.users')->where('uid = ?',$row['authorId']);
             $userq = $db->fetchRow($usersec);
             array_push($ret,array(
                 "cid" => $row['cid'],
                 "screenName" => $userq["screenName"],
                 "email" => $userq["mail"],
-                "img" => $res[0]
+                "img" => $res[0],
+                "userAvatar" => $userq["userAvatar"]
             ));
         }
     }
@@ -225,17 +226,30 @@ function isqq($email,$size=100){
     }
 }
 
-function getV2exAvatar($obj,$size=100)
+
+function getUserV2exAvatar($mail_,$userAvatar,$size=100)
 {
-    return isqq($obj->author->mail,$size);
+    if ($userAvatar && $userAvatar != ''){
+        return $userAvatar;
+    }else{
+        return isqq($mail_,$size);
+    }
 }
 
-function getUserV2exAvatar($mail_,$size=100)
+/**
+ * @param $backimg ,来自 onecircle 插件的用户背景设置字段
+ * @param $mail
+ * @param int $size
+ * @return string
+ */
+function getUserBackgroundImg($mail,$backimg,$size=100)
 {
-    return isqq($mail_,$size);
+    if ($backimg){
+        return $backimg;
+    }else{
+        return isqq($mail,$size);
+    }
 }
-
-
 /**
  * 获取博主信息
  */

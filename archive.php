@@ -71,7 +71,7 @@
                                         <div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr">
                                             <a href="/author/<?php _e($fobj[$i]['uid'])?>"
                                                class="sc-AxjAm sc-AxirZ eGdPrb"><img
-                                                        src="<?php _e(getUserV2exAvatar($fobj[$i]['mail']))?>"
+                                                        src="<?php _e(getUserV2exAvatar($fobj[$i]['mail'],$fobj[$i]['userAvatar']))?>"
                                                         alt="再多一点可爱" class="sc-AxjAm jZLHXc">
                                                 <div  class="sc-AxjAm sc-AxirZ hkyonN">
                                                     <div class="sc-AxjAm oDrAC"><?php _e($fobj[$i]['name'])?></div>
@@ -108,7 +108,7 @@
                                         <div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr">
                                             <a href="/author/<?php _e($fobj[$i]['uid'])?>"
                                                class="sc-AxjAm sc-AxirZ eGdPrb"><img
-                                                        src="<?php _e(getUserV2exAvatar($fobj[$i]['mail']))?>"
+                                                        src="<?php _e(getUserV2exAvatar($fobj[$i]['mail'],$fobj[$i]['userAvatar']))?>"
                                                         alt="再多一点可爱" class="sc-AxjAm jZLHXc">
                                                 <div  class="sc-AxjAm sc-AxirZ hkyonN">
                                                     <div class="sc-AxjAm oDrAC"><?php _e($fobj[$i]['name'])?></div>

@@ -9,11 +9,12 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <div class="iwNods">
             <div class="daMYau">
                 <span><?php
-                    if($this->getPageRow()['userSign']){
-                        echo $this->getPageRow()['userSign'];
-                    }else{
-                        echo "太懒了，还没有个人签名!";
-                    }
+//                    if($this->getPageRow()['userSign']){
+//                        echo $this->getPageRow()['userSign'];
+//                    }else{
+//                        echo "太懒了，还没有个人签名!";
+//                    }
+                    echo $this->author->userSign;
                     ?> </span>
             </div>
         </div>
@@ -64,7 +65,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <?php while ($comments->next()): ?>
                 <li class="media my-4">
                     <img class="recent-avatar mr-3"
-                         src="<?php echo getUserV2exAvatar($comments->mail); ?>"/>
+                         src="<?php echo getUserV2exAvatar($comments->mail,UserFollow::getUserObjFromMail($comments->mail)['userAvatar']); ?>"/>
                     <div class="media-body">
                         <h6 class="mt-0 mb-1"><?php $comments->author(false); ?></h6>
                         <a class="content" href="<?php $comments->permalink(); ?>"
