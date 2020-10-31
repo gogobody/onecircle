@@ -561,10 +561,15 @@ var archiveInit = {
             var arr = str.match(imgReg);
             var imgurl = ''
             if(arr && arr.length > 0){
-                img_ = arr[0].match(srcReg)
+                var img_ = arr[0].match(srcReg)
                 if (img_ && img_.length > 0){
                     imgurl = img_[1]
                 }
+            }
+            //try onece more, like baidu src="hts//xxxx&src=hxxx"
+            var more = imgurl.match(srcReg)
+            if (more && more.length > 0){
+                imgurl = more[1]
             }
             // get article img end
             var repousername = repostComment.data("username")

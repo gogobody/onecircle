@@ -9,7 +9,7 @@
  */
 
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-$this->need('includes/header.php');
+
 // recommend page
 $tArr = utils::parseUrlQuery(utils::GetCurUrl());
 if (count($tArr) == 0) {
@@ -31,7 +31,7 @@ if ($this->user->hasLogin()){
     $this->need('components/recommend/recommend-rand-sticky.php');
 }
 //Typecho_Widget::widget('Widget_Users_Admin')->to($users);
-
+$this->need('includes/header.php');
 ?>
 
 <div class="container-lg" id="pjax-container">

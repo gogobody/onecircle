@@ -24,6 +24,8 @@ class contents{
             }elseif ($widget->fields->articleType == 'repost'){
                 // 转发
                 $text = contents::repostArticle($text,Helper::options()->defaultSlugUrl);
+            }else{
+
             }
 
 
@@ -231,7 +233,7 @@ class contents{
     public static function repostArticle($text,$url_){
         $pattern = '/\[repost.*?href="(.*?)" bannerimg="(.*?)" repousername="(.*?)" repostext="(.*?)" category=["\'](.*?)["\']\]/i';
         if(preg_match($pattern, $text, $match)){
-            if ($match[1]){ // if has img
+            if ($match[2]){ // if has img
                 $replacement = '<div class="repost-container"><a class="repost-content" href="$1"><img src="$2" class="repost-banner"><div class="repost-text">$3:$4</div></a><div class="repost-category">$5</div></div>';
             }else{
                 $replacement = '<div class="repost-container"><a class="repost-content" href="$1"><img src="'.$url_.'" class="repost-banner"><div class="repost-text">$3:$4</div></a><div class="repost-category">$5</div></div>';

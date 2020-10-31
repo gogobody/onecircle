@@ -63,9 +63,16 @@ keyfram
 header {
     background-color: rgb(255, 255, 255);
     border-bottom: 1px solid #ececec;
-    margin-bottom: 20px;
     box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
-    position: relative;
+}
+.app-header-fixed {
+    padding-top: 65px;
+}
+.app-header-fixed .app-header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
 }
 
 .site-logo {

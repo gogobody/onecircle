@@ -16,6 +16,7 @@ if ($this->is('index')){
 }
 ?>
 
+</div> <!--close header app layout-->
 
 <footer class="container footer">
     &copy; <?php echo date('Y'); ?>
