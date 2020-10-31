@@ -4,6 +4,8 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  * 主页 显示 图文 default
  */
 ?>
+<div class="row">
+
 <div class="post-content-inner col-xl-12">
     <?php if ($this->fields->excerpt && $this->fields->excerpt != ''): ?>
         <?php echo $this->fields->excerpt; ?>
@@ -26,3 +28,4 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         </div>
     </div>
 <? endif; ?>
+</div>

@@ -66,8 +66,12 @@
                             </div>
                         </form>
                     <?php else: ?>
-
-                        <?php $this->content(); ?>
+                        <?php if ($this->fields->articleType == 'repost'):?>
+                            <div><?php echo $this->fields->excerpt ?></div>
+                            <?php $this->content(); ?>
+                        <?php else: ?>
+                            <?php $this->content(); ?>
+                        <?php endif?>
                     <?php endif; ?>
                 </div>
                 <!--tag-->
@@ -158,7 +162,8 @@
                         </div>
                         <input type="text" id="repostComment" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                value='<a href="<?php $this->author->permalink(); ?>">@<?php $this->author(); ?></a>:<?php $this->excerpt(10);?>'
-                            data-username="<?php $this->author() ?>" data-excerpt="<?php $this->excerpt(20);?>" data-category='<?$this->category(' ')?>'>
+                            data-username="<?php $this->author() ?>" data-excerpt="<?php $this->excerpt(20);?>" data-category='<?$this->category(' ')?>'
+                        data-posthref="<?php _e($this->permalink());?>">
                     </div>
                 </div>
                 <div class="modal-footer">

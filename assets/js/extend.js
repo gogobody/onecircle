@@ -524,12 +524,12 @@ var archiveInit = {
         this.archAuthorTabsClickInit()
         this.repostFuncInit()
     },
-    postRepostArticle:function(excert,rbannerimg,repousername,repostext,category){
+    postRepostArticle:function(posthref,excert,rbannerimg,repousername,repostext,category){
         // 转发 默认 发到 category 1
         var fromusernm = indexInput.loginUserName
         var data = {
             title: fromusernm +"转发了"+repostext.substring(0,20),
-            text: "[repost bannerimg=\""+rbannerimg+"\" repousername=\""+repousername+"\" repostext=\""+repostext+"\" category=\'"+category+"\']",
+            text: "[repost href=\""+posthref+"\" bannerimg=\""+rbannerimg+"\" repousername=\""+repousername+"\" repostext=\""+repostext+"\" category=\'"+category+"\']",
             'fields[articleType]': 'repost',
             'fields[excerpt]': excert,
             'markdown': 1,
@@ -553,6 +553,7 @@ var archiveInit = {
         })
         $("#repostBtn").unbind("click").bind("click",function (e){
             var comment = repostComment.val()
+            var posthref = repostComment.data("posthref")
             // get article img
             var imgReg = /<img.*?(?:>|\/>)/i;
             var srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i;
@@ -570,8 +571,14 @@ var archiveInit = {
             var repostext = repostComment.data("excerpt")
             var category = repostComment.data("category")
             if (repostext === 'undefine') repostext = ''
-            archiveInit.postRepostArticle(comment,imgurl,repousername,repostext,category)
+            archiveInit.postRepostArticle(posthref,comment,imgurl,repousername,repostext,category)
             $("#repostModal").modal('hide')
+        })
+        // fix repost a click
+        $(".repost-row a").unbind('cilck').bind('click',function (e) {
+            var url = $(this).attr("href")
+            $.pjax({url:url,container:'#pjax-container'})
+            e.stopPropagation()
         })
     },
     postFansArticle:function(tohref,toavatar,tousername,tosign){
@@ -957,7 +964,7 @@ var tagsManageInit = {
         })
     },
     pjax_complete:function () {
-        
+        this.circleEditBtn()
     },
 
 };

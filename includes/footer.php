@@ -94,6 +94,7 @@ if ($this->is('index')){
                 smms.init()
             }
             //
+            tagsManageInit.pjax_complete()
         })
 </script>
 <?php $this->footer(); ?>

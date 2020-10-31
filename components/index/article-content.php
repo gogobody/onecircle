@@ -6,71 +6,52 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 ?>
 <!-- focus user show -->
-<?php if ($this->fields->articleType == "focususer"):?>
+<?php if ($this->fields->articleType == "focususer"): ?>
     <article class="post-article" data-url="<?php $this->permalink(); ?>">
-    <div class="post-article-left">
-        <a onclick="event.stopPropagation();" href="<?php $this->author->permalink(); ?>">
-            <!--<?php $this->author->gravatar(40); ?>-->
-            <img class="avatar"
-                 src="<?php echo getUserV2exAvatar($this->author->mail); ?>"
-                 alt="<?php $this->author() ?>"/>
-        </a>
-    </div>
-    <div class="post-article-right">
-        <div class="post-author">
-            <?php if (!$this->options->singleAuthor): ?>
-                <div class="author-name" id="post-author-<?php $this->cid() ?>">
-                    <a onclick="event.stopPropagation();" href="<?php $this->author->permalink(); ?>"><?php $this->author(); ?></a>
-                </div>
-                <div class="post-time">
-                    <a href="<?php $this->permalink() ?>">
-                        <time><?php echo formatTime($this->created); ?></time>
-                    </a>
-                </div>
-            <?php else: ?>
-                <a class="post-title" href="<?php $this->permalink() ?>" target="_blank">
-                    <h4><?php $this->title() ?></h4>
-                </a>
-            <?php endif; ?>
+        <div class="post-article-left">
+            <a onclick="event.stopPropagation();" href="<?php $this->author->permalink(); ?>">
+                <!--<?php $this->author->gravatar(40); ?>-->
+                <img class="avatar"
+                     src="<?php echo getUserV2exAvatar($this->author->mail); ?>"
+                     alt="<?php $this->author() ?>"/>
+            </a>
         </div>
-        <!--content-->
-        <div class="post-content">
-            <div class="row">
-
-                <?php if ($this->fields->articleType == "link"): ?>
-                    <!-- link-->
-                    <? $this->need('components/index/index-link.php');?>
-
-                <?php elseif ($this->fields->articleType == "default"): ?>
-                    <!-- default-->
-                    <? $this->need('components/index/index-default.php');?>
-
-                <?php elseif ($this->fields->articleType == "video" || $this->fields->articleType == "bilibili"): ?>
-                    <!-- videos -->
-                    <? $this->need('components/index/index-videos.php');?>
-                <?php elseif ($this->fields->articleType == "focususer"): ?>
-                    <!-- focususer -->
-                    <? $this->need('components/index/index-focususer.php');?>
+        <div class="post-article-right">
+            <div class="post-author">
+                <?php if (!$this->options->singleAuthor): ?>
+                    <div class="author-name" id="post-author-<?php $this->cid() ?>">
+                        <a onclick="event.stopPropagation();"
+                           href="<?php $this->author->permalink(); ?>"><?php $this->author(); ?></a>
+                    </div>
+                    <div class="post-time">
+                        <a href="<?php $this->permalink() ?>">
+                            <time><?php echo formatTime($this->created); ?></time>
+                        </a>
+                    </div>
+                <?php else: ?>
+                    <a class="post-title" href="<?php $this->permalink() ?>" target="_blank">
+                        <h4><?php $this->title() ?></h4>
+                    </a>
                 <?php endif; ?>
             </div>
-            <!-- action-->
-            <div class="content-action">
-                <!--分类-->
-                <div class="topic-container">
+            <!--content-->
+            <div class="post-content">
+                <!-- focususer -->
+                <? $this->need('components/index/index-focususer.php'); ?>
+                <!-- action-->
+                <div class="content-action">
+                    <!--分类-->
+                    <div class="topic-container">
                     <span class="topic-container-items" onclick="event.stopPropagation()">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                             xmlns="http://www.w3.org/2000/svg" class="container-svg"><circle
-                                cx="10"
-                                cy="10" r="10"
-                                fill="#03A9F5"></circle><circle cx="10" cy="10" r="5" fill="#A0E3FE"></circle></svg>
-                    <?php $this->category(',');?>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="container-svg"><circle cx="10" cy="10" r="10" fill="#03A9F5"></circle><circle cx="10" cy="10" r="5" fill="#A0E3FE"></circle></svg>
+                    <?php $this->category(','); ?>
 
                     </span>
-                </div>
+                    </div>
 
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="p-2">
-                        <button class="button post-action">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="p-2">
+                            <button class="button post-action">
                                         <span style="display: flex;align-items: center;">
                                             <svg width="24" height="24" viewBox="0 0 16 16" class="post-icon bi bi-eye"
                                                  fill="currentColor"
@@ -82,10 +63,10 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                                             </svg>
                                             <?php utils::getPostView($this); ?>
                                         </span>
-                        </button>
-                    </div>
-                    <div class="p-2">
-                        <button class="button post-action">
+                            </button>
+                        </div>
+                        <div class="p-2">
+                            <button class="button post-action">
                                         <span style="display: flex;align-items: center;">
                                             <svg width="20" height="20" viewBox="0 0 16 16"
                                                  class="post-icon bi bi-chat-dots" fill="currentColor"
@@ -96,11 +77,11 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                                             </svg>
                                         <?php $this->commentsNum('0', '1', '%d'); ?>
                                         </span>
-                        </button>
-                    </div>
-                    <div class="p-2">
-                        <button class="button post-action btn-like" data-link="<?php _e($this->permalink())?>"
-                                data-cid="<?php $this->cid(); ?>">
+                            </button>
+                        </div>
+                        <div class="p-2">
+                            <button class="button post-action btn-like" data-link="<?php _e($this->permalink()) ?>"
+                                    data-cid="<?php $this->cid(); ?>">
                                         <span style="display: flex;align-items: center;">
                                             <svg width="20" height="20" viewBox="0 0 16 16"
                                                  class="post-icon bi bi-heart" fill="currentColor"
@@ -111,10 +92,10 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                                         <?php $agree = $this->hidden ? array('agree' => 0, 'recording' => true) : utils::agreeNum($this->cid); ?>
                                         <span class="agree-num"><?php echo $agree['agree']; ?></span>
                                         </span>
-                        </button>
-                    </div>
-                    <div class="p-2">
-                        <button class="button post-datetime">
+                            </button>
+                        </div>
+                        <div class="p-2">
+                            <button class="button post-datetime">
                                         <span style="display: flex;align-items: center;">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16"
                                                  class="post-icon bi bi-clock-fill" fill="currentColor"
@@ -124,83 +105,83 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                                             </svg>
                                         <?php echo formatTime($this->created); ?>
                                         </span>
-                        </button>
+                            </button>
+                        </div>
                     </div>
                 </div>
+
             </div>
-
         </div>
-    </div>
-    <?php $this->sticky();?>
+        <?php $this->sticky(); ?>
 
-</article>
+    </article>
 
 <!-- other show -->
-<?php else:?>
+<?php else: ?>
     <article do-pjax class="post-article" data-url="<?php $this->permalink(); ?>">
-    <div class="post-article-left">
-        <a onclick="event.stopPropagation();" href="<?php $this->author->permalink(); ?>">
-            <!--<?php $this->author->gravatar(40); ?>-->
-            <img class="avatar"
-                 src="<?php echo getUserV2exAvatar($this->author->mail); ?>"
-                 alt="<?php $this->author() ?>"/>
-        </a>
-    </div>
-    <div class="post-article-right">
-        <div class="post-author">
-            <?php if (!$this->options->singleAuthor): ?>
-                <div class="author-name" id="post-author-<?php $this->cid() ?>">
-                    <a onclick="event.stopPropagation();" href="<?php $this->author->permalink(); ?>"><?php $this->author(); ?></a>
-                </div>
-                <div class="post-time">
-                    <a href="<?php $this->permalink() ?>">
-                        <time><?php echo formatTime($this->created); ?></time>
-                    </a>
-                </div>
-            <?php else: ?>
-                <a class="post-title" href="<?php $this->permalink() ?>" target="_blank">
-                    <h4><?php $this->title() ?></h4>
-                </a>
-            <?php endif; ?>
+        <div class="post-article-left">
+            <a onclick="event.stopPropagation();" href="<?php $this->author->permalink(); ?>">
+                <!--<?php $this->author->gravatar(40); ?>-->
+                <img class="avatar"
+                     src="<?php echo getUserV2exAvatar($this->author->mail); ?>"
+                     alt="<?php $this->author() ?>"/>
+            </a>
         </div>
-        <!--content-->
-        <div class="post-content">
-            <div class="row">
+        <div class="post-article-right">
+            <div class="post-author">
+                <?php if (!$this->options->singleAuthor): ?>
+                    <div class="author-name" id="post-author-<?php $this->cid() ?>">
+                        <a onclick="event.stopPropagation();"
+                           href="<?php $this->author->permalink(); ?>"><?php $this->author(); ?></a>
+                    </div>
+                    <div class="post-time">
+                        <a href="<?php $this->permalink() ?>">
+                            <time><?php echo formatTime($this->created); ?></time>
+                        </a>
+                    </div>
+                <?php else: ?>
+                    <a class="post-title" href="<?php $this->permalink() ?>" target="_blank">
+                        <h4><?php $this->title() ?></h4>
+                    </a>
+                <?php endif; ?>
+            </div>
+            <!--content-->
+            <div class="post-content">
 
                 <?php if ($this->fields->articleType == "link"): ?>
                     <!-- link-->
-                    <? $this->need('components/index/index-link.php');?>
+                    <? $this->need('components/index/index-link.php'); ?>
 
                 <?php elseif ($this->fields->articleType == "default"): ?>
                     <!-- default-->
-                    <? $this->need('components/index/index-default.php');?>
+                    <? $this->need('components/index/index-default.php'); ?>
 
                 <?php elseif ($this->fields->articleType == "video" || $this->fields->articleType == "bilibili"): ?>
                     <!-- videos -->
-                    <? $this->need('components/index/index-videos.php');?>
+                    <? $this->need('components/index/index-videos.php'); ?>
                 <?php elseif ($this->fields->articleType == "repost"): ?>
                     <!-- repost -->
-                    <? $this->need('components/index/index-repost.php');?>
+                    <? $this->need('components/index/index-repost.php'); ?>
                 <?php endif; ?>
-            </div>
-            <!-- action-->
-            <div class="content-action">
-                <!--分类-->
-                <div class="topic-container">
+
+                <!-- action-->
+                <div class="content-action">
+                    <!--分类-->
+                    <div class="topic-container">
                     <span class="topic-container-items" onclick="event.stopPropagation()">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                              xmlns="http://www.w3.org/2000/svg" class="container-svg"><circle
                                     cx="10"
                                     cy="10" r="10"
                                     fill="#03A9F5"></circle><circle cx="10" cy="10" r="5" fill="#A0E3FE"></circle></svg>
-                    <?php $this->category(',');?>
+                    <?php $this->category(','); ?>
 
                     </span>
-                </div>
+                    </div>
 
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="p-2">
-                        <button class="button post-action">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="p-2">
+                            <button class="button post-action">
                                         <span style="display: flex;align-items: center;">
                                             <svg width="24" height="24" viewBox="0 0 16 16" class="post-icon bi bi-eye"
                                                  fill="currentColor"
@@ -212,10 +193,10 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                                             </svg>
                                             <?php utils::getPostView($this); ?>
                                         </span>
-                        </button>
-                    </div>
-                    <div class="p-2">
-                        <button class="button post-action">
+                            </button>
+                        </div>
+                        <div class="p-2">
+                            <button class="button post-action">
                                         <span style="display: flex;align-items: center;">
                                             <svg width="20" height="20" viewBox="0 0 16 16"
                                                  class="post-icon bi bi-chat-dots" fill="currentColor"
@@ -226,11 +207,11 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                                             </svg>
                                         <?php $this->commentsNum('0', '1', '%d'); ?>
                                         </span>
-                        </button>
-                    </div>
-                    <div class="p-2">
-                        <button class="button post-action btn-like" data-link="<?php _e($this->permalink())?>"
-                                data-cid="<?php $this->cid(); ?>">
+                            </button>
+                        </div>
+                        <div class="p-2">
+                            <button class="button post-action btn-like" data-link="<?php _e($this->permalink()) ?>"
+                                    data-cid="<?php $this->cid(); ?>">
                                         <span style="display: flex;align-items: center;">
                                             <svg width="20" height="20" viewBox="0 0 16 16"
                                                  class="post-icon bi bi-heart" fill="currentColor"
@@ -241,10 +222,10 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                                         <?php $agree = $this->hidden ? array('agree' => 0, 'recording' => true) : utils::agreeNum($this->cid); ?>
                                         <span class="agree-num"><?php echo $agree['agree']; ?></span>
                                         </span>
-                        </button>
-                    </div>
-                    <div class="p-2">
-                        <button class="button post-datetime">
+                            </button>
+                        </div>
+                        <div class="p-2">
+                            <button class="button post-datetime">
                                         <span style="display: flex;align-items: center;">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16"
                                                  class="post-icon bi bi-clock-fill" fill="currentColor"
@@ -254,15 +235,15 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                                             </svg>
                                         <?php echo formatTime($this->created); ?>
                                         </span>
-                        </button>
+                            </button>
+                        </div>
                     </div>
                 </div>
+
             </div>
-
         </div>
-    </div>
-    <?php $this->sticky();?>
+        <?php $this->sticky(); ?>
 
-</article>
-<?php endif;?>
+    </article>
+<?php endif; ?>
 

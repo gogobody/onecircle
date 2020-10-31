@@ -227,14 +227,14 @@ class contents{
         }
         return $text;
     }
-    // [repost.*?bannerimg="(.*?) repousername="(.*?)" repostext="(.*?)" categoryname="(.*?)" categoryhref="(.*?)".*?]
+    // [repost.*?href="(.*?)" bannerimg="(.*?) repousername="(.*?)" repostext="(.*?)" categoryname="(.*?)" categoryhref="(.*?)".*?]
     public static function repostArticle($text,$url_){
-        $pattern = '/\[repost.*?bannerimg="(.*?)" repousername="(.*?)" repostext="(.*?)" category=["\'](.*?)["\']\]/i';
+        $pattern = '/\[repost.*?href="(.*?)" bannerimg="(.*?)" repousername="(.*?)" repostext="(.*?)" category=["\'](.*?)["\']\]/i';
         if(preg_match($pattern, $text, $match)){
             if ($match[1]){ // if has img
-                $replacement = '<div class="repost-container"><a class="repost-content"><img src="$1" class="repost-banner"><div class="repost-text">$2:$3</div></a><div class="repost-category">$4</div></div>';
+                $replacement = '<div class="repost-container"><a class="repost-content" href="$1"><img src="$2" class="repost-banner"><div class="repost-text">$3:$4</div></a><div class="repost-category">$5</div></div>';
             }else{
-                $replacement = '<div class="repost-container"><a class="repost-content"><img src="'.$url_.'" class="repost-banner"><div class="repost-text">$2:$3</div></a><div class="repost-category">$4</div></div>';
+                $replacement = '<div class="repost-container"><a class="repost-content" href="$1"><img src="'.$url_.'" class="repost-banner"><div class="repost-text">$3:$4</div></a><div class="repost-category">$5</div></div>';
             }
             return preg_replace($pattern, $replacement, $text);
         }
