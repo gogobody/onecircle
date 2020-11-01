@@ -76,6 +76,7 @@
     width: 100%;
     margin-top: 10px;
     margin-bottom: 2rem;
+    word-break: break-all;
 }
 .article-content > p img {
     width: 100%;
@@ -867,5 +868,9 @@ article table td {
 @media screen and (max-width: 768px) {
     .article-container{
         padding: 10px;
+    }
+    .comment-list .comment-time{
+        position: inherit;
+        font-size: 10px;
     }
 }
