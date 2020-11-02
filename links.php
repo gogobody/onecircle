@@ -23,7 +23,11 @@ $this->need('includes/header.php');
             </nav>
             <article class="post">
                 <h1 class="article-title"><a href="<?php $this->permalink() ?>"><?php $this->title() ?></a></h1>
-                <?php $this->content(); ?>
+                <div class="links-box container-fluid">
+                    <div class="row">
+                        <?php $this->content(); ?>
+                    </div>
+                </div>
             </article>
             <?php $this->need('includes/comments.php'); ?>
 

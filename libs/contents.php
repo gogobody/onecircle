@@ -85,7 +85,7 @@ class contents{
         $reg = '/\[links\](.*?)\[\/links\]/s';
         if (preg_match($reg, $text)) {
             self::$frag = true;
-            $rp = '<div class="links-box container-fluid"><div class="row">${1}</div></div>';
+            $rp = '${1}';
             $text = preg_replace($reg, $rp, $text);
             $pattern = '/\[(.*?)\]\((.*?)\)\+\((.*)\)/';
             $replacement = '<div class="col-lg-3 col-6 col-md-4 links-container">
