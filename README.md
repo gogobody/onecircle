@@ -25,7 +25,7 @@ v2.0 添加用户关注圈子支持，新增动态页显示
 v2.1 新增圈友日记，新增标签管理独立页面  
 v2.2 修复评论bug，新增转发和关注（每次关注有40%几率发一条post）  
 v2.3 新增 头像和背景图设置  
-v2.4 插件设置bug 修复
+v2.4 插件设置bug 修复  
 
 ## 安装
 下载 release 包：
@@ -37,6 +37,30 @@ onecirclePlugin 配套插件
 
 安装主题启用插件即可
 
+## 注意：
+因为 typecho 的bug，导致每次在个人设置里都会显示之前的缓存内容，而不是用户最新填写的数据，给用户带来困扰 - -  
+所以解决办法有两种：
+1. 每次修改的时候都把所有字段修改了，因为只修改某一个，其他字段还是用的某次的缓存
+2. 修复bug：很简单，方法如下：  
+找到源码的 var/Widget/Users/Profile.php 中的personalForm 函数，把中间这个if判断，由原来的
+```
+if (!empty($options)) {
+            foreach ($options as $key => $val) {
+                $form->getInput($key)->value($val);
+            }
+        }
+```  
+改成：
+```
+if (!empty($options)) {
+            foreach ($options as $key => $val) {
+                if (!$form->getInput($key)){
+                    $form->getInput($key)->value($val);
+                }
+            }
+        }
+```
+  
 **说明：**  
 1. 开启伪静态  
     我是按照默认 '默认风格 /archives/{cid}/'设置的，不保证其他的有效

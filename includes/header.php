@@ -45,7 +45,7 @@
         <div class="container-lg">
             <div class="row navbar-expand-lg">
                 <div class="col-6 col-md-9 col-lg-8 col-xl-9 mobile-nopading">
-                    <nav class="navbar sticky-top navbar-expand-lg navbar-light">
+                    <nav class="navbar navbar-expand-lg navbar-light">
                         <a class="navbar-brand mb-0 h1 p-2 mr-auto" href="<?php $this->options->siteUrl(); ?>">
                             <img class="site-logo" src="<?php $this->options->logoUrl(); ?>" loading="lazy"
                                  alt="<?php $this->options->title(); ?>"/>
