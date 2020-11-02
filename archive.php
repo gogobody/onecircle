@@ -75,7 +75,7 @@
                                                         alt="再多一点可爱" class="sc-AxjAm jZLHXc">
                                                 <div  class="sc-AxjAm sc-AxirZ hkyonN">
                                                     <div class="sc-AxjAm oDrAC"><?php _e($fobj[$i]['name'])?></div>
-                                                    <div class="sc-AxjAm hHqHSX ezzhLs"><?php _e($this->user->userSign);?></div>
+                                                    <div class="sc-AxjAm hHqHSX ezzhLs"><?php _e($fobj[$i]['userSign']);?></div>
                                                 </div>
                                             </a>
 
@@ -112,7 +112,7 @@
                                                         alt="再多一点可爱" class="sc-AxjAm jZLHXc">
                                                 <div  class="sc-AxjAm sc-AxirZ hkyonN">
                                                     <div class="sc-AxjAm oDrAC"><?php _e($fobj[$i]['name'])?></div>
-                                                    <div class="sc-AxjAm hHqHSX ezzhLs"><?php _e($this->user->userSign);?></div>
+                                                    <div class="sc-AxjAm hHqHSX ezzhLs"><?php _e($fobj[$i]['userSign']);?></div>
                                                 </div>
                                             </a>
                                             <div class="sc-AxjAm sc-AxirZ hsyNhw">
