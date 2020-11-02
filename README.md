@@ -91,6 +91,21 @@ return false;
 ```
 然后去 typecho 目录下的 usr 目录下创建uploads 文件夹，给权限 0777 就好了。  
 
+----
+## 添加链接
+
+自定义页面取友情链接！
+
+!!!
+
+[links]
+
+[名称](网址)+(头像)
+
+[/links]
+
+!!!
+
 ##如何添加导航图标
 进入网址https://icons.getbootstrap.com/
 
