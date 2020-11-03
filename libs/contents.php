@@ -15,7 +15,7 @@ class contents{
             $text = contents::blankReplace($text);
             $text = contents::biliVideo($text);
             $text = contents::video($text);
-            if($widget->fields->articleType == 'default'){
+            if($widget->fields->articleType == 'default' || $widget->is('page')){
                 if (!self::$frag)
                     $text = contents::fancybox($text);
             }elseif ($widget->fields->articleType == 'focususer'){
