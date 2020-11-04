@@ -9,12 +9,11 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <div class="iwNods">
             <div class="daMYau">
                 <span><?php
-//                    if($this->getPageRow()['userSign']){
-//                        echo $this->getPageRow()['userSign'];
-//                    }else{
-//                        echo "太懒了，还没有个人签名!";
-//                    }
-                    echo $this->getPageRow()['userSign'];
+                    if($this->getPageRow()['userSign']){
+                        echo $this->getPageRow()['userSign'];
+                    }else{
+                        echo "太懒了，还没有个人签名!";
+                    }
                     ?> </span>
             </div>
         </div>
