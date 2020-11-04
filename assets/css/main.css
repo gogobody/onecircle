@@ -443,7 +443,7 @@ button:focus{
 
 .post-article {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     background-color: rgb(255, 255, 255);
     align-items: flex-start;
     flex-direction: row;
@@ -459,10 +459,10 @@ button:focus{
 
 .post-article-left {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     padding-right: 12px;
     display: flex;
-    margin: 0px;
+    margin: 0;
     flex: 0 0 auto;
 }
 
@@ -475,17 +475,17 @@ button:focus{
 
 .post-article-right {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     flex-direction: column;
     display: flex;
-    margin: 0px;
+    margin: 0;
     flex: 1 1 auto;
     animation: 0.3s ease 0s 1 normal none running show;
 }
 
 .post-article:hover {
     background-color: rgb(248, 250, 251);
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px, rgba(157, 182, 200, 0.1) 0px 1px 20px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 1px 3px, rgba(157, 182, 200, 0.1) 0 1px 20px;
 }
 
 
@@ -506,7 +506,7 @@ button:focus{
     font-weight: 500;
     text-align: center;
     transform: rotate(36deg);
-    transform-origin: 0% 0%;
+    transform-origin: 0 0;
 }
 
 /** 置顶图标文字版样式 **/
@@ -525,7 +525,7 @@ button:focus{
     font-weight: 500;
     text-align: center;
     transform: rotate(36deg);
-    transform-origin: 0% 0%;
+    transform-origin: 0 0;
 }
 @media (max-width:640px){
     .sticky-icon {
@@ -544,7 +544,7 @@ button:focus{
         font-weight: 500;
         text-align: center;
         transform: rotate(36deg);
-        transform-origin: 0% 0%;
+        transform-origin: 0 0;
     }
 }
 
@@ -563,30 +563,30 @@ button:focus{
 
 .post-author {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     line-height: 1;
     flex-direction: column;
     font-size: 14px;
     display: flex;
-    margin: 0px;
+    margin: 0;
 }
 
 .author-name {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     padding-top: 4px;
     padding-bottom: 6px;
     display: flex;
-    margin: 0px;
+    margin: 0;
 }
 
 .author-name a {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     color: rgb(64, 64, 64);
     cursor: pointer;
     font-weight: 600;
-    margin: 0px;
+    margin: 0;
     text-decoration: none;
 }
 
@@ -606,12 +606,12 @@ button:focus{
     text-overflow: ellipsis;
     overflow: hidden;
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     font-size: 12px;
     line-height: 16px;
     font-weight: 400;
     color: rgb(191, 191, 191);
-    margin: 0px;
+    margin: 0;
 }
 
 .post-time a:hover {
@@ -620,17 +620,17 @@ button:focus{
 
 .post-time a {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     color: rgb(191, 191, 191);
-    margin: 0px;
+    margin: 0;
 }
 
 .post-cover-img-container {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     align-self: stretch;
     display: flex;
-    margin: 0px;
+    margin: 0;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -647,11 +647,11 @@ button:focus{
 }
 .post-cover-inner {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     width: fit-content;
     align-self: flex-start;
     display: flex;
-    margin: 0px;
+    margin: 0;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -660,11 +660,11 @@ button:focus{
 }
 .post-cover-inner-more {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     display: grid;
     width: 100%;
     justify-items: stretch;
-    margin: 0px;
+    margin: 0;
     border-radius: 24px;
     gap: 4px;
     grid-auto-rows: minmax(120px, 200px);
@@ -735,10 +735,10 @@ button:focus{
 .repost-content{
     display: flex;
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     flex-direction: row;
-    padding-bottom: 0px;
+    padding-bottom: 0;
     color: rgb(64, 64, 64);
 }
 .repost-content:hover{
@@ -746,14 +746,14 @@ button:focus{
 }
 .repost-banner {
     box-sizing: border-box;
-    margin: 0px 8px 0px 0px;
-    min-width: 0px;
+    margin: 0 8px 0 0;
+    min-width: 0;
     max-width: 100%;
     width: 48px;
     height: 48px;
 }
 .repost-text {
-    flex: 1 1 0%;
+    flex: 1 1 0;
     font-size: 14px;
     line-height: 1.5;
     max-height: 42px;
@@ -763,13 +763,13 @@ button:focus{
     display: -webkit-box;
     -webkit-box-orient: vertical;
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
 }
 .repost-category{
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     -webkit-box-pack: end;
     justify-content: flex-end;
     padding-top: 8px;
@@ -781,13 +781,13 @@ button:focus{
     text-decoration: none;
     font-size: 14px;
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
 }
 /**/
 .post-content-inner-link {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     flex-direction: column;
     font-size: 15px;
     color: rgb(64, 64, 64);
@@ -799,7 +799,7 @@ button:focus{
 
 .link-container {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     display: flex;
     color: rgb(64, 64, 64);
     background-color: rgb(242, 245, 248);
@@ -822,20 +822,20 @@ button:focus{
 
 .link-banner {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     flex-direction: row;
     -webkit-box-align: center;
     align-items: center;
     display: flex;
-    margin: 0px;
+    margin: 0;
 }
 
 .link-banner img {
     width: 48px;
     height: 48px;
-    min-width: 0px;
+    min-width: 0;
     max-width: 100%;
-    margin: 0px 8px 0px 0px;
+    margin: 0 8px 0 0;
 }
 
 .link-text {
@@ -844,19 +844,19 @@ button:focus{
     text-overflow: ellipsis;
     word-break: keep-all;
     white-space: nowrap;
-    flex: 1 1 0%;
+    flex: 1 1 0;
     overflow: hidden;
     box-sizing: border-box;
-    min-width: 0px;
-    margin: 0px;
+    min-width: 0;
+    margin: 0;
 }
 
 .post-cover-inner-link {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     cursor: pointer;
     color: unset;
-    margin: 0px;
+    margin: 0;
     text-decoration: none;
 }
 
@@ -866,10 +866,10 @@ button:focus{
     transition: all 0.2s ease 0s;
     cursor: pointer;
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     max-width: 100%;
     height: auto;
-    margin: 0px;
+    margin: 0;
 }
 .more-pic{
     display: flex;
@@ -892,7 +892,7 @@ button:focus{
     width: 100%;
     height: 100%;
     background-size: cover;
-    margin: 0px;
+    margin: 0;
     overflow: hidden;
     background-repeat: no-repeat;
     background-position: center center;
@@ -954,12 +954,12 @@ button:focus{
 
 .topic-container {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     color: rgb(3, 169, 245);
     cursor: pointer;
     background-color: rgb(242, 245, 248);
     font-size: 14px;
-    margin: 0px 0px 12px;
+    margin: 0 0 12px;
     text-decoration: none;
     border-radius: 999px;
     padding: 4px 12px 4px 4px;
@@ -974,7 +974,7 @@ button:focus{
 }
 
 .topic-container:hover {
-    box-shadow: 0px 0px 2px;
+    box-shadow: 0 0 2px;
     text-decoration: none;
 }
 
@@ -988,7 +988,7 @@ footer
 .mycicle {
     margin-bottom: 12px;
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     border-radius: 12px;
     padding-bottom: 24px;
     background-color: rgb(255, 255, 255);
@@ -1001,8 +1001,8 @@ footer
 
 .mycicle-title {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     padding: 12px 16px;
     flex-direction: row;
     -webkit-box-pack: justify;
@@ -1017,9 +1017,9 @@ footer
 
 .iwNods {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
-    padding: 16px 16px 0px;
+    margin: 0;
+    min-width: 0;
+    padding: 16px 16px 0;
     display: flex;
 }
 
@@ -1028,17 +1028,15 @@ footer
     line-height: 20px;
     color: rgb(64, 64, 64);
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
-    line-height: 20px;
+    margin: 0;
+    min-width: 0;
     word-break: break-all;
 }
 
 .mycicle-title h2 {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
-    font-family: heading;
+    margin: 0;
+    min-width: 0;
     color: rgb(64, 64, 64);
     font-size: 16px;
     line-height: 1.5;
@@ -1047,8 +1045,8 @@ footer
 
 .mycicle-content {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     flex-direction: column;
     display: flex;
 }
@@ -1059,8 +1057,8 @@ footer
 
 .mycicle-content .circle-item {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     padding: 12px 16px 8px;
     flex-direction: row;
     -webkit-box-pack: justify;
@@ -1076,8 +1074,8 @@ footer
 
 .mycicle-content .circle-item .circle-item-link {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     color: rgb(64, 64, 64);
     display: flex;
     cursor: pointer;
@@ -1087,7 +1085,7 @@ footer
 .mycicle-content .circle-item .circle-item-link img {
     border-radius: 8px;
     box-sizing: border-box;
-    margin: 0px 12px 0px 0px;
+    margin: 0 12px 0 0;
     width: 40px;
     height: 40px;
     border-style: none;
@@ -1095,26 +1093,26 @@ footer
 
 .mycicle-content.circle-item-link-right {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     flex-direction: column;
     font-size: 14px;
-    flex: 1 1 0%;
+    flex: 1 1 0;
     display: flex;
 }
 
 .mycicle-content .circle-item-link-title {
     line-height: 20px;
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     text-align: left;
 }
 
 .mycicle-content .circle-item-link-info {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     font-size: 12px;
     font-weight: 400;
     color: rgb(153, 153, 153);
@@ -1193,7 +1191,7 @@ footer
 .random-post {
     margin-bottom: 12px;
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     border-radius: 12px;
     padding-bottom: 24px;
     background-color: rgb(255, 255, 255);
@@ -1205,8 +1203,8 @@ footer
 
 .random-post > .title {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     padding: 12px 16px;
     flex-direction: row;
     -webkit-box-pack: justify;
@@ -1245,8 +1243,8 @@ archive
 
 .kLKIKx {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     padding-top: 60px;
     -webkit-box-align: center;
     align-items: center;
@@ -1254,8 +1252,8 @@ archive
 }
 .fansed {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     appearance: none;
     display: inline-block;
     text-align: center;
@@ -1273,14 +1271,14 @@ archive
 }
 .fans {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     appearance: none;
     display: inline-block;
     text-align: center;
     line-height: inherit;
     text-decoration: none;
-    border: 0px;
+    border: 0;
     user-select: none;
     color: rgb(64, 64, 64);
     background-color: rgb(255, 235, 103);
@@ -1302,7 +1300,7 @@ right
     margin-bottom: 10px;
     border-radius: 12px;
     background-color: white;
-    padding: 0px 0px 24px;
+    padding: 0 0 24px;
 }
 
 .user-info {
@@ -1330,14 +1328,14 @@ right
 .user-detail {
     z-index: 0;
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     padding-left: 16px;
     padding-right: 16px;
     padding-top: 40px;
     flex-direction: column;
     display: flex;
     position: relative;
-    margin: 0px;
+    margin: 0;
     background-color: rgb(255, 255, 255);
     border-radius: 0 0 12px 12px;
 }
@@ -1348,14 +1346,14 @@ right
 
 .user-detail .info {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     flex-shrink: 0;
     width: 64px;
     height: 64px;
     display: flex;
     position: absolute;
     top: -32px;
-    margin: 0px;
+    margin: 0;
     border-radius: 999px;
     overflow: hidden;
     border-width: 2px;
@@ -1368,7 +1366,7 @@ right
     box-sizing: border-box;
     width: 100%;
     height: auto;
-    margin: 0px;
+    margin: 0;
     color: rgb(3, 169, 245);
     cursor: pointer;
     object-fit: cover;
@@ -1382,31 +1380,31 @@ right
 
 .user-detail .user-info-name {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     color: rgb(64, 64, 64);
     font-size: 16px;
     line-height: 1.5;
     font-weight: 700;
     padding-bottom: 4px;
-    margin: 0px;
+    margin: 0;
 }
 
 .user-detail .user-info-name a {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     cursor: pointer;
     color: inherit;
-    margin: 0px;
+    margin: 0;
     text-decoration: none;
 }
 
 .user-detail .user-info-fans {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     flex-direction: row;
     padding-bottom: 8px;
     display: flex;
-    margin: 0px;
+    margin: 0;
 }
 
 .user-detail .user-info-fans a {
@@ -1416,11 +1414,11 @@ right
     line-height: 20px;
     text-decoration: none;
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     cursor: pointer;
     font-size: 14px;
     color: rgb(115, 115, 115);
-    margin: 0px;
+    margin: 0;
 }
 
 .user-detail .user-info-fans a:nth-child(1):after {
@@ -1428,7 +1426,7 @@ right
     height: 16px;
     width: 2px;
     background-color: rgb(153, 153, 153);
-    margin: 0px 8px;
+    margin: 0 8px;
 }
 
 .user-detail .user-info-fans a span {
@@ -1440,9 +1438,9 @@ right
 
 .user-detail .user-info-introduction {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     display: flex;
-    margin: 0px;
+    margin: 0;
     color: rgb(115, 115, 115);
     font-size: 13px;
     line-height: 1.5;
@@ -1509,12 +1507,12 @@ right
 achieve
  */
 .vxeHw {
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     background-color: rgb(255, 255, 255);
     border-radius: 12px;
     flex-direction: column;
-    padding: 0px 0px 24px;
+    padding: 0 0 24px;
     -webkit-box-align: stretch;
     align-items: stretch;
     display: flex;
@@ -1524,11 +1522,11 @@ achieve
 
 .kojXeB {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     display: flex;
     position: absolute;
-    inset: 0px;
+    inset: 0;
     filter: blur(3px);
     width: 100%;
     height: 100%;
@@ -1536,8 +1534,8 @@ achieve
 
 .biCwrr {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     flex-direction: row;
     -webkit-box-pack: justify;
     justify-content: space-between;
@@ -1561,22 +1559,22 @@ achieve
 
 .iNTHKr {
     position: absolute;
-    inset: 0px;
+    inset: 0;
     background: linear-gradient(rgba(32, 32, 32, 0) 14%, rgba(32, 32, 32, 0.56) 100%);
 }
 
 .fUlriR {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     flex-direction: column;
     display: flex;
 }
 
 .kLKIKx {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     padding-top: 60px;
     -webkit-box-align: center;
     align-items: center;
@@ -1585,8 +1583,8 @@ achieve
 
 .jnzuaU {
     box-sizing: border-box;
-    margin: 0px 0px 8px;
-    min-width: 0px;
+    margin: 0 0 8px;
+    min-width: 0;
     border-radius: 999px;
     overflow: hidden;
     flex-shrink: 0;
@@ -1597,8 +1595,8 @@ achieve
 
 .dDtTVx {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     font-family: heading;
     font-weight: 700;
     padding-bottom: 8px;
@@ -1609,8 +1607,8 @@ achieve
 
 .dZfkqf {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     flex-direction: row;
     padding-bottom: 8px;
     display: flex;
@@ -1618,23 +1616,23 @@ achieve
 
 .iiMLXg {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     padding-bottom: 12px;
     display: flex;
 }
 
 .cXyaML {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     display: flex;
     flex-wrap: wrap;
 }
 
 .irFFsx {
     box-sizing: border-box;
-    margin: 0px;
+    margin: 0;
     height: auto;
     width: 100%;
 }
@@ -1648,7 +1646,7 @@ achieve
 }
 
 .ffrrSB::after {
-    margin: 0px 8px;
+    margin: 0 8px;
     content: "";
     height: 16px;
     width: 2px;
@@ -1657,8 +1655,8 @@ achieve
 
 .OAorY {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     text-decoration: none;
     cursor: pointer;
     font-size: 16px;
@@ -1672,8 +1670,8 @@ achieve
 
 .kkFELj {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     color: rgb(255, 255, 255);
     font-size: 14px;
     line-height: 1.5;
@@ -1693,24 +1691,22 @@ achieve
     white-space: nowrap;
 }
 
-.bHdldX {
+.author-man {
     box-sizing: border-box;
     min-width: 35px;
     background-color: rgba(3, 169, 245, 0.6);
 }
-
+.author-woman {
+    box-sizing: border-box;
+    min-width: 35px;
+    background-color: rgba(221, 100, 141, 0.6);
+}
 .hXeItE {
     box-sizing: border-box;
-    margin: 0px;
+    margin: 0;
     background-color: rgba(191, 191, 191, 0.6);
 }
 
-.hzfjJS {
-    box-sizing: border-box;
-    margin: 0px 4px 0px 0px;
-    width: 16px;
-    height: 16px;
-}
 
 .cXyaML > * {
     margin-right: 8px;
@@ -1719,20 +1715,20 @@ achieve
 
 .achieve-container {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     flex-direction: column;
     display: flex;
 }
 
 .achieve-container .achieve-header {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     background-color: rgb(255, 255, 255);
     border-radius: 12px;
     flex-direction: column;
-    padding: 0px 0px 24px;
+    padding: 0 0 24px;
     -webkit-box-align: stretch;
     align-items: stretch;
     display: flex;
@@ -1750,7 +1746,7 @@ achieve
 
 .header-top-img .header-top-img-inner {
     position: absolute;
-    inset: 0px;
+    inset: 0;
     background: linear-gradient(rgba(32, 32, 32, 0) 14%, rgba(32, 32, 32, 0.56) 100%);
     backdrop-filter: blur(20px);
 }
@@ -1769,8 +1765,8 @@ achieve
 
 .header-top-bottom {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     padding-left: 32px;
     padding-right: 48px;
     padding-top: 8px;
@@ -1795,8 +1791,8 @@ achieve
 
 .header-top-bottom-avatar {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     flex-shrink: 0;
     top: -20px;
     width: 72px;
@@ -1818,8 +1814,8 @@ achieve
 
 .header-top-bottom-avatar img {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     max-width: 100%;
     height: auto;
     border-style: none;
@@ -1827,8 +1823,8 @@ achieve
 
 .header-top-bottom-text {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     flex-direction: row;
     -webkit-box-pack: justify;
     justify-content: space-between;
@@ -1853,16 +1849,16 @@ achieve
 
 .header-top-bottom-text .htbt-left {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     flex-direction: column;
     display: flex;
 }
 
 .header-top-bottom-text .htbt-left h2 {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     font-family: heading;
     font-weight: 700;
     font-size: 15px;
@@ -1873,7 +1869,7 @@ achieve
 
 .htbt-left .htbt-intr {
     box-sizing: border-box;
-    margin: 0px;
+    margin: 0;
     flex-direction: row;
     -webkit-box-pack: justify;
     justify-content: space-between;
@@ -1889,8 +1885,8 @@ achieve
 
 .htbt-left .htbt-intr-text {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     font-size: 12px;
     line-height: 18px;
     color: rgb(115, 115, 115);
@@ -1905,8 +1901,8 @@ achieve
 
 .htbt-right button {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     appearance: none;
     display: inline-block;
     text-align: center;
@@ -1925,8 +1921,8 @@ achieve
 
 .achieve-container .achieve-content {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     padding-top: 16px;
     display: flex;
 }
@@ -1937,7 +1933,7 @@ achieve
 
 .achieve-content .outer {
     box-sizing: border-box;
-    margin: 0px;
+    margin: 0;
     display: flex;
     flex-direction: column;
     padding-left: 0;
@@ -1948,7 +1944,7 @@ achieve
 }
 
 .react-tabs__tab-list {
-    margin: -8px 0px 8px;
+    margin: -8px 0 8px;
     border-radius: 12px;
     display: flex;
     flex-direction: row;
@@ -1957,7 +1953,7 @@ achieve
 }
 
 .react-tabs__tab--selected {
-    /*box-shadow: rgb(255, 228, 17) 0px -4px 0px inset;*/
+    /*box-shadow: rgb(255, 228, 17) 0 -4px 0 inset;*/
     font-weight: 600;
     color: rgb(64, 64, 64);
     cursor: default;
@@ -1999,8 +1995,8 @@ achieve
 
 .achieve-content .item-container {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     flex-direction: column;
     display: flex;
 }
@@ -2015,8 +2011,8 @@ achieve
 
 .achieve-content .item-container .item-inner {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     padding-bottom: 12px;
     flex-direction: column;
     display: flex;
@@ -2062,8 +2058,8 @@ achieve
 
 .share-post {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     background-color: rgb(255, 255, 255);
     border-radius: 12px;
     flex-direction: column;
@@ -2077,8 +2073,8 @@ achieve
 }
 #input-form .textarea {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     border-color: rgb(222, 222, 222);
     border-radius: 8px;
     border-width: 1px;
@@ -2128,8 +2124,8 @@ achieve
 }
 .kmbcyV {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     cursor: pointer;
     -webkit-box-align: center;
     align-items: center;
@@ -2139,8 +2135,8 @@ achieve
 
 .jbEtHF {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     padding-left: 4px;
     padding-right: 4px;
     color: rgb(64, 64, 64);
@@ -2149,8 +2145,8 @@ achieve
 
 .kRBqga {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     width: 12px;
     height: 12px;
     display: flex;
@@ -2165,8 +2161,8 @@ achieve
 
 .ffdvlM {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     flex-direction: row;
     -webkit-box-pack: justify;
     justify-content: space-between;
@@ -2177,8 +2173,8 @@ achieve
 
 .gDqTLX {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     -webkit-box-align: center;
     align-items: center;
     padding-left: 4px;
@@ -2189,8 +2185,8 @@ achieve
 
 .ezTcmd {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     display: flex;
 }
 
@@ -2200,14 +2196,14 @@ achieve
 
 .eynkqj {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     appearance: none;
     display: inline-block;
     text-align: center;
     line-height: inherit;
     text-decoration: none;
-    border: 0px;
+    border: 0;
     user-select: none;
     font-size: 14px;
     color: rgb(64, 64, 64);
@@ -2225,7 +2221,7 @@ achieve
 
 .csRQBH {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     display: flex;
     flex-direction: row;
     cursor: pointer;
@@ -2238,8 +2234,8 @@ achieve
 
 .dEkSi {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     width: 44px;
     height: 40px;
     display: flex;
@@ -2260,8 +2256,8 @@ achieve
 
 .blMNOE {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     padding-left: 8px;
     font-size: 14px;
     color: rgb(64, 64, 64);
@@ -2276,7 +2272,7 @@ achieve
     max-width: 100%;
     border-radius: 20px;
     border: none;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 2px 0px inset;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 0 2px 0 inset;
     background-color: rgb(255, 255, 255);
     font-size: 14px;
     color: rgb(64, 64, 64);
@@ -2284,8 +2280,8 @@ achieve
 
 .bwpEWU {
     box-sizing: border-box;
-    margin: 0px 10px 0px 0px;
-    min-width: 0px;
+    margin: 0 10px 0 0;
+    min-width: 0;
     display: block;
     width: 100%;
     appearance: none;
@@ -2294,9 +2290,9 @@ achieve
 
 .XCHRv {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
-    box-shadow: rgb(219, 219, 219) 0px -1px 0px 0px;
+    margin: 0;
+    min-width: 0;
+    box-shadow: rgb(219, 219, 219) 0 -1px 0 0;
     padding: 20px;
     background-color: rgb(245, 248, 250);
     display: flex;
@@ -2307,14 +2303,14 @@ achieve
 
 .eVNRGW {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     appearance: none;
     display: inline-block;
     text-align: center;
     line-height: inherit;
     text-decoration: none;
-    border: 0px;
+    border: 0;
     user-select: none;
     font-size: 14px;
     color: rgb(64, 64, 64);
@@ -2346,16 +2342,16 @@ achieve
 
 .fbjukw {
     box-sizing: border-box;
-    margin: 0px 0px 12px;
-    min-width: 0px;
+    margin: 0 0 12px;
+    min-width: 0;
     flex-wrap: wrap;
     display: flex;
 }
 
 .kgcKxQ {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     cursor: pointer;
     text-decoration: none;
     color: unset;
@@ -2364,7 +2360,7 @@ achieve
 
 .gITPLH {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     display: flex;
     border-radius: 4px;
     padding: 12px;
@@ -2388,8 +2384,8 @@ achieve
 
 .jLaetV {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     flex-direction: row;
     -webkit-box-align: center;
     align-items: center;
@@ -2398,7 +2394,7 @@ achieve
 
 .ezTcmd {
     box-sizing: border-box;
-    margin: 0px;
+    margin: 0;
     min-width: 16px;
     display: flex;
 }
@@ -2406,13 +2402,13 @@ achieve
 .bLGCpY {
     width: 32px;
     height: 32px;
-    margin: 0px 4px 0px 0px;
-    min-width: 0px;
+    margin: 0 4px 0 0;
+    min-width: 0;
     max-width: 100%;
 }
 
 .hHnMup {
-    flex: 1 1 0%;
+    flex: 1 1 0;
     font-size: 14px;
     line-height: 1.5;
     text-overflow: ellipsis;
@@ -2423,15 +2419,15 @@ achieve
 
 .kKrDdN {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
-    flex: 1 1 0%;
+    margin: 0;
+    min-width: 0;
+    flex: 1 1 0;
 }
 
 .hyliOy {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     width: 16px;
     height: 16px;
     display: flex;
@@ -2446,15 +2442,15 @@ achieve
 
 .fbjukw {
     box-sizing: border-box;
-    margin: 0px 0px 12px;
-    min-width: 0px;
+    margin: 0 0 12px;
+    min-width: 0;
     flex-wrap: wrap;
     display: flex;
 }
 .ciIrlj {
     box-sizing: border-box;
-    margin: 0px 8px 8px 0px;
-    min-width: 0px;
+    margin: 0 8px 8px 0;
+    min-width: 0;
     display: flex;
     position: relative;
     color: rgb(255, 255, 255);
@@ -2471,7 +2467,7 @@ achieve
     content: " ";
     transition: background-color 0.15s ease 0s;
     position: absolute;
-    inset: 0px;
+    inset: 0;
 }
 .eHTuZC {
     position: relative;
@@ -2501,7 +2497,7 @@ achieve
 }
 .btn-disable {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     display: flex;
     flex-direction: row;
     flex-shrink: 0;
@@ -2514,8 +2510,8 @@ achieve
 }
 .kWzaA-d {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     -webkit-box-align: center;
     align-items: center;
     height: 20px;
@@ -2528,8 +2524,8 @@ achieve
 
 .jgskPb {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     display: block;
     width: 100%;
     padding: 4px;
@@ -2546,7 +2542,7 @@ achieve
     outline: none;
 }
 .cAmOCm {
-    border-radius: 0px;
+    border-radius: 0;
     border: none;
     color: rgb(64, 64, 64);
     font-size: 14px;
@@ -2554,7 +2550,7 @@ achieve
 
 .autocomplete-suggestions {
     border-radius: 8px;
-    box-shadow: rgba(0, 0, 0, 0.04) 0px 1px 3px, rgba(0, 0, 0, 0.1) 0px 2px 15px;
+    box-shadow: rgba(0, 0, 0, 0.04) 0 1px 3px, rgba(0, 0, 0, 0.1) 0 2px 15px;
     background-color: rgb(255, 255, 255);
     overflow-y: auto;
     min-width: 272px;
@@ -2564,14 +2560,14 @@ achieve
     display: none;
     flex-direction: column;
     max-height: 248px;
-    padding: 4px 0px;
+    padding: 4px 0;
     min-height: 48px;
     top: 10px;
 }
 .autocomplete-suggestion {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     display: flex;
     min-height: 48px;
     width: 100%;
@@ -2597,8 +2593,8 @@ achieve
 }
 .gLHjJQ {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     max-width: 100%;
     width: 32px;
     height: 32px;
@@ -2632,7 +2628,7 @@ archives
  */
 .archives,.page {
     box-sizing: border-box;
-    min-width: 0px;
+    min-width: 0;
     background-color: rgb(255, 255, 255);
     align-items: flex-start;
     flex-direction: row;
@@ -2653,8 +2649,8 @@ archives
 }
 .kQHfHM {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     padding: 16px 24px;
     flex-direction: row;
     -webkit-box-pack: justify;
@@ -2666,19 +2662,19 @@ archives
 }
 .eGdPrb {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     color: rgb(64, 64, 64);
     display: flex;
     cursor: pointer;
 }
 .hkyonN {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     flex-direction: column;
     font-size: 14px;
-    flex: 1 1 0%;
+    flex: 1 1 0;
     display: flex;
     word-break: keep-all;
     white-space: nowrap;
@@ -2687,7 +2683,7 @@ archives
 }
 .hsyNhw {
     box-sizing: border-box;
-    margin: 0px;
+    margin: 0;
     min-width: 72px;
     -webkit-box-align: center;
     align-items: center;
@@ -2697,8 +2693,8 @@ archives
 }
 .jZLHXc {
     box-sizing: border-box;
-    margin: 0px 12px 0px 0px;
-    min-width: 0px;
+    margin: 0 12px 0 0;
+    min-width: 0;
     max-width: 100%;
     border-radius: 999px;
     overflow: hidden;
@@ -2708,13 +2704,13 @@ archives
 }
 .fans-little {
     box-sizing: border-box;
-    margin: 0px;
+    margin: 0;
     appearance: none;
     display: inline-block;
     text-align: center;
     line-height: inherit;
     text-decoration: none;
-    border: 0px;
+    border: 0;
     user-select: none;
     color: rgb(64, 64, 64);
     background-color: rgb(255, 235, 103);
@@ -2728,7 +2724,7 @@ archives
 }
 .fansed-little{
     box-sizing: border-box;
-    margin: 0px;
+    margin: 0;
     appearance: none;
     display: inline-block;
     text-align: center;
@@ -2753,8 +2749,8 @@ archives
 }
 .hHqHSX {
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     font-size: 12px;
     font-weight: 400;
     color: rgb(153, 153, 153);
@@ -2779,7 +2775,7 @@ archives
 /* 滚动条滑块 */
 ::-webkit-scrollbar-thumb {
     border-radius: 3px;
-    background: linear-gradient(to right, #0acffe 0%, #495aff 100%);
+    background: linear-gradient(to right, #0acffe 0, #495aff 100%);
     -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -2952,7 +2948,6 @@ owo
     -ms-user-select: none;
     user-select: none;
     display: none;
-    padding: 10px;
     padding: 0 10px 0 10px;
     margin: 0;
     overflow: scroll;
@@ -2969,12 +2964,10 @@ owo
     color: #111;
     border-radius: 4px;
     transition: background .2s;
-    display: inline-block;
     padding: 5px 10px;
     margin: 2px 3px;
     outline: 0;
     text-decoration: none;
-    cursor: pointer;
     background: #fff
 }
 
@@ -3098,8 +3091,8 @@ owo
     justify-content: center;
     display: flex;
     box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
+    margin: 0;
+    min-width: 0;
     flex-direction: row;
 }
 .loading-container .loading-svg{
@@ -3249,5 +3242,15 @@ mobile fix
     .circle-diary-bg {
         width: 45%;
     }
+    .fans, .fansed {
+        margin: 0 7px 0 0;
+        padding: 8px 16px;
+    }
 }
 
+/* min-width */
+@media (min-width: 768px){
+    .col-12.col-md-4.text-center.text-md-left{
+        display: block;
+    }
+}
