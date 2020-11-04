@@ -65,7 +65,7 @@
                                         </div>
                                     <?php endwhile; ?>
                                 <?php elseif($tabIndex==1):?>
-                                    <?php $fobj = UserFollow::getFollowObj($this->author->uid);?>
+                                    <?php $fobj = UserFollow::getFollowObj($this->getPageRow()['uid']);?>
                                     <?php if (count($fobj)>0):?>
                                     <?php for($i=0;$i<count($fobj);$i++): ?>
                                         <div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr">
@@ -101,7 +101,7 @@
                                         </article>
                                     <?php endif ?>
                                 <?php elseif($tabIndex==2):?>
-                                    <?php $fobj = UserFollow::getOtherFollowObj($this->author->uid);?>
+                                    <?php $fobj = UserFollow::getOtherFollowObj($this->getPageRow()['uid']);?>
                                     <?php if (count($fobj)>0):?>
 
                                         <?php for ($i = 0; $i < count($fobj); $i++): ?>

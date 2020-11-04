@@ -14,7 +14,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 //                    }else{
 //                        echo "太懒了，还没有个人签名!";
 //                    }
-                    echo $this->author->userSign;
+                    echo $this->getPageRow()['userSign'];
                     ?> </span>
             </div>
         </div>
