@@ -440,8 +440,9 @@ b站视频
     word-break: break-all;
 }
 .comment-content img{
-    width: 80%;
     border-radius: 5px;
+    max-height: 200px;
+    max-width: 80%;
 }
 .comment-list .comment-list .comment-list{
     padding-left: 0;

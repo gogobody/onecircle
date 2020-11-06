@@ -853,62 +853,74 @@ var archiveInit = {
             commentForm.submit()
         })
         commentForm.submit(function () {
-            $.ajax({
-                url: $(this).attr('action'),
-                type: 'post',
-                data: $(this).serializeArray(),
-                error: function () {
-                    alert("提交失败，请检查网络并重试或者联系管理员。");
-                    commentBtn.attr("disabled", false)
-                    return false
-                },
-                success: function (d) {
-                    commentBtn.attr("disabled", false)
-                    if (!$(g, d).length) {
-                        alert("您输入的内容不符合规则或者回复太频繁，请修改内容或者稍等片刻。");
+            var formdata = $(this).serializeArray()
+            if ($.trim(formdata[0]["value"]) === ""){
+                $.message({
+                    title:"提示",
+                    message:"请输入内容",
+                    type:"error"
+                })
+                commentBtn.attr("disabled", false)
+                return false;
+            }else {
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'post',
+                    data: $(this).serializeArray(),
+                    error: function () {
+                        alert("提交失败，请检查网络并重试或者联系管理员。");
+                        commentBtn.attr("disabled", false)
                         return false
-                    } else {
-                        k = $(g, d).html().match(/id=\"?comment-\d+/g).join().match(/\d+/g).sort(function (a, b) {
-                            return a - b
-                        }).pop();
-                        if ($('.page-navigator .prev').length && l == "") {
-                            k = ''
-                        }
-                        if (l) {
-                            d = $('#comment-' + k, d).hide();
-                            if ($('#' + l).find(".comment-children").length <= 0) {
-                                $('#' + l).append("<div class='comment-children'><ol class='comment-list'><\/ol><\/div>")
+                    },
+                    success: function (d) {
+                        commentBtn.attr("disabled", false)
+                        if (!$(g, d).length) {
+                            alert("您输入的内容不符合规则或者回复太频繁，请修改内容或者稍等片刻。");
+                            return false
+                        } else {
+                            k = $(g, d).html().match(/id=\"?comment-\d+/g).join().match(/\d+/g).sort(function (a, b) {
+                                return a - b
+                            }).pop();
+                            if ($('.page-navigator .prev').length && l == "") {
+                                k = ''
                             }
-                            if (k)
-                                $('#' + l + " .comment-children .comment-list").prepend(d);
-                            l = ''
-                        } else {
-                            d = $('#comment-' + k, d).hide();
-                            if (!$(g).length)
-                                $('.comment-detail').prepend("<h2 class='comment-num'>0 条评论<\/h2><ol class='comment-list'><\/ol>");
-                            $(g).prepend(d)
-                        }
-                        $('#comment-' + k).fadeIn();
-                        var f;
-                        $(h).length ? (f = parseInt($(h).text().match(/\d+/)),
-                            $(h).html($(h).html().replace(f, f + 1))) : 0;
-                        TypechoComment.cancelReply();
-                        $(j).val('');
-                        $(i + ', #cancel-comment-reply-link').unbind('click');
-                        c();
-                        if (k) {
-                            $body.animate({
-                                scrollTop: $('#comment-' + k).offset().top - 50
-                            }, 300)
-                        } else {
-                            $body.animate({
-                                scrollTop: $('#comments').offset().top - 50
-                            }, 300)
+                            if (l) {
+                                d = $('#comment-' + k, d).hide();
+                                if ($('#' + l).find(".comment-children").length <= 0) {
+                                    $('#' + l).append("<div class='comment-children'><ol class='comment-list'><\/ol><\/div>")
+                                }
+                                if (k)
+                                    $('#' + l + " .comment-children .comment-list").prepend(d);
+                                l = ''
+                            } else {
+                                d = $('#comment-' + k, d).hide();
+                                if (!$(g).length)
+                                    $('.comment-detail').prepend("<h2 class='comment-num'>0 条评论<\/h2><ol class='comment-list'><\/ol>");
+                                $(g).prepend(d)
+                            }
+                            $('#comment-' + k).fadeIn();
+                            var f;
+                            $(h).length ? (f = parseInt($(h).text().match(/\d+/)),
+                                $(h).html($(h).html().replace(f, f + 1))) : 0;
+                            TypechoComment.cancelReply();
+                            $(j).val('');
+                            $(i + ', #cancel-comment-reply-link').unbind('click');
+                            c();
+                            if (k) {
+                                $body.animate({
+                                    scrollTop: $('#comment-' + k).offset().top - 50
+                                }, 300)
+                            } else {
+                                $body.animate({
+                                    scrollTop: $('#comments').offset().top - 50
+                                }, 300)
+                            }
                         }
                     }
-                }
-            });
-            return false
+                });
+                return false
+            }
+
         });
 
         function c() {

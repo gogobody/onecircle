@@ -107,7 +107,7 @@ class contents{
 
     public static function parseHide($text)
     {
-        $reg = '/\[hide\](.*?)\[\/hide\]/sm';
+        $reg = '/\[hide\](.*?)\[endhide\]/sm';
         if (preg_match($reg, $text)) {
             if(!Typecho_Widget::widget('Widget_Archive')->is('single')){
                 $text = preg_replace($reg,'',$text);
@@ -119,10 +119,10 @@ class contents{
                 ->limit(1);
             $result = $db->fetchAll($sql);
             if(Typecho_Widget::widget('Widget_User')->hasLogin() || $result) {
-                $text = preg_replace("/\[hide\](.*?)\[\/hide\]/sm",'<div class="reply2view">$1</div>',$text);
+                $text = preg_replace("/\[hide\](.*?)\[endhide\]/sm",'<div class="reply2view">$1</div>',$text);
             }
             else{
-                $text = preg_replace("/\[hide\](.*?)\[\/hide\]/sm",'<div class="reply2view text-center">此处内容需要评论回复后方可阅读。</div>',$text);
+                $text = preg_replace("/\[hide\](.*?)\[endhide\]/sm",'<div class="reply2view text-center">此处内容需要评论回复后方可阅读。</div>',$text);
             }
         }
         return $text;

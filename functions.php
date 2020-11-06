@@ -29,7 +29,6 @@ Typecho_Plugin::factory('Widget_Abstract_Comments')->contentEx_1000 = array('com
 Typecho_Plugin::factory('Widget_Feedback')->comment_1000 = array('comments', 'insertSecret');
 
 
-
 /**
  * 文章与独立页自定义字段
  * @param Typecho_Widget_Helper_Layout $layout
@@ -109,8 +108,8 @@ function getPostImg($archive)
 
     preg_match_all($preg, $archive->content, $allImg);//这里匹配所有的img
     preg_match_all($preg2, $archive->content, $allImg2);//这里匹配所有的背景img
-    $img = array_merge($allImg[1],$allImg2[1]);
-/*    preg_match_all("/<img.*?src=\"(.*?)\".*?\/?>/i", $archive->content, $img);*/
+    $img = array_merge($allImg[1], $allImg2[1]);
+    /*    preg_match_all("/<img.*?src=\"(.*?)\".*?\/?>/i", $archive->content, $img);*/
     //  判断是否匹配到图片
     if (!empty($img)) {
         return $img;
@@ -145,11 +144,11 @@ function parseFirstImg($content)
     $img = array();
     preg_match($preg, $content, $allImg);//这里匹配所有的img
     preg_match($preg2, $content, $allImg2);//这里匹配所有的背景img
-    if (!empty($allImg)){
-        array_push($img,$allImg[1]);
+    if (!empty($allImg)) {
+        array_push($img, $allImg[1]);
     }
-    if (!empty($allImg2)){
-        array_push($img,$allImg2[1]);
+    if (!empty($allImg2)) {
+        array_push($img, $allImg2[1]);
     }
     //  判断是否匹配到图片
     if (!empty($img)) {
@@ -170,30 +169,31 @@ function parseMarkdownFirstImg($content)
     $preg = '/!\[.*\]\((.+)\)/i';//匹配img标签的正则表达式
     preg_match($preg, $content, $Img);//这里匹配所有的img
     $img_ = array();
-    if (!empty($Img)){
-        array_push($img_,$Img[1]);
+    if (!empty($Img)) {
+        array_push($img_, $Img[1]);
     }
     return $img_;
 }
 
-function getRandRecommendImgs($cnt_ = 10){
+function getRandRecommendImgs($cnt_ = 10)
+{
     $db = Typecho_Db::get();
     $prefix = $db->getPrefix();
-    $select = "SELECT t.cid,t.text,t.authorId,f.str_value as ftype FROM ".$prefix."contents t LEFT JOIN ".$prefix."fields f ON t.cid = f.cid AND t.type = 'post' AND t.status = 'publish' AND f.name = 'articleType' AND f.str_value = 'default' WHERE f.str_value = 'default'";
+    $select = "SELECT t.cid,t.text,t.authorId,f.str_value as ftype FROM " . $prefix . "contents t LEFT JOIN " . $prefix . "fields f ON t.cid = f.cid AND t.type = 'post' AND t.status = 'publish' AND f.name = 'articleType' AND f.str_value = 'default' WHERE f.str_value = 'default'";
     $rows = $db->fetchAll($select);
     shuffle($rows);
     $cnt = 0;
     $ret = array();
-    foreach ($rows as $row){
-        if ($cnt == $cnt_){
+    foreach ($rows as $row) {
+        if ($cnt == $cnt_) {
             break;
         }
         $res = parseMarkdownFirstImg($row['text']);
-        if (!empty($res)){
+        if (!empty($res)) {
             $cnt = $cnt + 1;
-            $usersec = $db->select('screenName','mail','userAvatar')->from('table.users')->where('uid = ?',$row['authorId']);
+            $usersec = $db->select('screenName', 'mail', 'userAvatar')->from('table.users')->where('uid = ?', $row['authorId']);
             $userq = $db->fetchRow($usersec);
-            array_push($ret,array(
+            array_push($ret, array(
                 "cid" => $row['cid'],
                 "screenName" => $userq["screenName"],
                 "email" => $userq["mail"],
@@ -210,29 +210,30 @@ function getRandRecommendImgs($cnt_ = 10){
  * @param int $size
  * @return string
  */
-function isqq($email,$size=100){
-    if($email){
+function isqq($email, $size = 100)
+{
+    if ($email) {
 //        if(strpos($email,"@qq.com") !==false){
 //            $email=str_replace('@qq.com','',$email);
 //            return "https://q.qlogo.cn/g?b=qq&nk=".$email."&s=100";
 //        }else{
 //
 //        }
-        $email= md5($email);
+        $email = md5($email);
 //        return "https://dn-qiniu-avatar.qbox.me/avatar/".$email."?&s=".$size;
-        return "//cdn.v2ex.com/gravatar/".$email."?&s=".$size;
-    }else{
-        return "//cdn.v2ex.com/gravatar/null?&s=".$$size;
+        return "//cdn.v2ex.com/gravatar/" . $email . "?&s=" . $size;
+    } else {
+        return "//cdn.v2ex.com/gravatar/null?&s=" . $$size;
     }
 }
 
 
-function getUserV2exAvatar($mail_,$userAvatar,$size=100)
+function getUserV2exAvatar($mail_, $userAvatar, $size = 100)
 {
-    if ($userAvatar && $userAvatar != ''){
+    if ($userAvatar && $userAvatar != '') {
         return $userAvatar;
-    }else{
-        return isqq($mail_,$size);
+    } else {
+        return isqq($mail_, $size);
     }
 }
 
@@ -242,20 +243,23 @@ function getUserV2exAvatar($mail_,$userAvatar,$size=100)
  * @param int $size
  * @return string
  */
-function getUserBackgroundImg($mail,$backimg,$size=100)
+function getUserBackgroundImg($mail, $backimg, $size = 100)
 {
-    if ($backimg){
+    if ($backimg) {
         return $backimg;
-    }else{
-        return isqq($mail,$size);
+    } else {
+        return isqq($mail, $size);
     }
 }
+
 /**
  * 获取博主信息
  */
-function getBlogAdminInfo(){
+function getBlogAdminInfo()
+{
     return UserFollow::getUserObj(1);
 }
+
 ///**
 // * markdown parse
 // * @param $str
@@ -314,11 +318,11 @@ function getBlogAdminInfo(){
 function getCategories($obj, $cnt = -1, $url = '', $random = false)
 {
     if ($random && $cnt)
-        $categories = $obj->widget('Widget_Metas_Random',array('limit'=>$cnt,'sort' => 'RAND()'));
+        $categories = $obj->widget('Widget_Metas_Random', array('limit' => $cnt, 'sort' => 'RAND()'));
     else if ($random)
-        $categories = $obj->widget('Widget_Metas_Random',array('sort' => 'RAND()'));
+        $categories = $obj->widget('Widget_Metas_Random', array('sort' => 'RAND()'));
     else if ($cnt)
-        $categories = $obj->widget('Widget_Metas_Random',array('limit'=>$cnt));
+        $categories = $obj->widget('Widget_Metas_Random', array('limit' => $cnt));
     else
         $categories = $obj->widget('Widget_Metas_Category_List');
 
@@ -352,7 +356,7 @@ function getCategories($obj, $cnt = -1, $url = '', $random = false)
  * @param $desc
  * @return mixed|string
  */
-function parseDesc2img($defaultSlugUrl,$desc)
+function parseDesc2img($defaultSlugUrl, $desc)
 {
     $preg = '/^<(.*)>([\s\S]*)/';
     preg_match($preg, $desc, $res);
@@ -378,9 +382,19 @@ function parseDesc2text($desc)
  * @param $this_
  *
  */
-function ehco9gridPics($this_){
+function getGirdPics($this_)
+{
     $images = getPostImg($this_);
     $length = count($images);
+    return array(
+        "images" => $images,
+        "length" => $length
+    );
+}
+
+function ehco9gridPics($images, $length)
+{
+
     if ($length > 0) {
         if ($length == 1) {
             echo "<div class='post-cover-inner'><img src='$images[0]' class='post-cover-img' alt='cover'></div>";
@@ -408,12 +422,13 @@ function ehco9gridPics($this_){
  * @param $content
  * @return mixed
  */
-function parseFirstVideo($content) {
+function parseFirstVideo($content)
+{
     $pattern = '/<div class="embed-responsive embed-responsive-4by3.*?<\/iframe><\/div>/i';
     preg_match($pattern, $content, $match);
-    if (empty($match)){
+    if (empty($match)) {
         return $content;
-    }else{
+    } else {
         return $match[0];
     }
 }
@@ -572,16 +587,17 @@ function thePrev($widget)
  * check article manage permission
  * is administrator or userself
  */
-function checkPermission($check_uid,$login_uid){
+function checkPermission($check_uid, $login_uid)
+{
     $db = Typecho_Db::get();
-    $row = $db->fetchRow($db->select('group')->from('table.users')->where('uid = ?',$login_uid));
-    if (!empty($row)){
-        if ($row["group"] == 'administrator'){
+    $row = $db->fetchRow($db->select('group')->from('table.users')->where('uid = ?', $login_uid));
+    if (!empty($row)) {
+        if ($row["group"] == 'administrator') {
             return true;
-        }else {
-            if ($check_uid == $login_uid){
+        } else {
+            if ($check_uid == $login_uid) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
@@ -595,9 +611,10 @@ function checkPermission($check_uid,$login_uid){
  * @return bool
  * @throws Typecho_Db_Exception
  */
-function checkCircleEditPermission($login_uid){
+function checkCircleEditPermission($login_uid)
+{
     $db = Typecho_Db::get();
-    $row = $db->fetchRow($db->select('group')->from('table.users')->where('uid = ?',$login_uid));
+    $row = $db->fetchRow($db->select('group')->from('table.users')->where('uid = ?', $login_uid));
     if (!empty($row)) {
         if ($row["group"] == 'administrator') {
             return true;
