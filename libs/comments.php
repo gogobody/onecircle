@@ -17,7 +17,7 @@ class comments
 
     public static function parseSecret($text)
     {
-        $reg = '/\[secret\](.*?)\[\/\\secret\]/sm';
+        $reg = '/\[secret\](.*?)\[secret\]/sm';
         if (preg_match($reg, $text,$arr)) {
             $user = Typecho_Widget::widget('Widget_User');
             $db = Typecho_Db::get();
@@ -38,7 +38,7 @@ class comments
     public static function insertSecret($comment)
     {
         if ($_POST['secret']) {
-            $comment['text'] = '[secret]' . $comment['text'] . '[/\secret]';
+            $comment['text'] = '[secret]' . $comment['text'] . '[secret]';
         }
         return $comment;
     }
