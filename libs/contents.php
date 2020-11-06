@@ -6,15 +6,6 @@ class contents{
     {
         $text = empty($last) ? $data : $last;
         if ($widget instanceof Widget_Archive) {
-            //owo
-            $text = contents::parseOwo($text);
-            // 友链解析
-            $text = contents::parseLink($text);
-            $text = contents::parseHide($text);
-            // 其它
-            $text = contents::blankReplace($text);
-            $text = contents::biliVideo($text);
-            $text = contents::video($text);
             if($widget->fields->articleType == 'default' || $widget->is('page')){
                 if (!self::$frag)
                     $text = contents::fancybox($text);
@@ -24,10 +15,20 @@ class contents{
             }elseif ($widget->fields->articleType == 'repost'){
                 // 转发
                 $text = contents::repostArticle($text,Helper::options()->defaultSlugUrl);
-            }else{
+            }elseif ($widget->fields->articleType == 'link'){
+                $text = contents::parsePureLink($text);
 
             }
 
+            //owo
+            $text = contents::parseOwo($text);
+            // 友链解析
+            $text = contents::parseLink($text);
+            $text = contents::parseHide($text);
+            // 其它
+            $text = contents::blankReplace($text);
+            $text = contents::biliVideo($text);
+            $text = contents::video($text);
 
             $text = contents::cidToContent($text);
 
@@ -230,6 +231,12 @@ class contents{
         return $text;
     }
     // [repost.*?href="(.*?)" bannerimg="(.*?) repousername="(.*?)" repostext="(.*?)" categoryname="(.*?)" categoryhref="(.*?)".*?]
+
+    /**
+     * @param $text
+     * @param $url_ //imgurl
+     * @return string|string[]|null
+     */
     public static function repostArticle($text,$url_){
         $pattern = '/\[repost.*?href="(.*?)" bannerimg="(.*?)" repousername="(.*?)" repostext="(.*?)" category=["\'](.*?)["\']\]/i';
         if(preg_match($pattern, $text, $match)){
@@ -239,6 +246,20 @@ class contents{
                 $replacement = '<div class="repost-container"><a class="repost-content" href="$1"><img src="'.$url_.'" class="repost-banner"><div class="repost-text">$3:$4</div></a><div class="repost-category">$5</div></div>';
             }
             return preg_replace($pattern, $replacement, $text);
+        }
+        return $text;
+    }
+
+    // parse pureLink
+    // [pureLink comment="" text="" link=""]
+    public static function parsePureLink($text){
+        $reg = '/\[pureLink comment="(.*?)" text="(.*?)" link="(.*?)"\]/sm';
+        if (preg_match($reg, $text, $arr)) {
+            if ($arr[1])
+                $replacement = '<div class=""><p>$1</p><a class="link-a" href="$3" target="_blank"><div class="link-container link-a"><div class="link-banner"><img src="'.Helper::options()->themeUrl .'/assets/img/link.png'.'"><div class="link-text">$2</div></div></div></a></div>';
+            else
+                $replacement = '<div class=""><a class="link-a" href="$3" target="_blank"><div class="link-container link-a"><div class="link-banner"><img src="'.Helper::options()->themeUrl .'/assets/img/link.png'.'"><div class="link-text">$2</div></div></div></a></div>';
+            return preg_replace($reg, $replacement, $text);
         }
         return $text;
     }

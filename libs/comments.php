@@ -17,8 +17,8 @@ class comments
 
     public static function parseSecret($text)
     {
-        $reg = '/\[secret\](.*?)\[\/secret\]/sm';
-        if (preg_match($reg, $text)) {
+        $reg = '/\[secret\](.*?)\[\/\\\secret\]/sm';
+        if (preg_match($reg, $text,$arr)) {
             $user = Typecho_Widget::widget('Widget_User');
             $db = Typecho_Db::get();
             $sql = $db->select()->from('table.comments')

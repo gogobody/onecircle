@@ -256,36 +256,36 @@ function getUserBackgroundImg($mail,$backimg,$size=100)
 function getBlogAdminInfo(){
     return UserFollow::getUserObj(1);
 }
-/**
- * markdown parse
- * @param $str
- * @param int $num
- * @return false|string
- */
-function parseMarkdownBeforeText($str,$num=15){
-    $pattern = '/([\s\S]*)\[[\s\S]*?\]\([\s\S]*?\)/';
-    preg_match($pattern, $str, $match);
-    if (count($match) > 0 ){
-        return mb_substr($match[1],0,$num);
-    }else{
-        return mb_substr($str,0,$num);
-    }
-}
+///**
+// * markdown parse
+// * @param $str
+// * @param int $num
+// * @return false|string
+// */
+//function parseMarkdownBeforeText($str,$num=15){
+//    $pattern = '/([\s\S]*)\[[\s\S]*?\]\([\s\S]*?\)/';
+//    preg_match($pattern, $str, $match);
+//    if (count($match) > 0 ){
+//        return mb_substr($match[1],0,$num);
+//    }else{
+//        return mb_substr($str,0,$num);
+//    }
+//}
 
-/**
- * @param $str
- * @param int $num
- * @return false|string
- */
-function parseMarkdownInText($str,$num=15){
-    $pattern = '/\[([\s\S]*?)\]\([\s\S]*?\)/';
-    preg_match($pattern, $str, $match);
-    if (count($match) > 0 ){
-        return mb_substr($match[1],0,$num);
-    }else{
-        return mb_substr($str,0,$num);
-    }
-}
+///**
+// * @param $str
+// * @param int $num
+// * @return false|string
+// */
+//function parseMarkdownInText($str,$num=30){
+//    $pattern = '/\[([\s\S]*?)\]\([\s\S]*?\)/';
+//    preg_match($pattern, $str, $match);
+//    if (count($match) > 0 ){
+//        return mb_substr($match[1],0,$num);
+//    }else{
+//        return mb_substr($str,0,$num);
+//    }
+//}
 
 /**
  * 获取所有分类
