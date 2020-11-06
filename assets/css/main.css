@@ -1147,6 +1147,7 @@ footer
     overflow: hidden;
     background-repeat: no-repeat;
     background-position: center center;
+    background-size: cover;
     transition: all .2s ease 0s;
     border-radius: 10px;
     padding: 10px;
@@ -1496,10 +1497,10 @@ right
     cursor: pointer;
     position: fixed;
     right: 80px;
-    top: 0;
+    top: -100px;
     z-index: 2;
     width: 70px;
-    height: 800px;
+    height: 700px;
     background: url(../img/backtop.png);
     opacity: 1;
 }
