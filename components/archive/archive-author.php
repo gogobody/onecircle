@@ -12,15 +12,15 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         </div>
     </div>
     <div class="biCwrr">
-        <div class="sc-AxjAm sc-AxirZ fUlriR">
-            <div class="sc-AxjAm sc-AxirZ jnzuaU"><img src="<?php echo getUserV2exAvatar($this->getPageRow()['mail'],$this->getPageRow()['userAvatar']) ?>" class="sc-AxjAm irFFsx"></div>
-            <h2 class="sc-AxjAm dDtTVx"><?php echo $this->author() ?></h2>
+        <div class="sc-AxjAm sc-AxirZ fUlriR" data-authorhref="<? _e($this->getPageRow()['permalink']);?>">
+            <div class="sc-AxjAm sc-AxirZ jnzuaU"><img src="<?php echo getUserV2exAvatar($this->getPageRow()['mail'],$this->getPageRow()['userAvatar']) ?>" class="sc-AxjAm author-avatar"></div>
+            <h2 class="sc-AxjAm author_page-name"><?php echo $this->author() ?></h2>
             <div class="sc-AxjAm sc-AxirZ dZfkqf">
                 <a href="" class="sc-AxjAm OAorY  ffrrSB"><span><? _e(UserFollow::getFollowNum($this->getPageRow()['uid']));?></span> 关注</a>
                 <a href="" class="sc-AxjAm OAorY  dDeaQZ"><span><? _e(UserFollow::getOtherFollowNum($this->getPageRow()['uid']));?></span> 被关注</a>
             </div>
             <div class="sc-AxjAm sc-AxirZ iiMLXg">
-                <div class="sc-AxjAm kkFELj"><?php _e($this->getPageRow()['userSign']);?></div>
+                <div class="sc-AxjAm author-sign"><?php _e($this->getPageRow()['userSign']);?></div>
             </div>
             <div class="sc-AxjAm sc-AxirZ  cXyaML">
                 <?php if ($this->getPageRow()['userSex']):?>
@@ -40,7 +40,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             </div>
         </div>
         <div class="sc-AxjAm sc-AxirZ kLKIKx">
-            <button data-authorid="<? echo $this->getPageRow()['uid'] ?>"
+            <button data-author_page="1" data-authorid="<? echo $this->getPageRow()['uid'] ?>"
             <?php
             if ($this->user->hasLogin()){
                 if (UserFollow::statusFollow($this->user->uid,$this->getPageRow()['uid'])){

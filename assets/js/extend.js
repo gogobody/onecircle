@@ -693,14 +693,22 @@ var archiveInit = {
                             $(btnThis).addClass("fansed")
                             $(btnThis).removeClass("fans")
                             // window.location.reload()
-                            // 关注事件有 40% 概率发一条 post
+                            // 关注事件有 30% 概率发一条 post
                             var rate_ = Math.random()
-                            if (rate_ <= 0.4) {
-                                var focusEle = $(btnThis).parent().siblings()
-                                var userhref = focusEle.attr("href")
-                                var usreavatr = focusEle.children("img").attr("src")
-                                var username = focusEle.children("div").children(".oDrAC").text()
-                                var usersign = focusEle.children("div").children(".ezzhLs").text()
+                            if (rate_ <= 0.3) {
+                                var userhref, usreavatr, username, usersign
+                                if ($(btnThis).attr("data-author_page")){ // btn in author page banner
+                                    userhref = $(btnThis).parent().siblings().data("authorhref")
+                                    usreavatr = $(".author-avatar").attr("src")
+                                    username = $(".author_page-name").text()
+                                    usersign = $(".author-sign").text()
+                                }else { // btn in focus list
+                                    var focusEle = $(btnThis).parent().siblings()
+                                    userhref = focusEle.attr("href")
+                                    usreavatr = focusEle.children("img").attr("src")
+                                    username = focusEle.children("div").children(".oDrAC").text()
+                                    usersign = focusEle.children("div").children(".ezzhLs").text()
+                                }
                                 that.postFansArticle(userhref, usreavatr, username, usersign)
                             }
                         }
