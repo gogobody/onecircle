@@ -32,7 +32,7 @@
 ?>
 <?php $this->need('includes/header.php'); ?>
 
-<div class="container-lg" id="pjax-container">
+<div class="container-lg animate__animated animate__fadeIn" id="pjax-container">
     <div class="row">
         <?php $this->need('includes/nav.php'); ?>
         <div class="col-xl-10 col-md-10 col-12 achieve-container">

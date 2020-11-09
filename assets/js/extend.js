@@ -482,12 +482,39 @@ var indexInput = {
         })
     },
     articleClickInit: function () {
+        var that = this
         if ($.support.pjax) {
-            $("article[do-pjax]").unbind('click').bind('click', function (e) {
-                var url = $(this).data('url')
-
-                $.pjax({url: url, container: '#pjax-container'});
+            var articleEle = $("article[do-pjax]")
+            that.flag = 0
+            articleEle.unbind().bind({
+                mousedown:function(e) {
+                    that.flag = 0;
+                    //code...
+                },
+                mousemove:function(e) {
+                    that.flag = 1;
+                    //code...
+                },
+                mouseup:function(e) {
+                    if(that.flag === 0) {//点击
+                        // articleEle.unbind('click').bind('click',function(){
+                            var url = $(this).data('url')
+                            // filter
+                            if (e.target.tagName === "IMG"){
+                                // console.log(e.target.tagName)
+                                // return false; //阻止默认行为
+                            }else {
+                                $.pjax({url: url, container: '#pjax-container'});
+                            }
+                        // });
+                    } else if(that.flag === 1) {//拖曳
+                        // articleEle.unbind();
+                        that.flag = 0
+                    }
+                    //code...
+                }
             })
+
         }
         // 首页点赞
         $('.content-action').each(function (i, n) {
@@ -1259,18 +1286,22 @@ function checkURL(URL) {
 
 // comment
 $(function () {
-    $(window).scroll(function () {
+    $(window).unbind("scroll").bind("scroll",function () {
         var scroHei = $(window).scrollTop();
+        var backtotop = $('.back-to-top')
         if (scroHei > 400) {
-            // $('.back-to-top').show()
-
-            $('.back-to-top').slideDown('fast');
+            backtotop.addClass('animate__fadeInDown')
+            backtotop.css("display","block")
+            // $('.back-to-top').slideDown('fast');
         } else {
 
-            $('.back-to-top').slideUp('fast');
+            // $('.back-to-top').slideUp('fast');
+            backtotop.css("display","none")
+
+
         }
     })
-    $('.back-to-top').click(function () {
+    $('.back-to-top').unbind('click').bind('click',function () {
         $('body,html').animate({
             scrollTop: 0
         }, 600);

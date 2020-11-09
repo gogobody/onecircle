@@ -29,7 +29,7 @@ if ($this->is('index')){
     <!--可以去除主题版权信息，最好保留版权信息或者添加主题信息到友链，谢谢你的理解-->
     <span class="footer-item">&nbsp;|&nbsp;Powered by <a target="_blank" href="http://www.typecho.org">Typecho</a>&nbsp;|&nbsp;Designed by <b title="author info"><a target="_blank" href="https://github.com/gogobody/onecircle">gogobody</a></b></span>
 </footer>
-
+<div class="back-to-top animate__animated"></div>
 <script crossorigin="anonymous" integrity="sha384-LVoNJ6yst/aLxKvxwp6s2GAabqPczfWh6xzm38S/YtjUyZ+3aTKOnD/OJVGYLZDl" src="//lib.baomitu.com/jquery/3.5.0/jquery.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery.form/3.09/jquery.form.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
@@ -66,27 +66,15 @@ if ($this->is('index')){
         fragment: '#pjax-container',
         timeout: 8000
     })
-
     $(document).on('pjax:send',
-        function() {
-            $("#pjax-container").fadeOut();
-            NProgress.start();
-            $.showloading({
-                selector:'header',
-                choice: 'after'
-            })
-
-        })
+        function() {})
 
     $(document).on('pjax:complete',
         function() {
-            $("#pjax-container").fadeIn();
             indexInput.pjax_complete()
             archiveInit.init()
             recommendInit.pjax_complete()
             owoInit();
-            NProgress.done();
-            $.rmloading()
             if (typeof smms_node!="undefined" && typeof smms!="undefined"){
                 smms_node.init()
                 smms.init()
@@ -97,9 +85,23 @@ if ($this->is('index')){
             //
             tagsManageInit.pjax_complete()
         })
+
+    $(document).on('pjax:start', function() {
+        NProgress.start();
+        $.showloading({
+            selector:'header',
+            choice: 'after'
+        })
+    });
+    $(document).on('pjax:end',   function() {
+        NProgress.done();
+        $.rmloading()
+    });
+
+
 </script>
 <?php $this->footer(); ?>
-    <div class="back-to-top"></div>
+
 <?php if ($this->options->compressHtml): $html_source = ob_get_contents(); ob_clean(); print utils::compressHtml($html_source); ob_end_flush(); endif; ?>
 </body>
 </html>

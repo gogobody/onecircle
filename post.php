@@ -1,7 +1,7 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
 <?php $this->need('includes/header.php');
 ?>
-<div class="container-lg" id="pjax-container">
+<div class="container-lg animate__animated animate__fadeIn" id="pjax-container">
     <div class="row">
         <?php $this->need('includes/nav.php'); ?>
         <div class="col-xl-7 col-md-7 col-12 article-container">

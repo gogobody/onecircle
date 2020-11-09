@@ -634,6 +634,7 @@ button:focus{
     margin: 0;
     border-radius: 10px;
     overflow: hidden;
+    z-index: 1;
 }
 
 
@@ -705,6 +706,7 @@ button:focus{
 .post-content-inner {
     margin-top: 8px;
     font-size: 15px;
+    word-break: break-word;
 }
 /* focususer here */
 .focususer-excerpt {

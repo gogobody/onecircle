@@ -23,14 +23,12 @@ $arr = getGirdPics($this)
     <?php if ($this->fields->banner && $this->fields->banner != ''): ?>
         <div class="post-cover col-xl-12">
             <div class="post-cover-inner">
-                <img src="<?php echo $this->fields->banner; ?>"
-                     class="post-cover-img"
-                     alt="cover">
+                <img src="<?php echo $this->fields->banner; ?>" class="post-cover-img" alt="cover">
             </div>
         </div>
     <?php else: ?>
         <div class="post-cover col-xl-12">
-            <div class="post-cover-img-container">
+            <div class="post-cover-img-container" onclick="">
                 <?php ehco9gridPics($arr['images'], $arr['length']); ?>
             </div>
         </div>

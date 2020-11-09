@@ -397,7 +397,7 @@ function ehco9gridPics($images, $length)
 
     if ($length > 0) {
         if ($length == 1) {
-            echo "<div class='post-cover-inner'><img src='$images[0]' class='post-cover-img' alt='cover'></div>";
+            echo "<div class='post-cover-inner'><a class='post-cover-img-more' data-fancybox='gallery' href='$images[0]'><img src='$images[0]' class='post-cover-img'></a></div>";
         } else {
             $more_img_flag = false;
             if ($length > 9) { // 9宫格显示图片
@@ -409,7 +409,7 @@ function ehco9gridPics($images, $length)
                 if ($i == 8 && $more_img_flag) { // 9宫格最后一张
                     echo "<div style='background-image:url($images[$i]);' class='post-cover-img-more' alt='cover'><div class='more-pic'>" . $length . "+</div></div>";
                 } else {
-                    echo "<div style='background-image:url($images[$i]);' class='post-cover-img-more' alt='cover'></div>";
+                    echo "<a class='post-cover-img-more' data-fancybox='gallery' href='$images[$i]'><img style='background-image:url($images[$i]);' class='post-cover-img-more'></a>";
                 }
             }
             echo "</div>";

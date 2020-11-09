@@ -1,7 +1,7 @@
 ## onecircle 一个圈子，基于typecho
 
 ## 名字就叫一个圈子。
-## version：2.5
+## version：2.6
 ## 平台：typecho
 
 ### 想弄一个类社交圈子，开发了一部分，剩下慢慢折腾
