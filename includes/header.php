@@ -190,7 +190,7 @@
                             <? endif;?>
                             <!-- mobile-nav -->
                             <li class="nav-item d-md-none">
-                                <a class="nav-link d-block d-md-none mobile-nav" href="#" type="button" data-toggle="collapse" data-target="#mobile-nav"
+                                <a class="nav-link d-block d-md-none mobile-nav" href="#" data-toggle="collapse" data-target="#mobile-nav"
                                    aria-expanded="false" aria-controls="mobile-nav">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-sliders" fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg">

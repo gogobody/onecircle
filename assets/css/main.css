@@ -256,6 +256,7 @@ header {
     position: absolute;
     height: 220px;
     left: 0;
+    top: 52px;
     padding: 50px;
     z-index: 2;
     border-bottom: 1px solid #ececec;
