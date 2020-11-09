@@ -1,5 +1,9 @@
 <?php
 function themeConfig($form) {
+    $str1 = explode('/themes/', Helper::options()->themeUrl);
+    $str2 = explode('/', $str1[1]);
+    $name = $str2[0];
+
     echo '<h2>超级功能</h2>';
     echo '<link rel="stylesheet" href="'. Helper::options()->themeUrl.'/assets/css/admin.css">';
     echo '<button type="button" class="btn btn-s" id="update-button">检查更新</button>';
@@ -8,9 +12,6 @@ function themeConfig($form) {
     echo '<script src="'.Helper::options()->themeUrl.'/assets/js/update.js"></script>';
     echo '<form class="protected col-mb-12" action="?' . $name . 'bf" method="post">
     <input type="submit" name="type" class="btn btn-s" value="备份模板设置数据" />&nbsp;&nbsp;<input type="submit" name="type" class="btn btn-s" value="还原模板设置数据" />&nbsp;&nbsp;<input type="submit" name="type" class="btn btn-s" value="删除备份数据" /></form>';
-    $str1 = explode('/themes/', Helper::options()->themeUrl);
-    $str2 = explode('/', $str1[1]);
-    $name = $str2[0];
     $db = Typecho_Db::get();
     $sjdq = $db->fetchRow($db->select()->from('table.options')->where('name = ?', 'theme:' . $name));
     $ysj = $sjdq['value'];
