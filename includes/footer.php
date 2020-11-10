@@ -61,13 +61,20 @@ if ($this->is('index')){
 <?php endif;?>
 <script>
 
+
     $(document).pjax('a[href^="<?php Helper::options()->siteUrl()?>"]:not(a[target="_blank"], a[no-pjax],form,#id_iframe)', {
         container: '#pjax-container',//
         fragment: '#pjax-container',
         timeout: 8000
     })
     $(document).on('pjax:send',
-        function() {})
+        function() {
+            NProgress.start();
+            $.showloading({
+                selector:'header',
+                choice: 'after'
+            })
+        })
 
     $(document).on('pjax:complete',
         function() {
@@ -84,18 +91,15 @@ if ($this->is('index')){
             }
             //
             tagsManageInit.pjax_complete()
+            NProgress.done();
+            $.rmloading()
         })
 
     $(document).on('pjax:start', function() {
-        NProgress.start();
-        $.showloading({
-            selector:'header',
-            choice: 'after'
-        })
+
     });
+
     $(document).on('pjax:end',   function() {
-        NProgress.done();
-        $.rmloading()
     });
 
 

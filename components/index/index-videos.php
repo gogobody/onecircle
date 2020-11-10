@@ -12,8 +12,8 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <?php echo $this->excerpt(70); ?>
         <? endif; ?>
     </div>
-    <div class="post-cover col-xl-12" onclick="event.stopPropagation();return false">
-        <a onclick="videoToggle('#collapse<? _e($this->cid) ?>',this)" href="#collapse<? _e($this->cid) ?>"
+    <div class="post-cover col-xl-12">
+        <a onclick="videoToggle('#collapse<? _e($this->cid) ?>',this,event)" href="#collapse<? _e($this->cid) ?>"
            data-toggle="collapse" class="toggle-player collapsed" rel="button" aria-expanded="false"
            aria-controls="collapse<? _e($this->cid) ?>" data-controls="collapse<? _e($this->cid) ?>">
             <div class="">

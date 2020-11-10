@@ -403,7 +403,7 @@ var indexInput = {
         $("#Login_form").submit(function () {
             if (!that.canLogin) return
             that.canLogin = false
-
+            var formThis = this
             if ($(this).hasClass("banLogin")) return location.reload(), !1;
             loginSubmitForm.attr("disabled", !0).fadeTo("slow", .5);
             var username_ = navLoginUser.val(), c = navLoginPsw.val();
@@ -418,52 +418,55 @@ var indexInput = {
                 message: "请填写密码",
                 type: "warning"
             }), navLoginPsw.focus(), showbtn(), !1) : (loginSubmitForm.addClass("active"), $("#spin-login").addClass("show inline"),
-                $.ajax({
-                    url: $(this).attr("action"),
-                    type: $(this).attr("method"),
-                    data: $(this).serializeArray(),
-                    error: function () {
-                        that.canLogin = true
-                        return $.message({
-                            title: "登录通知",
-                            message: "提交出错",
-                            type: "error"
-                        }), enableBtn()
-                    },
-                    success: function (b) {
-                        b = $.parseHTML(b)
-                        loginSubmitForm.removeClass("active")
-                        $("#spin-login").removeClass("show inline");
-
-                        try {
-                            if ($("#Logged-in", b).length <= 0) {
-                                that.canLogin = true
-                                enableBtn()
-                                return $.message({
-                                    title: "登录通知",
-                                    message: "用户名或者密码错误，请重试",
-                                    type: "error"
-                                })
-                            }
-
-                            showbtn()
-                            b = $("#easyLogin", b).html(), $("#easyLogin").html(b)
-                            $.message({
+                $.post('/oneaction', {type: "getsecurl", url: window.location.href}, function (res) {
+                    $("#Login_form").attr('action', res)
+                    $.ajax({
+                        url: res,
+                        type: $(formThis).attr("method"),
+                        data: $(formThis).serializeArray(),
+                        error: function () {
+                            that.canLogin = true
+                            return $.message({
                                 title: "登录通知",
-                                message: "登录成功:" + '&nbsp;<a onclick="location.reload();">' + "点击这里刷新页面，或等待自动刷新" + "</a>",
-                                type: "success"
-                            })
-                            that.canLogin = true
-                            that.loginUserName = username_
-                            setTimeout(function () {
-                                location.reload()
-                            }, 500)
-                        } catch (a) {
-                            alert("按下F12，查看输出错误信息")
-                            that.canLogin = true
+                                message: "提交出错",
+                                type: "error"
+                            }), enableBtn()
+                        },
+                        success: function (b) {
+                            b = $.parseHTML(b)
+                            loginSubmitForm.removeClass("active")
+                            $("#spin-login").removeClass("show inline");
+
+                            try {
+                                if ($("#Logged-in", b).length <= 0) {
+                                    that.canLogin = true
+                                    enableBtn()
+                                    return $.message({
+                                        title: "登录通知",
+                                        message: "用户名或者密码错误，请重试",
+                                        type: "error"
+                                    })
+                                }
+
+                                showbtn()
+                                b = $("#easyLogin", b).html(), $("#easyLogin").html(b)
+                                $.message({
+                                    title: "登录通知",
+                                    message: "登录成功:" + '&nbsp;<a onclick="location.reload();">' + "点击这里刷新页面，或等待自动刷新" + "</a>",
+                                    type: "success"
+                                })
+                                that.canLogin = true
+                                that.loginUserName = username_
+                                setTimeout(function () {
+                                    location.reload()
+                                }, 500)
+                            } catch (a) {
+                                alert("按下F12，查看输出错误信息")
+                                that.canLogin = true
+                            }
                         }
-                    }
-                }), !1)
+                    })
+                }),!1)
         })
     },
     loginBan: function () { // no use now
@@ -472,13 +475,17 @@ var indexInput = {
             $("#navbar-login-user").attr("disabled", "disabled"),
             $("#navbar-login-password").attr("disabled", "disabled"))
     },
-    resetLoginAction: function () {
+    resetLoginAction: function (func) {
+        if (userId > 0){
+            return
+        }
         $.post('/oneaction', {type: "getsecurl", url: window.location.href}, function (res) {
             $("#Login_form").attr('action', res)
             //
             // if (checkURL(res)){
             //
             // }
+            func()
         })
     },
     articleClickInit: function () {
@@ -492,7 +499,6 @@ var indexInput = {
                     //code...
                 },
                 mousemove:function(e) {
-                    that.flag = 1;
                     //code...
                 },
                 mouseup:function(e) {
@@ -549,7 +555,7 @@ var indexInput = {
     pjax_complete: function () {
         this.init()
         // this.loginBan()
-        this.resetLoginAction()
+
     }
 };
 var archiveInit = {
@@ -1263,7 +1269,7 @@ function del_article(this_, $cid) {
 }
 
 // video toggle
-function videoToggle(idselector, this_) {
+function videoToggle(idselector, this_,ev) {
     if (!$(this_).hasClass('video-slim')) {
         $(this_).children().children('span:first-child').html('<svg width=".7em" height=".7em" viewBox="0 0 16 16" class="bi bi-arrows-angle-expand" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
             '<path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"/>\n' +
@@ -1278,11 +1284,10 @@ function videoToggle(idselector, this_) {
             '</svg>')
         $(this_).children().children('span:last-child').text('收缩')
         $(this_).removeClass('video-slim')
-
-
     }
-
-    $(idselector).collapse('toggle');
+    $(idselector).collapse('toggle')
+    ev.stopPropagation()
+    return false
 }
 
 function checkURL(URL) {
