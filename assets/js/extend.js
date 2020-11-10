@@ -977,6 +977,7 @@ var archiveInit = {
         this.archiveEventInit()
         this.commentInit()
         this.repostFuncInit()
+        this.archAuthorTabShowInit()
     }
 };
 var recommendInit = {
