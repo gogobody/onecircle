@@ -389,5 +389,31 @@ class utils
         $html .= '<div class="timeline-box"><div class="timeline-post timeline-item">' . '<a href="' . $href . '" target="_blank">' . $title . '</a><span class="timeline-post-time">' . $d . '</span></div></div>';
         echo $html;
     }
+
+    /**
+     * 获取一条评论
+     * @param $cid
+     * @return array|mixed
+     * @throws Typecho_Db_Exception
+     */
+    public static function getOneCommentIfMore($cid){
+        $options = Helper::options();
+        $db = Typecho_Db::get();
+        $limit = 5;  //调用数量
+        $length = 30;  //截取长度
+        $ispage = true;  //true 输出slug页面评论，false输出其它所有评论
+        $isGuestbook = $ispage ? " = " : " <> ";
+        $comments = $db->fetchAll($db->select()->from('table.comments')
+            ->where('table.comments.status = ?', 'approved')
+            ->where('table.comments.type = ?', 'comment')
+            ->where('table.comments.cid '.$isGuestbook.' ?', $cid)
+            ->order('table.comments.created', Typecho_Db::SORT_DESC)
+            ->limit($limit)  );
+        if (count($comments) >= 5){ // 超过5条显示1条
+            $comment = $comments[0];
+            return $comment;
+        }
+        return array();
+    }
 }
 

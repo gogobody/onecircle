@@ -2606,7 +2606,43 @@ achieve
 .newmsg {
     margin-bottom: 10px;
 }
-
+.lucky-comment{
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+}
+.v-line{
+    width: 2px;
+    height: 25px;
+    background: #dae6ef;
+    margin-right: 10px;
+}
+.lucky-comment-svg{
+    width: 30px;
+}
+.index-comment-user{
+    white-space: nowrap;
+}
+.index-comment-user .user-name{
+    max-width: 120px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 14px;
+}
+.index-comment-content{
+    overflow: hidden;
+}
+.index-comment-content .comment-content{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 14px;
+}
+.index-comment-content .comment-content .secret{
+    padding: 1px 10px;
+    margin: 0;
+}
 /**
 分页
  */

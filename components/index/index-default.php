@@ -23,7 +23,9 @@ $arr = getGirdPics($this)
     <?php if ($this->fields->banner && $this->fields->banner != ''): ?>
         <div class="post-cover col-xl-12">
             <div class="post-cover-inner">
-                <img src="<?php echo $this->fields->banner; ?>" class="post-cover-img" alt="cover">
+                <a class='post-cover-img-more' data-fancybox='gallery' href='<?php echo $this->fields->banner; ?>'>
+                    <img src="<?php echo $this->fields->banner; ?>" class="post-cover-img" alt="cover">
+                </a>
             </div>
         </div>
     <?php else: ?>

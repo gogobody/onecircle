@@ -136,12 +136,13 @@
                                         <h6 class="post-title"><?php _e('还没有人关注你哦'); ?></h6>
                                     </article>
                                     <?php endif ?>
-                                <?php elseif($tabIndex==3):?>
+                                <?php elseif($tabIndex==3 && $this->next()):?>
                                     <?php while ($this->next()): ?>
                                         <div class="item-inner">
                                             <? $this->need('components/index/article-content.php'); ?>
                                         </div>
                                     <?php endwhile; ?>
+
                                 <?php else: ?>
                                     <article class="post-article">
                                         <h6 class="post-title"><?php _e('还没有发布内容'); ?></h6>
