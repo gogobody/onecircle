@@ -1823,6 +1823,7 @@ achieve
     max-width: 100%;
     height: auto;
     border-style: none;
+    width: 100%;
 }
 
 .header-top-bottom-text {
