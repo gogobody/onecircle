@@ -1,22 +1,7 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
 
-<?php
-// get categories for index search
-if ($this->is('index')){
-    $this->widget('Widget_Metas_Category_List')->to($obj);
-    $arr = array();
-    if($obj->have()){
-        while($obj->next()){
-            $tmp = array();
-            array_push($tmp,$obj->name,$obj->mid,parseDesc2img($this->options->defaultSlugUrl,$obj->description),parseDesc2text($obj->description));
-            array_push($arr,$tmp);
-        }
-    }
-    echo '<script type="text/javascript">allCategories = '.json_encode($arr).'</script>';
-}
-?>
-
 </div> <!--close header app layout-->
+
 
 <footer class="container footer">
     &copy; <?php echo date('Y'); ?>
@@ -36,10 +21,7 @@ if ($this->is('index')){
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.js"></script>
 <?php $this->options->jsEcho(); ?>
-<?php //if (!$this->is('index')): ?>
 
-<?php //else:?>
-<?php //endif; ?>
 <script src="<?php $this->options->themeUrl('assets/js/prism.js'); ?>"></script>
 <script src="<?php $this->options->themeUrl('/assets/owo/owo_02.js'); ?>"></script>
 <script src="<?php $this->options->themeUrl('assets/js/page.min.js'); ?>"></script>

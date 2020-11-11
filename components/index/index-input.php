@@ -119,3 +119,19 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
     </div>
 </div>
 <div class="newmsg"></div>
+
+<?php
+// get categories for index search
+if ($this->is('index')){
+    $this->widget('Widget_Metas_Category_List')->to($obj);
+    $arr = array();
+    if($obj->have()){
+        while($obj->next()){
+            $tmp = array();
+            array_push($tmp,$obj->name,$obj->mid,parseDesc2img($this->options->defaultSlugUrl,$obj->description),parseDesc2text($obj->description));
+            array_push($arr,$tmp);
+        }
+    }
+    echo '<script type="text/javascript">allCategories = '.json_encode($arr).'</script>';
+}
+?>

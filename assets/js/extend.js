@@ -489,37 +489,19 @@ var indexInput = {
         })
     },
     articleClickInit: function () {
-        var that = this
         if ($.support.pjax) {
             var articleEle = $("article[do-pjax]")
-            that.flag = 0
-            articleEle.unbind().bind({
-                mousedown:function(e) {
-                    that.flag = 0;
-                    //code...
-                },
-                mousemove:function(e) {
-                    //code...
-                },
-                mouseup:function(e) {
-                    if(that.flag === 0) {//点击
-                        // articleEle.unbind('click').bind('click',function(){
-                            var url = $(this).data('url')
-                            // filter
-                            if (e.target.tagName === "IMG"){
-                                // console.log(e.target.tagName)
-                                // return false; //阻止默认行为
-                            }else {
-                                $.pjax({url: url, container: '#pjax-container'});
-                            }
-                        // });
-                    } else if(that.flag === 1) {//拖曳
-                        // articleEle.unbind();
-                        that.flag = 0
-                    }
-                    //code...
+            articleEle.unbind().bind('click',function (e){
+                var url = $(this).data('url')
+                // filter
+                if (e.target.tagName === "IMG"){
+                    // console.log(e.target.tagName)
+                    // return false; //阻止默认行为
+                }else {
+                    $.pjax({url: url, container: '#pjax-container'});
                 }
             })
+
 
         }
         // 首页点赞
@@ -1092,7 +1074,7 @@ function postArticle(data, needRefresh) {
                                 message: "发布成功，没出来的话就刷新一下吧",
                                 type: "success"
                             })
-                        }, 600)
+                        }, 800)
                     }
                 },
                 error: function (err) {
