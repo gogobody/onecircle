@@ -466,7 +466,7 @@ var indexInput = {
                             }
                         }
                     })
-                }),!1)
+                }), !1)
         })
     },
     loginBan: function () { // no use now
@@ -476,7 +476,7 @@ var indexInput = {
             $("#navbar-login-password").attr("disabled", "disabled"))
     },
     resetLoginAction: function (func) {
-        if (userId > 0){
+        if (userId > 0) {
             return
         }
         $.post('/oneaction', {type: "getsecurl", url: window.location.href}, function (res) {
@@ -491,13 +491,13 @@ var indexInput = {
     articleClickInit: function () {
         if ($.support.pjax) {
             var articleEle = $("article[do-pjax]")
-            articleEle.unbind().bind('click',function (e){
+            articleEle.unbind().bind('click', function (e) {
                 var url = $(this).data('url')
                 // filter
-                if (e.target.tagName === "IMG"){
+                if (e.target.tagName === "IMG") {
                     // console.log(e.target.tagName)
                     // return false; //阻止默认行为
-                }else {
+                } else {
                     $.pjax({url: url, container: '#pjax-container'});
                 }
             })
@@ -542,7 +542,6 @@ var indexInput = {
 };
 var archiveInit = {
     init: function () {
-        this.archAuthorTabs = $(".react-tabs__tab-list")
         this.funcInit()
     },
     funcInit: function () {
@@ -685,12 +684,12 @@ var archiveInit = {
                             var rate_ = Math.random()
                             if (rate_ <= 0.3) {
                                 var userhref, usreavatr, username, usersign
-                                if ($(btnThis).attr("data-author_page")){ // btn in author page banner
+                                if ($(btnThis).attr("data-author_page")) { // btn in author page banner
                                     userhref = $(btnThis).parent().siblings().data("authorhref")
                                     usreavatr = $(".author-avatar").attr("src")
                                     username = $(".author_page-name").text()
                                     usersign = $(".author-sign").text()
-                                }else { // btn in focus list
+                                } else { // btn in focus list
                                     var focusEle = $(btnThis).parent().siblings()
                                     userhref = focusEle.attr("href")
                                     usreavatr = focusEle.children("img").attr("src")
@@ -765,14 +764,18 @@ var archiveInit = {
     archAuthorTabShowInit: function () {
         // archive author tabs
         var react_tabs = $(".react-tabs__tab-list")
+        var react_tabs_li = react_tabs.find('li:first-child')
         if (react_tabs.length > 0) {
-            var baseoffset = react_tabs.first().offset().left
-            var init_offset = $('.react-tabs__tab-list li').first().offset().left - baseoffset
-            var line = $('.line')
-            line.css({
-                'transform': 'translateX(' + init_offset + 'px)'
-            })
-            line.show()
+            setTimeout(function () { // 延迟100s 让css 充分渲染
+                var baseoffset = react_tabs.first().offset().left
+                var init_offset = react_tabs_li.first().offset().left - baseoffset
+                // alert(baseoffset+",  "+react_tabs_li.first().offset().left +",  "+init_offset)
+                var line = $('.line')
+                line.css({
+                    'transform': 'translateX(' + init_offset + 'px)'
+                })
+                line.show()
+            }, 100)
         }
     },
     archAuthorTabsClickInit: function () {
@@ -877,15 +880,15 @@ var archiveInit = {
         })
         commentForm.submit(function () {
             var formdata = $(this).serializeArray()
-            if ($.trim(formdata[0]["value"]) === ""){
+            if ($.trim(formdata[0]["value"]) === "") {
                 $.message({
-                    title:"提示",
-                    message:"请输入内容",
-                    type:"error"
+                    title: "提示",
+                    message: "请输入内容",
+                    type: "error"
                 })
                 commentBtn.attr("disabled", false)
                 return false;
-            }else {
+            } else {
                 $.ajax({
                     url: $(this).attr('action'),
                     type: 'post',
@@ -1024,22 +1027,39 @@ var tagsManageInit = {
     },
 
 };
-
+// ready
 $(function () {
+    // comment
+    $(window).unbind("scroll").bind("scroll", function () {
+        var scroHei = $(window).scrollTop();
+        var backtotop = $('.back-to-top')
+        if (scroHei > 400) {
+            backtotop.addClass('animate__fadeInDown')
+            backtotop.css("display", "block")
+            // $('.back-to-top').slideDown('fast');
+        } else {
+
+            // $('.back-to-top').slideUp('fast');
+            backtotop.css("display", "none")
 
 
-    indexInput.init()
-    archiveInit.init()
-    tagsManageInit.init()
-    recommendInit.init()
-
-    // 加载不出时触发
-    $(function () {
-        $('img').on('error', function () {
-            $(this).attr("src", "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3031618999,450259559&fm=11&gp=0.jpg");
-        })
+        }
+    })
+    $('.back-to-top').unbind('click').bind('click', function () {
+        $('body,html').animate({
+            scrollTop: 0
+        }, 600);
     })
 
+    indexInput.init()
+    tagsManageInit.init()
+    recommendInit.init()
+    archiveInit.init()
+
+    // 加载不出时触发
+    $('img').on('error', function () {
+        $(this).attr("src", "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3031618999,450259559&fm=11&gp=0.jpg");
+    })
 })
 
 // post article
@@ -1244,7 +1264,7 @@ function del_article(this_, $cid) {
 }
 
 // video toggle
-function videoToggle(idselector, this_,ev) {
+function videoToggle(idselector, this_, ev) {
     if (!$(this_).hasClass('video-slim')) {
         $(this_).children().children('span:first-child').html('<svg width=".7em" height=".7em" viewBox="0 0 16 16" class="bi bi-arrows-angle-expand" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
             '<path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"/>\n' +
@@ -1272,27 +1292,4 @@ function checkURL(URL) {
     return objExp.test(str) === true;
 }
 
-// comment
-$(function () {
-    $(window).unbind("scroll").bind("scroll",function () {
-        var scroHei = $(window).scrollTop();
-        var backtotop = $('.back-to-top')
-        if (scroHei > 400) {
-            backtotop.addClass('animate__fadeInDown')
-            backtotop.css("display","block")
-            // $('.back-to-top').slideDown('fast');
-        } else {
 
-            // $('.back-to-top').slideUp('fast');
-            backtotop.css("display","none")
-
-
-        }
-    })
-    $('.back-to-top').unbind('click').bind('click',function () {
-        $('body,html').animate({
-            scrollTop: 0
-        }, 600);
-    })
-
-})

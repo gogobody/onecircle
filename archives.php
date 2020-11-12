@@ -204,7 +204,7 @@ $this->need('includes/header.php');
                     <?php $this->widget('Widget_Metas_Tag_Cloud', 'ignoreZeroCount=0')->to($tags); ?>
                     <?php if ($tags->have()): ?>
                         <div id="archives-tags" class="animated bounceInLeft">
-                            <div>标签</div>
+                            <div>标签分类</div>
                             <ul id="archives-tags-list">
                                 <?php while ($tags->next()): ?>
                                     <li class="archives-tags-item"><a href="<?php $tags->permalink(); ?>"
@@ -214,7 +214,7 @@ $this->need('includes/header.php');
                         </div>
                     <?php endif; ?>
                     <div id="archives-categories" class="animated bounceInRight">
-                        <div>分类</div>
+                        <div>圈子</div>
                         <?php $this->widget('Widget_Metas_Category_List')->to($category); ?>
                         <ul id="archives-cate-list">
                             <?php while ($category->next()): ?>

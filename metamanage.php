@@ -271,7 +271,7 @@ $tags_num = count($total_data);
             </div>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="changeCatagModal" tabindex="-1" aria-labelledby="changeCatagModalLabel" aria-hidden="true">
+        <div class="modal fade" id="changeCatagModal" tabindex="-1" data-backdrop="false" aria-labelledby="changeCatagModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
