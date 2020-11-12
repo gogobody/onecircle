@@ -38,7 +38,7 @@ $this->need('includes/header.php');
     <div class="row">
         <?php $this->need('includes/nav.php'); ?>
         <div class="col-xl-7 col-md-7 col-12 main-content">
-            <?php if ($this->user->hasLogin() && !$recommend): //判断是否登录 ?>
+            <?php if ($this->user->hasLogin() && !$recommend && checkIndexInputPermission($this->user->group)): //判断是否登录 ?>
                 <? $this->need('components/index/index-input.php'); ?>
             <?php endif; ?>
 

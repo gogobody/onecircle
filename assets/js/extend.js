@@ -550,9 +550,9 @@ var archiveInit = {
         this.commentInit()
         this.fansFuncInit()
         this.circleFuncInit()
+        this.repostFuncInit()
         this.archAuthorTabShowInit()
         this.archAuthorTabsClickInit()
-        this.repostFuncInit()
     },
     postRepostArticle: function (posthref, excert, rbannerimg, repousername, repostext, category) {
         // 转发 默认 发到 category 1
@@ -1032,15 +1032,7 @@ $(function () {
     archiveInit.init()
     tagsManageInit.init()
     recommendInit.init()
-    // 根据时间
-    var timeNow = new Date();
-// 获取当前小时
-    var hours = timeNow.getHours();
-    // if (hours > 6 && hours < 19) {
-    //     $('body').removeClass('theme-dark')
-    // } else {
-    //     $('body').addClass('theme-dark')
-    // }
+
     // 加载不出时触发
     $(function () {
         $('img').on('error', function () {

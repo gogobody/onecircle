@@ -624,6 +624,17 @@ function checkCircleEditPermission($login_uid)
 }
 
 /**
+ * only those permission can send post
+ * @param $group
+ * @return bool
+ */
+function checkIndexInputPermission($group){
+    if ($group == 'administrator' or $group == 'editor' or $group == 'contributor'){
+        return true;
+    }
+    return false;
+}
+/**
  * 获取主题版本号
  */
 function themeVersion()
