@@ -26,8 +26,7 @@
         $achives_ = $db->fetchAll($sqlt);
         foreach($achives_ as $_post) $this->push($_post); //压入列队
         $this->setTotal($cnt);
-//        $this->setTotal($this->length);
-
+//        $this->setTotal($this->length)
     }
 ?>
 <?php $this->need('includes/header.php'); ?>
@@ -136,7 +135,7 @@
                                         <h6 class="post-title"><?php _e('还没有人关注你哦'); ?></h6>
                                     </article>
                                     <?php endif ?>
-                                <?php elseif($tabIndex==3 && $this->next()):?>
+                                <?php elseif($tabIndex==3 && $this->have()):?>
                                     <?php while ($this->next()): ?>
                                         <div class="item-inner">
                                             <? $this->need('components/index/article-content.php'); ?>
