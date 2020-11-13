@@ -48,12 +48,16 @@ var owoInit = function () {
             if (tocTreeHtml) {
                 tocTreeObj.classList.add('on');
                 tocTreeObj.querySelector('.article-catalog-list').innerHTML = tocTreeHtml;
+                document.getElementById('tocTree').classList.remove('animate__bounceOutRight')
+                document.getElementById('tocTree').classList.add('animate__bounceInRight')
             }
         })
         // 关闭
         document.getElementById('catalog-close').addEventListener('click',
             function() {
-                document.getElementById('tocTree').classList.remove('on');
+                document.getElementById('tocTree').classList.remove('animate__bounceInRight')
+                document.getElementById('tocTree').classList.add('animate__bounceOutRight')
+                // document.getElementById('tocTree').classList.remove('on');
             });
     }
     $('.protected-btn').click(function() {

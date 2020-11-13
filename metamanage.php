@@ -4,8 +4,9 @@
  */
 $this->need('includes/header.php');
 //var_dump($this->getPageRow());
-$total_data = $this->getPageRow()["type_categories_all"];
-$tags_num = count($total_data);
+$total_category_data = $this->getPageRow()["type_categories_all"];
+$tags_num = count($total_category_data);
+$total_tags = $this->getPageRow()["tags_all"];
 ?>
 
 <div class="container-lg animate__animated animate__fadeIn" id="pjax-container">
@@ -28,7 +29,7 @@ $tags_num = count($total_data);
                 <? if ($this->user->hasLogin()):?>
                     <div class="tab-pane fade show active" id="pills-my" role="tabpanel" aria-labelledby="pills-my-tab">
                         <div class="row">
-                            <div class="col-md-4 col-lg-3">
+                            <div class="col-md-4 col-lg-3" style="border-bottom: 1px solid rgba(0,0,0,.05);">
                                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <a class="nav-link active" id="v-pills-allmy-tab" data-toggle="pill" href="#v-pills-allmy" role="tab" aria-controls="v-pills-allmy" aria-selected="true">所有</a>
 
@@ -91,7 +92,7 @@ $tags_num = count($total_data);
                             <div class="row">
                                 <div class="col-md-4 col-lg-3">
                                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                        <?php foreach($total_data as $k => $data):?>
+                                        <?php foreach($total_category_data as $k => $data):?>
                                             <? if ($k == 'all_'):?> <!-- 所有 ，默认active-->
                                                 <a class="nav-link active" id="v-pills-<?php _e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _e($data['id']);?>" aria-selected="true"><?php _e($data['name']);?></a>
                                             <? else:?>
@@ -103,7 +104,7 @@ $tags_num = count($total_data);
                                 <div class="col-md-8 col-lg-9">
                                     <div class="tab-content" id="v-pills-tabContent">
                                         <!--输出对应分类圈子-->
-                                        <?php foreach($total_data as $k => $data):?>
+                                        <?php foreach($total_category_data as $k => $data):?>
                                             <div class="tab-pane fade <? if ($k == 'all_') _e('show active');?> mycicle-content" id="v-pills-<?php _e($data['id']);?>" role="tabpanel" aria-labelledby="v-pills-<?php _e($data['id']);?>-tab">
                                                 <? foreach ($data['categories'] as $val):?>
                                                     <? $entry = Typecho_Widget::widget('Widget_Abstract_Metas')->filter(array(
@@ -153,7 +154,7 @@ $tags_num = count($total_data);
                             <div class="row">
                                 <div class="col-md-4 col-lg-3">
                                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                        <?php foreach($total_data as $k => $data):?>
+                                        <?php foreach($total_category_data as $k => $data):?>
                                             <? if ($k == 'all_'):?> <!-- 所有 ，默认active-->
                                                 <a class="nav-link active" id="v-pills-<?php _e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _e($data['id']);?>" aria-selected="true"><?php _e($data['name']);?></a>
                                             <? else:?>
@@ -165,7 +166,7 @@ $tags_num = count($total_data);
                                 <div class="col-md-8 col-lg-9">
                                     <div class="tab-content" id="v-pills-tabContent">
                                         <!--输出对应分类圈子-->
-                                        <?php foreach($total_data as $k => $data):?>
+                                        <?php foreach($total_category_data as $k => $data):?>
                                             <div class="tab-pane fade <? if ($k == 'all_') _e('show active');?> mycicle-content" id="v-pills-<?php _e($data['id']);?>" role="tabpanel" aria-labelledby="v-pills-<?php _e($data['id']);?>-tab">
                                                 <? foreach ($data['categories'] as $val):?>
                                                     <? $entry = Typecho_Widget::widget('Widget_Abstract_Metas')->filter(array(
@@ -213,7 +214,7 @@ $tags_num = count($total_data);
                         <div class="row">
                             <div class="col-md-4 col-lg-3">
                                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                    <?php foreach($total_data as $k => $data):?>
+                                    <?php foreach($total_category_data as $k => $data):?>
                                         <? if ($k == 'all_'):?> <!-- 所有 ，默认active-->
                                             <a class="nav-link active" id="v-pills-<?php _e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _e($data['id']);?>" aria-selected="true"><?php _e($data['name']);?></a>
                                         <? else:?>
@@ -225,7 +226,7 @@ $tags_num = count($total_data);
                             <div class="col-md-8 col-lg-9">
                                 <div class="tab-content" id="v-pills-tabContent">
                                     <!--输出对应分类圈子-->
-                                    <?php foreach($total_data as $k => $data):?>
+                                    <?php foreach($total_category_data as $k => $data):?>
                                         <div class="tab-pane fade <? if ($k == 'all_') _e('show active');?> mycicle-content" id="v-pills-<?php _e($data['id']);?>" role="tabpanel" aria-labelledby="v-pills-<?php _e($data['id']);?>-tab">
                                             <? foreach ($data['categories'] as $val):?>
                                                 <? $entry = Typecho_Widget::widget('Widget_Abstract_Metas')->filter(array(
@@ -289,7 +290,7 @@ $tags_num = count($total_data);
                             <div class="form-group">
                                 <label for="changeCircle">更改分类</label>
                                 <select class="form-control" id="changeCircle">
-                                    <?php foreach($total_data as $k => $data):?>
+                                    <?php foreach($total_tags as $k => $data):?>
                                         <option value="<?_e($data['id'])?>"><?_e($data['name'])?></option>
                                     <? endforeach;?>
                                 </select>

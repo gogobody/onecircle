@@ -555,6 +555,14 @@ var archiveInit = {
     },
     postRepostArticle: function (posthref, excert, rbannerimg, repousername, repostext, category) {
         // 转发 默认 发到 category 1
+        if (userId < 0){
+            $.message({
+                title:"提示",
+                message:"请登录后操作",
+                type:"error"
+            })
+            return false
+        }
         var fromusernm = indexInput.loginUserName
         var data = {
             title: fromusernm + "转发了" + repostext.substring(0, 20),

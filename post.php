@@ -129,7 +129,7 @@
                 </div>
             </article>
             <!--            目录树-->
-            <section class="col-12 col-md-4 col-xl-3 article-catalog" id="tocTree">
+            <section class="col-12 col-md-4 col-xl-3 article-catalog animate__animated animate__bounceInRight" id="tocTree">
                 <h3 class="article-catalog-title">
                     <?php _e('目录'); ?>
                     <button type="button" class="close" aria-label="Close" id="catalog-close">

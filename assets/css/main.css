@@ -1922,6 +1922,7 @@ achieve
     word-break: keep-all;
     flex-shrink: 0;
     font-size: 14px;
+    max-height: 40px;
 }
 
 .achieve-container .achieve-content {
@@ -2915,6 +2916,7 @@ owo
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    height: 24px;
 }
 
 .OwO.OwO-open .OwO-logo {
@@ -2951,8 +2953,7 @@ owo
     z-index: 101;
     font-size: 12px;
     text-align: center;
-    line-height: normal;
-    margin-top: 3px;
+    line-height: 1.2rem;
     cursor: pointer;
     background: #fff
 }
