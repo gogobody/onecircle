@@ -27,23 +27,36 @@
 <script src="<?php $this->options->themeUrl('assets/js/page.min.js'); ?>"></script>
 <script crossorigin="anonymous" integrity="sha384-Zm+UU4tdcfAm29vg+MTbfu//q5B/lInMbMCr4T8c9rQFyOv6PlfQYpB5wItcXWe7" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+<script src="https://cdn.bootcss.com/echo.js/1.7.3/echo.min.js"></script>
 <?php
     $userId = -1; //save userid
     if ($this->user->hasLogin()){
         $userId = $this->user->uid;
     }
 ?>
-<script>
-    userId=<?echo $userId?>
-</script>
-
+<script>userId=<?echo $userId?></script>
 <script src="<?php $this->options->themeUrl('assets/js/extend.min.js'); ?>"></script>
 <?php if ($this->options->jsPushBaidu):?>
     <script src="<?php $this->options->themeUrl('assets/js/push.js'); ?>"></script>
 <?php endif;?>
 <script>
-
-
+    var echoInit = function(){
+        echo.init({
+            offset: 100,
+            callback: function (element, op) {
+                if (element.style.backgroundImage){ // 如果设置了背景图就把前景 src清空
+                    element.src=" "
+                }
+            }
+        });
+    }
+    window.onload = function(){
+        echoInit()
+        // 加载不出时触发
+        // $('img').on('error', function () {
+        //     $(this).attr("src", "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3031618999,450259559&fm=11&gp=0.jpg");
+        // })
+    }
     $(document).pjax('a[href^="<?php Helper::options()->siteUrl()?>"]:not(a[target="_blank"], a[no-pjax],form,#id_iframe)', {
         container: '#pjax-container',//
         fragment: '#pjax-container',
@@ -57,34 +70,29 @@
                 choice: 'after'
             })
         })
-
-    $(document).on('pjax:complete',
-        function() {
-            indexInput.pjax_complete()
-            archiveInit.init()
-            recommendInit.pjax_complete()
-            owoInit();
-            if (typeof smms_node!="undefined" && typeof smms!="undefined"){
-                smms_node.init()
-                smms.init()
-            }
-            if (typeof smms!="undefined"){
-                smms.init()
-            }
-            //
-            tagsManageInit.pjax_complete()
-            NProgress.done();
-            $.rmloading()
-        })
-
-    $(document).on('pjax:start', function() {
-
-    });
-
-    $(document).on('pjax:end',   function() {
-    });
-
-
+    var pjaxInit = function() {
+        indexInput.pjax_complete()
+        archiveInit.init()
+        recommendInit.pjax_complete()
+        owoInit();
+        if (typeof smms_node!="undefined" && typeof smms!="undefined"){
+            smms_node.init()
+            smms.init()
+        }
+        if (typeof smms!="undefined"){
+            smms.init()
+        }
+        //
+        tagsManageInit.pjax_complete()
+        NProgress.done();
+        $.rmloading()
+        // reinit echo
+        echoInit()
+    }
+    // $(document).on('pjax:complete',function (){pjaxInit();})
+    $(document).on('pjax:end',function (){})
+    $(document).on('pjax:start', function() {});
+    $(document).on('ready pjax:end', function(event) {pjaxInit();})
 </script>
 <?php $this->footer(); ?>
 

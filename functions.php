@@ -102,14 +102,27 @@ function get_comment($coid)
  */
 function getPostImg($archive)
 {
+    $loading = Helper::options()->defaultLoadingUrl();
     //  匹配 img 的 src 的正则表达式
     $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';//匹配img标签的正则表达式
-    $preg2 = '/background-image:[ ]?url\([&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif))/i';//匹配背景的url的正则表达式
+    $preg2 = '/background-image:[ ]?url\([&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif|bmp|webp))/i';//匹配背景的url的正则表达式
+//    $pregEchoBackImg = '/data-echo-background[ ]?=[ ]?[&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif|bmp|webp))/i'; // 针对echo.js 匹配, 已经放弃使用
+    $pregEchoImg = '/data-echo[ ]?=[ ]?[&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif|bmp|webp))/i'; // 针对echo.js 匹配
 
     preg_match_all($preg, $archive->content, $allImg);//这里匹配所有的img
+    // 过滤掉 loading 的img
+    foreach ($allImg[1] as $key => $imgurl){
+        if ($imgurl == $loading or empty($imgurl)){
+            unset($allImg[1][$key]);
+        }
+    }
     preg_match_all($preg2, $archive->content, $allImg2);//这里匹配所有的背景img
-    $img = array_merge($allImg[1], $allImg2[1]);
+//    preg_match_all($pregEchoBackImg, $archive->content, $echoBackgroundAllImg);//这里匹配所有的echo 背景img
+    preg_match_all($pregEchoImg, $archive->content, $echoAllImg);//这里匹配所有的echo 背景img
+    $img = array_merge($allImg[1], $allImg2[1], $echoAllImg[1]);
+
     /*    preg_match_all("/<img.*?src=\"(.*?)\".*?\/?>/i", $archive->content, $img);*/
+
     //  判断是否匹配到图片
     if (!empty($img)) {
         return $img;
@@ -138,11 +151,17 @@ function parseFirstURL($content)
  */
 function parseFirstImg($content)
 {
+    $loading = Helper::options()->defaultLoadingUrl();
     //  匹配 img 的 src 的正则表达式
     $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';//匹配img标签的正则表达式
-    $preg2 = '/background-image:[ ]?url\([&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif))/i';//匹配背景的url的正则表达式
+    $preg2 = '/background-image:[ ]?url\([&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif|bmp|webp))/i';//匹配背景的url的正则表达式
     $img = array();
     preg_match($preg, $content, $allImg);//这里匹配所有的img
+    foreach ($allImg as $key => $imgurl){
+        if ($imgurl == $loading){
+            unset($allImg[$key]);
+        }
+    }
     preg_match($preg2, $content, $allImg2);//这里匹配所有的背景img
     if (!empty($allImg)) {
         array_push($img, $allImg[1]);
@@ -394,10 +413,10 @@ function getGirdPics($this_)
 
 function ehco9gridPics($images, $length)
 {
-
+    $loading = Helper::options()->themeUrl('assets/img/loading.gif','onecircle');
     if ($length > 0) {
         if ($length == 1) {
-            echo "<div class='post-cover-inner'><a class='post-cover-img-more' data-fancybox='gallery' href='$images[0]'><img src='$images[0]' class='post-cover-img'></a></div>";
+            echo "<div class='post-cover-inner'><a class='post-cover-img-more' data-fancybox='gallery' href='$images[0]'><img src='$loading' data-echo='$images[0]' class='post-cover-img' alt='no pic'></a></div>";
         } else {
             $more_img_flag = false;
             if ($length > 9) { // 9宫格显示图片
@@ -409,7 +428,7 @@ function ehco9gridPics($images, $length)
                 if ($i == 8 && $more_img_flag) { // 9宫格最后一张
                     echo "<div style='background-image:url($images[$i]);' class='post-cover-img-more' alt='cover'><div class='more-pic'>" . $length . "+</div></div>";
                 } else {
-                    echo "<a class='post-cover-img-more' data-fancybox='gallery' href='$images[$i]'><img style='background-image:url($images[$i]);' class='post-cover-img-more'></a>";
+                    echo "<a class='post-cover-img-more' data-fancybox='gallery' href='$images[$i]'><img src='$loading' data-echo='$images[$i]' style='' class='post-cover-img-more' alt='no pic'></a>";
                 }
             }
             echo "</div>";

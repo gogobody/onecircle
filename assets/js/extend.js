@@ -1064,10 +1064,6 @@ $(function () {
     recommendInit.init()
     archiveInit.init()
 
-    // 加载不出时触发
-    $('img').on('error', function () {
-        $(this).attr("src", "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3031618999,450259559&fm=11&gp=0.jpg");
-    })
 })
 
 // post article

@@ -1,15 +1,16 @@
 <?php
-function themeConfig($form) {
+function themeConfig($form)
+{
     $str1 = explode('/themes/', Helper::options()->themeUrl);
     $str2 = explode('/', $str1[1]);
     $name = $str2[0];
 
     echo '<h2>超级功能</h2>';
-    echo '<link rel="stylesheet" href="'. Helper::options()->themeUrl.'/assets/css/admin.css">';
+    echo '<link rel="stylesheet" href="' . Helper::options()->themeUrl . '/assets/css/admin.css">';
     echo '<button type="button" class="btn btn-s" id="update-button">检查更新</button>';
     echo '<p id="check-update" class="notice" style="display:none;">检查中..</p>';
-    echo '<script>let version='.themeVersion().'</script>';
-    echo '<script src="'.Helper::options()->themeUrl.'/assets/js/update.js"></script>';
+    echo '<script>let version=' . themeVersion() . '</script>';
+    echo '<script src="' . Helper::options()->themeUrl . '/assets/js/update.js"></script>';
     echo '<form class="protected col-mb-12" action="?' . $name . 'bf" method="post">
     <input type="submit" name="type" class="btn btn-s" value="备份模板设置数据" />&nbsp;&nbsp;<input type="submit" name="type" class="btn btn-s" value="还原模板设置数据" />&nbsp;&nbsp;<input type="submit" name="type" class="btn btn-s" value="删除备份数据" /></form>';
     $db = Typecho_Db::get();
@@ -69,9 +70,11 @@ function themeConfig($form) {
     }
     $logoUrl = new Typecho_Widget_Helper_Form_Element_Text('logoUrl', NULL, "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2592033302,3451533765&fm=26&gp=0.jpg", _t('<h2>普通设置</h2>站点 LOGO 地址'), _t('在这里填入一个图片 URL 地址, 以在网站标题前加上一个 LOGO'));
     $form->addInput($logoUrl);
-    $defaultSlugUrl= new Typecho_Widget_Helper_Form_Element_Text('defaultSlugUrl', NULL, "https://img.icons8.com/dusk/2x/categorize.png", _t('默认的分类图片'), _t('在这里填入一个图片 URL， 地址为分类图片的默认图标'));
+    $defaultSlugUrl = new Typecho_Widget_Helper_Form_Element_Text('defaultSlugUrl', NULL, Helper::options()->themeUrl('assets/img/loading.gif', 'onecircle'), _t('默认的loading动图'), _t('默认的loading动图网址'));
     $form->addInput($defaultSlugUrl);
-    $sticky = new Typecho_Widget_Helper_Form_Element_Text('sticky', NULL,NULL, _t('文章置顶'), _t('置顶的文章cid，按照排序输入, 请以半角逗号或空格分隔'));
+    $defaultLoadingUrl = new Typecho_Widget_Helper_Form_Element_Text('defaultLoadingUrl', NULL, "https://img.icons8.com/dusk/2x/categorize.png", _t('默认的分类图片'), _t('在这里填入一个图片 URL， 地址为分类图片的默认图标'));
+    $form->addInput($defaultLoadingUrl);
+    $sticky = new Typecho_Widget_Helper_Form_Element_Text('sticky', NULL, NULL, _t('文章置顶'), _t('置顶的文章cid，按照排序输入, 请以半角逗号或空格分隔'));
     $form->addInput($sticky);
 //    $bannerUrl = new Typecho_Widget_Helper_Form_Element_Textarea('bannerUrl', NULL, NULL, _t('首页幻灯片'), _t('一行一个链接,大于3行将随机<br>注意最后一行不能为空'));
 //    $form->addInput($bannerUrl);
@@ -80,7 +83,7 @@ function themeConfig($form) {
     $form->addInput($recordNo);
     $customNavIcon = new Typecho_Widget_Helper_Form_Element_Textarea('customNavIcon', NULL, NULL, _t('自定义导航小图标'), _t('按照格式书写，自定义内导航栏右侧的小图标，留空则展示默认的图标按钮，书写的格式请查看 wiki<hr>'));
     $form->addInput($customNavIcon);
-    $jsPushBaidu = new Typecho_Widget_Helper_Form_Element_Select('jsPushBaidu',array('0'=>'关闭','1'=>'开启'),'0',_t('自动推送'),_t('使用通用js自动推荐给百度引擎，增快收录'));
+    $jsPushBaidu = new Typecho_Widget_Helper_Form_Element_Select('jsPushBaidu', array('0' => '关闭', '1' => '开启'), '0', _t('自动推送'), _t('使用通用js自动推荐给百度引擎，增快收录'));
     $form->addInput($jsPushBaidu);
 //    $rightImg = new Typecho_Widget_Helper_Form_Element_Text('rightImg', NULL, NULL, _t('<h2>侧边栏设置</h2>侧边栏背景'), _t('一条外链'));
 //    $form->addInput($rightImg);
