@@ -8,7 +8,7 @@ class contents{
         if ($widget instanceof Widget_Archive) {
             if($widget->fields->articleType == 'default' || $widget->is('page')){
                 if (!self::$frag)
-                    $text = contents::fancybox($text);
+                    $text = contents::fancybox($text,$widget);
             }elseif ($widget->fields->articleType == 'focususer'){
                 // 关注
                 $text = contents::focusUsers($text);
@@ -148,9 +148,9 @@ class contents{
 
     }
 
-    public static function fancybox($text)
+    public static function fancybox($text,$widget)
     {
-        $loading = Helper::options()->defaultLoadingUrl();
+        $loading = Helper::options()->themeUrl('assets/img/loading.gif', 'onecircle');
         // old format
         /*        $pattern =  '/<p>(\s|[\r\n])*(<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>)(\s|[\r\n])*<\/p>/i';*/
         $pattern='/\[gallery\]([\s\S]*?)\[endgallery\]/sm';
@@ -159,16 +159,16 @@ class contents{
         if (!empty($match[1][0])){ // so its a gallery and $0 is <p> $1 = \t\r $2=<img>...</img> $3 ...
             $gallerynum = count($match[1]);
             for ($i = 0; $i < $gallerynum; $i++) {
-                $imgs_str = $match[1][$i];
-                preg_match_all($pattern_img, $imgs_str, $imgs);
+                $imgs_str_ = $match[1][$i];
+                preg_match_all($pattern_img, $imgs_str_, $imgs);
                 $img_count = count($imgs[0]) > 9 ? 9:count($imgs[0]) ;
-                $imgs_str = preg_replace($pattern_img, '<a class="post-cover-img-more" data-fancybox="gallery" href="$1"><img src="'.$loading.'" class="post-cover-img-more" data-echo="$1" alt="no pic"></a>', $imgs_str); //style="background-image: url('."$1".')"
+                $imgs_str = preg_replace($pattern_img, '<a class="post-cover-img-more" data-fancybox="gallery" href="$1"><img src="'.$loading.'" class="post-cover-img-more" data-echo="$1" alt="no morepic"></a>', $imgs_str_); //style="background-image: url('."$1".')"
                 $text = preg_replace($pattern, '<div class="post-cover-img-container"><div class="post-cover-inner-more post-cover-inner-auto-rows-'.$img_count.'">'.$imgs_str.'</div></div>', $text,1);
             }
             return $text;
         }else { // no gallery
             if (preg_match($pattern_img, $text)) {
-                return preg_replace($pattern_img, '<a class="fancybox-single-img" data-fancybox="gallery" href="$1"><img src="'.$loading.'" class="post-cover-img-more" data-echo="$1" alt="no pic"></a>', $text);
+                return preg_replace($pattern_img, '<a class="fancybox-single-img" data-fancybox="gallery" href="$1"><img src="'.$loading.'" class="post-cover-img-more" data-echo="$1" alt="no pic now"></a>', $text);
             }
         }
 

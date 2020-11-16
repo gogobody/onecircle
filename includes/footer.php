@@ -44,9 +44,6 @@
         echo.init({
             offset: 100,
             callback: function (element, op) {
-                if (element.style.backgroundImage){ // 如果设置了背景图就把前景 src清空
-                    element.src=" "
-                }
             }
         });
     }
