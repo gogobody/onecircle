@@ -104,10 +104,10 @@ function getPostImg($archive)
 {
     $loading = Helper::options()->defaultLoadingUrl();
     //  匹配 img 的 src 的正则表达式
-    $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';//匹配img标签的正则表达式
-    $preg2 = '/background-image:[ ]?url\([&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif|bmp|webp))/i';//匹配背景的url的正则表达式
+    $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/im';//匹配img标签的正则表达式
+    $preg2 = '/background-image:[ ]?url\([&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif|bmp|webp|php))/i';//匹配背景的url的正则表达式
 //    $pregEchoBackImg = '/data-echo-background[ ]?=[ ]?[&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif|bmp|webp))/i'; // 针对echo.js 匹配, 已经放弃使用
-    $pregEchoImg = '/data-echo[ ]?=[ ]?[&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif|bmp|webp))/i'; // 针对echo.js 匹配
+    $pregEchoImg = '/data-echo[ ]?=[ ]?[&quot;]*[\'"]?(.*?\..*?)[\'"]/i'; // 针对echo.js 匹配
 
     preg_match_all($preg, $archive->content, $allImg);//这里匹配所有的img
     // 过滤掉 loading 的img
@@ -119,6 +119,7 @@ function getPostImg($archive)
     preg_match_all($preg2, $archive->content, $allImg2);//这里匹配所有的背景img
 //    preg_match_all($pregEchoBackImg, $archive->content, $echoBackgroundAllImg);//这里匹配所有的echo 背景img
     preg_match_all($pregEchoImg, $archive->content, $echoAllImg);//这里匹配所有的echo 背景img
+
     $img = array_merge($allImg[1], $allImg2[1], $echoAllImg[1]);
 
     /*    preg_match_all("/<img.*?src=\"(.*?)\".*?\/?>/i", $archive->content, $img);*/
