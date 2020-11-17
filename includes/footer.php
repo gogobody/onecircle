@@ -81,13 +81,13 @@
         }
         //
         tagsManageInit.pjax_complete()
-        NProgress.done();
+
         $.rmloading()
         // reinit echo
         echoInit()
     }
-    // $(document).on('pjax:complete',function (){pjaxInit();})
-    $(document).on('pjax:end',function (){})
+    $(document).on('pjax:complete',function (){})
+    $(document).on('pjax:end',function (){ NProgress.done();})
     $(document).on('pjax:start', function() {});
     $(document).on('ready pjax:end', function(event) {pjaxInit();})
 </script>

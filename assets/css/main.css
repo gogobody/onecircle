@@ -326,9 +326,9 @@ header {
     margin: 0;
     height: 100%;
 }
-.nav-icon {
-    width: 24px;
-    height: 24px;
+.nav-icon svg{
+    width: 24px!important;
+    height: 24px!important;
 }
 
 .nav-item-text {
@@ -2921,10 +2921,17 @@ owo
 }
 
 .OwO.OwO-open .OwO-logo {
-    border-bottom: none;
     color: #6d757a
 }
-
+.OwO.OwO-open .OwO-logo:before {
+    content: '';
+    position: absolute;
+    top: 23px;
+    left: 26px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #FF9800;
+}
 .OwO.OwO-open .OwO-body {
     display: block
 }
@@ -2954,7 +2961,6 @@ owo
     z-index: 101;
     font-size: 12px;
     text-align: center;
-    line-height: 1.2rem;
     cursor: pointer;
     background: #fff
 }
@@ -3108,17 +3114,6 @@ owo
 .OwO-title {
     padding: 8px 18px 0;
     color: #99a2aa
-}
-
-.OwO-body:before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: -5px;
-    left: 30px;
-    width: 8px;
-    height: 5px;
-    background: url(../../assets/img/arrow.png) 0 -49px no-repeat
 }
 
 .OwO .OwO-logo:hover {
