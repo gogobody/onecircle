@@ -110,37 +110,37 @@ return false;
 !!!
 
 ##如何添加导航图标
-进入网址https://icons.getbootstrap.com/
+进入网址https://www.iconfont.cn/
 
 寻找心爱的图标
 
-方法
-![index](READMEimgs/heart.png)
-如上图所示，取heart-fill
+方法:
+找到图标后，点击复制svg  
 
 然后再填到后台模板设置->自定义导航小图标
-每行一个对应着每一个独立页面
+每个svg对应着每一个独立页面（粘贴一个svg 回车换行在粘贴下一个）
 
 ----
 #### 截图：
 
-index
+index  
 ![index](READMEimgs/index.png)
 
-links
+links  
 ![index](READMEimgs/links.png)
 
-图文混合
+图文混合  
 ![index](READMEimgs/pics.png)
 
-支持用户关注
+支持用户关注  
 ![index](READMEimgs/follow.png)
 
-主题设置
+主题设置  
 ![index](READMEimgs/follow.png)
 
-签名设置
+签名设置  
 ![index](READMEimgs/usersign.png)
+
 ### 感谢以下作者的辛苦付出
 - compress https://javascript-minifier.com/
 - css compress https://www.runoob.com/csspack
