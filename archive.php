@@ -56,12 +56,10 @@
                             <?php endif;?>
                         </ul>
                         <div class="item-container">
-                            <div class="react-tabs__tab-panel react-tabs__tab-panel--selected">
+                            <div class="list react-tabs__tab-panel react-tabs__tab-panel--selected">
                                 <?php if ($this->have()&&$tabIndex==0): ?>
                                     <?php while ($this->next()): ?>
-                                        <div class="item-inner">
-                                            <? $this->need('components/index/article-content.php'); ?>
-                                        </div>
+                                        <? $this->need('components/index/article-content.php'); ?>
                                     <?php endwhile; ?>
                                 <?php elseif($tabIndex==1):?>
                                     <?php $fobj = UserFollow::getFollowObj($this->getPageRow()['uid']);?>
@@ -137,9 +135,7 @@
                                     <?php endif ?>
                                 <?php elseif($tabIndex==3 && $this->have()):?>
                                     <?php while ($this->next()): ?>
-                                        <div class="item-inner">
-                                            <? $this->need('components/index/article-content.php'); ?>
-                                        </div>
+                                        <? $this->need('components/index/article-content.php'); ?>
                                     <?php endwhile; ?>
 
                                 <?php else: ?>

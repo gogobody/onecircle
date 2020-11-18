@@ -1,7 +1,16 @@
 /*@import url(prism.css);*/
 /*@import url(post.css);*/
 /*@import url('../owo/owo.min.css');*/
-
+/* This changes all the animations globally */
+:root {
+    --animate-duration: 500ms;
+    --animate-delay: 0.9s;
+}
+.bright{
+    --themecolor:rgb(29,161,242);
+    --hightlight: #fff;
+    --border: rgb(230, 236, 240);
+}
 /**
 common
  */
@@ -314,6 +323,7 @@ header {
     position: relative;
     flex-direction: row;
     height: 100%;
+    align-content: center;
 }
 .header__dropdown-menu{
     position: absolute!important;
@@ -2016,14 +2026,6 @@ achieve
     display: block;
 }
 
-.achieve-content .item-container .item-inner {
-    box-sizing: border-box;
-    margin: 0;
-    min-width: 0;
-    padding-bottom: 12px;
-    flex-direction: column;
-    display: flex;
-}
 
 
 @media screen and (min-width: 720px) {
@@ -2666,6 +2668,40 @@ achieve
 .page-item {
     line-height: 32px;
 }
+.a-pageLink{
+    margin: 10px 20px 20px 20px;
+}
+.a-pageLink>a {
+    margin: 0 auto;
+    display: inline-block;
+    font-size: 12px;
+    padding: 5px 15px;
+    background: var(--themecolor);
+    color: var(--hightlight);
+    text-align: center;
+    border-radius: 25px;
+    overflow: hidden;
+    line-height: normal;
+}
+.pagelink-svg{
+    display: inline-block;
+    float: left;
+    margin-right: 1px;
+}
+.pagelink-svg svg{
+    height: 16px;
+    width: 16px;
+}
+.donut {
+    margin: 0 auto;
+    display: none;
+    border: 4px solid var(--border);
+    border-left-color: var(--themecolor);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: donut-spin 1.2s linear infinite;
+}
 /**
 archives
  */
@@ -3147,11 +3183,7 @@ owo
 #pills-tabContent{
     border-top: 1px solid rgba(0,0,0,.05);
 }
-/* This changes all the animations globally */
-:root {
-    --animate-duration: 500ms;
-    --animate-delay: 0.9s;
-}
+
 
 /**
 mobile fix
@@ -3259,9 +3291,7 @@ mobile fix
     .achieve-container{
         padding: 0;
     }
-    .achieve-content .item-container .item-inner{
-        padding-bottom: 0;
-    }
+
     /*circle-management*/
     .circle-management .htbt-right button{
         padding: 8px 12px;

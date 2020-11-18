@@ -39,7 +39,7 @@
     <?php $this->options->cssEcho(); ?>
     <?php $this->options->headerEcho(); ?>
 </head>
-<body>
+<body class="bright">
 <div id="allayout" class="app-header-fixed">
     <header class="app-header">
         <div class="container-lg">

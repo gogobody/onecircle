@@ -23,11 +23,12 @@
 <?php $this->options->jsEcho(); ?>
 
 <script src="<?php $this->options->themeUrl('assets/js/prism.js'); ?>"></script>
-<script src="<?php $this->options->themeUrl('/assets/owo/owo_02.js'); ?>"></script>
+<script src="<?php $this->options->themeUrl('assets/owo/owo_02.js'); ?>"></script>
 <script src="<?php $this->options->themeUrl('assets/js/page.min.js'); ?>"></script>
 <script crossorigin="anonymous" integrity="sha384-Zm+UU4tdcfAm29vg+MTbfu//q5B/lInMbMCr4T8c9rQFyOv6PlfQYpB5wItcXWe7" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
 <script src="https://cdn.bootcss.com/echo.js/1.7.3/echo.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/scrollReveal.js/4.0.7/scrollreveal.min.js"></script>
 <?php
     $userId = -1; //save userid
     if ($this->user->hasLogin()){
@@ -38,58 +39,39 @@
 <script src="<?php $this->options->themeUrl('assets/js/extend.min.js'); ?>"></script>
 <?php if ($this->options->jsPushBaidu):?>
     <script src="<?php $this->options->themeUrl('assets/js/push.js'); ?>"></script>
+<!--    // 加载不出时触发-->
+<!--    // $('img').on('error', function () {-->
+<!--    //     $(this).attr("src", "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3031618999,450259559&fm=11&gp=0.jpg");-->
+<!--    // })-->
 <?php endif;?>
 <script>
-    var echoInit = function(){
-        echo.init({
-            offset: 100,
-            callback: function (element, op) {
-            }
-        });
-    }
-    window.onload = function(){
-        echoInit()
-        // 加载不出时触发
-        // $('img').on('error', function () {
-        //     $(this).attr("src", "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3031618999,450259559&fm=11&gp=0.jpg");
-        // })
-    }
-    $(document).pjax('a[href^="<?php Helper::options()->siteUrl()?>"]:not(a[target="_blank"], a[no-pjax],form,#id_iframe)', {
-        container: '#pjax-container',//
-        fragment: '#pjax-container',
-        timeout: 8000
-    })
-    $(document).on('pjax:send',
-        function() {
-            NProgress.start();
-            $.showloading({
-                selector:'header',
-                choice: 'after'
-            })
+$(document).pjax('a[href^="<?php Helper::options()->siteUrl()?>"]:not(a[target="_blank"], a[no-pjax],form,#id_iframe)', {
+    container: '#pjax-container',//
+    fragment: '#pjax-container',
+    timeout: 8000
+})
+$(document).on('pjax:send',
+    function() {
+        NProgress.start();
+        $.showloading({
+            selector:'header',
+            choice: 'after'
         })
-    var pjaxInit = function() {
-        indexInput.pjax_complete()
-        archiveInit.init()
-        recommendInit.pjax_complete()
-        owoInit();
-        if (typeof smms_node!="undefined" && typeof smms!="undefined"){
-            smms_node.init()
-            smms.init()
-        }
-        if (typeof smms!="undefined"){
-            smms.init()
-        }
-        //
-        tagsManageInit.pjax_complete()
+    })
 
-        $.rmloading()
-        // reinit echo
-        echoInit()
+$(document).on('pjax:complete',function (){})
+$(document).on('pjax:end',function (){ $.rmloading();NProgress.done();})
+$(document).on('pjax:start', function() {});
+$(document).on('ready pjax:end', function(event) {
+    pjaxInit();
+    if (typeof smms_node!="undefined" && typeof smms!="undefined"){
+        smms_node.init()
+        smms.init()
     }
-    $(document).on('pjax:complete',function (){})
-    $(document).on('pjax:end',function (){ NProgress.done();})
-    $(document).on('pjax:start', function() {});
-    $(document).on('ready pjax:end', function(event) {pjaxInit();})
+    if (typeof smms!="undefined"){
+        smms.init()
+    }
+})
 </script>
 <?php $this->footer(); ?>
 

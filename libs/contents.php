@@ -150,7 +150,7 @@ class contents{
 
     public static function fancybox($text,$widget)
     {
-        $loading = Helper::options()->themeUrl('assets/img/loading.gif', 'onecircle');
+        $loading = Helper::options()->themeUrl('assets/img/loading.svg', 'onecircle');
         // old format
         /*        $pattern =  '/<p>(\s|[\r\n])*(<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>)(\s|[\r\n])*<\/p>/i';*/
         $pattern='/\[gallery\]([\s\S]*?)\[endgallery\]/sm';

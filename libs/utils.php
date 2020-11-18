@@ -49,6 +49,12 @@ class utils
     public static function customNavHandle($nav, $pages, $that)
     {
         $navArr = explode(PHP_EOL, $nav);
+        foreach ($navArr as $key => $val){
+            if (empty($val) or $val == ""){
+                unset($navArr[$key]);
+            }
+        }
+        $navArr = array_values($navArr);
         $content = '';
         $count = count($navArr);
         $start = count($navArr);

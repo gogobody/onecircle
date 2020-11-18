@@ -552,14 +552,18 @@ var archiveInit = {
         this.repostFuncInit()
         this.archAuthorTabShowInit()
         this.archAuthorTabsClickInit()
+        this.iasInit()
+        this.echojsInit()
+        this.scrollRevealInit()
+
     },
     postRepostArticle: function (posthref, excert, rbannerimg, repousername, repostext, category) {
         // 转发 默认 发到 category 1
-        if (userId < 0){
+        if (userId < 0) {
             $.message({
-                title:"提示",
-                message:"请登录后操作",
-                type:"error"
+                title: "提示",
+                message: "请登录后操作",
+                type: "error"
             })
             return false
         }
@@ -786,6 +790,13 @@ var archiveInit = {
             }, 100)
         }
     },
+    archiveLoadRebindInit:function(){
+        // reinit click functions after 加载更多或者 tabs 切换
+        archiveInit.fansFuncInit()
+        indexInput.articleClickInit()
+        archiveInit.scrollRevealSync()
+        archiveInit.echojsInit()
+    },
     archAuthorTabsClickInit: function () {
         // archive tabs
         var that = this
@@ -826,8 +837,8 @@ var archiveInit = {
                                     }
                                     $(".item-container").html(real_html)
                                     // reinit click functions
-                                    that.fansFuncInit()
-                                    indexInput.articleClickInit()
+                                    archiveInit.archiveLoadRebindInit()
+                                    archiveInit.scrollRevealSync()
                                 }
                             } catch (e) {
                                 console.log(e)
@@ -966,11 +977,75 @@ var archiveInit = {
             })
         }
     },
+    echojsInit: function () { // echo js
+        echo.init({
+            offset: 100,
+            throttle: 250,
+            callback: function (element, op) {
+            }
+        });
+    },
+    scrollRevealInit: function () { // scrollReveal js
+        ScrollReveal().reveal('.post-article', {
+            delay: 500,
+            useDelay: 'onload',
+            reset: true,
+            // distance: '100px',
+            origin: 'bottom',
+            // scale: 0.95,
+            duration: 800,
+        })
+    },
+    scrollRevealSync: function () {
+        ScrollReveal().sync();
+    },
+    iasInit: function () { // 无限加载
+        var a_pagelink = $(".a-pageLink .next")
+        if (a_pagelink.length > 0) {
+        } else {
+            a_pagelink.attr("style", "display:none");
+        }
+        a_pagelink.unbind('click').bind('click', function () {
+            var href = $(this).attr("href");
+            var donut = $(".a-pageLink .donut")
+            if (href !== undefined) {
+                $.ajax({
+                    url: href,
+                    type: "get",
+                    beforeSend: function () {
+                        a_pagelink.hide();
+                        donut.fadeIn();
+                    },
+                    error: function (res) {
+                    },
+                    success: function (data) {
+                        var $res = $(data).find(".post-article");
+                        donut.hide();
+                        $('.list').append($res).fadeIn();
+                        var newhref = $(data).find(".a-pageLink .next").attr("href");
+                        if (newhref !== undefined) {
+                            a_pagelink.attr("href", newhref);
+                            a_pagelink.fadeIn();
+                        } else {
+                            a_pagelink.attr("style", "display:none");
+                            $(".a-pageLink").append('<a href="javascript:;" rel="nofollow">加载完毕</a>');
+                        }
+                        ScrollReveal().destroy()
+                        archiveInit.archiveLoadRebindInit()
+                    }
+                });
+            }
+            return false;
+        });
+    },
     pjax_complete: function () {
         this.archiveEventInit()
         this.commentInit()
         this.repostFuncInit()
         this.archAuthorTabShowInit()
+        this.iasInit()
+        this.echojsInit()
+        this.scrollRevealInit()
     }
 };
 var recommendInit = {
@@ -1066,6 +1141,14 @@ $(function () {
 
 })
 
+var pjaxInit = function() {
+    indexInput.pjax_complete()
+    archiveInit.init()
+    recommendInit.pjax_complete()
+    owoInit();
+    //
+    tagsManageInit.pjax_complete()
+}
 // post article
 function postArticle(data, needRefresh) {
     $.post('/oneaction', {
@@ -1286,6 +1369,7 @@ function videoToggle(idselector, this_, ev) {
     }
     $(idselector).collapse('toggle')
     ev.stopPropagation()
+    archiveInit.scrollRevealSync()
     return false
 }
 

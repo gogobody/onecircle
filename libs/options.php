@@ -74,8 +74,11 @@ function themeConfig($form)
     $form->addInput($defaultSlugUrl);
     $sticky = new Typecho_Widget_Helper_Form_Element_Text('sticky', NULL, NULL, _t('文章置顶'), _t('置顶的文章cid，按照排序输入, 请以半角逗号或空格分隔'));
     $form->addInput($sticky);
-//    $bannerUrl = new Typecho_Widget_Helper_Form_Element_Textarea('bannerUrl', NULL, NULL, _t('首页幻灯片'), _t('一行一个链接,大于3行将随机<br>注意最后一行不能为空'));
-//    $form->addInput($bannerUrl);
+    $useInfiniteScroll = new Typecho_Widget_Helper_Form_Element_Radio('useInfiniteScroll',
+        array(1 => _t('启用'),
+            0 => _t('关闭')),
+        0, _t('无限滚动'), _t('开启后将会隐藏分页器，显示无限滚动'));
+    $form->addInput($useInfiniteScroll);
 
     $recordNo = new Typecho_Widget_Helper_Form_Element_Text('recordNo', NULL, NULL, _t('网站备案号'), _t('根据要求，每个备案网站必须填写备案号，不然得罚款'));
     $form->addInput($recordNo);
