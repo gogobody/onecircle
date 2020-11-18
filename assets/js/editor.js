@@ -63,7 +63,6 @@ $(function () {
                 insertAtCursor(myField, text);
                 $('.pop_main').hide("fast")
             })
-
         })
     }
 });

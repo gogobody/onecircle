@@ -17,12 +17,12 @@
 <div class="back-to-top animate__animated"></div>
 <script crossorigin="anonymous" integrity="sha384-LVoNJ6yst/aLxKvxwp6s2GAabqPczfWh6xzm38S/YtjUyZ+3aTKOnD/OJVGYLZDl" src="//lib.baomitu.com/jquery/3.5.0/jquery.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery.form/3.09/jquery.form.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script crossorigin="anonymous" integrity="sha512-iceXjjbmB2rwoX93Ka6HAHP+B76IY1z0o3h+N1PeDtRSsyeetU3/0QKJqGyPJcX63zysNehggFwMC/bi7dvMig==" src="//lib.baomitu.com/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.js"></script>
+<script crossorigin="anonymous" integrity="sha384-n9nIL0sJ2A5r4Uaaw1ktxm08jAZ4nwx0X2XFYEYS472Jy0JLYK0E+0yoUtLjAANz" src="https://lib.baomitu.com/prism/1.19.0/prism.min.js"></script>
 <?php $this->options->jsEcho(); ?>
 
-<script src="<?php $this->options->themeUrl('assets/js/prism.js'); ?>"></script>
 <script src="<?php $this->options->themeUrl('assets/owo/owo_02.js'); ?>"></script>
 <script src="<?php $this->options->themeUrl('assets/js/page.min.js'); ?>"></script>
 <script crossorigin="anonymous" integrity="sha384-Zm+UU4tdcfAm29vg+MTbfu//q5B/lInMbMCr4T8c9rQFyOv6PlfQYpB5wItcXWe7" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>

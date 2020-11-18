@@ -17,7 +17,6 @@ var owoInit = function () {
             maxHeight: '250px'
         });
     }
-
     var catalog_btn = document.getElementById('article-list-btn');
     if (catalog_btn) {
         catalog_btn.addEventListener('click',function () {
