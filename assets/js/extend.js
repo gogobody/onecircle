@@ -550,6 +550,9 @@ var indexInput = {
         $(".off-screen-toggle").unbind('click').bind('click', function () {
             $("#aside").toggleClass("off-screen")
         })
+        $("#aside .nav-menu").unbind('click').bind('click', function () {
+            $("#aside").toggleClass("off-screen")
+        })
     },
     pjax_complete: function () {
         this.init()
