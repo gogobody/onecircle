@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/post.min.css'); ?>">
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/owo/owo.min.css'); ?>">
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/main.min.css'); ?>">
-
     <link crossorigin="anonymous" integrity="sha384-Q8BgkilbsFGYNNiDqJm69hvDS7NCJWOodvfK/cwTyQD4VQA0qKzuPpvqNER1UC0F"
           href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet">
     <title><?php $this->archiveTitle(array(
@@ -38,9 +37,9 @@
     <?php $this->options->headerEcho(); ?>
 </head>
 <body class="bright">
-<div id="allayout" class="app-header-fixed">
+<div id="allayout" class="app app-aside-fix app-header-fixed">
     <header class="app-header">
-        <div class="container-lg">
+        <div class="container-xl">
             <div class="row navbar-expand-lg">
                 <div class="col-6 col-md-9 col-lg-8 col-xl-9 mobile-nopading">
                     <nav class="navbar navbar-expand-lg navbar-light">
@@ -186,10 +185,9 @@
 
                                 </li>
                             <? endif;?>
-                            <!-- mobile-nav -->
+                            <!-- aside -->
                             <li class="nav-item d-md-none">
-                                <a class="nav-link d-block d-md-none mobile-nav" href="#" data-toggle="collapse" data-target="#mobile-nav"
-                                   aria-expanded="false" aria-controls="mobile-nav">
+                                <a class="nav-link d-block d-md-none aside-btn">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-sliders" fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"

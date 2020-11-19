@@ -7,11 +7,10 @@
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 $this->need('includes/header.php');
 ?>
-    <div class="container-lg animate__animated animate__fadeIn" id="pjax-container">
-        <div class="row">
-            <?php $this->need('includes/nav.php'); ?>
-
-            <div class="col-xl-7 col-md-7 col-12 page" id="pjax-container">
+<?php $this->need('includes/body-layout.php');?>
+    <div class="hbox hbox-auto-xs hbox-auto-sm archive-page index">
+        <div class="col center-part">
+            <div class="page">
                 <article class="post" id="post-<?php $this->cid(); ?>">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
@@ -231,7 +230,9 @@ $this->need('includes/header.php');
                     </div>
                 </article>
             </div>
-            <?php $this->need('includes/right.php'); ?>
         </div>
+        <?php $this->need('includes/right.php'); ?>
     </div>
+<?php $this->need('includes/body-layout-end.php');?>
+
 <?php $this->need('includes/footer.php'); ?>

@@ -32,55 +32,57 @@ if ($this->user->hasLogin()){
 }
 //Typecho_Widget::widget('Widget_Users_Admin')->to($users);
 $this->need('includes/header.php');
+// below is body content
 ?>
 
-<div class="container-lg animate__animated animate__fadeIn" id="pjax-container">
-    <div class="row">
-        <?php $this->need('includes/nav.php'); ?>
-        <div class="col-xl-7 col-md-7 col-12 main-content">
-            <?php if ($this->user->hasLogin() && !$recommend && checkIndexInputPermission($this->user->group)): //判断是否登录 ?>
-                <? $this->need('components/index/index-input.php'); ?>
-            <?php endif; ?>
+<?php $this->need('includes/body-layout.php');?>
+    <div class="hbox hbox-auto-xs hbox-auto-sm index">
+        <div class="col center-part">
+            <div class="main-content">
+                <?php if ($this->user->hasLogin() && !$recommend && checkIndexInputPermission($this->user->group)): //判断是否登录 ?>
+                    <? $this->need('components/index/index-input.php'); ?>
+                <?php endif; ?>
 
-            <? if($recommend):?>
-            <!-- 圈友日记 -->
-            <div class="diary-content">
-                <a href="<? _e(Typecho_Common::url('/metas',$this->options->rootUrl));?>">
-                <div class="mycicle-title">
-                    <h2>圈友日记</h2>
-                    <a href="<? _e(Typecho_Common::url('/metas',$this->options->rootUrl));?>"><h2>更多</h2></a>
+                <? if($recommend):?>
+                <!-- 圈友日记 -->
+                <div class="diary-content">
+                    <a href="<? _e(Typecho_Common::url('/metas',$this->options->rootUrl));?>">
+                    <div class="mycicle-title">
+                        <h2>圈友日记</h2>
+                        <a href="<? _e(Typecho_Common::url('/metas',$this->options->rootUrl));?>"><h2>更多</h2></a>
+                    </div>
+                    <div class="circle-diary">
+                        <?php $imgs = getRandRecommendImgs(8); foreach ($imgs as $rimg):?>
+                            <?php $this->widget('Widget_Archive@_'.$rimg['cid'], 'pageSize=1&type=post', 'cid='.$rimg['cid'])->to($archive_);?>
+                            <a href="<? _e($archive_->permalink()); ?>" class="circle-diary-bg" style="background-image: url('<?_e($rimg['img']);?>')">
+                                <div class="circle-diary-bottom">
+                                    <div class="circle-diary-avatar"><img class="img-circle img-thumbnail" src="<?_e(getUserV2exAvatar($rimg['email'],$rimg['userAvatar']));?>"></div>
+                                    <div class="circle-diary-name"><?_e($rimg['screenName']);?></div>
+                                </div>
+                            </a>
+                        <? endforeach;?>
+                    </div>
+                    </a>
                 </div>
-                <div class="circle-diary">
-                    <?php $imgs = getRandRecommendImgs(8); foreach ($imgs as $rimg):?>
-                        <?php $this->widget('Widget_Archive@_'.$rimg['cid'], 'pageSize=1&type=post', 'cid='.$rimg['cid'])->to($archive_);?>
-                        <a href="<? _e($archive_->permalink()); ?>" class="circle-diary-bg" style="background-image: url('<?_e($rimg['img']);?>')">
-                            <div class="circle-diary-bottom">
-                                <div class="circle-diary-avatar"><img class="img-circle img-thumbnail" src="<?_e(getUserV2exAvatar($rimg['email'],$rimg['userAvatar']));?>"></div>
-                                <div class="circle-diary-name"><?_e($rimg['screenName']);?></div>
-                            </div>
-                        </a>
-                    <? endforeach;?>
+                <? endif; ?>
+                <div class="list">
+                    <?php while ($this->next()): ?>
+                        <? $this->need('components/index/article-content.php'); ?>
+                    <?php endwhile; ?>
                 </div>
-                </a>
+                <!--分页-->
+                <?php $this->need('includes/pagination.php');?>
             </div>
-            <? endif; ?>
-            <div class="list">
-                <?php while ($this->next()): ?>
-                    <? $this->need('components/index/article-content.php'); ?>
-                <?php endwhile; ?>
-            </div>
-            <!--分页-->
-            <?php $this->need('includes/pagination.php');?>
         </div>
         <?php
-        if (!$recommend) {
-            $this->need('includes/right.php');
-        } else {
-            $this->need('components/recommend/recommend-right.php');
-        }
+            if (!$recommend) {
+                $this->need('includes/right.php');
+            } else {
+                $this->need('components/recommend/recommend-right.php');
+            }
         ?>
     </div>
-</div>
+<?php $this->need('includes/body-layout-end.php');?>
 
 
 <?php $this->need('includes/footer.php'); ?>

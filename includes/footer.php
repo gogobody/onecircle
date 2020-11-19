@@ -54,8 +54,8 @@ $(document).on('pjax:send',
     function() {
         NProgress.start();
         $.showloading({
-            selector:'header',
-            choice: 'after'
+            selector:'.app-content-body',
+            choice: 'prepend'
         })
     })
 

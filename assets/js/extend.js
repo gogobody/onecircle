@@ -103,6 +103,7 @@ var indexInput = {
         this.login_ajax()
         this.searchEventInit()
         this.articleClickInit()
+        this.asideEventInit()
     },
     resetInputStatus: function () {// reset status when change nowtype
         this.additionArray = []
@@ -269,7 +270,6 @@ var indexInput = {
             that.changeType('default')
 
         })
-
 
         // process add link click
         $("#addlink,#addvideo,#addbilibili").unbind('click').bind('click', function () {
@@ -534,6 +534,23 @@ var indexInput = {
             })
         })
     },
+    asideEventInit: function () {
+        var asideBtn = $(".aside-btn")
+        var aside = $('#aside')
+        var footer = $('footer')
+        asideBtn.unbind('click').bind('click', function () {
+            if (aside.hasClass('off-screen')) {
+                aside.removeClass('off-screen')
+                footer.show()
+            } else {
+                aside.addClass('off-screen')
+                footer.hide()
+            }
+        })
+        $(".off-screen-toggle").unbind('click').bind('click', function () {
+            $("#aside").toggleClass("off-screen")
+        })
+    },
     pjax_complete: function () {
         this.init()
         // this.loginBan()
@@ -790,11 +807,11 @@ var archiveInit = {
             }, 100)
         }
     },
-    archiveLoadRebindInit:function(){
+    archiveLoadRebindInit: function () {
         // reinit click functions after 加载更多或者 tabs 切换
         archiveInit.fansFuncInit()
         indexInput.articleClickInit()
-        archiveInit.scrollRevealSync()
+        archiveInit.scrollRevealInit()
         archiveInit.echojsInit()
     },
     archAuthorTabsClickInit: function () {
@@ -813,7 +830,6 @@ var archiveInit = {
                     line.css({
                         'transform': 'translateX(' + left + 'px)'
                     })
-                    // $.pjax({url:'?tabindex=' + tabindex,container:'.react-tabs'});
 
                     $.ajax({
                         url: '?tabindex=' + tabindex,
@@ -830,12 +846,16 @@ var archiveInit = {
                                     })
                                 } else {
                                     var real_html = items.html()
-                                    if ($(".pagination", html_node).length <= 0) {
+                                    if ($(".pagination", html_node).length <= 0 && (tabindex === 1 || tabindex === 2)) {
                                         $(".pagination").css("display", "none")
-                                    } else {
+                                    } else if ($(".pagination", html_node).length > 0 && (tabindex === 1 || tabindex === 2)) {
                                         $(".pagination").css("display", "flex")
                                     }
                                     $(".item-container").html(real_html)
+                                    // 删除某个前缀开头的类
+                                    var archiveContent = $(".archive-content")
+                                    archiveContent.removeClass(function(index,className){return(className.match(/(^|\s)tabindex-\S+/g)||[]).join('');});
+                                    archiveContent.addClass('tabindex-'+tabindex)
                                     // reinit click functions
                                     archiveInit.archiveLoadRebindInit()
                                     archiveInit.scrollRevealSync()
@@ -1141,7 +1161,7 @@ $(function () {
 
 })
 
-var pjaxInit = function() {
+var pjaxInit = function () {
     indexInput.pjax_complete()
     archiveInit.init()
     recommendInit.pjax_complete()
@@ -1149,6 +1169,7 @@ var pjaxInit = function() {
     //
     tagsManageInit.pjax_complete()
 }
+
 // post article
 function postArticle(data, needRefresh) {
     $.post('/oneaction', {

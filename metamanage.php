@@ -9,10 +9,9 @@ $tags_num = count($total_category_data);
 $total_tags = $this->getPageRow()["tags_all"];
 ?>
 
-<div class="container-lg animate__animated animate__fadeIn" id="pjax-container">
-    <div class="row">
-        <?php $this->need('includes/nav.php'); ?>
-        <div class="col-xl-10 col-md-10 col-12 circle-management">
+<?php $this->need('includes/body-layout.php');?>
+<div class="hbox hbox-auto-xs hbox-auto-sm index">
+        <div class="circle-management">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <? if ($this->user->hasLogin()):?>
                     <li class="nav-item" role="presentation">
@@ -31,7 +30,7 @@ $total_tags = $this->getPageRow()["tags_all"];
                         <div class="row">
                             <div class="col-md-4 col-lg-3" style="border-bottom: 1px solid rgba(0,0,0,.05);">
                                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                    <a class="nav-link active" id="v-pills-allmy-tab" data-toggle="pill" href="#v-pills-allmy" role="tab" aria-controls="v-pills-allmy" aria-selected="true">所有</a>
+                                    <a class="nav-link active" id="v-pills-allmy-tab" data-toggle="pill" href="#v-pills-allmy" role="tab" aria-controls="v-pills-allmy" aria-selected="true">默认</a>
 
                                 </div>
                             </div>
@@ -304,9 +303,8 @@ $total_tags = $this->getPageRow()["tags_all"];
                 </div>
             </div>
         </div>
-    </div>
-
 </div>
+<?php $this->need('includes/body-layout-end.php');?>
 
 
 <?php
