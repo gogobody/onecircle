@@ -5,6 +5,9 @@
 :root {
     --animate-duration: 500ms;
     --animate-delay: 0.9s;
+    --input-gray: rgb(64,64,64);
+    --backgroundColor: rgb(239, 243, 246);
+    --timegray:#9f9b9b;
 }
 .bright{
     --themecolor:rgb(29,161,242);
@@ -248,9 +251,7 @@ aside
     height: 100%!important;
     transition: height 0ms!important;
 }
-.tabindex-1 .asideBar,.tabindex-2 .asideBar{
-    display: none!important;
-}
+
 @media (min-width: 768px) {
     .app-aside, .navbar-header {
         width: 200px
@@ -637,7 +638,7 @@ content layout
 .author-name a {
     box-sizing: border-box;
     min-width: 0;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     cursor: pointer;
     font-weight: 600;
     margin: 0;
@@ -654,7 +655,7 @@ content layout
     margin-left: .1rem;
 }
 
-.post-time {
+.post-addr {
     word-break: keep-all;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -664,19 +665,25 @@ content layout
     font-size: 12px;
     line-height: 16px;
     font-weight: 400;
-    color: rgb(191, 191, 191);
+    color: var(--timegray);
     margin: 0;
 }
 
-.post-time a:hover {
+.post-addr a:hover {
     text-decoration: underline;
 }
 
-.post-time a {
+.post-addr a {
     box-sizing: border-box;
     min-width: 0;
-    color: rgb(191, 191, 191);
+    color: var(--timegray);
     margin: 0;
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+.post-addr a svg{
+    margin-right: 4px;
 }
 
 .post-cover-img-container {
@@ -778,7 +785,7 @@ content layout
 .repost-container{
     border-radius: 4px;
     padding: 12px 12px 0;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     background-color: rgb(242, 245, 248);
     transition: all 0.2s ease 0s;
     cursor: pointer;
@@ -795,10 +802,10 @@ content layout
     min-width: 0;
     flex-direction: row;
     padding-bottom: 0;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
 }
 .repost-content:hover{
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
 }
 .repost-banner {
     box-sizing: border-box;
@@ -846,7 +853,7 @@ content layout
     min-width: 0;
     flex-direction: column;
     font-size: 15px;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     padding-top: 8px;
     display: flex;
     word-break: break-word;
@@ -857,7 +864,7 @@ content layout
     box-sizing: border-box;
     min-width: 0;
     display: flex;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     background-color: rgb(242, 245, 248);
     cursor: pointer;
     -webkit-box-align: center;
@@ -983,11 +990,13 @@ content layout
     color: rgb(37, 120, 196);
 }
 
-.post-icon {
+.post-icon svg{
     margin-right: 4px;
+    width: 20px;
+    height: 20px;
 }
 
-.post-plain, .post-datetime, .post-action {
+.post-plain, .post-address, .post-action {
     height: auto;
     padding: 0;
     line-height: inherit;
@@ -1008,6 +1017,9 @@ content layout
 .btn-like:disabled {
     color: crimson;
 }
+/*
+address
+*/
 
 .topic-container {
     box-sizing: border-box;
@@ -1083,7 +1095,7 @@ footer
 .daMYau {
     font-size: 14px;
     line-height: 20px;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     box-sizing: border-box;
     margin: 0;
     min-width: 0;
@@ -1094,7 +1106,7 @@ footer
     box-sizing: border-box;
     margin: 0;
     min-width: 0;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     font-size: 16px;
     line-height: 1.5;
     font-weight: normal;
@@ -1133,7 +1145,7 @@ footer
     box-sizing: border-box;
     margin: 0;
     min-width: 0;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     display: flex;
     cursor: pointer;
     width: 100%;
@@ -1338,7 +1350,7 @@ archive
     text-decoration: none;
     border: 0;
     user-select: none;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     background-color: rgb(255, 235, 103);
     border-radius: 999px;
     padding: 8px 24px;
@@ -1439,7 +1451,7 @@ right
 .user-detail .user-info-name {
     box-sizing: border-box;
     min-width: 0;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     font-size: 16px;
     line-height: 1.5;
     font-weight: 700;
@@ -1925,7 +1937,7 @@ archive
     font-weight: 700;
     font-size: 15px;
     line-height: 20px;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
 }
 
 
@@ -2018,7 +2030,7 @@ archive
 .react-tabs__tab--selected {
     /*box-shadow: rgb(255, 228, 17) 0 -4px 0 inset;*/
     font-weight: 600;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     cursor: default;
     transition: all 0.3s;
 }
@@ -2145,7 +2157,7 @@ archive
     border: none;
     background-color: rgb(255, 255, 255);
     font-size: 16px;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     padding-bottom: 16px;
     min-height: 78px;
     line-height: 20px;
@@ -2194,7 +2206,7 @@ archive
     min-width: 0;
     padding-left: 4px;
     padding-right: 4px;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     font-size: 14px;
 }
 
@@ -2261,7 +2273,7 @@ archive
     border: 0;
     user-select: none;
     font-size: 14px;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     background-color: rgb(255, 235, 103);
     border-radius: 999px;
     padding: 8px 24px;
@@ -2315,7 +2327,7 @@ archive
     min-width: 0;
     padding-left: 8px;
     font-size: 14px;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
 }
 
 .bwQUKf:hover {
@@ -2330,7 +2342,7 @@ archive
     box-shadow: rgba(0, 0, 0, 0.3) 0 0 2px 0 inset;
     background-color: rgb(255, 255, 255);
     font-size: 14px;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
 }
 
 .bwpEWU {
@@ -2368,7 +2380,7 @@ archive
     border: 0;
     user-select: none;
     font-size: 14px;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     background-color: rgb(222, 222, 222);
     border-radius: 999px;
     padding: 8px 24px;
@@ -2419,7 +2431,7 @@ archive
     display: flex;
     border-radius: 4px;
     padding: 12px;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     background-color: rgb(242, 245, 248);
     transition: all 0.2s ease 0s;
     cursor: pointer;
@@ -2563,7 +2575,7 @@ archive
     pointer-events: none;
 
 }
-.kWzaA-d {
+.i-input {
     box-sizing: border-box;
     margin: 0;
     min-width: 0;
@@ -2572,12 +2584,14 @@ archive
     height: 20px;
     display: flex;
 }
-.hoZbnH {
+.i-input svg {
+    width: 20px;
+    height: 20px;
     margin-right: 4px;
     flex-shrink: 0;
 }
 
-.jgskPb {
+.i-input-text {
     box-sizing: border-box;
     margin: 0;
     min-width: 0;
@@ -2593,13 +2607,13 @@ archive
     background-color: transparent;
 }
 
-.jgskPb:focus {
+.i-input input:focus {
     outline: none;
 }
 .cAmOCm {
     border-radius: 0;
     border: none;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     font-size: 14px;
 }
 
@@ -2629,7 +2643,7 @@ archive
     flex-direction: row;
     -webkit-box-align: center;
     align-items: center;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
@@ -2789,7 +2803,7 @@ archives
     box-sizing: border-box;
     margin: 0;
     min-width: 0;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     display: flex;
     cursor: pointer;
 }
@@ -2837,7 +2851,7 @@ archives
     text-decoration: none;
     border: 0;
     user-select: none;
-    color: rgb(64, 64, 64);
+    color: var(--input-gray);
     background-color: rgb(255, 235, 103);
     border-radius: 999px;
     cursor: pointer;
@@ -3322,7 +3336,7 @@ mobile fix
     }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 990.98px) {
     .OwO .OwO-body {
         position: absolute;
         top: 38px;
@@ -3340,6 +3354,10 @@ mobile fix
     .asideBar{
         width: 100%;
     }
+    .tabindex-1 .asideBar,.tabindex-2 .asideBar{
+        display: none!important;
+    }
+
 }
 
 @media screen and (max-width: 768px) {
@@ -3522,6 +3540,7 @@ mobile fix
         width: 100%;
         padding: 0;
     }
+
 }
 
 @media (min-width: 768px) and (max-width: 991px) {

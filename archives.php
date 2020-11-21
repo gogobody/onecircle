@@ -192,7 +192,7 @@ $this->need('includes/header.php');
                             background-color: #474747
                         }
 
-                        .timeline-post-time {
+                        .timeline-post-addr {
                             position: absolute;
                             color: #6f6f6f;
                             font-family: Consolas;

@@ -46,10 +46,10 @@ $this->need('includes/header.php');
                 <? if($recommend):?>
                 <!-- 圈友日记 -->
                 <div class="diary-content">
-                    <a href="<? _e(Typecho_Common::url('/metas',$this->options->rootUrl));?>">
+                    <a href="<? $meta_url = Typecho_Common::url('/metas',$this->options->index);_e($meta_url);?>">
                     <div class="mycicle-title">
                         <h2>圈友日记</h2>
-                        <a href="<? _e(Typecho_Common::url('/metas',$this->options->rootUrl));?>"><h2>更多</h2></a>
+                        <a href="<? _e($meta_url);?>"><h2>更多</h2></a>
                     </div>
                     <div class="circle-diary">
                         <?php $imgs = getRandRecommendImgs(8); foreach ($imgs as $rimg):?>

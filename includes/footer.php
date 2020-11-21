@@ -14,6 +14,7 @@
     <!--可以去除主题版权信息，最好保留版权信息或者添加主题信息到友链，谢谢你的理解-->
     <span class="footer-item">&nbsp;|&nbsp;Powered by <a target="_blank" href="http://www.typecho.org">Typecho</a>&nbsp;|&nbsp;Designed by <b title="author info"><a target="_blank" href="https://github.com/gogobody/onecircle">gogobody</a></b></span>
 </footer>
+
 <div class="back-to-top animate__animated"></div>
 <script crossorigin="anonymous" integrity="sha384-LVoNJ6yst/aLxKvxwp6s2GAabqPczfWh6xzm38S/YtjUyZ+3aTKOnD/OJVGYLZDl" src="//lib.baomitu.com/jquery/3.5.0/jquery.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery.form/3.09/jquery.form.min.js"></script>
@@ -28,7 +29,6 @@
 <script crossorigin="anonymous" integrity="sha384-Zm+UU4tdcfAm29vg+MTbfu//q5B/lInMbMCr4T8c9rQFyOv6PlfQYpB5wItcXWe7" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
 <script src="https://cdn.bootcss.com/echo.js/1.7.3/echo.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/scrollReveal.js/4.0.7/scrollreveal.min.js"></script>
 <?php
     $userId = -1; //save userid
     if ($this->user->hasLogin()){
@@ -53,14 +53,10 @@ $(document).pjax('a[href^="<?php Helper::options()->siteUrl()?>"]:not(a[target="
 $(document).on('pjax:send',
     function() {
         NProgress.start();
-        $.showloading({
-            selector:'.app-content-body',
-            choice: 'prepend'
-        })
     })
 
 $(document).on('pjax:complete',function (){})
-$(document).on('pjax:end',function (){ $.rmloading();NProgress.done();})
+$(document).on('pjax:end',function (){ NProgress.done();})
 $(document).on('pjax:start', function() {});
 $(document).on('ready pjax:end', function(event) {
     pjaxInit();
@@ -73,6 +69,8 @@ $(document).on('ready pjax:end', function(event) {
     }
 })
 </script>
+
+
 <?php $this->footer(); ?>
 
 <?php if ($this->options->compressHtml): $html_source = ob_get_contents(); ob_clean(); print utils::compressHtml($html_source); ob_end_flush(); endif; ?>

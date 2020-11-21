@@ -429,7 +429,7 @@ function ehco9gridPics($images, $length)
                 if ($i == 8 && $more_img_flag) { // 9宫格最后一张
                     echo "<div style='background-image:url($images[$i]);' class='post-cover-img-more' alt='cover'><div class='more-pic'>" . $length . "+</div></div>";
                 } else {
-                    echo "<a class='post-cover-img-more' data-fancybox='gallery' href='$images[$i]'><img src='$loading' data-echo='$images[$i]' style='' class='post-cover-img-more' alt='no pic'></a>";
+                    echo "<a data-fancybox='gallery' href='$images[$i]'><img src='$loading' data-echo='$images[$i]' style='' class='post-cover-img-more' alt='no pic'></a>";
                 }
             }
             echo "</div>";

@@ -161,7 +161,7 @@ var indexInput = {
         $(this_).text("解析中")
         var val = $(".add-area input").val()
         if (checkURL(val)) {
-            $.post("/oneaction", {
+            $.post(gconf.oneaction, {
                 type: "parsemeta",
                 url: val
             }, function (res) {
@@ -418,7 +418,7 @@ var indexInput = {
                 message: "请填写密码",
                 type: "warning"
             }), navLoginPsw.focus(), showbtn(), !1) : (loginSubmitForm.addClass("active"), $("#spin-login").addClass("show inline"),
-                $.post('/oneaction', {type: "getsecurl", url: window.location.href}, function (res) {
+                $.post(gconf.oneaction, {type: "getsecurl", url: window.location.href}, function (res) {
                     $("#Login_form").attr('action', res)
                     $.ajax({
                         url: res,
@@ -479,7 +479,7 @@ var indexInput = {
         if (userId > 0) {
             return
         }
-        $.post('/oneaction', {type: "getsecurl", url: window.location.href}, function (res) {
+        $.post(gconf.oneaction, {type: "getsecurl", url: window.location.href}, function (res) {
             $("#Login_form").attr('action', res)
             //
             // if (checkURL(res)){
@@ -574,7 +574,6 @@ var archiveInit = {
         this.archAuthorTabsClickInit()
         this.iasInit()
         this.echojsInit()
-        this.scrollRevealInit()
 
     },
     postRepostArticle: function (posthref, excert, rbannerimg, repousername, repostext, category) {
@@ -648,7 +647,7 @@ var archiveInit = {
         })
     },
     postFansArticle: function (tohref, toavatar, tousername, tosign) {
-        $.post("/oneaction", {type: "getfocusmid"}, function (res) {
+        $.post(gconf.oneaction, {type: "getfocusmid"}, function (res) {
             if (res) {
                 var mid = parseInt(res)
                 var fromusernm = indexInput.loginUserName
@@ -695,7 +694,7 @@ var archiveInit = {
                 }
                 $(this).attr("disabled", true);
                 var btnThis = this
-                $.post('/', {
+                $.post(gconf.index, {
                     followuser: 1,
                     follow: status,
                     uid: userId,
@@ -760,7 +759,7 @@ var archiveInit = {
 
                 $(this).attr("disabled", true);
                 var btnThis = this
-                $.post('/', {
+                $.post(gconf.index, {
                     followcircle: 1,
                     follow: status,
                     uid: userId,
@@ -814,7 +813,6 @@ var archiveInit = {
         // reinit click functions after 加载更多或者 tabs 切换
         archiveInit.fansFuncInit()
         indexInput.articleClickInit()
-        archiveInit.scrollRevealInit()
         archiveInit.echojsInit()
     },
     archAuthorTabsClickInit: function () {
@@ -857,11 +855,12 @@ var archiveInit = {
                                     $(".item-container").html(real_html)
                                     // 删除某个前缀开头的类
                                     var archiveContent = $(".archive-content")
-                                    archiveContent.removeClass(function(index,className){return(className.match(/(^|\s)tabindex-\S+/g)||[]).join('');});
-                                    archiveContent.addClass('tabindex-'+tabindex)
+                                    archiveContent.removeClass(function (index, className) {
+                                        return (className.match(/(^|\s)tabindex-\S+/g) || []).join('');
+                                    });
+                                    archiveContent.addClass('tabindex-' + tabindex)
                                     // reinit click functions
                                     archiveInit.archiveLoadRebindInit()
-                                    archiveInit.scrollRevealSync()
                                 }
                             } catch (e) {
                                 console.log(e)
@@ -1008,20 +1007,6 @@ var archiveInit = {
             }
         });
     },
-    scrollRevealInit: function () { // scrollReveal js
-        ScrollReveal().reveal('.post-article', {
-            delay: 500,
-            useDelay: 'onload',
-            reset: true,
-            // distance: '100px',
-            origin: 'bottom',
-            // scale: 0.95,
-            duration: 800,
-        })
-    },
-    scrollRevealSync: function () {
-        ScrollReveal().sync();
-    },
     iasInit: function () { // 无限加载
         var a_pagelink = $(".a-pageLink .next")
         if (a_pagelink.length > 0) {
@@ -1053,7 +1038,6 @@ var archiveInit = {
                             a_pagelink.attr("style", "display:none");
                             $(".a-pageLink").append('<a href="javascript:;" rel="nofollow">加载完毕</a>');
                         }
-                        ScrollReveal().destroy()
                         archiveInit.archiveLoadRebindInit()
                     }
                 });
@@ -1068,7 +1052,6 @@ var archiveInit = {
         this.archAuthorTabShowInit()
         this.iasInit()
         this.echojsInit()
-        this.scrollRevealInit()
     }
 };
 var recommendInit = {
@@ -1133,6 +1116,126 @@ var tagsManageInit = {
     },
 
 };
+var oneMap = { // use js only!
+    init: function (AMap) {
+        this.AMap = AMap
+        this.autoCompleteInit(AMap)
+        this.geolocationInit(AMap)
+    },
+    pjax_complete: function () {
+        if (!oneMap.AMap) {
+            this.getScripts(function () {
+                oneMap.amapLoadInit()
+            })
+        } else {
+            oneMap.autoCompleteInit(oneMap.AMap)
+        }
+    },
+    amapLoadInit: function () {
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.open('POST', gconf.oneaction, true);
+        httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）
+        httpRequest.send('type=getamapkey');//发送请求 将情头体写在send中
+        httpRequest.onreadystatechange = function () {//请求后的回调接口，可将请求成功后要执行的程序写在其中
+            if (httpRequest.readyState === 4 && httpRequest.status === 200) {//验证请求是否发送成功
+                var json = httpRequest.responseText;//获取到服务端返回的数据
+                json = JSON.parse(json)
+                if (json.status) {
+                    AMapLoader.load({
+                        "key": json.data,              // 申请好的Web端开发者Key，首次调用 load 时必填
+                        "version": "1.4.15",   // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
+                        "plugins": ['AMap.Autocomplete', 'AMap.Geolocation',],      // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+                    }).then(function (AMap) {
+                        oneMap.init(AMap)
+                    }).catch(function (e) {
+                        console.error(e);  //加载错误提示
+                    });
+                } else {
+                    $.message({
+                        type: "error",
+                        title: "提示",
+                        message: "获取amapkey失败"
+                    })
+                }
+            }
+        };
+    },
+    getScripts: function (func) {
+        $.getScript("https://webapi.amap.com/loader.js", func())
+    },
+    restoreFromLocal: function () {
+        var obj = localStorage.getItem('address')
+        if (obj) {
+            obj = JSON.parse(obj)
+            var add = document.getElementById("ad-address")
+            if (add) {
+                var addinputBtn = document.getElementById("address-input")
+                addinputBtn.value = obj.name
+                addinputBtn.style.width = "fit-content"
+                document.getElementById("ad-name").value = obj.name
+                document.getElementById("ad-district").value = obj.district
+                add.value = obj.address
+            }
+        }
+    },
+    save2local: function (name, district, address) {
+        var obj = JSON.stringify({'name': name, 'district': district, 'address': address})
+        localStorage.setItem('address', obj)
+    },
+    geolocationInit: function (AMap) {
+        var geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            position: 'RB',    //定位按钮的停靠位置
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
+            getCityWhenFail: true,
+            needAddress: true
+        });
+        this.geolocation = geolocation
+        geolocation.getCurrentPosition(function (status, result) {
+            if (status === 'complete') {
+                // console.log(result);
+                if (result.status) {
+                    new AMap.Autocomplete().search(result.formattedAddress, function (status, res) {
+                        if (res.count > 0) {
+                            var addBtn = document.getElementById("address-input")
+                            addBtn.value = res.tips[0].name
+                            addBtn.style.width = "fit-content"
+                            document.getElementById("ad-name").value = res.tips[0].name
+                            document.getElementById("ad-district").value = res.tips[0].district
+                            document.getElementById("ad-address").value = res.tips[0].address
+                            oneMap.save2local(res.tips[0].name, res.tips[0].district, res.tips[0].address)
+                        }
+                    })
+                } else {
+
+                }
+            } else {
+                $.message({
+                    title: '定位失败',
+                    message: '失败原因排查信息:' + result.message,
+                    type: 'error'
+                })
+            }
+        });
+    },
+    autoCompleteInit: function (AMap) {
+        // init auto complete
+        var autoOptions = {
+            city: '全国',
+            input: 'address-input'
+        }
+        this.autoComplete = new AMap.Autocomplete(autoOptions)
+        this.autoComplete.on("select", function (e) {
+            document.getElementById("ad-name").value = e.poi.name
+            document.getElementById("ad-district").value = e.poi.district
+            document.getElementById("ad-address").value = e.poi.address
+            oneMap.save2local(e.poi.name, e.poi.district, e.poi.address)
+
+        })
+    },
+
+}
 // ready
 $(function () {
     // comment
@@ -1165,23 +1268,25 @@ $(function () {
 })
 
 var pjaxInit = function () {
+
     indexInput.pjax_complete()
     archiveInit.init()
     recommendInit.pjax_complete()
     owoInit();
     //
     tagsManageInit.pjax_complete()
+    oneMap.restoreFromLocal()
 }
 
 // post article
 function postArticle(data, needRefresh) {
-    $.post('/oneaction', {
+    $.post(gconf.oneaction, {
         type: 'getsecuritytoken'
     }, function (res) {
         if (res !== 'error') {
             // console.log(res)
             $.ajax({
-                url: '/action/contents-post-edit?do=publish&_=' + res,
+                url: gconf.index + '/action/contents-post-edit?do=publish&_=' + res,
                 type: 'post',
                 data: data,
                 success: function (res) {
@@ -1324,6 +1429,9 @@ function submitForm(ele) {
         'fields[articleType]': indexInput.nowtype,
         'markdown': 1,
         'category[]': $("#category").val(),
+        name: $("#ad-name").val(),
+        district: $("#ad-district").val(),
+        address: $("#ad-address").val(),
         visibility: 'publish',
         allowComment: 1,
         allowPing: 1,
@@ -1331,17 +1439,6 @@ function submitForm(ele) {
         do: 'publish'
     }
     postArticle(data, true);
-
-    // inputForm.ajaxSubmit(function (result) {
-    //     setTimeout(function () {
-    //         $.pjax.reload('#pjax-container', {
-    //             container: '#pjax-container',
-    //             fragment: '#pjax-container',
-    //             timeout: 8000
-    //         })
-    //     }, 1000)
-    // });
-
     return false;
 }
 
@@ -1393,7 +1490,6 @@ function videoToggle(idselector, this_, ev) {
     }
     $(idselector).collapse('toggle')
     ev.stopPropagation()
-    archiveInit.scrollRevealSync()
     return false
 }
 
