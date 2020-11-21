@@ -36,6 +36,7 @@
     <?php $this->header('description=&generator=&template='); ?>
     <?php $this->options->cssEcho(); ?>
     <?php $this->options->headerEcho(); ?>
+    <script>gconf={index:'<?_e(Helper::options()->index)?>',oneaction:'<?_e(Helper::options()->index)?>/oneaction'}</script>
 </head>
 <body class="bright">
 <div id="allayout" class="app-header-fixed">

@@ -160,7 +160,7 @@ var indexInput = {
         $(this_).text("解析中")
         var val = $(".add-area input").val()
         if (checkURL(val)) {
-            $.post("/oneaction", {
+            $.post(gconf.oneaction, {
                 type: "parsemeta",
                 url: val
             }, function (res) {
@@ -418,7 +418,7 @@ var indexInput = {
                 message: "请填写密码",
                 type: "warning"
             }), navLoginPsw.focus(), showbtn(), !1) : (loginSubmitForm.addClass("active"), $("#spin-login").addClass("show inline"),
-                $.post('/oneaction', {type: "getsecurl", url: window.location.href}, function (res) {
+                $.post(gconf.oneaction, {type: "getsecurl", url: window.location.href}, function (res) {
                     $("#Login_form").attr('action', res)
                     $.ajax({
                         url: res,
@@ -479,7 +479,7 @@ var indexInput = {
         if (userId > 0) {
             return
         }
-        $.post('/oneaction', {type: "getsecurl", url: window.location.href}, function (res) {
+        $.post(gconf.oneaction, {type: "getsecurl", url: window.location.href}, function (res) {
             $("#Login_form").attr('action', res)
             //
             // if (checkURL(res)){
@@ -628,7 +628,7 @@ var archiveInit = {
         })
     },
     postFansArticle: function (tohref, toavatar, tousername, tosign) {
-        $.post("/oneaction", {type: "getfocusmid"}, function (res) {
+        $.post(gconf.oneaction, {type: "getfocusmid"}, function (res) {
             if (res) {
                 var mid = parseInt(res)
                 var fromusernm = indexInput.loginUserName
@@ -1151,13 +1151,13 @@ var pjaxInit = function() {
 }
 // post article
 function postArticle(data, needRefresh) {
-    $.post('/oneaction', {
+    $.post(gconf.oneaction, {
         type: 'getsecuritytoken'
     }, function (res) {
         if (res !== 'error') {
             // console.log(res)
             $.ajax({
-                url: '/action/contents-post-edit?do=publish&_=' + res,
+                url: gconf.index+'/action/contents-post-edit?do=publish&_=' + res,
                 type: 'post',
                 data: data,
                 success: function (res) {

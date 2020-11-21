@@ -8,17 +8,17 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <?php if ($this->user->hasLogin()): ?>
                 <div class="card-header user-info" style="background-image: url(<?php echo getUserBackgroundImg($this->user->mail,$this->user->userBackImg) ?>);"></div>
                 <div class="user-detail">
-                    <a href="/author/<?php echo $this->user->uid?>">
+                    <a href="<?php  $author_url = Typecho_Common::url('/author/'.$this->user->uid.'/',$this->options->index);echo $author_url?>">
                         <div class="info">
                             <img class="avatar" src="<?php echo getUserV2exAvatar($this->user->mail,$this->user->userAvatar)?>" alt="<?php echo $this->user->name ?>"/>
                         </div>
                     </a>
                     <div class="user-info-name">
-                        <a href="/author/<?php echo $this->user->uid?>"><?php echo $this->user->name;?></a>
+                        <a href="<?php echo $author_url?>"><?php echo $this->user->name;?></a>
                     </div>
                     <div class="user-info-fans">
-                        <a href="/author/<?php echo $this->user->uid?>"><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getFollowNum($this->user->uid));?></span>关注</a>
-                        <a href="/author/<?php echo $this->user->uid?>"><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getOtherFollowNum($this->user->uid));?></span>被关注</a>
+                        <a href="<?php echo $author_url?>"><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getFollowNum($this->user->uid));?></span>关注</a>
+                        <a href="<?php echo $author_url?>"><span style="color: rgb(64, 64, 64);"><? _e(UserFollow::getOtherFollowNum($this->user->uid));?></span>被关注</a>
                     </div>
                     <div class="user-info-introduction">
                         <span><?php
