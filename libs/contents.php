@@ -142,12 +142,6 @@ class contents{
         return $content;
     }
 
-    public static function lazyload($text){
-        $pattern_img =  '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/gim';
-        $pregEchoBackImg = 'data-echo-background[ ]?=[ ]?[&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif|bmp|webp))'; // 针对echo.js 匹配
-
-    }
-
     public static function fancybox($text,$widget)
     {
         $loading = Helper::options()->themeUrl('assets/img/loading.svg', 'onecircle');
@@ -162,13 +156,13 @@ class contents{
                 $imgs_str_ = $match[1][$i];
                 preg_match_all($pattern_img, $imgs_str_, $imgs);
                 $img_count = count($imgs[0]) > 9 ? 9:count($imgs[0]) ;
-                $imgs_str = preg_replace($pattern_img, '<a class="post-cover-img-more" data-fancybox="gallery" href="$1"><img src="'.$loading.'" class="post-cover-img-more" data-echo="$1" alt="no morepic"></a>', $imgs_str_); //style="background-image: url('."$1".')"
+                $imgs_str = preg_replace($pattern_img, '<a class="post-cover-img-more" data-fancybox="gallery" href="$1"><img src="'.$loading.'" class="post-cover-img-more lazyload" data-src="$1" alt="no morepic"></a>', $imgs_str_); //style="background-image: url('."$1".')"
                 $text = preg_replace($pattern, '<div class="post-cover-img-container"><div class="post-cover-inner-more post-cover-inner-auto-rows-'.$img_count.'">'.$imgs_str.'</div></div>', $text,1);
             }
             return $text;
         }else { // no gallery
             if (preg_match($pattern_img, $text)) {
-                return preg_replace($pattern_img, '<a class="fancybox-single-img" data-fancybox="gallery" href="$1"><img src="'.$loading.'" class="post-cover-img-more" data-echo="$1" alt="no pic now"></a>', $text);
+                return preg_replace($pattern_img, '<a class="fancybox-single-img" data-fancybox="gallery" href="$1"><img src="'.$loading.'" class="post-cover-img-more lazyload" data-src="$1" alt="no pic now"></a>', $text);
             }
         }
 
@@ -178,7 +172,7 @@ class contents{
     {
         $reg = '/\[bilibili bv="(.+?)" p="(.+?)"]/sm';
         if (preg_match($reg, $text)) {
-            $replacement = '<div class="embed-responsive embed-responsive-4by3"><iframe class="video embed-responsive-item" src="//player.bilibili.com/player.html?bvid=$1&page=$2&auto=0&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe></div>';
+            $replacement = '<div class="embed-responsive embed-responsive-4by3"><iframe class="video embed-responsive-item lazyload" data-src="//player.bilibili.com/player.html?bvid=$1&page=$2&auto=0&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe></div>';
             return preg_replace($reg, $replacement, $text);
         }
         return $text;
@@ -187,7 +181,7 @@ class contents{
     {
         $reg = '/\[video src="(.+?)"]/sm';
         if (preg_match($reg, $text)) {
-            $replacement = '<div class="embed-responsive embed-responsive-4by3"><iframe class="video" src="$1&auto=0&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>';
+            $replacement = '<div class="embed-responsive embed-responsive-4by3"><iframe class="video lazyload" data-src="$1&auto=0&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>';
             return preg_replace($reg, $replacement, $text);
         }
         return $text;

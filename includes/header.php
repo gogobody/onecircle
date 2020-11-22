@@ -36,6 +36,7 @@
     <?php $this->options->cssEcho(); ?>
     <?php $this->options->headerEcho(); ?>
     <script>gconf={index:'<?_e(Helper::options()->index)?>',oneaction:'<?_e(Helper::options()->index)?>/oneaction'}</script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
 </head>
 <body class="bright">
 <div id="allayout" class="app app-aside-fix app-header-fixed">

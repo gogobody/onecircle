@@ -106,8 +106,7 @@ function getPostImg($archive)
     //  匹配 img 的 src 的正则表达式
     $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/im';//匹配img标签的正则表达式
     $preg2 = '/background-image:[ ]?url\([&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif|bmp|webp|php))/i';//匹配背景的url的正则表达式
-//    $pregEchoBackImg = '/data-echo-background[ ]?=[ ]?[&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif|bmp|webp))/i'; // 针对echo.js 匹配, 已经放弃使用
-    $pregEchoImg = '/data-echo[ ]?=[ ]?[&quot;]*[\'"]?(.*?\..*?)[\'"]/i'; // 针对echo.js 匹配
+    $pregEchoImg = '/data-src[ ]?=[ ]?[&quot;]*[\'"]?(.*?\..*?)[\'"]/i'; // 针对echo.js 匹配
 
     preg_match_all($preg, $archive->content, $allImg);//这里匹配所有的img
     // 过滤掉 loading 的img
@@ -430,7 +429,7 @@ function ehco9gridPics($images, $length)
     $loading = Helper::options()->themeUrl('assets/img/loading.svg','onecircle');
     if ($length > 0) {
         if ($length == 1) {
-            echo "<div class='post-cover-inner'><a class='post-cover-img-more' data-fancybox='gallery' href='$images[0]'><img src='$loading' data-echo='$images[0]' class='post-cover-img' alt='no pic'></a></div>";
+            echo "<div class='post-cover-inner'><a class='post-cover-img-more' data-fancybox='gallery' href='$images[0]'><img src='$loading' data-src='$images[0]' class='post-cover-img lazyload' alt='no pic'></a></div>";
         } else {
             $more_img_flag = false;
             if ($length > 9) { // 9宫格显示图片
@@ -442,7 +441,7 @@ function ehco9gridPics($images, $length)
                 if ($i == 8 && $more_img_flag) { // 9宫格最后一张
                     echo "<div style='background-image:url($images[$i]);' class='post-cover-img-more' alt='cover'><div class='more-pic'>" . $length . "+</div></div>";
                 } else {
-                    echo "<a data-fancybox='gallery' href='$images[$i]'><img src='$loading' data-echo='$images[$i]' style='' class='post-cover-img-more' alt='no pic'></a>";
+                    echo "<a data-fancybox='gallery' href='$images[$i]'><img src='$loading' data-src='$images[$i]' style='' class='post-cover-img-more lazyload' alt='no pic'></a>";
                 }
             }
             echo "</div>";

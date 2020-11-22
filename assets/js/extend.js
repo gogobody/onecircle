@@ -573,7 +573,7 @@ var archiveInit = {
         this.archAuthorTabShowInit()
         this.archAuthorTabsClickInit()
         this.iasInit()
-        this.echojsInit()
+        this.lazyloadInit()
 
     },
     postRepostArticle: function (posthref, excert, rbannerimg, repousername, repostext, category) {
@@ -813,7 +813,7 @@ var archiveInit = {
         // reinit click functions after 加载更多或者 tabs 切换
         archiveInit.fansFuncInit()
         indexInput.articleClickInit()
-        archiveInit.echojsInit()
+        archiveInit.lazyloadInit()
     },
     archAuthorTabsClickInit: function () {
         // archive tabs
@@ -999,13 +999,8 @@ var archiveInit = {
             })
         }
     },
-    echojsInit: function () { // echo js
-        echo.init({
-            offset: 100,
-            throttle: 250,
-            callback: function (element, op) {
-            }
-        });
+    lazyloadInit: function () {
+
     },
     iasInit: function () { // 无限加载
         var a_pagelink = $(".a-pageLink .next")
@@ -1051,7 +1046,7 @@ var archiveInit = {
         this.repostFuncInit()
         this.archAuthorTabShowInit()
         this.iasInit()
-        this.echojsInit()
+        this.lazyloadInit()
     }
 };
 var recommendInit = {
