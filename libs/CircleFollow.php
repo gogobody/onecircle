@@ -9,26 +9,37 @@ class CircleFollow
     public static function init()
     {
         // create circle follow table
-
         $db = Typecho_Db::get();
         $prefix = $db->getPrefix();
-        $sql = 'SHOW TABLES LIKE "' . $prefix . 'circle_follow' . '"';
-        $checkTabel = $db->query($sql);
-        $row = $checkTabel->fetchAll();
-        if ('1' == count($row)) {
-//            echo "Table exists";
-        } else {
-//            echo "Table does not exist";
-            $db->query('CREATE TABLE `' . $prefix . 'circle_follow` (
-                                  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                  `uid` bigint(20) NOT NULL DEFAULT 0 COMMENT \'用户ID\',
-                                  `mid` bigint(20) NOT NULL DEFAULT 0 COMMENT \'关注meta/circle\',
-                                  `createtime` int(10) DEFAULT 0 COMMENT \'关注时间\',
-                                  PRIMARY KEY (`id`)
+        $type = explode('_', $db->getAdapterName());
+        $type = array_pop($type);
+        if($type == "SQLite"){
+            $sql ="SELECT count(*) FROM sqlite_master WHERE type='table' AND name='".$prefix."circle_follow';";
+            $checkTabel = $db->query($sql);
+            $row = $checkTabel->fetchAll();
+            if ($row[0]["count(*)"] == '0'){
+                $res = $db->query('CREATE TABLE `' . $prefix . 'circle_follow` (
+                                  `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                                  `uid` bigint(20) NOT NULL DEFAULT 0 ,
+                                  `mid` bigint(20) NOT NULL DEFAULT 0 ,
+                                  `createtime` int(10) DEFAULT 0 
                                 )');
+            }
+        }else{
+            $sql = 'SHOW TABLES LIKE "' . $prefix . 'circle_follow' . '"';
+            $checkTabel = $db->query($sql);
+            $row = $checkTabel->fetchAll();
+            if ('1' == count($row)) {
+            } else {
+                $db->query('CREATE TABLE `' . $prefix . 'circle_follow` (
+                              `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                              `uid` bigint(20) NOT NULL DEFAULT 0 COMMENT \'用户ID\',
+                              `mid` bigint(20) NOT NULL DEFAULT 0 COMMENT \'关注meta/circle\',
+                              `createtime` int(10) DEFAULT 0 COMMENT \'关注时间\',
+                              PRIMARY KEY (`id`)
+                            )');
+            }
         }
-
-        // create user circle fans follow table
 
     }
 

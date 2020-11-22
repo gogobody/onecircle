@@ -26,7 +26,13 @@ if($sticky && $this->is('index') || $this->is('front')){
     }
     $uid = $this->user->uid; //登录时，显示用户各自的私密文章
     if($uid) $select2->orWhere('authorId = ? && status = ?',$uid,'private');
-    $sticky_posts = $db->fetchAll($select2->order('RAND()')->page($this->_currentPage, $this->parameter->pageSize));
+    $type = explode('_', $db->getAdapterName());
+    $type = array_pop($type);
+    if($type == "SQLite"){
+        $sticky_posts = $db->fetchAll($select2->order('RANDOM()')->page($this->_currentPage, $this->parameter->pageSize));
+    }else{
+        $sticky_posts = $db->fetchAll($select2->order('RAND()')->page($this->_currentPage, $this->parameter->pageSize));
+    }
     foreach($sticky_posts as $sticky_post) $this->push($sticky_post); //压入列队
     $this->setTotal($this->getTotal()-count($sticky_cids)); //置顶文章不计算在所有文章内
 }

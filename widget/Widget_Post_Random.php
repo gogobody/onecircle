@@ -12,13 +12,26 @@ class Widget_Post_Random extends Widget_Abstract_Contents
     }
     public function execute()
     {
-        $select  = $this->select()->from('table.contents')
-            ->where("table.contents.password IS NULL OR table.contents.password = ''")
-            ->where('table.contents.status = ?','publish')
-            ->where('table.contents.created <= ?', time())
-            ->where('table.contents.type = ?', 'post')
-            ->limit($this->parameter->pageSize)
-            ->order('RAND()');
+        $type = explode('_', $this->db->getAdapterName());
+        $type = array_pop($type);
+        if($type == "SQLite"){
+            $select  = $this->select()->from('table.contents')
+                ->where("table.contents.password IS NULL OR table.contents.password = ''")
+                ->where('table.contents.status = ?','publish')
+                ->where('table.contents.created <= ?', time())
+                ->where('table.contents.type = ?', 'post')
+                ->limit($this->parameter->pageSize)
+                ->order('RANDOM()');
+        }else{
+            $select  = $this->select()->from('table.contents')
+                ->where("table.contents.password IS NULL OR table.contents.password = ''")
+                ->where('table.contents.status = ?','publish')
+                ->where('table.contents.created <= ?', time())
+                ->where('table.contents.type = ?', 'post')
+                ->limit($this->parameter->pageSize)
+                ->order('RAND()');
+        }
+
         $this->db->fetchAll($select, array($this, 'push'));
     }
 }
