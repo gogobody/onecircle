@@ -1271,6 +1271,9 @@ var pjaxInit = function () {
     //
     tagsManageInit.pjax_complete()
     oneMap.restoreFromLocal()
+    if ($("article.post")){
+        Prism.highlightAll()
+    }
 }
 
 // post article

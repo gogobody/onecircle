@@ -35,7 +35,7 @@
     }
 ?>
 <script>userId=<?echo $userId?></script>
-<script src="<?php $this->options->themeUrl('assets/js/extend.min.js'); ?>"></script>
+<script src="<?php $this->options->themeUrl('assets/js/onecircle.min.js'); ?>"></script>
 <?php if ($this->options->jsPushBaidu):?>
     <script src="<?php $this->options->themeUrl('assets/js/push.js'); ?>"></script>
 <!--    // 加载不出时触发-->
