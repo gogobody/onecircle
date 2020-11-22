@@ -7,8 +7,13 @@ class Widget_Metas_Random extends Widget_Metas_Category_List
     {
         parent::__construct($request, $response, $params);
         $this->parameter->setDefault('ignore=0&current=');
-        $this->parameter->setDefault(array('order'=>'RAND()','limit'=>10));
-
+        $type = explode('_', $this->db->getAdapterName());
+        $type = array_pop($type);
+        if($type == "SQLite"){
+            $this->parameter->setDefault(array('order'=>'RANDOM()','limit'=>10));
+        }else{
+            $this->parameter->setDefault(array('order'=>'RAND()','limit'=>10));
+        }
 
     }
     public function execute()

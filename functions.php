@@ -337,10 +337,23 @@ function getBlogAdminInfo()
  */
 function getCategories($obj, $cnt = -1, $url = '', $random = false)
 {
-    if ($random && $cnt)
-        $categories = $obj->widget('Widget_Metas_Random', array('limit' => $cnt, 'sort' => 'RAND()'));
-    else if ($random)
-        $categories = $obj->widget('Widget_Metas_Random', array('sort' => 'RAND()'));
+
+    $type = explode('_', Typecho_Db::get()->getAdapterName());
+    $type = array_pop($type);
+    if ($random && $cnt){
+        if($type == "SQLite"){
+            $categories = $obj->widget('Widget_Metas_Random', array('limit' => $cnt, 'sort' => 'RANDOM()'));
+        }else{
+            $categories = $obj->widget('Widget_Metas_Random', array('limit' => $cnt, 'sort' => 'RAND()'));
+        }
+    }
+    else if ($random){
+        if($type == "SQLite"){
+            $categories = $obj->widget('Widget_Metas_Random', array('sort' => 'RANDOM()'));
+        }else{
+            $categories = $obj->widget('Widget_Metas_Random', array('sort' => 'RAND()'));
+        }
+    }
     else if ($cnt)
         $categories = $obj->widget('Widget_Metas_Random', array('limit' => $cnt));
     else
@@ -520,11 +533,21 @@ function theme_random_posts()
  </li>'
     );
     $db = Typecho_Db::get();
-    $sql = $db->select()->from('table.contents')
-        ->where('status = ?', 'publish')
-        ->where('type = ?', 'post')
-        ->limit($defaults['number'])
-        ->order('RAND()');
+    $type = explode('_', $db->getAdapterName());
+    $type = array_pop($type);
+    if($type == "SQLite"){
+        $sql = $db->select()->from('table.contents')
+            ->where('status = ?', 'publish')
+            ->where('type = ?', 'post')
+            ->limit($defaults['number'])
+            ->order('RANDOM()');
+    }else{
+        $sql = $db->select()->from('table.contents')
+            ->where('status = ?', 'publish')
+            ->where('type = ?', 'post')
+            ->limit($defaults['number'])
+            ->order('RAND()');
+    }
     $result = $db->fetchAll($sql);
     echo $defaults['before'];
     foreach ($result as $val) {
