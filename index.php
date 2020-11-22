@@ -81,8 +81,4 @@ $this->need('includes/header.php');
         ?>
     </div>
 </div>
-
-
 <?php $this->need('includes/footer.php'); ?>
-
-

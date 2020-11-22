@@ -58,7 +58,7 @@
 
                             <li class="nav-item search-block-icon" aria-expanded="false"
                                 aria-controls="search-block">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"
