@@ -2700,7 +2700,7 @@ achieve
     border-radius: 50%;
     width: 30px;
     height: 30px;
-    animation: donut-spin 1.2s linear infinite;
+    animation: spin 1.2s linear infinite;
 }
 /**
 archives
