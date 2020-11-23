@@ -2765,7 +2765,7 @@ archive
     border-radius: 50%;
     width: 30px;
     height: 30px;
-    animation: donut-spin 1.2s linear infinite;
+    animation: spin 1.2s linear infinite;
 }
 /**
 archives
@@ -3086,6 +3086,16 @@ owo
     border-top: 1px solid rgba(0,0,0,.05);
 }
 
+/*
+neighbor
+ */
+#amap-container{
+    min-height: 100px;
+    margin-bottom: 10px;
+    box-shadow: rgba(0,0,0,.2) 0 1px 3px, rgba(157,182,200,.1) 0 1px 20px;
+    border-radius: 12px;
+    overflow: hidden;
+}
 
 /**
 mobile fix

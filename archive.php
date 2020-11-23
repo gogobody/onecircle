@@ -57,14 +57,14 @@
                             <div class="list react-tabs__tab-panel react-tabs__tab-panel--selected">
                                 <?php if ($this->have()&&$tabIndex==0): ?>
                                     <?php while ($this->next()): ?>
-                                        <? $this->need('components/index/article-content.php'); ?>
+                                        <?php $this->need('components/index/article-content.php'); ?>
                                     <?php endwhile; ?>
                                 <?php elseif($tabIndex==1):?>
                                     <?php $fobj = UserFollow::getFollowObj($this->getPageRow()['uid']);?>
                                     <?php if (count($fobj)>0):?>
                                     <?php for($i=0;$i<count($fobj);$i++): ?>
                                         <div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr">
-                                            <a href="/author/<?php _e($fobj[$i]['uid'])?>"
+                                            <a href="<?php $author_url = Typecho_Common::url('/author/'.$fobj[$i]['uid'].'/',$this->options->index);_e($author_url)?>"
                                                class="sc-AxjAm sc-AxirZ eGdPrb"><img
                                                         src="<?php _e(getUserV2exAvatar($fobj[$i]['mail'],$fobj[$i]['userAvatar']))?>"
                                                         alt="再多一点可爱" class="sc-AxjAm jZLHXc">
@@ -101,7 +101,7 @@
 
                                         <?php for ($i = 0; $i < count($fobj); $i++): ?>
                                         <div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr">
-                                            <a href="/author/<?php _e($fobj[$i]['uid'])?>"
+                                            <a href="<?php $author_url = Typecho_Common::url('/author/'.$fobj[$i]['uid'].'/',$this->options->index);_e($author_url)?>"
                                                class="sc-AxjAm sc-AxirZ eGdPrb"><img
                                                         src="<?php _e(getUserV2exAvatar($fobj[$i]['mail'],$fobj[$i]['userAvatar']))?>"
                                                         alt="再多一点可爱" class="sc-AxjAm jZLHXc">
@@ -133,7 +133,7 @@
                                     <?php endif ?>
                                 <?php elseif($tabIndex==3 && $this->have()):?>
                                     <?php while ($this->next()): ?>
-                                        <? $this->need('components/index/article-content.php'); ?>
+                                        <?php $this->need('components/index/article-content.php'); ?>
                                     <?php endwhile; ?>
 
                                 <?php else: ?>

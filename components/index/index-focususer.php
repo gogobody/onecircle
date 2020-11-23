@@ -10,7 +10,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <?php echo $this->fields->excerpt; ?>
         <?php else: ?>
             <?php echo $this->excerpt(70, ''); ?>
-        <? endif; ?>
+        <?php endif; ?>
     </div>
     <?php if ($this->fields->banner && $this->fields->banner != ''): ?>
         <div class="post-cover col-xl-12">
@@ -26,5 +26,5 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                 <?php $this->content(); ?>
             </div>
         </div>
-    <? endif; ?>
+    <?php endif; ?>
 </div>

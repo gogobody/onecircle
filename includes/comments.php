@@ -23,7 +23,7 @@ function threadedComments($comments, $options)
             <div class="comment-meta">
                 <div class="comment-author">
                     <?php if ($comments->authorId > 0): ?>
-                    <a href="/author/<?php echo $comments->authorId ?>" rel="external nofollow">
+                    <a href="<?php $author_url = Typecho_Common::url('/author/'.$comments->authorId.'/',$this->options->index);_e($author_url)?>" rel="external nofollow">
                         <?php elseif ($comments->url): ?>
                         <a href="<?php echo $comments->url ?>" target="_blank" rel="external nofollow">
                             <?php endif; ?>

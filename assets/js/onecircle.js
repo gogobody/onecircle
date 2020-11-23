@@ -418,7 +418,7 @@ var indexInput = {
                 message: "请填写密码",
                 type: "warning"
             }), navLoginPsw.focus(), showbtn(), !1) : (loginSubmitForm.addClass("active"), $("#spin-login").addClass("show inline"),
-                $.post(gconf.oneaction, {type: "getsecurl", url: gconf.index}, function (res) {
+                $.post(gconf.oneaction, {type: "getsecurl", url: window.location.href}, function (res) {
                     $("#Login_form").attr('action', res)
                     $.ajax({
                         url: res,
@@ -479,7 +479,7 @@ var indexInput = {
         if (userId > 0) {
             return
         }
-        $.post(gconf.oneaction, {type: "getsecurl", url: gconf.index}, function (res) {
+        $.post(gconf.oneaction, {type: "getsecurl", url: window.location.href}, function (res) {
             $("#Login_form").attr('action', res)
             //
             // if (checkURL(res)){
@@ -963,7 +963,7 @@ var archiveInit = {
                             } else {
                                 d = $('#comment-' + k, d).hide();
                                 if (!$(g).length)
-                                    $('.comment-detail').prepend("<h6 class='comment-num'>0 条评论<\/h6><ol class='comment-list'><\/ol>");
+                                    $('.comment-detail').prepend("<h2 class='comment-num'>0 条评论<\/h2><ol class='comment-list'><\/ol>");
                                 $(g).prepend(d)
                             }
                             $('#comment-' + k).fadeIn();
@@ -1114,51 +1114,59 @@ var tagsManageInit = {
 
 };
 var oneMap = { // use js only!
+    AMapUrl:"https://webapi.amap.com/loader.js",
     init: function (AMap) {
+        if (!AMap) return false;
         this.AMap = AMap
         this.autoCompleteInit(AMap)
         this.geolocationInit(AMap)
+        this.mapContainerInit(AMap,this.geolocation)
     },
     pjax_complete: function () {
         if (!oneMap.AMap) {
-            this.getScripts(function () {
+            $.getScript(oneMap.AMapUrl,function () {
                 oneMap.amapLoadInit()
             })
         } else {
             oneMap.autoCompleteInit(oneMap.AMap)
+            oneMap.mapContainerInit(oneMap.AMap,oneMap.geolocation)
         }
+        this.restoreFromLocal()
     },
     amapLoadInit: function () {
         var httpRequest = new XMLHttpRequest();
         httpRequest.open('POST', gconf.oneaction, true);
         httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）
-        httpRequest.send('type=getamapkey');//发送请求 将情头体写在send中
+        httpRequest.send('type=amapKey');//发送请求 将情头体写在send中
         httpRequest.onreadystatechange = function () {//请求后的回调接口，可将请求成功后要执行的程序写在其中
             if (httpRequest.readyState === 4 && httpRequest.status === 200) {//验证请求是否发送成功
                 var json = httpRequest.responseText;//获取到服务端返回的数据
                 json = JSON.parse(json)
                 if (json.status) {
+                    localStorage.setItem("amapkey",json.data)
                     AMapLoader.load({
-                        "key": json.data,              // 申请好的Web端开发者Key，首次调用 load 时必填
+                        "key": json.data.jskey,              // 申请好的Web端开发者Key，首次调用 load 时必填
                         "version": "1.4.15",   // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-                        "plugins": ['AMap.Autocomplete', 'AMap.Geolocation',],      // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+                        "plugins": ['AMap.Autocomplete', 'AMap.Geolocation','AMap.Geocoder','AMap.Marker'],      // 需要使用的的插件列表，如比例尺'AMap.Scale'等
                     }).then(function (AMap) {
                         oneMap.init(AMap)
                     }).catch(function (e) {
                         console.error(e);  //加载错误提示
+                        $.message({
+                            type: "error",
+                            title: "提示",
+                            message: "获取amapJsKey失败"
+                        })
                     });
                 } else {
                     $.message({
                         type: "error",
                         title: "提示",
-                        message: "获取amapkey失败"
+                        message: "获取amapJsKey失败"
                     })
                 }
             }
         };
-    },
-    getScripts: function (func) {
-        $.getScript("https://webapi.amap.com/loader.js", func())
     },
     restoreFromLocal: function () {
         var obj = localStorage.getItem('address')
@@ -1193,17 +1201,19 @@ var oneMap = { // use js only!
             if (status === 'complete') {
                 // console.log(result);
                 if (result.status) {
-                    new AMap.Autocomplete().search(result.formattedAddress, function (status, res) {
-                        if (res.count > 0) {
-                            var addBtn = document.getElementById("address-input")
-                            addBtn.value = res.tips[0].name
-                            addBtn.style.width = "fit-content"
-                            document.getElementById("ad-name").value = res.tips[0].name
-                            document.getElementById("ad-district").value = res.tips[0].district
-                            document.getElementById("ad-address").value = res.tips[0].address
-                            oneMap.save2local(res.tips[0].name, res.tips[0].district, res.tips[0].address)
-                        }
-                    })
+                    var addBtn = document.getElementById("address-input")
+                    if (addBtn){
+                        new AMap.Autocomplete().search(result.formattedAddress, function (status, res) {
+                            if (res.count > 0) {
+                                addBtn.value = res.tips[0].name
+                                addBtn.style.width = "fit-content"
+                                document.getElementById("ad-name").value = res.tips[0].name
+                                document.getElementById("ad-district").value = res.tips[0].district
+                                document.getElementById("ad-address").value = res.tips[0].address
+                                oneMap.save2local(res.tips[0].name, res.tips[0].district, res.tips[0].address)
+                            }
+                        })
+                    }
                 } else {
 
                 }
@@ -1218,22 +1228,67 @@ var oneMap = { // use js only!
     },
     autoCompleteInit: function (AMap) {
         // init auto complete
-        var autoOptions = {
-            city: '全国',
-            input: 'address-input'
+        var add_name = document.getElementById("ad-name")
+        if (add_name){
+            var autoOptions = {
+                city: '全国',
+                input: 'address-input'
+            }
+            this.autoComplete = new AMap.Autocomplete(autoOptions)
+            this.autoComplete.on("select", function (e) {
+                add_name.value = e.poi.name
+                document.getElementById("ad-district").value = e.poi.district
+                document.getElementById("ad-address").value = e.poi.address
+                oneMap.save2local(e.poi.name, e.poi.district, e.poi.address)
+            })
         }
-        this.autoComplete = new AMap.Autocomplete(autoOptions)
-        this.autoComplete.on("select", function (e) {
-            document.getElementById("ad-name").value = e.poi.name
-            document.getElementById("ad-district").value = e.poi.district
-            document.getElementById("ad-address").value = e.poi.address
-            oneMap.save2local(e.poi.name, e.poi.district, e.poi.address)
 
-        })
     },
+    mapContainerInit:function (AMap,geoLocation) {
+        if (!this.geocoder || !this.marker){
+            this.geocoder = new AMap.Geocoder({});
+            this.marker = new AMap.Marker();
+        }
 
+        if (document.getElementById("amap-container")){
+            var map = new AMap.Map('amap-container', {
+                resizeEnable: true,
+                mapStyle: "amap://styles/fresh"
+            });
+            var addr = utils.getQueryString('name') // this is for neighbor widget
+            if (addr){
+                var marker = this.marker
+                this.geocoder.getLocation(district + addr, function(status, result) {
+                    if (status === 'complete'&&result.geocodes.length) {
+                        var lnglat = result.geocodes[0].location
+                        marker.setPosition(lnglat)
+                        map.add(marker)
+                        map.setFitView(marker)
+                    }else{
+                        console.error('根据地址查询位置失败')
+                    }
+                });
+            }else {
+                map.addControl(geoLocation)
+            }
+        }
+
+    }
 }
-// ready
+var utils = {
+    getQueryString:function (name) {
+        name = name.replace(/[]/,"\[").replace(/[]/,"\[").replace(/[]/,"\\\]")
+        var regexS = "[\\?&]"+name+"=([^&#]*)"
+        var regex = new RegExp( regexS )
+        var results = regex.exec(window.parent.location.href)
+        if( results == null )
+            return ""
+        else {
+            return decodeURI(results[1])
+        }
+    }
+}
+// rady
 $(function () {
     // comment
     $(window).unbind("scroll").bind("scroll", function () {
@@ -1265,14 +1320,13 @@ $(function () {
 })
 
 var pjaxInit = function () {
-
     indexInput.pjax_complete()
     archiveInit.init()
     recommendInit.pjax_complete()
     owoInit();
     //
     tagsManageInit.pjax_complete()
-    oneMap.restoreFromLocal()
+    // oneMap.pjax_complete()
     if ($("article.post")){
         Prism.highlightAll()
     }
@@ -1308,7 +1362,7 @@ function postArticle(data, needRefresh) {
                 error: function (err) {
                     return $.message({
                         title: "提示",
-                        message: "err:" + err,
+                        message: "code:"+err.status+"err:" +err.responseText+ err,
                         type: "error"
                     })
                 }

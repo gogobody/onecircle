@@ -20,7 +20,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <a href="http://www.baidu.com" target="_blank" class="sc-AxjAm kgcKxQ">
                 <div class="sc-AxjAm sc-AxirZ gITPLH bwqALa">
                     <div class="sc-AxjAm sc-AxirZ jLaetV">
-                        <img src="<? echo Helper::options()->themeUrl . '/assets/img/link.png' ?>" class="bLGCpY">
+                        <img src="<?php echo Helper::options()->themeUrl . '/assets/img/link.png' ?>" class="bLGCpY">
                         <div class="sc-AxjAm kKrDdN hHnMup"></div>
                     </div>
                     <div class="sc-AxjAm sc-AxirZ ezTcmd">
@@ -144,42 +144,4 @@ if ($this->is('index')){
     echo '<script type="text/javascript">allCategories = '.json_encode($arr).'</script>';
 }
 ?>
-<script src="https://webapi.amap.com/loader.js"></script>
-<script>
-    var amapLoadInit = function(){
-        var httpRequest = new XMLHttpRequest();
-        httpRequest.open('POST', gconf.oneaction, true);
-        httpRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）
-        httpRequest.send('type=getamapkey');//发送请求 将情头体写在send中
-        /**
-         * 获取数据后的处理程序
-         */
-        httpRequest.onreadystatechange = function () {//请求后的回调接口，可将请求成功后要执行的程序写在其中
-            if (httpRequest.readyState === 4 && httpRequest.status === 200) {//验证请求是否发送成功
-                var json = httpRequest.responseText;//获取到服务端返回的数据
-                json = JSON.parse(json)
-                if (json.status){
-                    AMapLoader.load({
-                        "key": json.data,              // 申请好的Web端开发者Key，首次调用 load 时必填
-                        "version": "1.4.15",   // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-                        "plugins": ['AMap.Autocomplete','AMap.Geolocation',],      // 需要使用的的插件列表，如比例尺'AMap.Scale'等
-                    }).then((AMap)=>{
-                        oneMap.init(AMap)
-                    }).catch((e)=>{
-                        console.error(e);  //加载错误提示
-                    });
-                }else {
-                    $.message({
-                        type:"error",
-                        title:"提示",
-                        message:"获取amapkey失败"
-                    })
-                }
-
-            }
-        };
-    }
-    window.onload = function(){
-        amapLoadInit()
-    }
-</script>
+<script>window.onload = function(){oneMap.pjax_complete()}</script>

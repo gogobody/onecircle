@@ -186,7 +186,7 @@
                                     </div>
 
                                 </li>
-                            <? endif;?>
+                            <?php endif;?>
                             <!-- aside -->
                             <li class="nav-item d-md-none">
                                 <a class="nav-link d-block d-md-none aside-btn">

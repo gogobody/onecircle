@@ -10,12 +10,12 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <?php echo $this->fields->excerpt; ?>
         <?php else: ?>
             <?php echo $this->excerpt(70); ?>
-        <? endif; ?>
+        <?php endif; ?>
     </div>
     <div class="post-cover col-xl-12">
-        <a onclick="videoToggle('#collapse<? _e($this->cid) ?>',this,event)" href="#collapse<? _e($this->cid) ?>"
+        <a onclick="videoToggle('#collapse<?php _e($this->cid) ?>',this,event)" href="#collapse<?php _e($this->cid) ?>"
            data-toggle="collapse" class="toggle-player collapsed" rel="button" aria-expanded="false"
-           aria-controls="collapse<? _e($this->cid) ?>" data-controls="collapse<? _e($this->cid) ?>">
+           aria-controls="collapse<?php _e($this->cid) ?>" data-controls="collapse<?php _e($this->cid) ?>">
             <div class="">
                 <span class="expand">
                     <svg class="bi bi-arrows-angle-contract" width=".7em"
@@ -33,7 +33,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             </div>
         </a>
 
-        <div class="collapse show" id="collapse<? _e($this->cid) ?>">
+        <div class="collapse show" id="collapse<?php _e($this->cid) ?>">
             <?php echo parseFirstVideo($this->content); ?>
         </div>
     </div>

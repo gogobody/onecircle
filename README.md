@@ -144,4 +144,4 @@ links
 ### 感谢以下作者的辛苦付出
 - compress https://javascript-minifier.com/
 - css compress https://www.runoob.com/csspack
-- 修改自 [landstar](https://dyedd.cn) up to version :2.0.2
+- 部分代码来自handsome、 [landstar](https://dyedd.cn)、油油的twitter等主题，感谢作者的辛苦付出

@@ -18,7 +18,7 @@ $arr = getGirdPics($this)
                 echo $this->excerpt(180);
             }
             ?>
-        <? endif; ?>
+        <?php endif; ?>
     </div>
     <?php if ($this->fields->banner && $this->fields->banner != ''): ?>
         <div class="post-cover col-xl-12">
@@ -34,5 +34,5 @@ $arr = getGirdPics($this)
                 <?php ehco9gridPics($arr['images'], $arr['length']); ?>
             </div>
         </div>
-    <? endif; ?>
+    <?php endif; ?>
 </div>
