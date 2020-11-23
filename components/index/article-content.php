@@ -37,7 +37,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <!--content-->
             <div class="post-content">
                 <!-- focususer -->
-                <? $this->need('components/index/index-focususer.php'); ?>
+                <?php $this->need('components/index/index-focususer.php'); ?>
                 <!-- action-->
                 <div class="content-action">
                     <!--分类-->
@@ -150,18 +150,18 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
                 <?php if ($this->fields->articleType == "link"): ?>
                     <!-- link-->
-                    <? $this->need('components/index/index-link.php'); ?>
+                    <?php $this->need('components/index/index-link.php'); ?>
 
                 <?php elseif ($this->fields->articleType == "default"): ?>
                     <!-- default-->
-                    <? $this->need('components/index/index-default.php'); ?>
+                    <?php $this->need('components/index/index-default.php'); ?>
 
                 <?php elseif ($this->fields->articleType == "video" || $this->fields->articleType == "bilibili"): ?>
                     <!-- videos -->
-                    <? $this->need('components/index/index-videos.php'); ?>
+                    <?php $this->need('components/index/index-videos.php'); ?>
                 <?php elseif ($this->fields->articleType == "repost"): ?>
                     <!-- repost -->
-                    <? $this->need('components/index/index-repost.php'); ?>
+                    <?php $this->need('components/index/index-repost.php'); ?>
                 <?php endif; ?>
 
                 <!-- actions container-->
@@ -185,8 +185,8 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                         <div class="lucky-comment">
                             <div class="v-line ">&nbsp;</div>
                             <div class="lucky-comment-svg"><svg t="1605092004902" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2907" width="23px" height="23px"><path d="M201.142857 566.857143H146.285714a18.285714 18.285714 0 0 1-18.285714-18.285714V182.857143a18.285714 18.285714 0 0 1 18.285714-18.285714h585.142857a18.285714 18.285714 0 0 1 18.285715 18.285714v365.714286a18.285714 18.285714 0 0 1-18.285715 18.285714h-324.096l-178.468571 107.117714A18.285714 18.285714 0 0 1 201.142857 658.285714v-91.428571z m-36.571428-365.714286v329.142857H219.428571a18.285714 18.285714 0 0 1 18.285715 18.285715v77.421714l155.172571-93.110857A18.285714 18.285714 0 0 1 402.285714 530.285714h310.857143v-329.142857h-548.571428z m658.285714 548.571429H877.714286a18.285714 18.285714 0 0 0 18.285714-18.285715V365.714286a18.285714 18.285714 0 0 0-18.285714-18.285715h-73.142857a18.285714 18.285714 0 1 0 0 36.571429h54.857142v329.142857H804.571429a18.285714 18.285714 0 0 0-18.285715 18.285714v77.421715l-155.172571-93.110857A18.285714 18.285714 0 0 0 621.714286 713.142857H310.857143V694.857143a18.285714 18.285714 0 1 0-36.571429 0v36.571428a18.285714 18.285714 0 0 0 18.285715 18.285715h324.096l178.468571 107.117714A18.285714 18.285714 0 0 0 822.857143 841.142857v-91.428571zM329.142857 365.714286a36.571429 36.571429 0 1 1-73.142857 0 36.571429 36.571429 0 0 1 73.142857 0m146.285714 0a36.571429 36.571429 0 1 1-73.142857 0 36.571429 36.571429 0 0 1 73.142857 0m146.285715 0a36.571429 36.571429 0 1 1-73.142857 0 36.571429 36.571429 0 0 1 73.142857 0" p-id="2908" fill="#707070"></path></svg></div>
-                            <div class="index-comment-user"><div class="user-name"><? _e($comments_arr['author']);?>：</div></div>
-                            <div class="index-comment-content"><div class="comment-content"><? _e(comments::parseSecret($comments_arr['text']));?></div></div>
+                            <div class="index-comment-user"><div class="user-name"><?php _e($comments_arr['author']);?>：</div></div>
+                            <div class="index-comment-content"><div class="comment-content"><?php _e(comments::parseSecret($comments_arr['text']));?></div></div>
                         </div>
                     <?php endif;?>
                     <!-- action-->

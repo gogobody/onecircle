@@ -14,7 +14,7 @@ $total_tags = $this->getPageRow()["tags_all"];
         <?php $this->need('includes/nav.php'); ?>
         <div class="col-xl-10 col-md-10 col-12 circle-management">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <? if ($this->user->hasLogin()):?>
+                <?php if ($this->user->hasLogin()):?>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link active" id="pills-my-tab" data-toggle="pill" href="#pills-my" role="tab" aria-controls="pills-my" aria-selected="true">我的圈子</a>
                     </li>
@@ -26,7 +26,7 @@ $total_tags = $this->getPageRow()["tags_all"];
             </ul>
             <div class="tab-content" id="pills-tabContent">
                 <!--登录显示我的-->
-                <? if ($this->user->hasLogin()):?>
+                <?php if ($this->user->hasLogin()):?>
                     <div class="tab-pane fade show active" id="pills-my" role="tabpanel" aria-labelledby="pills-my-tab">
                         <div class="row">
                             <div class="col-md-4 col-lg-3" style="border-bottom: 1px solid rgba(0,0,0,.05);">
@@ -47,15 +47,15 @@ $total_tags = $this->getPageRow()["tags_all"];
                                                 ?>
                                                 <?for ($i = 0; $i < $length; $i++): ?>
                                                 <div class="circle-item">
-                                                    <a href="<? echo $arr[$i][2] ?>" class="circle-item-link">
-                                                        <img src="<? echo $arr[$i][3] ?>">
+                                                    <a href="<?php echo $arr[$i][2] ?>" class="circle-item-link">
+                                                        <img src="<?php echo $arr[$i][3] ?>">
                                                         <div class="circle-item-link-right">
-                                                            <div class="circle-item-link-title"><? echo $arr[$i][1] ?></div>
-                                                            <div class="circle-item-link-info"><? echo $arr[$i][4] ?></div>
+                                                            <div class="circle-item-link-title"><?php echo $arr[$i][1] ?></div>
+                                                            <div class="circle-item-link-info"><?php echo $arr[$i][4] ?></div>
                                                         </div>
                                                     </a>
                                                     <div class="htbt-right">
-                                                        <button data-categoryid="<? _e($arr[$i][0]) ?>"
+                                                        <button data-categoryid="<?php _e($arr[$i][0]) ?>"
                                                         <?php
                                                         if ($this->user->hasLogin()){
                                                             if (CircleFollow::statusFollow($this->user->uid,$arr[$i][0])){
@@ -70,16 +70,16 @@ $total_tags = $this->getPageRow()["tags_all"];
                                                         </button>
                                                     </div>
                                                 </div>
-                                            <? endfor;?>
-                                            <? else:?>
+                                            <?php endfor;?>
+                                            <?php else:?>
                                                 <div class="circle-item">
                                                     <?php if ($this->user->hasLogin()): ?>
                                                         <small>还没有关注圈子~</small>
-                                                    <? else:?>
+                                                    <?php else:?>
                                                         <small>登录后可见</small>
-                                                    <? endif;?>
+                                                    <?php endif;?>
                                                 </div>
-                                            <? endif;?>
+                                            <?php endif;?>
                                         </div>
                                     </div>
                                 </div>
@@ -87,46 +87,46 @@ $total_tags = $this->getPageRow()["tags_all"];
                         </div>
                     </div>
                     <!--管理员显示编辑-->
-                    <? if (checkCircleEditPermission($this->user->uid)):?>
+                    <?php if (checkCircleEditPermission($this->user->uid)):?>
                         <div class="tab-pane fade" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
                             <div class="row">
                                 <div class="col-md-4 col-lg-3">
                                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                         <?php foreach($total_category_data as $k => $data):?>
-                                            <? if ($k == 'all_'):?> <!-- 所有 ，默认active-->
+                                            <?php if ($k == 'all_'):?> <!-- 所有 ，默认active-->
                                                 <a class="nav-link active" id="v-pills-<?php _e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _e($data['id']);?>" aria-selected="true"><?php _e($data['name']);?></a>
-                                            <? else:?>
+                                            <?php else:?>
                                                 <a class="nav-link" id="v-pills-<?php _e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _e($data['id']);?>" aria-selected="false"><?php _e($data['name']);?></a>
-                                            <? endif;?>
-                                        <? endforeach;?>
+                                            <?php endif;?>
+                                        <?php endforeach;?>
                                     </div>
                                 </div>
                                 <div class="col-md-8 col-lg-9">
                                     <div class="tab-content" id="v-pills-tabContent">
                                         <!--输出对应分类圈子-->
                                         <?php foreach($total_category_data as $k => $data):?>
-                                            <div class="tab-pane fade <? if ($k == 'all_') _e('show active');?> mycicle-content" id="v-pills-<?php _e($data['id']);?>" role="tabpanel" aria-labelledby="v-pills-<?php _e($data['id']);?>-tab">
-                                                <? foreach ($data['categories'] as $val):?>
-                                                    <? $entry = Typecho_Widget::widget('Widget_Abstract_Metas')->filter(array(
+                                            <div class="tab-pane fade <?php if ($k == 'all_') _e('show active');?> mycicle-content" id="v-pills-<?php _e($data['id']);?>" role="tabpanel" aria-labelledby="v-pills-<?php _e($data['id']);?>-tab">
+                                                <?php foreach ($data['categories'] as $val):?>
+                                                    <?php $entry = Typecho_Widget::widget('Widget_Abstract_Metas')->filter(array(
                                                         'type'=>"category",
                                                         'slug'=>$val['slug']
                                                     ));
                                                     $url_ = Typecho_Router::url("category", array("slug"=>$val['slug']), $this->options->index);
                                                     ?>
                                                     <div class="circle-item">
-                                                        <a href="<? _e($url_) ?>" class="circle-item-link">
-                                                            <img src="<? echo parseDesc2img($this->options->defaultSlugUrl,$val['description']) ?>">
+                                                        <a href="<?php _e($url_) ?>" class="circle-item-link">
+                                                            <img src="<?php echo parseDesc2img($this->options->defaultSlugUrl,$val['description']) ?>">
                                                             <div class="circle-item-link-right">
-                                                                <div class="circle-item-link-title"><? _e($val['name']); ?></div>
-                                                                <div class="circle-item-link-info"><? echo parseDesc2text($val['description']) ?></div>
+                                                                <div class="circle-item-link-title"><?php _e($val['name']); ?></div>
+                                                                <div class="circle-item-link-info"><?php echo parseDesc2text($val['description']) ?></div>
                                                             </div>
                                                         </a>
 
                                                         <div class="htbt-right edit-btn">
-                                                            <button data-categoryid="<? _e($val['mid']) ?>" data-name="<? _e($val['name']); ?>" type="button">编辑</button>
+                                                            <button data-categoryid="<?php _e($val['mid']) ?>" data-name="<?php _e($val['name']); ?>" type="button">编辑</button>
                                                         </div>
                                                         <div class="htbt-right">
-                                                            <button data-categoryid="<? _e($val['mid']) ?>"
+                                                            <button data-categoryid="<?php _e($val['mid']) ?>"
                                                             <?php
                                                             if ($this->user->hasLogin()){
                                                                 if (CircleFollow::statusFollow($this->user->uid,$val['mid'])){
@@ -143,49 +143,49 @@ $total_tags = $this->getPageRow()["tags_all"];
                                                     </div>
                                                 <?endforeach;?>
                                             </div>
-                                        <? endforeach;?>
+                                        <?php endforeach;?>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                    <? else:?>
+                    <?php else:?>
                         <div class="tab-pane fade" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
                             <div class="row">
                                 <div class="col-md-4 col-lg-3">
                                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                         <?php foreach($total_category_data as $k => $data):?>
-                                            <? if ($k == 'all_'):?> <!-- 所有 ，默认active-->
+                                            <?php if ($k == 'all_'):?> <!-- 所有 ，默认active-->
                                                 <a class="nav-link active" id="v-pills-<?php _e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _e($data['id']);?>" aria-selected="true"><?php _e($data['name']);?></a>
-                                            <? else:?>
+                                            <?php else:?>
                                                 <a class="nav-link" id="v-pills-<?php _e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _e($data['id']);?>" aria-selected="false"><?php _e($data['name']);?></a>
-                                            <? endif;?>
-                                        <? endforeach;?>
+                                            <?php endif;?>
+                                        <?php endforeach;?>
                                     </div>
                                 </div>
                                 <div class="col-md-8 col-lg-9">
                                     <div class="tab-content" id="v-pills-tabContent">
                                         <!--输出对应分类圈子-->
                                         <?php foreach($total_category_data as $k => $data):?>
-                                            <div class="tab-pane fade <? if ($k == 'all_') _e('show active');?> mycicle-content" id="v-pills-<?php _e($data['id']);?>" role="tabpanel" aria-labelledby="v-pills-<?php _e($data['id']);?>-tab">
-                                                <? foreach ($data['categories'] as $val):?>
-                                                    <? $entry = Typecho_Widget::widget('Widget_Abstract_Metas')->filter(array(
+                                            <div class="tab-pane fade <?php if ($k == 'all_') _e('show active');?> mycicle-content" id="v-pills-<?php _e($data['id']);?>" role="tabpanel" aria-labelledby="v-pills-<?php _e($data['id']);?>-tab">
+                                                <?php foreach ($data['categories'] as $val):?>
+                                                    <?php $entry = Typecho_Widget::widget('Widget_Abstract_Metas')->filter(array(
                                                         'type'=>"category",
                                                         'slug'=>$val['slug']
                                                     ));
                                                     $url_ = Typecho_Router::url("category", array("slug"=>$val['slug']), $this->options->index);
                                                     ?>
                                                     <div class="circle-item">
-                                                        <a href="<? _e($url_) ?>" class="circle-item-link">
-                                                            <img src="<? echo parseDesc2img($this->options->defaultSlugUrl,$val['description']) ?>">
+                                                        <a href="<?php _e($url_) ?>" class="circle-item-link">
+                                                            <img src="<?php echo parseDesc2img($this->options->defaultSlugUrl,$val['description']) ?>">
                                                             <div class="circle-item-link-right">
-                                                                <div class="circle-item-link-title"><? _e($val['name']); ?></div>
-                                                                <div class="circle-item-link-info"><? echo parseDesc2text($val['description']) ?></div>
+                                                                <div class="circle-item-link-title"><?php _e($val['name']); ?></div>
+                                                                <div class="circle-item-link-info"><?php echo parseDesc2text($val['description']) ?></div>
                                                             </div>
                                                         </a>
 
                                                         <div class="htbt-right">
-                                                            <button data-categoryid="<? _e($val['mid']) ?>"
+                                                            <button data-categoryid="<?php _e($val['mid']) ?>"
                                                             <?php
                                                             if ($this->user->hasLogin()){
                                                                 if (CircleFollow::statusFollow($this->user->uid,$val['mid'])){
@@ -202,49 +202,49 @@ $total_tags = $this->getPageRow()["tags_all"];
                                                     </div>
                                                 <?endforeach;?>
                                             </div>
-                                        <? endforeach;?>
+                                        <?php endforeach;?>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                    <? endif;?>
-                <? else:?>
+                    <?php endif;?>
+                <?php else:?>
                     <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
                         <div class="row">
                             <div class="col-md-4 col-lg-3">
                                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <?php foreach($total_category_data as $k => $data):?>
-                                        <? if ($k == 'all_'):?> <!-- 所有 ，默认active-->
+                                        <?php if ($k == 'all_'):?> <!-- 所有 ，默认active-->
                                             <a class="nav-link active" id="v-pills-<?php _e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _e($data['id']);?>" aria-selected="true"><?php _e($data['name']);?></a>
-                                        <? else:?>
+                                        <?php else:?>
                                             <a class="nav-link" id="v-pills-<?php _e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _e($data['id']);?>" aria-selected="false"><?php _e($data['name']);?></a>
-                                        <? endif;?>
-                                    <? endforeach;?>
+                                        <?php endif;?>
+                                    <?php endforeach;?>
                                 </div>
                             </div>
                             <div class="col-md-8 col-lg-9">
                                 <div class="tab-content" id="v-pills-tabContent">
                                     <!--输出对应分类圈子-->
                                     <?php foreach($total_category_data as $k => $data):?>
-                                        <div class="tab-pane fade <? if ($k == 'all_') _e('show active');?> mycicle-content" id="v-pills-<?php _e($data['id']);?>" role="tabpanel" aria-labelledby="v-pills-<?php _e($data['id']);?>-tab">
-                                            <? foreach ($data['categories'] as $val):?>
-                                                <? $entry = Typecho_Widget::widget('Widget_Abstract_Metas')->filter(array(
+                                        <div class="tab-pane fade <?php if ($k == 'all_') _e('show active');?> mycicle-content" id="v-pills-<?php _e($data['id']);?>" role="tabpanel" aria-labelledby="v-pills-<?php _e($data['id']);?>-tab">
+                                            <?php foreach ($data['categories'] as $val):?>
+                                                <?php $entry = Typecho_Widget::widget('Widget_Abstract_Metas')->filter(array(
                                                     'type'=>"category",
                                                     'slug'=>$val['slug']
                                                 ));
                                                 $url_ = Typecho_Router::url("category", array("slug"=>$val['slug']), $this->options->index);
                                                 ?>
                                                 <div class="circle-item">
-                                                    <a href="<? _e($url_) ?>" class="circle-item-link">
-                                                        <img src="<? echo parseDesc2img($this->options->defaultSlugUrl,$val['description']) ?>">
+                                                    <a href="<?php _e($url_) ?>" class="circle-item-link">
+                                                        <img src="<?php echo parseDesc2img($this->options->defaultSlugUrl,$val['description']) ?>">
                                                         <div class="circle-item-link-right">
-                                                            <div class="circle-item-link-title"><? _e($val['name']); ?></div>
-                                                            <div class="circle-item-link-info"><? echo parseDesc2text($val['description']) ?></div>
+                                                            <div class="circle-item-link-title"><?php _e($val['name']); ?></div>
+                                                            <div class="circle-item-link-info"><?php echo parseDesc2text($val['description']) ?></div>
                                                         </div>
                                                     </a>
                                                     <div class="htbt-right">
-                                                        <button data-categoryid="<? _e($val['mid']) ?>"
+                                                        <button data-categoryid="<?php _e($val['mid']) ?>"
                                                         <?php
                                                         if ($this->user->hasLogin()){
                                                             if (CircleFollow::statusFollow($this->user->uid,$val['mid'])){
@@ -261,7 +261,7 @@ $total_tags = $this->getPageRow()["tags_all"];
                                                 </div>
                                             <?endforeach;?>
                                         </div>
-                                    <? endforeach;?>
+                                    <?php endforeach;?>
                                 </div>
                             </div>
                         </div>
@@ -292,7 +292,7 @@ $total_tags = $this->getPageRow()["tags_all"];
                                 <select class="form-control" id="changeCircle">
                                     <?php foreach($total_tags as $k => $data):?>
                                         <option value="<?_e($data['id'])?>"><?_e($data['name'])?></option>
-                                    <? endforeach;?>
+                                    <?php endforeach;?>
                                 </select>
                             </div>
                         </form>

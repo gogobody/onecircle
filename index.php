@@ -1,10 +1,10 @@
 <?php
 /**
- * 一个圈子主题，改自@Lanstar https://dyedd.cn
+ * 一个圈子主题
  *
  * @package OneCircle
  * @author gogobody
- * @version 1.9
+ * @version 2.8
  * @link https://blog.gogobody.cn
  */
 
@@ -40,34 +40,34 @@ $this->need('includes/header.php');
         <?php $this->need('includes/nav.php'); ?>
         <div class="col-xl-7 col-md-7 col-12 main-content">
             <?php if ($this->user->hasLogin() && !$recommend && checkIndexInputPermission($this->user->group)): //判断是否登录 ?>
-                <? $this->need('components/index/index-input.php'); ?>
+                <?php $this->need('components/index/index-input.php'); ?>
             <?php endif; ?>
 
-            <? if($recommend):?>
+            <?php if($recommend):?>
             <!-- 圈友日记 -->
             <div class="diary-content">
-                <a href="<? _e(Typecho_Common::url('/metas',$this->options->index));?>">
+                <a href="<?php _e(Typecho_Common::url('/metas',$this->options->index));?>">
                 <div class="mycicle-title">
                     <h2>圈友日记</h2>
-                    <a href="<? _e(Typecho_Common::url('/metas',$this->options->index));?>"><h2>更多</h2></a>
+                    <a href="<?php _e(Typecho_Common::url('/metas',$this->options->index));?>"><h2>更多</h2></a>
                 </div>
                 <div class="circle-diary">
                     <?php $imgs = getRandRecommendImgs(8); foreach ($imgs as $rimg):?>
                         <?php $this->widget('Widget_Archive@_'.$rimg['cid'], 'pageSize=1&type=post', 'cid='.$rimg['cid'])->to($archive_);?>
-                        <a href="<? _e($archive_->permalink()); ?>" class="circle-diary-bg" style="background-image: url('<?_e($rimg['img']);?>')">
+                        <a href="<?php _e($archive_->permalink()); ?>" class="circle-diary-bg" style="background-image: url('<?_e($rimg['img']);?>')">
                             <div class="circle-diary-bottom">
                                 <div class="circle-diary-avatar"><img class="img-circle img-thumbnail" src="<?_e(getUserV2exAvatar($rimg['email'],$rimg['userAvatar']));?>"></div>
                                 <div class="circle-diary-name"><?_e($rimg['screenName']);?></div>
                             </div>
                         </a>
-                    <? endforeach;?>
+                    <?php endforeach;?>
                 </div>
                 </a>
             </div>
-            <? endif; ?>
+            <?php endif; ?>
             <div class="list">
                 <?php while ($this->next()): ?>
-                    <? $this->need('components/index/article-content.php'); ?>
+                    <?php $this->need('components/index/article-content.php'); ?>
                 <?php endwhile; ?>
             </div>
             <!--分页-->

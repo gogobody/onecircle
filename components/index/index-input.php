@@ -20,7 +20,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <a href="http://www.baidu.com" target="_blank" class="sc-AxjAm kgcKxQ">
                 <div class="sc-AxjAm sc-AxirZ gITPLH bwqALa">
                     <div class="sc-AxjAm sc-AxirZ jLaetV">
-                        <img src="<? echo Helper::options()->themeUrl . '/assets/img/link.png' ?>" class="bLGCpY">
+                        <img src="<?php echo Helper::options()->themeUrl . '/assets/img/link.png' ?>" class="bLGCpY">
                         <div class="sc-AxjAm kKrDdN hHnMup"></div>
                     </div>
                     <div class="sc-AxjAm sc-AxirZ ezTcmd">

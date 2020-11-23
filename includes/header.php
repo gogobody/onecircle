@@ -186,7 +186,7 @@
                                     </div>
 
                                 </li>
-                            <? endif;?>
+                            <?php endif;?>
                             <!-- mobile-nav -->
                             <li class="nav-item d-md-none">
                                 <a class="nav-link d-block d-md-none mobile-nav" href="#" data-toggle="collapse" data-target="#mobile-nav"

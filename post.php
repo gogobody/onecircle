@@ -23,7 +23,7 @@
                         <img class="post-cover-img" src="<?php echo $this->fields->banner; ?>" alt="cover">
                     </div>
                 </div>
-            <? endif; ?>
+            <?php endif; ?>
             <!--            内容-->
             <article class="post">
 <!--                <h1 class="article-title"><a href="--><?php //$this->permalink() ?><!--">--><?php //$this->title() ?><!--</a></h1>-->
@@ -35,7 +35,7 @@
                     <?php if ($this->user->hasLogin() && checkPermission($this->author->uid,$this->user->uid)): ?>
                         <a href="<?php $this->options->adminUrl(); ?>write-post.php?cid=<?php echo $this->cid; ?>">编辑</a>
                         <?php Typecho_Widget::widget('Widget_Security')->to($security); ?>
-                        <a href="<?php $security->index('/action/contents-post-edit?do=delete&cid='.$this->cid); ?>" onclick="javascript:return del_article(this,<? _e($this->cid);?>)">删除</a>
+                        <a href="<?php $security->index('/action/contents-post-edit?do=delete&cid='.$this->cid); ?>" onclick="javascript:return del_article(this,<?php _e($this->cid);?>)">删除</a>
                     <?php endif; ?>
                 </div>
                 <!--     元数据-->
@@ -81,13 +81,13 @@
                 <!--点赞-->
                 <div class="sc-AxjAm sc-AxirZ bseKGM">
 
-                    <a href="<? _e($this->categories[0]['permalink'])?>" class="sc-AxjAm bqBMQE hWYvmd">
+                    <a href="<?php _e($this->categories[0]['permalink'])?>" class="sc-AxjAm bqBMQE hWYvmd">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                              class="dfDGBV">
                             <circle cx="10" cy="10" r="10" fill="#03A9F5"></circle>
                             <circle cx="10" cy="10" r="5" fill="#A0E3FE"></circle>
                         </svg>
-                        <? _e($this->categories[0]['name'])?>
+                        <?php _e($this->categories[0]['name'])?>
                         </a>
                     <div class="sc-AxjAm sc-AxirZ kVrFww">
                         <div class="sc-AxjAm sc-AxirZ  IsObJ" >

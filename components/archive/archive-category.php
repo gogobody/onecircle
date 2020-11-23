@@ -35,7 +35,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                 </div>
             </div>
             <div class="htbt-right">
-                <button data-categoryid="<? echo $this->getPageRow()['mid'] ?>"
+                <button data-categoryid="<?php echo $this->getPageRow()['mid'] ?>"
                 <?php
                 if ($this->user->hasLogin()){
                     if (CircleFollow::statusFollow($this->user->uid,$this->getPageRow()['mid'])){
