@@ -11,7 +11,6 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <span class="topic-container-items" onclick="event.stopPropagation()">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="container-svg"><circle cx="10" cy="10" r="10" fill="#03A9F5"></circle><circle cx="10" cy="10" r="5" fill="#A0E3FE"></circle></svg>
         <?php $this->category(','); ?>
-
         </span>
     </div>
 
@@ -27,7 +26,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                           <path fill-rule="evenodd"
                                 d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
                     </svg>
-                    <?php echo $row['views'] ?>
+                    <?php echo $GLOBALS['actionRow']['views'] ?>
                 </span>
             </button>
         </div>

@@ -10,6 +10,7 @@ if ($row['name']){
 }else{
     $addr = '云深不知处';
 }
+$GLOBALS['actionRow'] = $row;
 ?>
 <!-- focus user show -->
 <?php if ($this->fields->articleType == "focususer"): ?>
@@ -46,8 +47,6 @@ if ($row['name']){
                 <!-- focususer -->
                 <? $this->need('components/index/index-focususer.php'); ?>
                 <? $this->need('components/index/index-article-action.php'); ?>
-
-
             </div>
         </div>
         <?php $this->sticky(); ?>

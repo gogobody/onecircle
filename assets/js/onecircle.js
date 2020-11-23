@@ -418,7 +418,7 @@ var indexInput = {
                 message: "请填写密码",
                 type: "warning"
             }), navLoginPsw.focus(), showbtn(), !1) : (loginSubmitForm.addClass("active"), $("#spin-login").addClass("show inline"),
-                $.post(gconf.oneaction, {type: "getsecurl", url: window.location.href}, function (res) {
+                $.post(gconf.oneaction, {type: "getsecurl", url: gconf.index}, function (res) {
                     $("#Login_form").attr('action', res)
                     $.ajax({
                         url: res,
@@ -479,7 +479,7 @@ var indexInput = {
         if (userId > 0) {
             return
         }
-        $.post(gconf.oneaction, {type: "getsecurl", url: window.location.href}, function (res) {
+        $.post(gconf.oneaction, {type: "getsecurl", url: gconf.index}, function (res) {
             $("#Login_form").attr('action', res)
             //
             // if (checkURL(res)){
@@ -881,6 +881,7 @@ var archiveInit = {
             //  发送 AJAX 请求
             $.ajax({
                 //  请求方式 post
+                url:gconf.index,
                 type: 'post',
                 //  url 获取点赞按钮的自定义 url 属性
                 //  发送的数据 cid，直接获取点赞按钮的 cid 属性
@@ -962,7 +963,7 @@ var archiveInit = {
                             } else {
                                 d = $('#comment-' + k, d).hide();
                                 if (!$(g).length)
-                                    $('.comment-detail').prepend("<h2 class='comment-num'>0 条评论<\/h2><ol class='comment-list'><\/ol>");
+                                    $('.comment-detail').prepend("<h6 class='comment-num'>0 条评论<\/h6><ol class='comment-list'><\/ol>");
                                 $(g).prepend(d)
                             }
                             $('#comment-' + k).fadeIn();
@@ -1084,6 +1085,7 @@ var tagsManageInit = {
             var selectId = $("#changeCircle").val()
             $.ajax({
                 data: {
+                    url:gconf.index,
                     changeCircleCat: 1,
                     mid: catiod,
                     changetomid: selectId
