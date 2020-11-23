@@ -1181,7 +1181,7 @@ function postArticle(data, needRefresh) {
                 error: function (err) {
                     return $.message({
                         title: "提示",
-                        message: "err:" + err,
+                        message: "code:"+err.status+"err:" +err.responseText+ err,
                         type: "error"
                     })
                 }
