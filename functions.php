@@ -112,13 +112,15 @@ function getPostImg($archive)
 
     preg_match_all($preg, $archive->content, $allImg);//这里匹配所有的img
     // 过滤掉 loading 的img
-    for($i =0 ;$i<count($allImg[1]);$i++){
-        preg_match($filter_plink,$allImg[0][$i],$plinkarr);
+    foreach ($allImg[0] as $key =>$val){
+        preg_match($filter_plink,$val,$plinkarr);
         if (empty($plinkarr)){ //含有 plink
-            unset($allImg[1][$i]);
+            unset($allImg[1][$key]);
         }
-        if ($allImg[1][$i] == $loading or empty($allImg[1][$i])){
-            unset($allImg[1][$i]);
+    }
+    foreach ($allImg[1] as $key =>$val){
+        if ($val == $loading or empty($val)){
+            unset($allImg[1][$key]);
         }
     }
     preg_match_all($preg2, $archive->content, $allImg2);//这里匹配所有的背景img
