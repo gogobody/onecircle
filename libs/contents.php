@@ -206,7 +206,10 @@ class contents{
                     ->where('type = ?', 'post')
                     ->where('cid = ?',$match)
                 );
-
+                if (count($articleArr) == 0){
+                    $text =  preg_replace($reg, '<br>文章cid错误<br>', $text, 1);
+                    return $text;
+                }
                 $val = Typecho_Widget::widget('Widget_Abstract_Contents')->push($articleArr[0]);
                 if ($result[0]['name'] =="banner"){
                     $banner = empty($result[0]['str_value'])?'/usr/themes/onecircle/assets/img/default.png':$result[0]['str_value'];
