@@ -189,7 +189,6 @@ class utils
         Helper::options()->themeUrl('/assets/js/all.min.js');
         echo '"></script>';
 
-
         echo '<script src="';
         Helper::options()->themeUrl('/assets/js/editor.min.js');
         echo '"></script>';
