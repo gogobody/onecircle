@@ -418,7 +418,7 @@ var indexInput = {
                 message: "请填写密码",
                 type: "warning"
             }), navLoginPsw.focus(), showbtn(), !1) : (loginSubmitForm.addClass("active"), $("#spin-login").addClass("show inline"),
-                $.post(gconf.oneaction, {type: "getsecurl", url: gconf.index}, function (res) {
+                $.post(gconf.oneaction, {type: "getsecurl", url: window.location.href}, function (res) {
                     $("#Login_form").attr('action', res)
                     $.ajax({
                         url: res,
