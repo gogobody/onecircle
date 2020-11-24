@@ -144,16 +144,18 @@ class contents{
 
         $loading = Helper::options()->themeUrl('assets/img/loading.svg', 'onecircle');
         // old format
-        /*        $pattern =  '/<p>(\s|[\r\n])*(<img((?!plink).)*.src=[\"|\']?(.*?)[\"|\'][\s\S]*?>)(\s|[\r\n])*<\/p>/i';*/
+        /*        $pattern =  '/<p>(\s|[\r\n])*(<img[\s\S]*?src\s*=\s*[\"|\'](.*?)[\"|\'][\s\S]*?>)(\s|[\r\n])*<\/p>/i';*/
         $pattern='/\[gallery\]([\s\S]*?)\[endgallery\]/sm';
-        $pattern_img =  '/<img((?!plink).)*.src=[\"|\']?(.*?)[\"|\'][\s\S]*?>/i';
+        $pattern_img =  '/<img[\s\S]*?src\s*=\s*[\"|\'](.*?)[\"|\'][\s\S]*?>/i';
+        $filter_plink = '/<img((?!plink).)*.src=[\"|\']?(.*?)[\"|\'][\s\S]*?>/i';  // 匹配不含 plink 的
         preg_match_all($pattern, $text, $match);
 
         if (!empty($match[1][0])){ // so its a gallery and $0 is <p> $1 = \t\r $2=<img>...</img> $3 ...
-
             $gallerynum = count($match[1]);
             for ($i = 0; $i < $gallerynum; $i++) {
                 $imgs_str_ = $match[1][$i];
+                preg_match($filter_plink,$match[0][$i],$plinkarr);
+                if (empty($plinkarr)) continue; //含有 plink
                 preg_match_all($pattern_img, $imgs_str_, $imgs);
                 $img_count = count($imgs[0]) > 9 ? 9:count($imgs[0]) ;
                 $imgs_str = preg_replace($pattern_img, '<a class="post-cover-img-more" data-fancybox="gallery" href="$1"><img src="'.$loading.'" class="post-cover-img-more lazyload" data-src="$1" alt="no morepic"></a>', $imgs_str_); //style="background-image: url('."$1".')"
