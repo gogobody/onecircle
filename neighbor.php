@@ -21,7 +21,8 @@ $district = $this->getKeywords();
         </div>
     </div>
 </div>
+<script>district='<?php _e($district);?>';window.onload = function(){oneMap.pjax_complete()}</script>
+
 <?php $this->need('includes/body-layout-end.php');?>
 
-<script>district='<?php _e($district);?>';window.onload = function(){oneMap.pjax_complete()}</script>
 <?php  $this->need('includes/footer.php');?>

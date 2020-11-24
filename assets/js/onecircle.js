@@ -1054,10 +1054,10 @@ var recommendInit = {
     init: function () {
         this.autoDirayWith()
     },
-    autoDirayWith: function (e) {
+    autoDirayWith: function () {
         var bgs = document.getElementsByClassName("circle-diary-bg");
         for (var i = 0; i < bgs.length; i++) {
-            bgs[i].style.height = bgs[i].offsetWidth;
+            bgs[i].style.height = bgs[i].offsetWidth + 'px';
         }
     },
     pjax_complete: function () {
@@ -1253,6 +1253,7 @@ var oneMap = { // use js only!
         if (document.getElementById("amap-container")){
             var map = new AMap.Map('amap-container', {
                 resizeEnable: true,
+                zoom:15,
                 mapStyle: "amap://styles/fresh"
             });
             var addr = utils.getQueryString('name') // this is for neighbor widget
@@ -1326,7 +1327,7 @@ var pjaxInit = function () {
     owoInit();
     //
     tagsManageInit.pjax_complete()
-    // oneMap.pjax_complete()
+    oneMap.pjax_complete()
     if ($("article.post")){
         Prism.highlightAll()
     }
