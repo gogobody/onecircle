@@ -71,7 +71,7 @@ $this->need('includes/header.php');
                     <?php endwhile; ?>
                 </div>
                 <!--分页-->
-                <?php $this->need('includes/pagination.php');?>
+                <?php $this->need('includes/post-pagination.php');?>
             </div>
         </div>
         <?php

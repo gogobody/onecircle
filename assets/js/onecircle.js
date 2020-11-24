@@ -1040,6 +1040,41 @@ var archiveInit = {
             }
             return false;
         });
+        var comments_pagelink = $(".a-pageLink .comments-next")
+        if (comments_pagelink.length > 0) {
+        } else {
+            comments_pagelink.attr("style", "display:none");
+        }
+        comments_pagelink.unbind('click').bind('click', function () {
+            var href = $(this).attr("href");
+            var donut = $(".a-pageLink .donut")
+            if (href !== undefined) {
+                $.ajax({
+                    url: href,
+                    type: "get",
+                    beforeSend: function () {
+                        comments_pagelink.hide();
+                        donut.fadeIn();
+                    },
+                    error: function (res) {
+                    },
+                    success: function (data) {
+                        var $res = $(data).find(".comment-list-item");
+                        donut.hide();
+                        $('.comment-detail>.comment-list').append($res).fadeIn();
+                        var newhref = $(data).find(".a-pageLink .comments-next").attr("href");
+                        if (newhref !== undefined) {
+                            comments_pagelink.attr("href", newhref);
+                            comments_pagelink.fadeIn();
+                        } else {
+                            comments_pagelink.attr("style", "display:none");
+                            $(".a-pageLink").append('<a href="javascript:;" rel="nofollow">加载完毕</a>');
+                        }
+                    }
+                });
+            }
+            return false;
+        });
     },
     pjax_complete: function () {
         this.archiveEventInit()

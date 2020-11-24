@@ -146,7 +146,7 @@
                         </div>
                     </div>
 
-                    <?php if ($tabIndex==0 || $tabIndex == 3){$this->need('includes/pagination.php');} ?>
+                    <?php if ($tabIndex==0 || $tabIndex == 3){$this->need('includes/post-pagination.php');} ?>
 
                 </div>
                 <?php $this->need('includes/archive-right.php'); ?>

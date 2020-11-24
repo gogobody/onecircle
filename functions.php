@@ -58,15 +58,19 @@ function themeFields(Typecho_Widget_Helper_Layout $layout)
 
 function themeInit($archive)
 {
-
+    $options = Helper::options();
     //评论回复楼层最高999层.这个正常设置最高只有7层
-    Helper::options()->commentsMaxNestingLevels = 999;
+    $options->commentsMaxNestingLevels = 999;
     //强制评论关闭反垃圾保护
-    Helper::options()->commentsAntiSpam = false;
+    $options->commentsAntiSpam = false;
     //将最新的评论展示在前
-    Helper::options()->commentsOrder = 'DESC';
+    $options->commentsOrder = 'DESC';
+    // 评论分页
+    $options->commentsPageBreak = true;
+    $options->commentsPageSize = 5;
     //关闭检查评论来源URL与文章链接是否一致判断
-    Helper::options()->commentsCheckReferer = false;
+    $options->commentsCheckReferer = false;
+
     // parse route
     parseRout($archive);
     // 初始化数据库设置
