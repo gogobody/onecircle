@@ -13,7 +13,8 @@ class contents{
             }elseif ($widget->fields->articleType == 'repost'){
                 // 转发
                 $text = contents::repostArticle($text,Helper::options()->defaultSlugUrl);
-            }elseif ($widget->fields->articleType == 'link'){
+            }
+            if ($widget->fields->articleType == 'link' || $widget->is('page')){
                 $text = contents::parsePureLink($text);
 
             }
