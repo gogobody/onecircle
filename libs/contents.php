@@ -1,14 +1,12 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class contents{
-    public static $frag = false;
     public static function parseContent($data, $widget, $last)
     {
         $text = empty($last) ? $data : $last;
         if ($widget instanceof Widget_Archive) {
             if($widget->fields->articleType == 'default' || $widget->is('page')){
-                if (!self::$frag)
-                    $text = contents::fancybox($text,$widget);
+                $text = contents::fancybox($text,$widget);
             }elseif ($widget->fields->articleType == 'focususer'){
                 // 关注
                 $text = contents::focusUsers($text);
@@ -85,7 +83,6 @@ class contents{
     public static function parseLink($text) {
         $reg = '/\[links\](.*?)\[\/links\]/s';
         if (preg_match($reg, $text)) {
-            self::$frag = true;
             $rp = '${1}';
             $text = preg_replace($reg, $rp, $text);
             $pattern = '/\[(.*?)\]\((.*?)\)\+\((.*)\)/';
