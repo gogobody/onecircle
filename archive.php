@@ -66,7 +66,7 @@
                                     <?php if (count($fobj)>0):?>
                                     <?php for($i=0;$i<count($fobj);$i++): ?>
                                         <div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr">
-                                            <a href="/author/<?php _e($fobj[$i]['uid'])?>"
+                                            <a href="<?php $author_url = Typecho_Common::url('/author/'.$fobj[$i]['uid'].'/',$this->options->index);_e($author_url)?>"
                                                class="sc-AxjAm sc-AxirZ eGdPrb"><img
                                                         src="<?php _e(getUserV2exAvatar($fobj[$i]['mail'],$fobj[$i]['userAvatar']))?>"
                                                         alt="再多一点可爱" class="sc-AxjAm jZLHXc">
@@ -103,7 +103,7 @@
 
                                         <?php for ($i = 0; $i < count($fobj); $i++): ?>
                                         <div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr">
-                                            <a href="/author/<?php _e($fobj[$i]['uid'])?>"
+                                            <a href="<?php $author_url = Typecho_Common::url('/author/'.$fobj[$i]['uid'].'/',$this->options->index);_e($author_url)?>"
                                                class="sc-AxjAm sc-AxirZ eGdPrb"><img
                                                         src="<?php _e(getUserV2exAvatar($fobj[$i]['mail'],$fobj[$i]['userAvatar']))?>"
                                                         alt="再多一点可爱" class="sc-AxjAm jZLHXc">

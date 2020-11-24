@@ -1,6 +1,7 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 function threadedComments($comments, $options)
 {
+    $options = Helper::options();
     $commentClass = '';
     if ($comments->authorId) {
         if ($comments->authorId == $comments->ownerId) {
@@ -23,7 +24,7 @@ function threadedComments($comments, $options)
             <div class="comment-meta">
                 <div class="comment-author">
                     <?php if ($comments->authorId > 0): ?>
-                    <a href="/author/<?php echo $comments->authorId ?>" rel="external nofollow">
+                    <a href="<?php $author_url = Typecho_Common::url('/author/'.$comments->authorId.'/',$options->index);_e($author_url)?>" rel="external nofollow">
                         <?php elseif ($comments->url): ?>
                         <a href="<?php echo $comments->url ?>" target="_blank" rel="external nofollow">
                             <?php endif; ?>
