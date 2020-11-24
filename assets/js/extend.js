@@ -1056,7 +1056,7 @@ var recommendInit = {
     autoDirayWith: function (e) {
         var bgs = document.getElementsByClassName("circle-diary-bg");
         for (var i = 0; i < bgs.length; i++) {
-            bgs[i].style.height = bgs[i].offsetWidth;
+            bgs[i].style.height = bgs[i].offsetWidth + 'px';
         }
     },
     pjax_complete: function () {
