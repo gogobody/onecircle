@@ -141,7 +141,7 @@ class contents{
     }
 
     public static function lazyload($text){
-        $pattern_img =  '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/gim';
+        $pattern_img =  '/<img((?!plink).)*.src=[\"|\']?(.*?)[\"|\'][\s\S]*?>/gim';
         $pregEchoBackImg = 'data-echo-background[ ]?=[ ]?[&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif|bmp|webp))'; // 针对echo.js 匹配
 
     }
@@ -150,9 +150,9 @@ class contents{
     {
         $loading = Helper::options()->themeUrl('assets/img/loading.svg', 'onecircle');
         // old format
-        /*        $pattern =  '/<p>(\s|[\r\n])*(<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>)(\s|[\r\n])*<\/p>/i';*/
+        /*        $pattern =  '/<p>(\s|[\r\n])*(<img((?!plink).)*.src=[\"|\']?(.*?)[\"|\'][\s\S]*?>)(\s|[\r\n])*<\/p>/i';*/
         $pattern='/\[gallery\]([\s\S]*?)\[endgallery\]/sm';
-        $pattern_img =  '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';
+        $pattern_img =  '/<img((?!plink).)*.src=[\"|\']?(.*?)[\"|\'][\s\S]*?>/i';
         preg_match_all($pattern, $text, $match);
         if (!empty($match[1][0])){ // so its a gallery and $0 is <p> $1 = \t\r $2=<img>...</img> $3 ...
             $gallerynum = count($match[1]);
@@ -216,7 +216,7 @@ class contents{
                     $banner = '/usr/themes/onecircle/assets/img/default.png';
                 }
 
-                $replacement = '<div class="card bg-dark text-white">
+                $replacement = '<div class="card cid-card text-white">
                               <img src="'.$banner.'" class="card-img" alt="文章卡片">
                               <div class="card-img-overlay">
                                 <span class="card-title"><a href="'.$val['permalink'].'">'.$val['title'].'</a></span>
@@ -265,9 +265,9 @@ class contents{
         $reg = '/\[pureLink comment="(.*?)" text="(.*?)" link="(.*?)"\]/sm';
         if (preg_match($reg, $text, $arr)) {
             if ($arr[1])
-                $replacement = '<div class=""><p>$1</p><a class="link-a" href="$3" target="_blank"><div class="link-container link-a"><div class="link-banner"><img src="'.Helper::options()->themeUrl .'/assets/img/link.png'.'"><div class="link-text">$2</div></div></div></a></div>';
+                $replacement = '<div class=""><p>$1</p><a class="link-a" href="$3" target="_blank"><div class="link-container link-a"><div class="link-banner"><img plink src="'.Helper::options()->themeUrl .'/assets/img/link.png'.'"><div class="link-text">$2</div></div></div></a></div>';
             else
-                $replacement = '<div class=""><a class="link-a" href="$3" target="_blank"><div class="link-container link-a"><div class="link-banner"><img src="'.Helper::options()->themeUrl .'/assets/img/link.png'.'"><div class="link-text">$2</div></div></div></a></div>';
+                $replacement = '<div class=""><a class="link-a" href="$3" target="_blank"><div class="link-container link-a"><div class="link-banner"><img plink src="'.Helper::options()->themeUrl .'/assets/img/link.png'.'"><div class="link-text">$2</div></div></div></a></div>';
             return preg_replace($reg, $replacement, $text);
         }
         return $text;
