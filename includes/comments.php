@@ -82,32 +82,7 @@ function threadedComments($comments, $options)
     <div class="comment-detail">
         <?php if ($comments->have()): ?>
             <h6 id="comment-num"><?php $this->commentsNum(_t('暂无评论'), _t('1 条评论'), _t('%d 条评论')); ?></h6>
-
-
             <?php $comments->listComments();require_once ('comments-pagination.php'); ?>
-            <?php ?>
-
-<!--            <div class="page-pagination">-->
-<!--                --><?php
-//                $comments->pageNav(
-//                    '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-double-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-//                  <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-//                  <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-//                </svg>',
-//                    '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-double-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-//              <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
-//              <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
-//            </svg>',
-//                    3, '...', array(
-//                    'wrapTag' => 'ul',
-//                    'wrapClass' => 'pagination justify-content-center',
-//                    'itemTag' => 'li',
-//                    'itemClass' => 'page-item',
-//                    'linkClass' => 'page-link',
-//                    'currentClass' => 'active'
-//                ));
-//                ?>
-<!--            </div>-->
         <?php endif; ?>
     </div>
 
@@ -117,7 +92,7 @@ function threadedComments($comments, $options)
                 <?php if($this->user->hasLogin()): ?>
                     <div class="comment-respond-author">
                         <a href="<?php $this->options->profileUrl(); ?>" target="_blank" rel="external nofollow">
-                            <img class="user-head" src="<?php echo getUserV2exAvatar($comments->mail,$this->user->userAvatar,40); ?>" />
+                            <img class="user-head" src="<?php echo getUserV2exAvatar($this->user->mail,$this->user->userAvatar,40); ?>" />
                         </a>
                     </div>
                 <?php else: ?>

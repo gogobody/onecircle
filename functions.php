@@ -65,10 +65,10 @@ function themeInit($archive)
     $options->commentsAntiSpam = false;
     //将最新的评论展示在前
     $options->commentsOrder = 'DESC';
-    // 评论分页
-    $options->commentsPageBreak = true;
-    $options->commentsPageSize = 5;
-    $options->commentsPageDisplay = 'first';
+    // 评论分页 //改为在后台开启
+//    $options->commentsPageBreak = true;
+//    $options->commentsPageSize = 5;
+//    $options->commentsPageDisplay = 'first';
     //关闭检查评论来源URL与文章链接是否一致判断
     $options->commentsCheckReferer = false;
 

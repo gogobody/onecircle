@@ -132,7 +132,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             <h2 class="title">最近回复</h2>
             <ul class="list-unstyled">
                 <?php $r_comments =null;
-                $this->widget('Widget_Comments_Recent', 'ignoreAuthor=true&pageSize=5')->to($r_comments); ?>
+                $this->widget('Widget_Comments_Recent@right', 'ignoreAuthor=true&pageSize=5')->to($r_comments); ?>
                 <?php while ($r_comments->next()): ?>
                     <li class="media my-4">
                         <img class="recent-avatar mr-3"
