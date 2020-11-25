@@ -24,13 +24,17 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                         <span class="nav-item-text"><?php _e('发现'); ?></span>
                     </div>
                 </a>
-                <?php $this->widget('Widget_Contents_Page_List')->to($pages); ?>
+                <?php $pages = null;
+                $this->widget('Widget_Contents_Page_List')->to($pages); ?>
 
                 <?php utils::customNavHandle($this->options->customNavIcon, $pages, $this);?>
             </nav>
         </div>
         </div>
+        <?php echo Typecho_Plugin::factory('OneCircle.Donate')->Donate(); ?>
+
     </div><!--.aside-wrap-->
+
 </aside>
 
 

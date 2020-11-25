@@ -3113,6 +3113,51 @@ neighbor
     overflow: hidden;
 }
 
+
+/**
+赞赏
+ */
+.support-author{
+    position: absolute;
+    bottom: 10%;
+    left: 0;
+    right: 0;
+}
+#support_author,#donateModal,.pay-button button{
+    font-size: 14px;
+}
+#support_author span,.pay-button span{
+    vertical-align: middle;
+}
+.pay-img {
+    max-width: 70%!important;
+    border: none!important;
+    margin: auto;
+}
+.article__reward-border {
+    border-top: 1px solid #eee;
+    margin-bottom: 20px!important;
+    margin-top: 10px!important;
+}
+.pay-button {
+    display: inline-block;
+}
+.btn-blue {
+    color: #fff!important;
+    background-color: #23b7e5;
+    border-color: #23b7e5;
+}
+.btn-always-success {
+    color: #fff!important;
+    background-color: #27c24c;
+    border-color: #27c24c;
+}
+.m-b-xs {
+    margin-bottom: 5px;
+}
+.m-r-xs {
+    margin-right: 5px;
+}
 /**
 mobile fix
  */
