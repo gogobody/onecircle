@@ -1059,7 +1059,7 @@ var archiveInit = {
                     error: function (res) {
                     },
                     success: function (data) {
-                        var $res = $(data).find(".comment-list-item");
+                        var $res = $(data).find(".comment-detail>.comment-list>.comment-list-item");
                         donut.hide();
                         $('.comment-detail>.comment-list').append($res).fadeIn();
                         var newhref = $(data).find(".a-pageLink .comments-next").attr("href");
@@ -1169,6 +1169,7 @@ var oneMap = { // use js only!
         this.restoreFromLocal()
     },
     amapLoadInit: function () {
+        if (userId < 0) return ; // not login
         var httpRequest = new XMLHttpRequest();
         httpRequest.open('POST', gconf.oneaction, true);
         httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）

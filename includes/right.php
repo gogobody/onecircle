@@ -131,16 +131,17 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <div class="card recent-box d-none d-md-block">
             <h2 class="title">最近回复</h2>
             <ul class="list-unstyled">
-                <?php $this->widget('Widget_Comments_Recent', 'ignoreAuthor=true&pageSize=5')->to($comments); ?>
-                <?php while ($comments->next()): ?>
+                <?php $r_comments =null;
+                $this->widget('Widget_Comments_Recent', 'ignoreAuthor=true&pageSize=5')->to($r_comments); ?>
+                <?php while ($r_comments->next()): ?>
                     <li class="media my-4">
                         <img class="recent-avatar mr-3"
-                             src="<?php echo getUserV2exAvatar($comments->mail,UserFollow::getUserObjFromMail($comments->mail)['userAvatar'],40); ?>"/>
+                             src="<?php echo getUserV2exAvatar($r_comments->mail,UserFollow::getUserObjFromMail($r_comments->mail)['userAvatar'],40); ?>"/>
                         <div class="media-body">
-                            <h6 class="mt-0 mb-1"><?php $comments->author(false); ?></h6>
-                            <a class="content" href="<?php $comments->permalink(); ?>"
+                            <h6 class="mt-0 mb-1"><?php $r_comments->author(false); ?></h6>
+                            <a class="content" href="<?php $r_comments->permalink(); ?>"
                                target="<?php $this->options->sidebarLinkOpen(); ?>">
-                                <?php echo contents::parseHide($comments->excerpt(35, '...'));?>
+                                <?php echo contents::parseHide($r_comments->excerpt(35, '...'));?>
                             </a>
                         </div>
                     </li>

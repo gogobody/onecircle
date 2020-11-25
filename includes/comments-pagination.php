@@ -13,7 +13,7 @@ if ($this->options->commentsPageBreak) {
     preg_match($pattern,$comments->permalink,$arr);
     $currentPage = $arr[1];
     $totalPage = ceil($total/$this->options->commentsPageSize);
-    if ($this->options->commentsOrder == 'DESC'){ // 倒序，最新的评论显示在最前面，说明应该加载上一页
+    if ($this->options->commentsOrder == 'DESC' and $this->options->commentsPageDisplay == 'last'){ // 倒序，最新的评论显示在最前面，说明应该加载上一页
         $pageRow = array('permalink' => $comments->parentContent['pathinfo'], 'commentPage' => $currentPage - 1);
         if ($currentPage == 1){
             $next_page_link = "";

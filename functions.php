@@ -68,6 +68,7 @@ function themeInit($archive)
     // 评论分页
     $options->commentsPageBreak = true;
     $options->commentsPageSize = 5;
+    $options->commentsPageDisplay = 'first';
     //关闭检查评论来源URL与文章链接是否一致判断
     $options->commentsCheckReferer = false;
 
