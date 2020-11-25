@@ -174,12 +174,12 @@ var indexInput = {
                     that.additionArray.push(stripscript(res))
                     $(this_).text("添加")
                     // set other disable
-                    that.addLink.siblings().addClass('btn-disable')
+                    that.addLinkBtn.siblings().addClass('btn-disable')
                     // close closeTextareaBlk
                     $(".sc-AxjAm.sc-AxirZ.ezTcmd").unbind('click').bind('click', function (e) {
                         $(".kgcKxQ").css("display", "none")
                         e.stopPropagation();
-                        that.addLink.siblings().removeClass('btn-disable')
+                        that.addLinkBtn.siblings().removeClass('btn-disable')
                         return false;
                     })
                 }
