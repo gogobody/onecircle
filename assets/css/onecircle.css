@@ -8,6 +8,7 @@
     --input-gray: rgb(64,64,64);
     --backgroundColor: rgb(239, 243, 246);
     --timegray:#9f9b9b;
+    --themecolor-dark:#525f7f;
 }
 .bright{
     --themecolor:rgb(29,161,242);
@@ -18,6 +19,9 @@
     --acolor: rgb(20, 23, 26);
     --shadow: rgba(0,0,0,.25);
     --contentcolor: rgb(136,153,166);
+}
+.black{
+
 }
 /**
 common
@@ -1574,26 +1578,8 @@ right
 .recent-box .content:hover {
     color: #0056b3;
 }
-/*
-返回顶部
-*/
-@media (max-width: 1000px) {
-    .back-to-top {
-        display: none !important;
-    }
-}
-.back-to-top {
-    display: none;
-    cursor: pointer;
-    position: fixed;
-    right: 80px;
-    top: -100px;
-    z-index: 2;
-    width: 70px;
-    height: 800px;
-    background: url(../img/backtop.png);
-    opacity: 1;
-}
+
+
 /**
 archive
  */
@@ -3158,6 +3144,102 @@ neighbor
 .m-r-xs {
     margin-right: 5px;
 }
+/*浮动按钮栏 (回顶等)*/
+.black .fabtn {
+    background: #424242;
+    color: #eee;
+}
+
+.black #fabtn_reading_progress_bar {
+    background: #ccc;
+}
+.bright .fabtn {
+    background: #fff;
+    color: #373e4a;
+}
+
+.bright #fabtn_reading_progress_bar {
+    background: #000;
+}
+#float_action_buttons{
+    position: fixed;
+    bottom: 35px;
+    right: 20px;
+    height: max-content;
+    z-index: 1000;
+    transition: all .3s ease;
+}
+#float_action_buttons .btn{
+    font-size: .875rem;
+    position: relative;
+    transition: all .15s ease;
+    letter-spacing: .025em;
+    text-transform: uppercase;
+    will-change: transform;
+    box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.1);
+}
+.tooltip > .arrow{
+    display: none;
+}
+#float_action_buttons.fabtns-float-left{
+    left: 20px;
+    right: auto;
+}
+#float_action_buttons.fabtns-float-left .fabtn-show-on-right{
+    display: none;
+}
+#float_action_buttons:not(.fabtns-float-left) .fabtn-show-on-left{
+    display: none;
+}
+.fabtns-unloaded{
+    opacity: 0;
+    pointer-events: none;
+}
+.fabtn{
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    overflow: visible;
+    display: block;
+    margin-top: 8px;
+    border: none !important;
+    transition: all .3s ease;
+}
+
+.fabtn:active{
+    color: #fff !important;
+    background-color: var(--themecolor-dark) !important;
+}
+.fabtn.fabtn-hidden{
+    height: 0;
+    opacity: 0;
+    margin-top: 0;
+    box-shadow: none;
+    pointer-events: none;
+}
+#fabtn_toggle_sides{
+    height: 30px !important;
+    transform: translateY(8px);
+    opacity: 0;
+}
+#float_action_buttons:hover #fabtn_toggle_sides{
+    height: 30px !important;
+    transform: translateY(0px);
+    opacity: 1;
+}
+#fabtn_reading_progress{
+    height: 30px;
+}
+#fabtn_reading_progress_bar{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    border-radius: 4px;
+    background: var(--themecolor);
+    opacity: .08;
+}
+
 /**
 mobile fix
  */
@@ -3167,6 +3249,12 @@ mobile fix
 @media screen and (min-width: 600px) {
     .header-top-bottom-avatar {
         top: -40px;
+    }
+    .black .fabtn:hover {
+        background: #606060 !important;
+    }
+    .bright .fabtn:hover {
+        background: var(--themecolor) !important;
     }
 }
 
@@ -3468,13 +3556,23 @@ mobile fix
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 449.98px) {
     .circle-diary-bg {
         width: 45%;
     }
     .fans, .fansed {
         margin: 0 7px 0 0;
         padding: 8px 16px;
+    }
+    .fabtn{
+        width: 30px;
+        height: 30px;
+    }
+    .bright .fabtn{
+        background: rgba(227, 227,227,0.7);
+    }
+    #float_action_buttons .btn{
+        font-size: .575rem;
     }
 }
 

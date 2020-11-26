@@ -1,5 +1,5 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
@@ -37,8 +37,9 @@
     <?php $this->options->headerEcho(); ?>
     <script>gconf={index:'<?_e(Helper::options()->index)?>',oneaction:'<?_e(Helper::options()->index)?>/oneaction'}</script>
     <script src="https://cdn.bootcdn.net/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
+    <?php Typecho_Plugin::factory('SmmsPlugin')->header($this); ?>
 </head>
-<body class="bright">
+<body class="bright" ontouchstart="">
 <div id="allayout" class="app app-aside-fix app-header-fixed">
     <header class="app-header">
         <div class="container-xl">

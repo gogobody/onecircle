@@ -15,7 +15,6 @@
     <span class="footer-item">&nbsp;|&nbsp;Powered by <a target="_blank" href="http://www.typecho.org">Typecho</a>&nbsp;|&nbsp;Designed by <b title="author info"><a target="_blank" href="https://github.com/gogobody/onecircle">gogobody</a></b></span>
 </footer>
 
-<div class="back-to-top animate__animated"></div>
 <script crossorigin="anonymous" integrity="sha384-LVoNJ6yst/aLxKvxwp6s2GAabqPczfWh6xzm38S/YtjUyZ+3aTKOnD/OJVGYLZDl" src="//lib.baomitu.com/jquery/3.5.0/jquery.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery.form/3.09/jquery.form.min.js"></script>
 <script crossorigin="anonymous" integrity="sha512-iceXjjbmB2rwoX93Ka6HAHP+B76IY1z0o3h+N1PeDtRSsyeetU3/0QKJqGyPJcX63zysNehggFwMC/bi7dvMig==" src="//lib.baomitu.com/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
@@ -28,6 +27,8 @@
 <script src="<?php $this->options->themeUrl('assets/js/page.min.js'); ?>"></script>
 <script crossorigin="anonymous" integrity="sha384-Zm+UU4tdcfAm29vg+MTbfu//q5B/lInMbMCr4T8c9rQFyOv6PlfQYpB5wItcXWe7" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+<?php Typecho_Plugin::factory('SmmsPlugin')->footer($this); ?>
+
 <?php
     $userId = -1; //save userid
     if ($this->user->hasLogin()){
@@ -68,8 +69,43 @@ $(document).on('ready pjax:end', function(event) {
     }
 })
 </script>
-
-
+<!--<script>// 禁止f12-->
+<!--    ((function() {-->
+<!--        var callbacks = [],-->
+<!--            timeLimit = 50,-->
+<!--            open = false;-->
+<!--        setInterval(loop, 1);-->
+<!--        return {-->
+<!--            addListener: function(fn) {-->
+<!--                callbacks.push(fn);-->
+<!--            },-->
+<!--            cancleListenr: function(fn) {-->
+<!--                callbacks = callbacks.filter(function(v) {-->
+<!--                    return v !== fn;-->
+<!--                });-->
+<!--            }-->
+<!--        }-->
+<!--        function loop() {-->
+<!--            var startTime = new Date();-->
+<!--            debugger;-->
+<!--            if (new Date() - startTime > timeLimit) {-->
+<!--                if (!open) {-->
+<!--                    callbacks.forEach(function(fn) {-->
+<!--                        fn.call(null);-->
+<!--                    });-->
+<!--                }-->
+<!--                open = true;-->
+<!--                window.stop();-->
+<!--                alert('不要扒我了');-->
+<!--                window.location.reload();-->
+<!--            } else {-->
+<!--                open = false;-->
+<!--            }-->
+<!--        }-->
+<!--    })()).addListener(function() {-->
+<!--        window.location.reload();-->
+<!--    });-->
+<!--</script>-->
 <?php $this->footer(); ?>
 
 <?php if ($this->options->compressHtml): $html_source = ob_get_contents(); ob_clean(); print utils::compressHtml($html_source); ob_end_flush(); endif; ?>
