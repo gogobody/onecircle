@@ -956,8 +956,9 @@ content layout
     box-sizing: border-box;
     min-width: 0;
     max-width: 100%;
-    height: auto;
+    height: 260px;
     margin: 0;
+    width: fit-content;
 }
 .more-pic{
     display: flex;
@@ -3573,6 +3574,9 @@ mobile fix
     }
     #float_action_buttons .btn{
         font-size: .575rem;
+    }
+    .post-cover-img{
+        height: 220px;
     }
 }
 

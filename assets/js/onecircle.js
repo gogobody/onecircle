@@ -850,7 +850,7 @@ var archiveInit = {
                                     var real_html = items.html()
                                     if ($(".pagination", html_node).length <= 0 && (tabindex === 1 || tabindex === 2)) {
                                         $(".pagination").css("display", "none")
-                                    } else if ($(".pagination", html_node).length > 0 && (tabindex === 1 || tabindex === 2)) {
+                                    } else if ($(".pagination", html_node).length > 0 && (tabindex === 0 || tabindex === 3)) {
                                         $(".pagination").css("display", "flex")
                                     }
                                     $(".item-container").html(real_html)
@@ -1709,7 +1709,7 @@ function del_article(this_, $cid) {
                 $.message({
                     title: "提示",
                     message: "删除成功！",
-                    type: "info"
+                    type: "success"
                 })
             },
             error: function (res) {
@@ -1717,7 +1717,7 @@ function del_article(this_, $cid) {
                 $.message({
                     title: "提示",
                     message: "删除成功！",
-                    type: "info"
+                    type: "success"
                 })
             }
         })
