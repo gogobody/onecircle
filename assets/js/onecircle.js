@@ -1520,7 +1520,57 @@ function postArticle(data, needRefresh) {
         }
     })
 }
-
+// delete comments
+function delComments(url,needRefresh) {
+    if (confirm("您真的确定要删除吗？")){
+        $.post(gconf.oneaction, {
+            type: 'getsecuritytoken'
+        }, function (res) {
+            if (res !== 'error') {
+                // console.log(res)
+                $.ajax({
+                    url: gconf.index + url+'&_=' + res,
+                    type: 'post',
+                    success: function (re) {
+                        if (needRefresh) {
+                            setTimeout(function () {
+                                $.pjax.reload('#pjax-container', {
+                                    container: '#pjax-container',
+                                    fragment: '#pjax-container',
+                                    timeout: 8000
+                                })
+                                $.message({
+                                    title: "提示",
+                                    message: "删除成功",
+                                    type: "success"
+                                })
+                            }, 800)
+                        }
+                        if (re.success){
+                            $.message({
+                                title: "提示",
+                                message: "删除成功",
+                                type: "success"
+                            })
+                        }
+                        return false;
+                    },
+                    error: function (err) {
+                        $.message({
+                            title: "提示",
+                            message: "code:" + err.status + "err:" + err.responseText + err,
+                            type: "error"
+                        })
+                        return false;
+                    }
+                })
+                return false;
+            }
+            return false;
+        })
+    }
+    return false;
+}
 // index input prev link click event
 function submitForm(ele) {
     // jquery 表单提交
