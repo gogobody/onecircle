@@ -1236,24 +1236,38 @@ footer
     align-content: flex-start;
     padding: 20px;
 }
-.circle-diary-bg{
-    display: flex;
+.diary-item {
     width: 22%;
+    display: inline-block;
+    margin: 5px;
+}
+.circle-diary-bg {
+    display: flex;
     overflow: hidden;
+    width: 100%;
+    height: 100%;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
     transition: all .2s ease 0s;
     border-radius: 10px;
-    padding: 10px;
-    margin: 5px;
     align-items: flex-end;
     box-shadow: rgba(0,0,0,.2) 0 1px 3px, rgba(157,182,200,.1) 0 1px 20px;
+}
+.circle-diary-bg .diary-img{
+    width: 100%;
+    height: 100%;
+}
+.circle-diary-bg .diary-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 .circle-diary-bottom{
     position: absolute;
     display: flex;
     flex-direction: row;
+    margin: 0 0 10px 10px;
 }
 .circle-diary-bottom .circle-diary-avatar img{
     width: 21px;
@@ -1276,6 +1290,11 @@ footer
     text-overflow: ellipsis;
     white-space: nowrap;
     text-align: left;
+    font-weight: 700;
+    background: #00000070;
+    padding: 0 4px;
+    border-radius: 5px;
+    max-width: 95%;
 }
 .mycicle-content .bITJVr{
     padding: 8px 16px 8px;
@@ -3558,7 +3577,7 @@ mobile fix
 }
 
 @media (max-width: 449.98px) {
-    .circle-diary-bg {
+    .diary-item{
         width: 45%;
     }
     .fans, .fansed {

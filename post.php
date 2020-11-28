@@ -87,7 +87,7 @@
                             <circle cx="10" cy="10" r="10" fill="#03A9F5"></circle>
                             <circle cx="10" cy="10" r="5" fill="#A0E3FE"></circle>
                         </svg>
-                        <?php if(empty($this->categories[0]['name']))_e("未选择");else _t($this->categories[0]['name']);?>
+                        <?php if(empty($this->categories[0]['name'])) _e("未选择");else _e($this->categories[0]['name']);?>
                     </a>
                     <div class="sc-AxjAm sc-AxirZ kVrFww">
                         <div class="sc-AxjAm sc-AxirZ  IsObJ" >

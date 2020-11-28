@@ -1108,7 +1108,7 @@ var recommendInit = {
         this.autoDirayWith()
     },
     autoDirayWith: function () {
-        var bgs = document.getElementsByClassName("circle-diary-bg");
+        var bgs = document.getElementsByClassName("diary-item");
         for (var i = 0; i < bgs.length; i++) {
             bgs[i].style.height = bgs[i].offsetWidth + 'px';
         }

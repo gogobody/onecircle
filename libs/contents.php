@@ -142,7 +142,7 @@ class contents{
     public static function fancybox($text,$widget)
     {
 
-        $loading = Helper::options()->themeUrl('assets/img/loading.svg', 'onecircle');
+        $loading = Helper::options()->defaultLoadingUrl();
         // old format
         /*        $pattern =  '/<p>(\s|[\r\n])*(<img[\s\S]*?src\s*=\s*[\"|\'](.*?)[\"|\'][\s\S]*?>)(\s|[\r\n])*<\/p>/i';*/
         $pattern='/\[gallery\]([\s\S]*?)\[endgallery\]/sm';

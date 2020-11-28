@@ -107,7 +107,7 @@ function get_comment($coid)
  */
 function getPostImg($archive)
 {
-    $loading = Helper::options()->themeUrl('assets/img/loading.svg', 'onecircle');
+    $loading = Helper::options()->defaultLoadingUrl();
     //  匹配 img 的 src 的正则表达式
     $preg = '/<img[\s\S]*?src\s*=\s*[\"|\'](.*?)[\"|\'][\s\S]*?>/im';//匹配img标签的正则表达式
     $preg2 = '/background-image:[ ]?url\([&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif|bmp|webp|php))/i';//匹配背景的url的正则表达式
@@ -439,7 +439,7 @@ function getGirdPics($this_)
 
 function ehco9gridPics($images, $length)
 {
-    $loading = Helper::options()->themeUrl('assets/img/loading.svg','onecircle');
+    $loading = Helper::options()->defaultLoadingUrl();
     if ($length > 0) {
         if ($length == 1) {
             echo "<div class='post-cover-inner'><a class='post-cover-img-more' data-fancybox='gallery' href='$images[0]'><img src='$loading' data-src='$images[0]' class='post-cover-img lazyload' alt='no pic'></a></div>";

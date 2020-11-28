@@ -9,7 +9,7 @@
  */
 
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-
+$loading = Helper::options()->defaultLoadingUrl();
 // recommend page
 $tArr = utils::parseUrlQuery(utils::GetCurUrl());
 if (count($tArr) == 0) {
@@ -53,11 +53,19 @@ $this->need('includes/header.php');
                     </div>
                     <div class="circle-diary">
                         <?php $imgs = getRandRecommendImgs(8); foreach ($imgs as $rimg):?>
-                            <?php $this->widget('Widget_Archive@_'.$rimg['cid'], 'pageSize=1&type=post', 'cid='.$rimg['cid'])->to($archive_);?>
-                            <a href="<?php _e($archive_->permalink()); ?>" class="circle-diary-bg" style="background-image: url('<?_e($rimg['img']);?>')">
-                                <div class="circle-diary-bottom">
-                                    <div class="circle-diary-avatar"><img class="img-circle img-thumbnail" src="<?_e(getUserV2exAvatar($rimg['email'],$rimg['userAvatar']));?>"></div>
-                                    <div class="circle-diary-name"><?_e($rimg['screenName']);?></div>
+                            <?php $archive_ = null;
+                            $this->widget('Widget_Archive@_'.$rimg['cid'], 'pageSize=1&type=post', 'cid='.$rimg['cid'])->to($archive_);?>
+                            <a href="<?php _e($archive_->permalink()); ?>" class="diary-item">
+                                <div class="circle-diary-bg">
+                                    <div class="diary-img">
+                                        <img src="<?php _t($loading)?>" data-src="<? _e($rimg['img']); ?>" class="lazyload">
+                                    </div>
+                                    <div class="circle-diary-bottom">
+                                        <div class="circle-diary-avatar"><img class="img-circle img-thumbnail"
+                                                                              src="<? _e(getUserV2exAvatar($rimg['email'], $rimg['userAvatar'])); ?>">
+                                        </div>
+                                        <div class="circle-diary-name"><? _e($rimg['screenName']); ?></div>
+                                    </div>
                                 </div>
                             </a>
                         <?php endforeach;?>
