@@ -24,7 +24,7 @@ function themeConfig($form)
         </div>
     </div>
     <span id="j-version" style="display: none;"><?php echo OnecircleVersion() ?></span>
-    <div class="j-setting-notice"><iframe src="https://www.yuque.com/gogobody/wal2r5/oiuui6" frameborder="no" scrolling="yes" height="100%" width="100%"></iframe></div>
+    <div class="j-setting-notice"><iframe src="https://www.yuque.com/docs/share/05f40cac-980f-4e53-8b92-ed9728b8dc50?# 《OneCircle 主题说明》" frameborder="no" scrolling="yes" height="100%" width="100%"></iframe></div>
     <script src="<?php $options->themeUrl('/assets/admin/js/one.setting.min.js')?>"></script>
     <?php
 
