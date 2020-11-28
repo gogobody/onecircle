@@ -164,14 +164,14 @@ var indexInput = {
                 type: "parsemeta",
                 url: val
             }, function (res) {
-                if (res) {
+                if (res.code) {
                     var inTextareaBlk = $(".sc-AxjAm.kgcKxQ")
                     inTextareaBlk.css("display", "block")
                     inTextareaBlk.attr("href", val)
-                    $(".sc-AxjAm.kgcKxQ .hHnMup").html(res)
+                    $(".sc-AxjAm.kgcKxQ .hHnMup").html(res.data)
                     that.additionArray = [] // reset additionArr
                     that.additionArray.push(val)
-                    that.additionArray.push(stripscript(res))
+                    that.additionArray.push(stripscript(res.data))
                     $(this_).text("添加")
                     // set other disable
                     that.addLinkBtn.siblings().addClass('btn-disable')
@@ -182,6 +182,13 @@ var indexInput = {
                         that.addLinkBtn.siblings().removeClass('btn-disable')
                         return false;
                     })
+                }else {
+                    $.message({
+                        title:"提示",
+                        message:"解析失败",
+                        type:"error"
+                    })
+                    console.log(res)
                 }
                 $(this_).text("添加")
             })
@@ -419,9 +426,14 @@ var indexInput = {
                 type: "warning"
             }), navLoginPsw.focus(), showbtn(), !1) : (loginSubmitForm.addClass("active"), $("#spin-login").addClass("show inline"),
                 $.post(gconf.oneaction, {type: "getsecurl", url: window.location.href}, function (res) {
-                    $("#Login_form").attr('action', res)
+                    if (!res.code) return $.message({
+                        title: "提示",
+                        message: "获取securl失败",
+                        type: "error"
+                    })
+                    $("#Login_form").attr('action', res.data)
                     $.ajax({
-                        url: res,
+                        url: res.data,
                         type: $(formThis).attr("method"),
                         data: $(formThis).serializeArray(),
                         error: function () {
@@ -480,7 +492,12 @@ var indexInput = {
             return
         }
         $.post(gconf.oneaction, {type: "getsecurl", url: window.location.href}, function (res) {
-            $("#Login_form").attr('action', res)
+            if (!res.code) return $.message({
+                title: "提示",
+                message: "获取securl失败",
+                type: "error"
+            })
+            $("#Login_form").attr('action', res.data)
             //
             // if (checkURL(res)){
             //
@@ -1137,10 +1154,10 @@ function postArticle(data, needRefresh) {
     $.post(gconf.oneaction, {
         type: 'getsecuritytoken'
     }, function (res) {
-        if (res !== 'error') {
+        if (res.code) {
             // console.log(res)
             $.ajax({
-                url: gconf.index+'/action/contents-post-edit?do=publish&_=' + res,
+                url: gconf.index+'/action/contents-post-edit?do=publish&_=' + res.data,
                 type: 'post',
                 data: data,
                 success: function (res) {
@@ -1167,7 +1184,14 @@ function postArticle(data, needRefresh) {
                     })
                 }
             })
+        }else {
+            $.message({
+                title: "提示",
+                message: "请检查插件是否正确安装！",
+                type: "error"
+            })
         }
+        return false
     })
 }
 

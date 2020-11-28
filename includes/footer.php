@@ -61,6 +61,9 @@ $(document).on('pjax:send',
 $(document).on('pjax:complete',function (){})
 $(document).on('pjax:end',function (){ $.rmloading();NProgress.done();})
 $(document).on('pjax:start', function() {});
+$(document).on('pjax:error', function(err) {
+    console.log(err)
+});
 $(document).on('ready pjax:end', function(event) {
     pjaxInit();
     if (typeof smms_node!="undefined" && typeof smms!="undefined"){
