@@ -81,8 +81,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <?php elseif($this->is('search')): ?>
         <?php else:?>
         <div class="card user-container">
-
-            <div class="mycicle-title"><h2><?php _e($this->categories[0]['name']) ?></h2></div>
+            <div class="mycicle-title"><h2><?php if (empty($this->categories[0]['name'])) _e("未选择圈子");else _e($this->categories[0]['name']) ?></h2></div>
             <div class="iwNods">
                 <div class="daMYau">
                 <span><?php _e(parseDesc2text($this->categories[0]['description']));?>

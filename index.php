@@ -61,6 +61,9 @@ $this->need('includes/header.php');
                             </div>
                         </a>
                     <?php endforeach;?>
+                    <?php if(count($imgs) == 0): ?>
+                    <span class="text-center"> 这里空空如也~ </span>
+                    <?php endif;?>
                 </div>
                 </a>
             </div>

@@ -44,7 +44,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                     <div class="topic-container">
                     <span class="topic-container-items" onclick="event.stopPropagation()">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="container-svg"><circle cx="10" cy="10" r="10" fill="#03A9F5"></circle><circle cx="10" cy="10" r="5" fill="#A0E3FE"></circle></svg>
-                    <?php $this->category(','); ?>
+                    <?php if (empty($this->category)) _e("未选择"); else $this->category(','); ?>
 
                     </span>
                     </div>
@@ -174,7 +174,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                                     cx="10"
                                     cy="10" r="10"
                                     fill="#03A9F5"></circle><circle cx="10" cy="10" r="5" fill="#A0E3FE"></circle></svg>
-                    <?php $this->category(','); ?>
+                    <?php if (empty($this->category)) _e("未选择"); else $this->category(','); ?>
 
                     </span>
                     </div>

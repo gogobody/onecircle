@@ -554,7 +554,6 @@ var archiveInit = {
         this.archAuthorTabsClickInit()
         this.iasInit()
         this.echojsInit()
-        this.scrollRevealInit()
 
     },
     postRepostArticle: function (posthref, excert, rbannerimg, repousername, repostext, category) {
@@ -794,7 +793,6 @@ var archiveInit = {
         // reinit click functions after 加载更多或者 tabs 切换
         archiveInit.fansFuncInit()
         indexInput.articleClickInit()
-        archiveInit.scrollRevealSync()
         archiveInit.echojsInit()
     },
     archAuthorTabsClickInit: function () {
@@ -838,7 +836,6 @@ var archiveInit = {
                                     $(".item-container").html(real_html)
                                     // reinit click functions
                                     archiveInit.archiveLoadRebindInit()
-                                    archiveInit.scrollRevealSync()
                                 }
                             } catch (e) {
                                 console.log(e)
@@ -986,20 +983,6 @@ var archiveInit = {
             }
         });
     },
-    scrollRevealInit: function () { // scrollReveal js
-        ScrollReveal().reveal('.post-article', {
-            delay: 500,
-            useDelay: 'onload',
-            reset: true,
-            // distance: '100px',
-            origin: 'bottom',
-            // scale: 0.95,
-            duration: 800,
-        })
-    },
-    scrollRevealSync: function () {
-        ScrollReveal().sync();
-    },
     iasInit: function () { // 无限加载
         var a_pagelink = $(".a-pageLink .next")
         if (a_pagelink.length > 0) {
@@ -1031,7 +1014,6 @@ var archiveInit = {
                             a_pagelink.attr("style", "display:none");
                             $(".a-pageLink").append('<a href="javascript:;" rel="nofollow">加载完毕</a>');
                         }
-                        ScrollReveal().destroy()
                         archiveInit.archiveLoadRebindInit()
                     }
                 });
@@ -1046,7 +1028,6 @@ var archiveInit = {
         this.archAuthorTabShowInit()
         this.iasInit()
         this.echojsInit()
-        this.scrollRevealInit()
     }
 };
 var recommendInit = {
@@ -1296,12 +1277,28 @@ function submitForm(ele) {
         i.val("发送")
         return false
     }
+    // check if category in allcategories
+    var inAllcate = false
+    var cmid = $("#category").val()
+    if (typeof allCategories !== "undefined") {
+        allCategories.forEach(function (val) {
+            if (val[1] === cmid) inAllcate = true
+        })
+        if (inAllcate === false) cmid = allCategories[0][1] // 默认使用第一个的mid
+    }else {
+        $.message({
+            title:"提示",
+            message:"还没有创建圈子",
+            type:"error"
+        })
+        return false
+    }
     var data = {
         title: title.val(),
         text: val,
         'fields[articleType]': indexInput.nowtype,
         'markdown': 1,
-        'category[]': $("#category").val(),
+        'category[]': cmid,
         visibility: 'publish',
         allowComment: 1,
         allowPing: 1,
@@ -1371,7 +1368,6 @@ function videoToggle(idselector, this_, ev) {
     }
     $(idselector).collapse('toggle')
     ev.stopPropagation()
-    archiveInit.scrollRevealSync()
     return false
 }
 
