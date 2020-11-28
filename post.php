@@ -41,7 +41,7 @@
                 <!--     元数据-->
                 <div class="article-meta">
                     <span class="article-category">
-                        <?php $this->category(' '); ?>
+                        <?php if (empty($this->category)) _e("未选择"); else $this->category(','); ?>
                     </span>
                     <time class="create-time" datetime="<?php $this->date('c'); ?>"><?php $this->date(); ?></time>
                     <?php $agree = $this->hidden ? array('agree' => 0, 'recording' => true) : utils::agreeNum($this->cid); ?>
@@ -87,8 +87,8 @@
                             <circle cx="10" cy="10" r="10" fill="#03A9F5"></circle>
                             <circle cx="10" cy="10" r="5" fill="#A0E3FE"></circle>
                         </svg>
-                        <?php _e($this->categories[0]['name'])?>
-                        </a>
+                        <?php if(empty($this->categories[0]['name']))_e("未选择");else _t($this->categories[0]['name']);?>
+                    </a>
                     <div class="sc-AxjAm sc-AxirZ kVrFww">
                         <div class="sc-AxjAm sc-AxirZ  IsObJ" >
                             <div class="sc-AxjAm sc-AxirZ dEkSi agree-btn" style="transform: none;" id="agree-btn" data-cid="<?php $this->cid(); ?>">
