@@ -6,8 +6,6 @@ if ($this->have()) {
         $query = Typecho_Router::url($this->parameter->type .
             (false === strpos($this->parameter->type, '_page') ? '_page' : NULL),
             $this->_pageRow, $this->options->index);
-        var_dump($query);
-
         $this->need('/widget/Widget_Pagination.php');
         $this->_widget_pageNav = new Widget_Pagination($this->getTotal(),
             $this->_currentPage, $this->parameter->pageSize, $query);

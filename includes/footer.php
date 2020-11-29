@@ -27,6 +27,7 @@
 <script src="<?php $this->options->themeUrl('assets/js/page.min.js'); ?>"></script>
 <script crossorigin="anonymous" integrity="sha384-Zm+UU4tdcfAm29vg+MTbfu//q5B/lInMbMCr4T8c9rQFyOv6PlfQYpB5wItcXWe7" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@5.4.5/js/swiper.min.js"></script>
 <?php Typecho_Plugin::factory('SmmsPlugin')->footer($this); ?>
 
 <?php

@@ -40,7 +40,9 @@ body {
 .hide {
     display: none!important;
 }
-
+.max-height{
+    height: 100%;
+}
 #allayout{
     overflow-x: hidden;
 }

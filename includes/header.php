@@ -37,10 +37,11 @@
     <?php $this->options->headerEcho(); ?>
     <script>gconf={index:'<?_e(Helper::options()->index)?>',oneaction:'<?_e(Helper::options()->index)?>/oneaction'}</script>
     <script src="https://cdn.bootcdn.net/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
-    <?php if ($this->is('blog')):?>
+    <?php if ($this->is('myblog')):?>
         <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/blog/css/one.min.css'); ?>" />
         <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/blog/css/one.responsive.min.css'); ?>" />
-    <style>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@5.4.5/css/swiper.min.css">
+        <style>
         :root {
             --theme:#4e7cf2;
             --element: #409eff;
@@ -85,9 +86,8 @@
                     </nav>
                 </div>
                 <div class="col-6 col-md-3 col-lg-4 col-xl-3 mobile-nopading">
-                    <div class="" id="">
+                    <div class="max-height">
                         <ul class="navbar navbar-nav navbar-right ml-auto header__content header__content--end">
-
                             <li class="nav-item search-block-icon" aria-expanded="false"
                                 aria-controls="search-block">
                                 <a class="nav-link">
