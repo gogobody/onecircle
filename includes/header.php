@@ -37,7 +37,38 @@
     <?php $this->options->headerEcho(); ?>
     <script>gconf={index:'<?_e(Helper::options()->index)?>',oneaction:'<?_e(Helper::options()->index)?>/oneaction'}</script>
     <script src="https://cdn.bootcdn.net/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
-    <?php Typecho_Plugin::factory('SmmsPlugin')->header($this); ?>
+    <?php if ($this->is('blog')):?>
+        <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/blog/css/one.min.css'); ?>" />
+        <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/blog/css/one.responsive.min.css'); ?>" />
+    <style>
+        :root {
+            --theme:#4e7cf2;
+            --element: #409eff;
+            cursor: <?php echo $this->options->JCursorType !== 'off' ? 'url(' . THEME_URL . '\/assets\/cur\/' . $this->options->JCursorType . '), auto' : 'auto' ?>;
+            --classA: <?php echo $this->options->JClassA ? $this->options->JClassA : '#dcdfe6' ?>;
+            --classB: <?php echo $this->options->JClassB ? $this->options->JClassB : '#e4e7ed' ?>;
+            --classC: <?php echo $this->options->JClassC ? $this->options->JClassC : '#ebeef5' ?>;
+            --classD: <?php echo $this->options->JClassD ? $this->options->JClassD : '#f2f6fc' ?>;
+            --main: <?php echo $this->options->JMainColor ? $this->options->JMainColor : '#303133' ?>;
+            --routine: <?php echo $this->options->JRoutineColor ? $this->options->JRoutineColor : '#606266' ?>;
+            --minor: <?php echo $this->options->JMinorColor ? $this->options->JMinorColor : '#909399' ?>;
+            --seat: <?php echo $this->options->JSeatColor ? $this->options->JSeatColor : '#c0c4cc' ?>;
+            --success: <?php echo $this->options->JSuccessColor ? $this->options->JSuccessColor : '#67c23a' ?>;
+            --warning: <?php echo $this->options->JWarningColor ? $this->options->JWarningColor : '#e6a23c' ?>;
+            --danger: <?php echo $this->options->JDangerColor ? $this->options->JDangerColor : '#f56c6c' ?>;
+            --info: <?php echo $this->options->JInfoColor ? $this->options->JInfoColor : '#909399' ?>;
+            --radius-pc: <?php echo $this->options->JRadiusPC ?>;
+            --radius-wap: <?php echo $this->options->JRadiusWap ?>;
+            --text-shadow: <?php echo $this->options->JTextShadow ? $this->options->JTextShadow : '0 1px 2px rgba(0, 0, 0, 0.25)' ?>;
+            --box-shadow: <?php echo $this->options->JBoxShadow ? $this->options->JBoxShadow : '0px 0px 20px -5px rgba(158, 158, 158, 0.22)' ?>;
+            --background: <?php echo $this->options->JCardBackground ? $this->options->JCardBackground : '#fff' ?>;
+        ;
+            --swiper-theme-color: #fff !important;
+        }
+    </style>
+    <?php endif;?>
+    <?php Typecho_Plugin::factory('SmmsPlugin')->header($this);?>
+
 </head>
 <body class="bright" ontouchstart="">
 <div id="allayout" class="app app-aside-fix app-header-fixed">

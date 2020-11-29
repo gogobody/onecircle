@@ -54,6 +54,15 @@ function themeFields(Typecho_Widget_Helper_Layout $layout)
 
 
     }
+    $thumb = new Typecho_Widget_Helper_Form_Element_Text(
+        'thumb',
+        NULL,
+        NULL,
+        '自定义文章缩略图',
+        '填写时：将会显示填写的文章缩略图 <br>
+         不填写时：如果文章内有图片则取文章图片，否则取模板自带的随机缩略图'
+    );
+    $layout->addItem($thumb);
 }
 
 function themeInit($archive)

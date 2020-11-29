@@ -17,7 +17,7 @@ function themeConfig($form)
                     <li data-current="j-setting-post">文章设置</li>
 <!--                    <li data-current="j-setting-aside">侧栏设置</li>-->
 <!--                    <li data-current="j-setting-color">色彩圆角</li>-->
-                    <li data-current="j-setting-index">首页设置</li>
+                    <li data-current="j-setting-index">博客设置</li>
                     <li data-current="j-setting-other">其他设置</li>
                 </ul>
                 <?php require_once("admin/backup.php"); ?>
@@ -28,11 +28,12 @@ function themeConfig($form)
         <script src="<?php $options->themeUrl('/assets/admin/js/one.setting.min.js')?>"></script>
     <?php
 
+    // 公共设置
     $recordNo = new Typecho_Widget_Helper_Form_Element_Text('recordNo', NULL, NULL, _t('网站备案号'), _t('根据要求，每个备案网站必须填写备案号'));
     $recordNo->setAttribute('class', 'j-setting-content j-setting-global');
     $form->addInput($recordNo);
 
-    $sticky = new Typecho_Widget_Helper_Form_Element_Text('sticky', NULL, NULL, _t('文章置顶'), _t('置顶的文章cid，按照排序输入, 请以空格分隔'));
+    $sticky = new Typecho_Widget_Helper_Form_Element_Text('sticky', NULL, NULL, _t('圈子文章置顶'), _t('输入圈子文章的文章cid，按照排序输入, 请以空格分隔'));
     $sticky->setAttribute('class', 'j-setting-content j-setting-global');
     $form->addInput($sticky);
 
@@ -63,6 +64,108 @@ function themeConfig($form)
     $LicenseInfo->setAttribute('class', 'j-setting-content j-setting-post');
     $form->addInput($LicenseInfo);
 
+    // 博客设置
+    $JSummaryMeta = new Typecho_Widget_Helper_Form_Element_Checkbox(
+        'JSummaryMeta',
+        array(
+            'author' => '显示作者',
+            'cate' => '显示分类',
+            'time' => '显示时间',
+            'read' => '显示阅读量',
+            'comment' => '显示评论量',
+        ),
+        null,
+        '选择博客显示的选项',
+        '该处的设置是用于设置首页及搜索页列表里的文章信息，根据您的爱好自行选择'
+    );
+    $JSummaryMeta->setAttribute('class', 'j-setting-content j-setting-index');
+    $form->addInput($JSummaryMeta->multiMode());
+
+    $JPageStatus = new Typecho_Widget_Helper_Form_Element_Select(
+        'JPageStatus',
+        array('default' => '按钮切换形式（默认）', 'ajax' => '点击加载形式'),
+        'default',
+        '选择博客页的分页形式',
+        '介绍：选择一款您所喜欢的分页形式'
+    );
+    $JPageStatus->setAttribute('class', 'j-setting-content j-setting-global');
+    $form->addInput($JPageStatus->multiMode());
+
+    $JIndexSticky = new Typecho_Widget_Helper_Form_Element_Textarea(
+        'JIndexSticky',
+        NULL,
+        NULL,
+        '博客置顶文章（非必填）',
+        '介绍：请务必填写正确的格式 <br />
+         格式：文章的ID || 文章的ID || 文章的ID （中间使用两个竖杠分隔）<br />
+         例如：1 || 2 || 3'
+    );
+    $JIndexSticky->setAttribute('class', 'j-setting-content j-setting-index');
+    $form->addInput($JIndexSticky);
+
+    $JIndexNotice = new Typecho_Widget_Helper_Form_Element_Textarea(
+        'JIndexNotice',
+        NULL,
+        NULL,
+        '博客通知文字（非必填）',
+        '介绍：请务必填写正确的格式 <br />
+         格式：通知文字 || 跳转链接（中间使用两个竖杠分隔，限制一个）<br />
+         例如：我是通知哈哈哈||http://baidu.com'
+    );
+    $JIndexNotice->setAttribute('class', 'j-setting-content j-setting-index');
+    $form->addInput($JIndexNotice);
+
+    $JIndexAD = new Typecho_Widget_Helper_Form_Element_Textarea(
+        'JIndexAD',
+        NULL,
+        NULL,
+        '博客大屏广告（非必填）',
+        '介绍：请务必填写正确的格式 <br />
+         格式：广告图片 || 广告链接 （中间使用两个竖杠分隔，限制一个）<br />
+         例如：https://puui.qpic.cn/media_img/lena/PICykqaoi_580_1680/0||http://baidu.com'
+    );
+    $JIndexAD->setAttribute('class', 'j-setting-content j-setting-index');
+    $form->addInput($JIndexAD);
+
+    $JIndexHotStatus = new Typecho_Widget_Helper_Form_Element_Select(
+        'JIndexHotStatus',
+        array('off' => '关闭（默认）', 'on' => '开启'),
+        'off',
+        '是否开启热门文章',
+        '介绍：开启后，网站博客页将会显示浏览量最多的4篇热门文章'
+    );
+    $JIndexHotStatus->setAttribute('class', 'j-setting-content j-setting-index');
+    $form->addInput($JIndexHotStatus->multiMode());
+
+    $JIndexCarousel = new Typecho_Widget_Helper_Form_Element_Textarea(
+        'JIndexCarousel',
+        NULL,
+        NULL,
+        '博客页轮播图（非必填）',
+        '介绍：用于显示博客页轮播图，请务必填写正确的格式 <br />
+         格式：图片地址 || 跳转链接 || 标题 （中间使用两个竖杠分隔）<br />
+         其他：一行一个，一行代表一个轮播图 <br />
+         例如：<br />
+            https://puui.qpic.cn/media_img/lena/PICykqaoi_580_1680/0 || http://baidu.com || 百度一下 <br />
+            https://puui.qpic.cn/tv/0/1223447268_1680580/0 || http://v.qq.com || 腾讯视频
+         '
+    );
+    $JIndexCarousel->setAttribute('class', 'j-setting-content j-setting-index');
+    $form->addInput($JIndexCarousel);
+
+    $JIndexRecommend = new Typecho_Widget_Helper_Form_Element_Textarea(
+        'JIndexRecommend',
+        NULL,
+        NULL,
+        '博客页推荐文章（非必填，填写时请填写2个，否则不显示！）',
+        '介绍：用于显示推荐文章，请务必填写正确的格式 <br/>
+         格式：文章的id || 文章的id （中间使用两个竖杠分隔）<br />
+         例如：1 || 2 <br />
+         注意：如果填写的不是2个，将不会显示
+         '
+    );
+    $JIndexRecommend->setAttribute('class', 'j-setting-content j-setting-index');
+    $form->addInput($JIndexRecommend);
 
     //developer
     $headerEcho = new Typecho_Widget_Helper_Form_Element_Textarea('headerEcho', NULL, NULL, _t('<h2>开发者设置</h2>自定义头部信息'), _t('填写 html 代码，将输出在 &lt;head&gt; 标签中，可以在这里写上统计代码'));
