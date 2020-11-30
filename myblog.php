@@ -14,7 +14,7 @@ $this->need('includes/header.php');
                 <section class="j-adaption">
                     <section class="main">
 
-                        <?php if ($this->is('blog')) : ?>
+                        <?php if ($this->is('myblog')) : ?>
                             <?php $this->need('blog/component/index.banner.php'); ?>
                             <?php $this->need('blog/component/index.hot.php'); ?>
                             <?php $this->need('blog/component/index.ad.php'); ?>
@@ -25,7 +25,7 @@ $this->need('includes/header.php');
 
                         <section class="j-index-article article">
                             <!-- 置顶文章 -->
-                            <?php if ($this->is('blog')) : ?>
+                            <?php if ($this->is('myblog')) : ?>
                                 <?php $this->need('blog/component/index.sticky.php'); ?>
                             <?php endif; ?>
                             <!-- 列表 -->
