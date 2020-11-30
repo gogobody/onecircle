@@ -84,7 +84,7 @@
                     </nav>
                 </div>
                 <div class="col-6 col-md-3 col-lg-4 col-xl-3 mobile-nopading">
-                    <div class="" id="">
+                    <div class="max-height">
                         <ul class="navbar navbar-nav navbar-right ml-auto header__content header__content--end">
 
                             <li class="nav-item search-block-icon" aria-expanded="false"
