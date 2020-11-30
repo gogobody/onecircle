@@ -43,7 +43,7 @@ function themeConfig($form)
         0, _t('无限滚动'), _t('开启后将会隐藏分页器，显示无限滚动'));
     $useInfiniteScroll->setAttribute('class', 'j-setting-content j-setting-global');
     $form->addInput($useInfiniteScroll);
-
+    // 图片设置
     $logoUrl = new Typecho_Widget_Helper_Form_Element_Text('logoUrl', NULL, "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2592033302,3451533765&fm=26&gp=0.jpg", _t('<h2>普通设置</h2>站点 LOGO 地址'), _t('在这里填入一个图片 URL 地址, 以在网站标题前加上一个 LOGO'));
     $logoUrl->setAttribute('class', 'j-setting-content j-setting-image');
     $form->addInput($logoUrl);
@@ -55,7 +55,7 @@ function themeConfig($form)
     $customNavIcon = new Typecho_Widget_Helper_Form_Element_Textarea('customNavIcon', NULL, NULL, _t('自定义导航小图标'), _t('请前往阿里巴巴 iconfront，找到你最喜欢的图标跑，点击复制svg <br>每行粘贴一个，自定义内导航栏左侧的小图标，留空则展示默认的图标按钮<hr>'));
     $customNavIcon->setAttribute('class', 'j-setting-content j-setting-image');
     $form->addInput($customNavIcon);
-
+    // 文章设置
     $jsPushBaidu = new Typecho_Widget_Helper_Form_Element_Select('jsPushBaidu', array('0' => '关闭', '1' => '开启'), '0', _t('自动推送'), _t('使用通用js自动推荐给百度引擎，增快收录'));
     $jsPushBaidu->setAttribute('class', 'j-setting-content j-setting-post');
     $form->addInput($jsPushBaidu);
@@ -63,8 +63,47 @@ function themeConfig($form)
     $LicenseInfo = new Typecho_Widget_Helper_Form_Element_Text('LicenseInfo', NULL, NULL, _t('文章许可信息'), _t('填入后将在文章底部显示你填入的许可信息（支持HTML标签）<br>eg: 本作品采用 <a rel="license nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可。'));
     $LicenseInfo->setAttribute('class', 'j-setting-content j-setting-post');
     $form->addInput($LicenseInfo);
+    //
+    $JCursorType = new Typecho_Widget_Helper_Form_Element_Select(
+        'JCursorType',
+        array(
+            'off' => '默认样式（默认）',
+            'cursor1.cur' => '风格1',
+            'cursor2.cur' => '风格2',
+            'cursor3.cur' => '风格3',
+            'cursor4.cur' => '风格4',
+            'cursor5.cur' => '风格5',
+            'cursor6.cur' => '风格6',
+        ),
+        'off',
+        '是否开启自定义鼠标风格（仅限PC）',
+        '介绍：选择一款您所喜欢的鼠标默认样式。'
+    );
+    $JCursorType->setAttribute('class', 'j-setting-content j-setting-global');
+    $form->addInput($JCursorType->multiMode());
+
+    $JCursorEffects = new Typecho_Widget_Helper_Form_Element_Select(
+        'JCursorEffects',
+        array(
+            'off' => '关闭（默认）',
+            'cursor1.min.js' => '烟花效果',
+            'cursor2.min.js' => '气泡效果',
+            'cursor3.min.js' => '富强、民主、和谐（消耗性能）',
+            'cursor4.min.js' => '彩色爱心（消耗性能）'
+        ),
+        'off',
+        '选择鼠标点击特效',
+        '介绍：用于切换鼠标点击特效 '
+    );
+    $JCursorEffects->setAttribute('class', 'j-setting-content j-setting-global');
+    $form->addInput($JCursorEffects->multiMode());
 
     // 博客设置
+    //以下为博客设置
+    $blogMid = new Typecho_Widget_Helper_Form_Element_Text('blogMid', NULL, NULL, _t('展示的博客分类mid'), _t('输入需要展示的博客分类的mid，中间用||分隔, 1 || 2'));
+    $blogMid->setAttribute('class', 'j-setting-content j-setting-index');
+    $form->addInput($blogMid);
+
     $JSummaryMeta = new Typecho_Widget_Helper_Form_Element_Checkbox(
         'JSummaryMeta',
         array(
@@ -88,7 +127,7 @@ function themeConfig($form)
         '选择博客页的分页形式',
         '介绍：选择一款您所喜欢的分页形式'
     );
-    $JPageStatus->setAttribute('class', 'j-setting-content j-setting-global');
+    $JPageStatus->setAttribute('class', 'j-setting-content j-setting-index');
     $form->addInput($JPageStatus->multiMode());
 
     $JIndexSticky = new Typecho_Widget_Helper_Form_Element_Textarea(

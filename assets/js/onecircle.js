@@ -1403,6 +1403,53 @@ var floatEle = {
     }
 
 }
+var blog = {
+    init:function () {
+        this.init_load_more()
+    },
+    pjax_complete:function () {
+        this.init_load_more()
+    },
+    eventInit:function () {
+
+    },
+    /* 初始化加载更多 */
+    init_load_more:function () {
+        var _this = this;
+        var jloadmore = $('.j-loadmore a')
+        jloadmore.attr('data-href', jloadmore.attr('href'));
+        jloadmore.removeAttr('href');
+        jloadmore.on('click', function () {
+            if ($(this).attr('disabled')) return;
+            $(this).html('loading...');
+            $(this).attr('disabled', true);
+            var url = $(this).attr('data-href');
+            var that = this
+            if (!url) return;
+            $.ajax({
+                url: url,
+                type: 'get',
+                success:function (data){
+                    $(that).removeAttr('disabled');
+                    $(that).html('查看更多');
+                    var list = $(data).find('.article-list:not(.sticky)');
+                    $('.j-index-article.article').append(list);
+                    // window.scroll({
+                    //     top: $(list).first().offset().top - ($('.j-header').height() + 20),
+                    //     behavior: 'smooth'
+                    // });
+                    var newURL = $(data).find('.j-loadmore a').attr('href');
+                    if (newURL) {
+                        $(that).attr('data-href', newURL);
+                    } else {
+                        $('.j-loadmore').remove();
+                    }
+                }
+            });
+        });
+    }
+}
+
 var utils = {
     getQueryString: function (name) {
         name = name.replace(/[]/, "\[").replace(/[]/, "\[").replace(/[]/, "\\\]")
@@ -1484,6 +1531,7 @@ $(function () {
     recommendInit.init()
     archiveInit.init()
     floatEle.init()
+    blog.init()
 })
 
 var pjaxInit = function () {
@@ -1494,6 +1542,7 @@ var pjaxInit = function () {
     //
     tagsManageInit.pjax_complete()
     oneMap.pjax_complete()
+    blog.pjax_complete()
     if ($("article.post")) {
         Prism.highlightAll()
     }

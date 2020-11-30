@@ -37,9 +37,9 @@
     <?php $this->options->headerEcho(); ?>
     <script>gconf={index:'<?_e(Helper::options()->index)?>',oneaction:'<?_e(Helper::options()->index)?>/oneaction'}</script>
     <script src="https://cdn.bootcdn.net/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
-    <?php if ($this->is('blog')):?>
-        <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/blog/css/one.min.css'); ?>" />
-        <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/blog/css/one.responsive.min.css'); ?>" />
+
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/responsive.min.css'); ?>" />
+
     <style>
         :root {
             --theme:#4e7cf2;
@@ -66,7 +66,6 @@
             --swiper-theme-color: #fff !important;
         }
     </style>
-    <?php endif;?>
     <?php Typecho_Plugin::factory('SmmsPlugin')->header($this);?>
 
 </head>

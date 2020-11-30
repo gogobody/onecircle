@@ -10,7 +10,7 @@ $this->need('includes/header.php');
     <div class="col center-part">
         <div class="main-content">
             <!-- 主体 -->
-            <section class="container j-index">
+            <section class="container-xl j-index">
                 <section class="j-adaption">
                     <section class="main">
 
@@ -33,13 +33,13 @@ $this->need('includes/header.php');
                         </section>
 
                     </section>
-<!--                    --><?php //$this->need('blog/public/blog-pagination.php'); ?>
+                    <?php $this->need('blog/public/blog-pagination.php'); ?>
                 </section>
 
 
             </section>
             <!--分页-->
-            <?php $this->need('includes/post-pagination.php');?>
+<!--            --><?php //$this->need('includes/post-pagination.php');?>
 
         </div>
     </div>

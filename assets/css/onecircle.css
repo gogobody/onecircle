@@ -3260,6 +3260,607 @@ neighbor
     opacity: .08;
 }
 
+
+/**
+blog
+ */
+@charset "UTF-8";
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 3.5px;
+    background-color: rgba(50, 50, 50, 0.3);
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(50, 50, 50, 0.4);
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 3.5px;
+    background-color: rgba(50, 50, 50, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+
+a {
+    color: var(--main);
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    border: 0;
+    vertical-align: middle;
+}
+
+input,
+button {
+    outline: none;
+    border-radius: 0;
+}
+
+button {
+    cursor: pointer;
+}
+
+.j-adaption {
+    position: relative;
+    width: 0;
+    min-width: 0;
+    flex: 1;
+}
+
+.j-index {
+    display: flex;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.j-index .main {
+    padding: 0 20px;
+    background: var(--background);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--radius-pc);
+}
+.j-index .main ul {
+    margin-bottom: 0;
+}
+.j-index .main .index-title {
+    display: flex;
+    align-items: center;
+    user-select: none;
+    border-bottom: 1px solid var(--classC);
+}
+.j-index .main .index-title h2 {
+    position: relative;
+    color: var(--theme);
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    line-height: 40px;
+}
+.j-index .main .index-title h2::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--theme);
+    z-index: 1;
+}
+.j-index .main .index-title .notice {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    height: 40px;
+}
+.j-index .main .index-title .notice svg {
+    min-width: 20px;
+    min-height: 20px;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+.j-index .main .index-title .notice a {
+    color: var(--minor);
+    font-size: 14px;
+    line-height: 20px;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.j-index .main .index-title .notice a:hover {
+    color: var(--theme);
+}
+.j-index .main .index-ad {
+    padding-top: 20px;
+}
+.j-index .main .index-ad a {
+    position: relative;
+    display: block;
+    transition: opacity 0.35s;
+}
+.j-index .main .index-ad a img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: calc(var(--radius-pc) / 2);
+}
+.j-index .main .index-ad a:hover {
+    opacity: 0.85;
+}
+.j-index .main .index-hot {
+    padding-top: 20px;
+}
+.j-index .main .index-hot .title {
+    display: none;
+}
+.j-index .main .index-hot .hot {
+    display: flex;
+    justify-content: space-around;
+}
+.j-index .main .index-hot .hot p{
+    margin: 0;
+}
+.j-index .main .index-hot .hot li {
+    width: 25%;
+    padding: 0 7.5px;
+}
+.j-index .main .index-hot .hot li:first-child {
+    padding-left: 0;
+}
+.j-index .main .index-hot .hot li:last-child {
+    padding-right: 0;
+}
+.j-index .main .index-hot .hot li a {
+    position: relative;
+    display: block;
+    transition: opacity 0.35s;
+}
+.j-index .main .index-hot .hot li a:hover {
+    opacity: 0.85;
+}
+.j-index .main .index-hot .hot li a:hover p {
+    color: var(--theme);
+}
+.j-index .main .index-hot .hot li a img {
+    width: 100%;
+    height: 125px;
+    object-fit: cover;
+    border-radius: calc(var(--radius-pc) / 2) calc(var(--radius-pc) / 2) 0 0;
+}
+.j-index .main .index-hot .hot li a p {
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    padding: 0 10px;
+    line-height: 32px;
+    color: var(--minor);
+    background: var(--classD);
+    border-radius: 0 0 calc(var(--radius-pc) / 2) calc(var(--radius-pc) / 2);
+}
+.j-index .main .index-hot .hot li a span {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: var(--theme);
+    color: var(--background);
+    height: 20px;
+    font-size: 12px;
+    padding: 0 7px;
+    border-radius: calc(var(--radius-pc) / 4);
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.j-index .main .index-banner {
+    width: 100%;
+    display: flex;
+    padding-top: 20px;
+}
+.j-index .main .index-banner #carouselSwiperCaptions{
+    width: fit-content;
+    flex: 1;
+    height: 340px;
+    min-height: 340px;
+    max-height: 340px;
+    border-radius: calc(var(--radius-pc) / 2);
+    overflow: hidden;
+}
+.j-index .main .index-banner .carousel-inner {
+    border-radius: calc(var(--radius-pc) / 2);
+    overflow: hidden;
+    height: 100%;
+}
+.j-index .main .index-banner .carousel-inner .swiper-slide{
+    height: 100%;
+    overflow-y: hidden;
+}
+.j-index .main .index-banner .carousel-inner .carousel-item {
+    border-radius: calc(var(--radius-pc) / 2);
+    overflow: hidden;
+    height: 100%;
+}
+.j-index .main .index-banner .carousel-inner .carousel-item:hover {
+    opacity: 0.85;
+}
+.j-index .main .index-banner .carousel-inner .carousel-item .title {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 15px;
+    text-align: center;
+    background: linear-gradient(to bottom, rgba(6, 6, 6, 0), rgba(6, 6, 6, 0.5));
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--background);
+    font-size: 15px;
+}
+.j-index .main .index-banner .carousel-inner .carousel-item .icon {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 18px;
+    height: 18px;
+    fill: var(--background);
+}
+.j-index .main .index-banner .carousel-inner img{
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+.j-index .main .index-banner .recommend {
+    width: 270px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.j-index .main .index-banner .recommend a {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    margin-bottom: 20px;
+    border-radius: calc(var(--radius-pc) / 2);
+    overflow: hidden;
+    transition: opacity 0.35s;
+}
+.j-index .main .index-banner .recommend a:hover {
+    opacity: 0.85;
+}
+.j-index .main .index-banner .recommend a:last-child {
+    margin-bottom: 0;
+}
+.j-index .main .index-banner .recommend a img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.j-index .main .index-banner .recommend a .desc {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px;
+    background: linear-gradient(to bottom, rgba(6, 6, 6, 0), rgba(6, 6, 6, 0.7));
+    color: var(--background);
+    font-size: 14px;
+    line-height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+.j-index .main .index-banner .recommend a .desc .type {
+    color: var(--background);
+    font-size: 12px;
+    background-image: -webkit-gradient(linear, left top, right top, from(#fc712a), to(#f84c39));
+    background-image: -webkit-linear-gradient(left, #fc712a, #f84c39);
+    background-image: -moz-linear-gradient(left, #fc712a, #f84c39);
+    background-image: linear-gradient(to right, #fc712a, #f84c39);
+    background-color: #f84c39;
+    padding: 0 5px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: calc(var(--radius-pc) / 4);
+    margin-right: 5px;
+}
+.j-index .main .index-banner .recommend a .desc p {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+.j-index .main .article .article-list {
+    position: relative;
+    width: 100%;
+    display: flex;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--classC);
+}
+.j-index .main .article .article-list:last-child {
+    border-bottom: none;
+}
+.j-index .main .article .article-list .picture-box {
+    position: relative;
+    width: 210px;
+    min-width: 210px;
+    height: 140px;
+    min-height: 140px;
+    margin-right: 15px;
+    border-radius: calc(var(--radius-pc) / 2);
+    overflow: hidden;
+}
+.j-index .main .article .article-list .picture-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.j-index .main .article .article-list .picture-box span {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: var(--theme);
+    height: 20px;
+    line-height: 20px;
+    padding: 0 10px;
+    color: var(--background);
+    font-size: 12px;
+    border-radius: 10px;
+    transition: transform 0.35s;
+    transform: translate3d(120%, 0, 0);
+}
+.j-index .main .article .article-list .picture-box svg {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    fill: var(--background);
+}
+.j-index .main .article .article-list .picture-box div {
+    display: none;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    background: linear-gradient(to bottom, rgba(6, 6, 6, 0), rgba(6, 6, 6, 0.7));
+    color: rgba(255, 255, 255, 0.85);
+}
+.j-index .main .article .article-list .picture-box div p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.j-index .main .article .article-list .entry-box {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 0;
+    min-width: 0;
+    overflow: hidden;
+    height: 140px;
+}
+.j-index .main .article .article-list .entry-box .title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.j-index .main .article .article-list .entry-box .title .badge {
+    height: 20px;
+    line-height: 20px;
+    background-image: -webkit-linear-gradient(0deg, #3ca5f6 0%, #a86af9 100%);
+    color: var(--background);
+    font-size: 12px;
+    font-weight: normal;
+    margin-right: 5px;
+    border-radius: calc(var(--radius-pc) / 4);
+    padding: 0 10px;
+    white-space: nowrap;
+    vertical-align: top;
+}
+.j-index .main .article .article-list .entry-box .title a {
+    color: var(--main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 18px;
+    line-height: 24px;
+}
+.j-index .main .article .article-list .entry-box .title a:hover {
+    color: var(--theme);
+}
+.j-index .main .article .article-list .entry-box .summary {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /*! autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--minor);
+    transition: opacity 0.35s;
+    word-break: break-all;
+    line-height: 22px;
+    max-height: 46px;
+}
+.j-index .main .article .article-list .entry-box .summary:hover {
+    opacity: 0.8;
+}
+.j-index .main .article .article-list .entry-box .meta {
+    display: flex;
+    margin-top: auto;
+    align-items: center;
+    user-select: none;
+}
+.j-index .main .article .article-list .entry-box .meta .item {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: var(--minor);
+    line-height: 20px;
+}
+.j-index .main .article .article-list .entry-box .meta .item svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--minor);
+    margin-right: 3px;
+}
+.j-index .main .article .article-list .entry-box .meta .item a {
+    color: var(--minor);
+}
+.j-index .main .article .article-list .entry-box .meta .item a:hover {
+    color: var(--theme);
+}
+.j-index .main .article .article-list .entry-box .meta .item:last-child::after {
+    display: none;
+}
+.j-index .main .article .article-list .entry-box .meta .item::after {
+    content: "/";
+    display: block;
+    color: #e1e1e1;
+    padding: 0 5px;
+}
+.j-index .main .article .article-list .entry-box .meta-xs {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--classC);
+    padding-top: 15px;
+}
+.j-index .main .article .article-list .entry-box .meta-xs .item {
+    display: flex;
+    align-items: center;
+    color: #bbb;
+    font-size: 12px;
+}
+.j-index .main .article .article-list .entry-box .meta-xs .item svg {
+    width: 15px;
+    height: 15px;
+    fill: #bbb;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+.j-index .main .article .article-list::after {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: -20px;
+    width: 4px;
+    height: 25px;
+    border-radius: 2px;
+    background: var(--theme);
+    transform: scaleY(0);
+    transition: transform 0.35s;
+}
+.j-index .main .article .article-list:hover .picture-box span {
+    transform: translate3d(0, 0, 0);
+}
+.j-index .main .article .article-list:hover::after {
+    transform: scaleY(1);
+}
+
+.j-ad {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.25);
+    padding: 2px 5px;
+    border-radius: 2px;
+    color: var(--classD);
+}
+
+.j-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 20px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.j-pagination li {
+    margin-left: 5px
+}
+
+.j-pagination li:first-child {
+    margin-left: 0
+}
+
+.j-pagination li a {
+    display: flex;
+    height: 32px;
+    align-items: center;
+    color: var(--main);
+    padding: 0 15px;
+    background: var(--background);
+    border-radius: 2px;
+    transition: background 0.35s, color 0.35s
+}
+
+.j-pagination li a:hover {
+    background: var(--theme);
+    color: var(--background)
+}
+
+.j-pagination li a:hover svg {
+    fill: var(--background)
+}
+
+.j-pagination li a svg {
+    width: 12px;
+    height: 12px;
+    fill: var(--routine);
+    transition: fill 0.35s
+}
+
+.j-pagination li.next a svg {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg)
+}
+
+.j-pagination li.active a {
+    background: var(--theme);
+    color: var(--background);
+    font-weight: 500
+}
+
 /**
 mobile fix
  */

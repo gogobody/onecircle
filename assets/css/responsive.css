@@ -1,0 +1,235 @@
+@keyframes showSearch {
+    0% {
+        opacity: 0;
+        transform: translate3d(-50px, 0, 0)
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0)
+    }
+}
+
+@keyframes showNav {
+    0% {
+        opacity: 0;
+        transform: translate3d(50px, 0, 0)
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0)
+    }
+}
+
+@media (max-width: 1200px) {
+    .j-index .main .index-banner {
+        display: block;
+        padding-top: 0;
+        overflow: hidden
+    }
+
+    .j-index .main .index-banner #carouselSwiperCaptions {
+        width: 100%;
+        margin-top: 20px
+    }
+
+    .j-index .main .index-banner .recommend {
+        width: 100%;
+        margin-left: 0;
+        flex-direction: row;
+        padding-top: 20px
+    }
+
+    .j-index .main .index-banner .recommend a {
+        margin-bottom: 0
+    }
+
+    .j-index .main .index-banner .recommend a:first-child {
+        margin-right: 7.5px
+    }
+
+    .j-index .main .index-banner .recommend a:last-child {
+        margin-left: 7.5px
+    }
+
+    .j-index .main .article .article-list .entry-box .meta .item:nth-child(2) p {
+        max-width: 100px
+    }
+}
+
+@media (max-width: 992px) {
+    .j-aside {
+        display: none
+    }
+}
+
+@media (max-width: 768px) {
+    .j-pagination {
+        padding-top: 0;
+        justify-content: center
+    }
+    .j-index .main {
+        background: 0 0;
+        padding: 0;
+        box-shadow: none;
+        border-radius: 0
+    }
+
+    .j-index .main .index-banner #carouselSwiperCaptions {
+        margin-top: 0;
+        margin-bottom: 15px;
+        height: 180px;
+        min-height: 180px;
+        max-height: 180px;
+        border-radius: var(--radius-wap)
+    }
+
+    .j-index .main .index-banner #carouselSwiperCaptions .carousel-inner {
+        height: 100%;
+        border-radius: var(--radius-wap)
+    }
+    .j-index .main .index-banner #carouselSwiperCaptions .carousel-inner .carousel-item{
+        height: 100%;
+    }
+    .j-index .main .index-banner .recommend {
+        padding-top: 0;
+        margin-bottom: 15px
+    }
+
+    .j-index .main .index-banner .recommend a {
+        height: 110px;
+        border-radius: var(--radius-wap)
+    }
+
+    .j-index .main .index-banner .recommend a:first-child {
+        margin-right: 5px
+    }
+
+    .j-index .main .index-banner .recommend a:last-child {
+        margin-left: 5px
+    }
+
+    .j-index .main .index-hot {
+        display: none
+    }
+
+    .j-index .main .index-ad {
+        padding-top: 0;
+        margin-bottom: 15px
+    }
+
+    .j-index .main .index-ad a img {
+        height: 130px;
+        border-radius: var(--radius-wap)
+    }
+
+    .j-index .main .index-title {
+        margin-bottom: 0;
+        border-bottom: none
+    }
+
+    .j-index .main .index-title h2 {
+        display: none
+    }
+
+    .j-index .main .index-title .notice {
+        background: var(--background);
+        width: 100%;
+        margin-left: 0;
+        border-radius: 20px;
+        padding: 0 15px;
+        height: 40px;
+        margin-bottom: 15px
+    }
+
+    .j-index .main .article .article-list {
+        position: relative;
+        background: var(--background);
+        display: block;
+        padding: 0;
+        box-shadow: var(--box-shadow);
+        border-radius: var(--radius-wap);
+        overflow: hidden;
+        margin-bottom: 15px
+    }
+
+    .j-index .main .article .article-list .picture-box {
+        display: block;
+        width: 100%;
+        min-width: auto;
+        margin-right: 0;
+        border-radius: 0;
+        height: 160px;
+        min-height: 160px
+    }
+
+    .j-index .main .article .article-list .picture-box span {
+        display: none
+    }
+
+    .j-index .main .article .article-list .picture-box svg {
+        display: none
+    }
+
+    .j-index .main .article .article-list .picture-box div {
+        display: block
+    }
+
+    .j-index .main .article .article-list .entry-box {
+        width: 100%;
+        height: auto;
+        padding: 15px
+    }
+
+    .j-index .main .article .article-list .entry-box .title {
+        margin-bottom: 0
+    }
+
+    .j-index .main .article .article-list .entry-box .title .badge {
+        position: absolute;
+        top: 5px;
+        right: -24px;
+        margin-right: 0;
+        border-radius: 2px;
+        transform: rotate(45deg);
+        width: 80px;
+        text-align: center
+    }
+
+    .j-index .main .article .article-list .entry-box .title a {
+        display: none
+    }
+
+    .j-index .main .article .article-list .entry-box .summary {
+        color: #bbb;
+        -webkit-line-clamp: 3;
+        margin-bottom: 15px;
+        max-height: 68px
+    }
+
+    .j-index .main .article .article-list .entry-box .meta {
+        display: none
+    }
+
+    .j-index .main .article .article-list .entry-box .meta-xs {
+        display: flex
+    }
+
+    .j-index .main .search-title {
+        background: var(--background);
+        padding: 0 15px;
+        border-radius: var(--radius-wap);
+        margin-bottom: 15px;
+        box-shadow: var(--box-shadow)
+    }
+
+    .j-footer .container {
+        display: block;
+        height: auto;
+        padding: 15px 0
+    }
+
+    .j-pagination {
+        padding-top: 0;
+        justify-content: center
+    }
+}
