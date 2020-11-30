@@ -7,11 +7,18 @@ $this->need('includes/header.php');
 $total_category_data = $this->getPageRow()["type_categories_all"];
 $tags_num = count($total_category_data);
 $total_tags = $this->getPageRow()["tags_all"];
+define("MANAGEURL","/extending.php?panel=OneCircle%2Fmanage%2Fmanage-cat-tags.php");
+
 ?>
 
 <?php $this->need('includes/body-layout.php');?>
 <div class="hbox hbox-auto-xs hbox-auto-sm index">
     <div class="circle-management">
+        <?php if ($this->user->hasLogin() and $this->user->pass('administrator', true)):?>
+            <div class="alert alert-warning" role="alert">
+                <button type="button" class="btn btn-light"><a target="_blank" href="<?php echo Typecho_Common::url(MANAGEURL, $this->options->adminUrl) ?>">创建圈子分类</a></button>
+            </div>
+        <?endif;?>
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <?php if ($this->user->hasLogin()):?>
                 <li class="nav-item" role="presentation">
