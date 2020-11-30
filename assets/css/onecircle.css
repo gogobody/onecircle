@@ -3329,7 +3329,6 @@ button {
 
 .j-index {
     display: flex;
-    padding-top: 20px;
     padding-bottom: 20px;
 }
 .j-index .main {
@@ -3862,7 +3861,31 @@ button {
     color: var(--background);
     font-weight: 500
 }
-
+.j-loadmore {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.j-loadmore a {
+    cursor: pointer;
+    width: 120px;
+    text-align: center;
+    line-height: 34px;
+    height: 34px;
+    color: var(--routine);
+    background: var(--background);
+    box-shadow: var(--box-shadow);
+    border-radius: 17px;
+    transition: -webkit-transform 0.35s;
+    transition: transform 0.35s;
+    transition: transform 0.35s, -webkit-transform 0.35s;
+    font-size: 14px;
+}
 /**
 mobile fix
  */

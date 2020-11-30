@@ -57,7 +57,7 @@
             --warning: <?php echo $this->options->JWarningColor ? $this->options->JWarningColor : '#e6a23c' ?>;
             --danger: <?php echo $this->options->JDangerColor ? $this->options->JDangerColor : '#f56c6c' ?>;
             --info: <?php echo $this->options->JInfoColor ? $this->options->JInfoColor : '#909399' ?>;
-            --radius-pc: <?php echo $this->options->JRadiusPC ?>;
+            --radius-pc: <?php echo $this->options->JRadiusPC ? $this->options->JRadiusPC : '10px'?>;
             --radius-wap: <?php echo $this->options->JRadiusWap ?>;
             --text-shadow: <?php echo $this->options->JTextShadow ? $this->options->JTextShadow : '0 1px 2px rgba(0, 0, 0, 0.25)' ?>;
             --box-shadow: <?php echo $this->options->JBoxShadow ? $this->options->JBoxShadow : '0px 0px 20px -5px rgba(158, 158, 158, 0.22)' ?>;
