@@ -31,18 +31,16 @@
 ?>
 <?php $this->need('includes/header.php'); ?>
 
-<div class="container-lg animate__animated animate__fadeIn" id="pjax-container">
-    <div class="row">
-        <?php $this->need('includes/nav.php'); ?>
-        <div class="col-xl-10 col-md-10 col-12 achieve-container">
+<?php $this->need('includes/body-layout.php');?>
+    <div class="hbox hbox-auto-xs hbox-auto-sm archive">
+        <div class="archive-container">
             <?php if ($this->is('author')): ?>
                 <?php $this->need('components/archive/archive-author.php') ?>
             <?php elseif ($this->is('category')): ?>
                 <?php $this->need('components/archive/archive-category.php') ?>
             <?php endif; ?>
-            <div class="achieve-content">
-                <div class="col-12 col-md-8 outer">
-
+            <div class="archive-content tabindex-<?_e($tabIndex);?>">
+                <div class="outer">
                     <div class="react-tabs" data-tabs="true">
                         <div class="line"></div>
                         <ul class="react-tabs__tab-list">
@@ -148,14 +146,13 @@
                         </div>
                     </div>
 
-                    <?php if ($tabIndex==0 || $tabIndex == 3){$this->need('includes/pagination.php');} ?>
+                    <?php if ($tabIndex==0 || $tabIndex == 3){$this->need('includes/post-pagination.php');} ?>
 
                 </div>
-                <?php $this->need('includes/achieve-right.php'); ?>
+                <?php $this->need('includes/archive-right.php'); ?>
             </div>
 
         </div>
     </div>
-</div>
-
+<?php $this->need('includes/body-layout-end.php');?>
 <?php $this->need('includes/footer.php'); ?>

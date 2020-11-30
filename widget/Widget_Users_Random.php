@@ -14,6 +14,7 @@ class Widget_Users_Random extends Widget_Abstract_Users
     public function execute()
     {
         $this->parameter->setDefault('pageSize=10');
+
         $type = explode('_', $this->db->getAdapterName());
         $type = array_pop($type);
         if($type == "SQLite"){

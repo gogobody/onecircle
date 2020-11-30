@@ -28,18 +28,38 @@ function insertAtCursor(myField, myValue) {
         myField.selectionStart = startPos + myValue.length;
         myField.selectionEnd = startPos + myValue.length;
     } else {
-        
+
         myField.value += myValue;
         myField.focus();
     }
 
     myField.scrollTop = textTop;
-    document.documentElement.scrollTop=documentTop;
+    document.documentElement.scrollTop = documentTop;
 }
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+    return function (Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
 
 (function () {
     var OwO = function () {
@@ -92,8 +112,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 this.packages = Object.keys(this.odata);
 
                 // fill in HTML
-                var html = '\n            <div class="OwO-logo"><span>' + option.logo + '</span></div>\n            <div class="OwO-body" style="width: ' + option.width + '">';
-
+                var html = '\n<div class="OwO-logo"><span>' + option.logo + '</span></div>\n<div class="OwO-body" style="width: ' + option.width + '">';
                 for (var i = 0; i < this.packages.length; i++) {
 
                     html += '\n                <ul class="OwO-items OwO-items-' + this.odata[this.packages[i]].type + '" style="max-height: ' + (parseInt(option.maxHeight) - 53 + 'px') + ';">';
@@ -124,6 +143,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 this.logo = this.container.getElementsByClassName('OwO-logo')[0];
                 this.logo.addEventListener('click', function () {
                     _this2.toggle();
+
                 });
 
                 this.container.getElementsByClassName('OwO-body')[0].addEventListener('click', function (e) {
@@ -181,14 +201,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     itemsShow.classList.remove('OwO-items-show');
                 }
                 this.container.getElementsByClassName('OwO-items')[index].classList.add('OwO-items-show');
-                
-                if(!this.container.getElementsByClassName('OwO-items')[index].classList.contains('OwO-image-items-load')
-                    &&this.container.getElementsByClassName('OwO-items')[index].classList.contains('OwO-items-image'))
-                {
+
+                if (!this.container.getElementsByClassName('OwO-items')[index].classList.contains('OwO-image-items-load')
+                    && this.container.getElementsByClassName('OwO-items')[index].classList.contains('OwO-items-image')) {
                     this.container.getElementsByClassName('OwO-items')[index].classList.add('OwO-image-items-load');
                     var imgs = this.container.getElementsByClassName('OwO-items')[index].getElementsByTagName('img');
                     for (var i = 0; i < imgs.length; i++) {
-                        imgs[i].setAttribute('src',imgs[i].dataset.src);
+                        imgs[i].setAttribute('src', imgs[i].dataset.src);
                     }
                 }
 

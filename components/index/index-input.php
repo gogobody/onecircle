@@ -35,8 +35,8 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
             <div>
                 <div role="combobox" aria-haspopup="listbox" aria-owns="topic-search-downshift-menu"
-                     aria-expanded="true" class="sc-AxjAm sc-AxirZ kWzaA-d"
-                     style="position: relative;">
+                     aria-expanded="true" class="sc-AxjAm sc-AxirZ i-input"
+                     style="position: relative;margin-bottom: 5px">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                          xmlns="http://www.w3.org/2000/svg"
                          class="hoZbnH">
@@ -47,8 +47,14 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                            aria-controls="topic-search-downshift-menu"
                            aria-labelledby="topic-search-downshift-label" autocomplete="on"
                            placeholder="查找更多圈子"
-                           class="sc-AxjAm jgskPb cAmOCm"
+                           class="cAmOCm"
+                           maxlength="20"
                            value="">
+                </div>
+                <div class="sc-AxjAm sc-AxirZ i-input" style="position: relative;width: fit-content;height: 27px;background-color: rgb(239, 243, 246);border-radius: 5px;bottom: -8px">
+                    <svg t="1605868736570" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="18452" width="20" height="20"><path d="M849.46488889 388.20977778c0-203.43466667-147.68355555-351.00444445-351.00444444-351.00444445-193.536 0-351.00444445 157.46844445-351.00444445 351.00444445 0 142.90488889 194.10488889 384.91022222 298.43911111 514.95822222l7.73688889 9.55733333c10.92266667 13.65333333 27.30666667 21.504 44.94222222 21.504 17.52177778 0 33.90577778-7.85066667 44.94222223-21.504l7.73688888-9.55733333c104.10666667-130.048 298.21155555-372.05333333 298.21155556-514.95822222z m-352.82488889 101.71733333c-71.56622222 0-129.70666667-58.14044445-129.70666667-129.70666666s58.14044445-129.70666667 129.70666667-129.70666667 129.70666667 58.14044445 129.70666667 129.70666667-58.14044445 129.70666667-129.70666667 129.70666666z" fill="#8a8a8a" p-id="18453" data-spm-anchor-id="a313x.7781069.0.i26" class="selected"></path><path d="M498.46044445 6.59911111c-210.37511111 0-381.61066667 171.12177778-381.61066667 381.61066667 0 153.6 198.54222222 401.06666667 305.152 534.07288889l7.62311111 9.55733333c16.83911111 20.93511111 41.87022222 32.99555555 68.72177778 32.99555555s51.88266667-12.06044445 68.72177778-32.99555555l7.73688888-9.55733333C681.52888889 789.27644445 879.95733333 541.80977778 879.95733333 388.20977778c0-221.07022222-160.42666667-381.61066667-381.49688888-381.61066667z m0 927.63022222c-17.52177778 0-33.90577778-7.85066667-44.94222223-21.504l-7.73688889-9.55733333c-104.33422222-130.048-298.43911111-372.05333333-298.43911111-514.95822222 0-193.536 157.46844445-351.00444445 351.00444445-351.00444445 203.43466667 0 351.00444445 147.68355555 351.00444444 351.00444445 0 142.90488889-194.10488889 384.91022222-298.43911111 514.95822222l-7.73688889 9.55733333c-10.80888889 13.65333333-27.19288889 21.504-44.71466666 21.504z" fill="#ffffff" p-id="18454"></path><path d="M496.64 360.22044445m-99.21422222 0a99.21422222 99.21422222 0 1 0 198.42844444 0 99.21422222 99.21422222 0 1 0-198.42844444 0Z" fill="#ffffff" p-id="18455"></path><path d="M626.34666667 360.22044445c0-71.56622222-58.14044445-129.70666667-129.70666667-129.70666667s-129.70666667 58.14044445-129.70666667 129.70666667 58.14044445 129.70666667 129.70666667 129.70666666 129.70666667-58.14044445 129.70666667-129.70666666z m-228.92088889 0c0-54.72711111 44.48711111-99.21422222 99.21422222-99.21422223s99.21422222 44.48711111 99.21422222 99.21422223-44.48711111 99.21422222-99.21422222 99.21422222-99.21422222-44.48711111-99.21422222-99.21422222z" fill="#ffffff" p-id="18456"></path></svg>
+                    <input type="text" id="address-input" placeholder="你在哪里？" class="cAmOCm" maxlength="18"
+                           style="width: 85px;background: none;min-width: 10px;font-size: 12px" onclick="oneMap.pjax_complete()">
                 </div>
             </div>
         </div>
@@ -59,6 +65,9 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <input type="hidden" name="markdown" value="1"/><!--markdown-->
         <input type="hidden" id="post-title" name="title" value=""/><!--title-->
         <input type="hidden" id="category" name="category[]" value="1"/><!---->
+        <input type="hidden" id="ad-name" name="name" value=""/><!--name-->
+        <input type="hidden" id="ad-district" name="district" value=""/><!--district-->
+        <input type="hidden" id="ad-address" name="address" value=""/><!--address-->
 
         <div class="ffdvlM">
             <div class="gDqTLX">
@@ -136,3 +145,4 @@ if ($this->is('index')){
     echo '<script type="text/javascript">allCategories = '.json_encode($arr).'</script>';
 }
 ?>
+<script>window.onload = function(){oneMap.pjax_complete()}</script>

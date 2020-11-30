@@ -1,9 +1,9 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
 <?php $this->need('includes/header.php'); ?>
-<div class="container-lg animate__animated animate__fadeIn" id="pjax-container">
-    <div class="row">
-        <?php $this->need('includes/nav.php');?>
-        <div class="col-xl-7 col-md-7 col-12 page">
+<?php $this->need('includes/body-layout.php');?>
+    <div class="hbox hbox-auto-xs hbox-auto-sm index">
+        <div class="col center-part">
+            <div class="page">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?php $this->options->siteUrl();?>">首页</a></li>
@@ -23,8 +23,10 @@
             <?php $this->need('includes/comments.php'); ?>
 
         </div>
+        </div>
         <?php $this->need('includes/right.php');?>
 
     </div>
-</div>
+<?php $this->need('includes/body-layout-end.php');?>
+
 <?php $this->need('includes/footer.php'); ?>

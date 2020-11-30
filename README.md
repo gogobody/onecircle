@@ -1,11 +1,14 @@
 ## onecircle 一个圈子，基于typecho
 
 ## 名字就叫一个圈子。
-## version：2.8
+## version：3.0
 ## 平台：typecho
 
 ### 想弄一个类社交圈子，开发了一部分，剩下慢慢折腾
 
+## 主题文档  
+更多请查看[OneCircle 主题说明](https://www.yuque.com/docs/share/05f40cac-980f-4e53-8b92-ed9728b8dc50?#%E3%80%8AOneCircle%20%E4%B8%BB%E9%A2%98%E8%AF%B4%E6%98%8E%E3%80%8B)
+  
 (￢_￢)
 目前特色有：
 1. 前端仿推特
@@ -15,6 +18,7 @@
 5. 支持用户注册默认更改权限为贡献者，并自动通过审核，这样新注册的用户也能自己发推了
 6. 支持给每个新注册用户添加个人签名和tag
 7. 支持免费的sm 图床
+8. 支持博客页
 
 ## changeLog
 v1.6 支持 pjax，以及前台登录发布文章，加入progress动画  
@@ -30,6 +34,7 @@ v2.5 添加用户性别和个人情感状态
 v2.6 修复评论bug，修改link 显示  
 v2.7 图床插件支持上传图片到本地，添加首页评论显示  
 v2.8 添加 lazyload ，将默认的gallery 原始的background显示方式迁移至src显示
+v3.0 支持博客页  
 ## 安装
 下载 release 包：
 内含：
@@ -144,4 +149,4 @@ links
 ### 感谢以下作者的辛苦付出
 - compress https://javascript-minifier.com/
 - css compress https://www.runoob.com/csspack
-- 部分代码来自handsome、 [landstar](https://dyedd.cn)、油油的twitter等主题，感谢作者的辛苦付出
+- 部分代码来自handsome、 [landstar](https://dyedd.cn)、油油的twitter、[joe博客](http://ae.js.cn/about.html) 等主题，感谢作者的辛苦付出

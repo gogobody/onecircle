@@ -54,19 +54,33 @@ function themeFields(Typecho_Widget_Helper_Layout $layout)
 
 
     }
+    $thumb = new Typecho_Widget_Helper_Form_Element_Text(
+        'thumb',
+        NULL,
+        NULL,
+        '自定义文章缩略图',
+        '填写时：将会显示填写的文章缩略图 <br>
+         不填写时：如果文章内有图片则取文章图片，否则取模板自带的随机缩略图'
+    );
+    $layout->addItem($thumb);
 }
 
 function themeInit($archive)
 {
-
+    $options = Helper::options();
     //评论回复楼层最高999层.这个正常设置最高只有7层
-    Helper::options()->commentsMaxNestingLevels = 999;
+    $options->commentsMaxNestingLevels = 999;
     //强制评论关闭反垃圾保护
-    Helper::options()->commentsAntiSpam = false;
+    $options->commentsAntiSpam = false;
     //将最新的评论展示在前
-    Helper::options()->commentsOrder = 'DESC';
+    $options->commentsOrder = 'DESC';
+    // 评论分页 //改为在后台开启
+//    $options->commentsPageBreak = true;
+//    $options->commentsPageSize = 5;
+//    $options->commentsPageDisplay = 'first';
     //关闭检查评论来源URL与文章链接是否一致判断
-    Helper::options()->commentsCheckReferer = false;
+    $options->commentsCheckReferer = false;
+
     // parse route
     parseRout($archive);
     // 初始化数据库设置
@@ -102,12 +116,11 @@ function get_comment($coid)
  */
 function getPostImg($archive)
 {
-    $loading = Helper::options()->themeUrl('assets/img/loading.svg', 'onecircle');
+    $loading = Helper::options()->defaultLoadingUrl();
     //  匹配 img 的 src 的正则表达式
     $preg = '/<img[\s\S]*?src\s*=\s*[\"|\'](.*?)[\"|\'][\s\S]*?>/im';//匹配img标签的正则表达式
     $preg2 = '/background-image:[ ]?url\([&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif|bmp|webp|php))/i';//匹配背景的url的正则表达式
-//    $pregEchoBackImg = '/data-echo-background[ ]?=[ ]?[&quot;]*[\'"]?(.*?\.(?:png|jpg|jpeg|gif|bmp|webp))/i'; // 针对echo.js 匹配, 已经放弃使用
-    $pregEchoImg = '/data-echo[ ]?=[ ]?[&quot;]*[\'"]?(.*?\..*?)[\'"]/i'; // 针对echo.js 匹配
+    $pregEchoImg = '/data-src[ ]?=[ ]?[&quot;]*[\'"]?(.*?\..*?)[\'"]/i'; // 针对echo.js 匹配
     $filter_plink = '/<img((?!plink).)*.src=[\"|\']?(.*?)[\"|\'][\s\S]*?>/i'; // 匹配不含 plink 的
 
     preg_match_all($preg, $archive->content, $allImg);//这里匹配所有的img
@@ -123,6 +136,7 @@ function getPostImg($archive)
             unset($allImg[1][$key]);
         }
     }
+
     preg_match_all($preg2, $archive->content, $allImg2);//这里匹配所有的背景img
 //    preg_match_all($pregEchoBackImg, $archive->content, $echoBackgroundAllImg);//这里匹配所有的echo 背景img
     preg_match_all($pregEchoImg, $archive->content, $echoAllImg);//这里匹配所有的echo 背景img
@@ -344,6 +358,7 @@ function getBlogAdminInfo()
  */
 function getCategories($obj, $cnt = -1, $url = '', $random = false)
 {
+
     $type = explode('_', Typecho_Db::get()->getAdapterName());
     $type = array_pop($type);
     if ($random && $cnt){
@@ -433,10 +448,10 @@ function getGirdPics($this_)
 
 function ehco9gridPics($images, $length)
 {
-    $loading = Helper::options()->themeUrl('assets/img/loading.svg','onecircle');
+    $loading = Helper::options()->defaultLoadingUrl();
     if ($length > 0) {
         if ($length == 1) {
-            echo "<div class='post-cover-inner'><a class='post-cover-img-more' data-fancybox='gallery' href='$images[0]'><img src='$loading' data-echo='$images[0]' class='post-cover-img' alt='no pic'></a></div>";
+            echo "<div class='post-cover-inner'><a class='post-cover-img-more' data-fancybox='gallery' href='$images[0]'><img src='$loading' data-src='$images[0]' class='post-cover-img lazyload' alt='no pic'></a></div>";
         } else {
             $more_img_flag = false;
             if ($length > 9) { // 9宫格显示图片
@@ -448,7 +463,7 @@ function ehco9gridPics($images, $length)
                 if ($i == 8 && $more_img_flag) { // 9宫格最后一张
                     echo "<div style='background-image:url($images[$i]);' class='post-cover-img-more' alt='cover'><div class='more-pic'>" . $length . "+</div></div>";
                 } else {
-                    echo "<a class='post-cover-img-more' data-fancybox='gallery' href='$images[$i]'><img src='$loading' data-echo='$images[$i]' style='' class='post-cover-img-more' alt='no pic'></a>";
+                    echo "<a data-fancybox='gallery' href='$images[$i]'><img src='$loading' data-src='$images[$i]' style='' class='post-cover-img-more lazyload' alt='no pic'></a>";
                 }
             }
             echo "</div>";

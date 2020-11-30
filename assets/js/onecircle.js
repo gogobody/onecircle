@@ -1,5 +1,6 @@
 console.log(' %c Theme onecircle %c https://github.com/gogobody/onecircle', 'color:#444;background:#eee;padding:5px 0', 'color:#eee;background:#444;padding:5px');
 // tools functions
+
 // 过滤所有特殊字符
 var stripscript = function (s) {
     var pattern = new RegExp("[`^()|{}'\\[\\].<>/?~！……*——|{}‘”“↵\r\n]");
@@ -103,6 +104,7 @@ var indexInput = {
         this.login_ajax()
         this.searchEventInit()
         this.articleClickInit()
+        this.asideEventInit()
     },
     resetInputStatus: function () {// reset status when change nowtype
         this.additionArray = []
@@ -276,7 +278,6 @@ var indexInput = {
             that.changeType('default')
 
         })
-
 
         // process add link click
         $("#addlink,#addvideo,#addbilibili").unbind('click').bind('click', function () {
@@ -551,6 +552,26 @@ var indexInput = {
             })
         })
     },
+    asideEventInit: function () {
+        var asideBtn = $(".aside-btn")
+        var aside = $('#aside')
+        var footer = $('footer')
+        asideBtn.unbind('click').bind('click', function () {
+            if (aside.hasClass('off-screen')) {
+                aside.removeClass('off-screen')
+                footer.show()
+            } else {
+                aside.addClass('off-screen')
+                footer.hide()
+            }
+        })
+        $(".off-screen-toggle").unbind('click').bind('click', function () {
+            $("#aside").toggleClass("off-screen")
+        })
+        $("#aside .nav-menu").unbind('click').bind('click', function () {
+            $("#aside").toggleClass("off-screen")
+        })
+    },
     pjax_complete: function () {
         this.init()
         // this.loginBan()
@@ -570,7 +591,7 @@ var archiveInit = {
         this.archAuthorTabShowInit()
         this.archAuthorTabsClickInit()
         this.iasInit()
-        this.echojsInit()
+        this.lazyloadInit()
 
     },
     postRepostArticle: function (posthref, excert, rbannerimg, repousername, repostext, category) {
@@ -691,7 +712,7 @@ var archiveInit = {
                 }
                 $(this).attr("disabled", true);
                 var btnThis = this
-                $.post('/', {
+                $.post(gconf.index, {
                     followuser: 1,
                     follow: status,
                     uid: userId,
@@ -756,7 +777,7 @@ var archiveInit = {
 
                 $(this).attr("disabled", true);
                 var btnThis = this
-                $.post('/', {
+                $.post(gconf.index, {
                     followcircle: 1,
                     follow: status,
                     uid: userId,
@@ -806,11 +827,11 @@ var archiveInit = {
             }, 100)
         }
     },
-    archiveLoadRebindInit:function(){
+    archiveLoadRebindInit: function () {
         // reinit click functions after 加载更多或者 tabs 切换
         archiveInit.fansFuncInit()
         indexInput.articleClickInit()
-        archiveInit.echojsInit()
+        archiveInit.lazyloadInit()
     },
     archAuthorTabsClickInit: function () {
         // archive tabs
@@ -828,7 +849,6 @@ var archiveInit = {
                     line.css({
                         'transform': 'translateX(' + left + 'px)'
                     })
-                    // $.pjax({url:'?tabindex=' + tabindex,container:'.react-tabs'});
 
                     $.ajax({
                         url: '?tabindex=' + tabindex,
@@ -845,12 +865,18 @@ var archiveInit = {
                                     })
                                 } else {
                                     var real_html = items.html()
-                                    if ($(".pagination", html_node).length <= 0) {
+                                    if ($(".pagination", html_node).length <= 0 && (tabindex === 1 || tabindex === 2)) {
                                         $(".pagination").css("display", "none")
-                                    } else {
+                                    } else if ($(".pagination", html_node).length > 0 && (tabindex === 0 || tabindex === 3)) {
                                         $(".pagination").css("display", "flex")
                                     }
                                     $(".item-container").html(real_html)
+                                    // 删除某个前缀开头的类
+                                    var archiveContent = $(".archive-content")
+                                    archiveContent.removeClass(function (index, className) {
+                                        return (className.match(/(^|\s)tabindex-\S+/g) || []).join('');
+                                    });
+                                    archiveContent.addClass('tabindex-' + tabindex)
                                     // reinit click functions
                                     archiveInit.archiveLoadRebindInit()
                                 }
@@ -873,7 +899,7 @@ var archiveInit = {
             //  发送 AJAX 请求
             $.ajax({
                 //  请求方式 post
-                url:gconf.index,
+                url: gconf.index,
                 type: 'post',
                 //  url 获取点赞按钮的自定义 url 属性
                 //  发送的数据 cid，直接获取点赞按钮的 cid 属性
@@ -955,7 +981,7 @@ var archiveInit = {
                             } else {
                                 d = $('#comment-' + k, d).hide();
                                 if (!$(g).length)
-                                    $('.comment-detail').prepend("<h6 class='comment-num'>0 条评论<\/h6><ol class='comment-list'><\/ol>");
+                                    $('.comment-detail').prepend("<h2 class='comment-num'>0 条评论<\/h2><ol class='comment-list'><\/ol>");
                                 $(g).prepend(d)
                             }
                             $('#comment-' + k).fadeIn();
@@ -992,13 +1018,8 @@ var archiveInit = {
             })
         }
     },
-    echojsInit: function () { // echo js
-        echo.init({
-            offset: 100,
-            throttle: 250,
-            callback: function (element, op) {
-            }
-        });
+    lazyloadInit: function () {
+
     },
     iasInit: function () { // 无限加载
         var a_pagelink = $(".a-pageLink .next")
@@ -1037,6 +1058,41 @@ var archiveInit = {
             }
             return false;
         });
+        var comments_pagelink = $(".a-pageLink .comments-next")
+        if (comments_pagelink.length > 0) {
+        } else {
+            comments_pagelink.attr("style", "display:none");
+        }
+        comments_pagelink.unbind('click').bind('click', function () {
+            var href = $(this).attr("href");
+            var donut = $(".a-pageLink .donut")
+            if (href !== undefined) {
+                $.ajax({
+                    url: href,
+                    type: "get",
+                    beforeSend: function () {
+                        comments_pagelink.hide();
+                        donut.fadeIn();
+                    },
+                    error: function (res) {
+                    },
+                    success: function (data) {
+                        var $res = $(data).find(".comment-detail>.comment-list>.comment-list-item");
+                        donut.hide();
+                        $('.comment-detail>.comment-list').append($res).fadeIn();
+                        var newhref = $(data).find(".a-pageLink .comments-next").attr("href");
+                        if (newhref !== undefined) {
+                            comments_pagelink.attr("href", newhref);
+                            comments_pagelink.fadeIn();
+                        } else {
+                            comments_pagelink.attr("style", "display:none");
+                            $(".a-pageLink").append('<a href="javascript:;" rel="nofollow">加载完毕</a>');
+                        }
+                    }
+                });
+            }
+            return false;
+        });
     },
     pjax_complete: function () {
         this.archiveEventInit()
@@ -1044,15 +1100,15 @@ var archiveInit = {
         this.repostFuncInit()
         this.archAuthorTabShowInit()
         this.iasInit()
-        this.echojsInit()
+        this.lazyloadInit()
     }
 };
 var recommendInit = {
     init: function () {
         this.autoDirayWith()
     },
-    autoDirayWith: function (e) {
-        var bgs = document.getElementsByClassName("circle-diary-bg");
+    autoDirayWith: function () {
+        var bgs = document.getElementsByClassName("diary-item");
         for (var i = 0; i < bgs.length; i++) {
             bgs[i].style.height = bgs[i].offsetWidth + 'px';
         }
@@ -1081,8 +1137,8 @@ var tagsManageInit = {
             if (!catiod > 0) return
             var selectId = $("#changeCircle").val()
             $.ajax({
-                url:gconf.index,
                 data: {
+                    url: gconf.index,
                     changeCircleCat: 1,
                     mid: catiod,
                     changetomid: selectId
@@ -1110,45 +1166,388 @@ var tagsManageInit = {
     },
 
 };
-// ready
+var oneMap = { // use js only!
+    AMapUrl: "https://webapi.amap.com/loader.js",
+    init: function (AMap) {
+        if (!AMap) return false;
+        this.AMap = AMap
+        this.autoCompleteInit(AMap)
+        this.geolocationInit(AMap)
+        this.mapContainerInit(AMap, this.geolocation)
+    },
+    pjax_complete: function () {
+        if (!oneMap.AMap) {
+            $.getScript(oneMap.AMapUrl, function () {
+                oneMap.amapLoadInit()
+            })
+        } else {
+            oneMap.autoCompleteInit(oneMap.AMap)
+            oneMap.mapContainerInit(oneMap.AMap, oneMap.geolocation)
+        }
+        this.restoreFromLocal()
+    },
+    amapLoadInit: function () {
+        if (userId < 0) return; // not login
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.open('POST', gconf.oneaction, true);
+        httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）
+        httpRequest.send('type=amapKey');//发送请求 将情头体写在send中
+        httpRequest.onreadystatechange = function () {//请求后的回调接口，可将请求成功后要执行的程序写在其中
+            if (httpRequest.readyState === 4 && httpRequest.status === 200) {//验证请求是否发送成功
+                var json = httpRequest.responseText;//获取到服务端返回的数据
+                json = JSON.parse(json)
+                if (json.status) {
+                    localStorage.setItem("amapkey", json.data)
+                    AMapLoader.load({
+                        "key": json.data.jskey,              // 申请好的Web端开发者Key，首次调用 load 时必填
+                        "version": "1.4.15",   // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
+                        "plugins": ['AMap.Autocomplete', 'AMap.Geolocation', 'AMap.Geocoder', 'AMap.Marker'],      // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+                    }).then(function (AMap) {
+                        oneMap.init(AMap)
+                    }).catch(function (e) {
+                        console.error(e);  //加载错误提示
+                        $.message({
+                            type: "error",
+                            title: "提示",
+                            message: "获取amapJsKey失败"
+                        })
+                    });
+                } else {
+                    $.message({
+                        type: "error",
+                        title: "提示",
+                        message: "获取amapJsKey失败"
+                    })
+                }
+            }
+        };
+    },
+    restoreFromLocal: function () {
+        var obj = localStorage.getItem('address')
+        if (obj) {
+            obj = JSON.parse(obj)
+            var add = document.getElementById("ad-address")
+            if (add) {
+                var addinputBtn = document.getElementById("address-input")
+                addinputBtn.value = obj.name
+                addinputBtn.style.width = "fit-content"
+                document.getElementById("ad-name").value = obj.name
+                document.getElementById("ad-district").value = obj.district
+                add.value = obj.address
+            }
+        }
+    },
+    save2local: function (name, district, address) {
+        var obj = JSON.stringify({'name': name, 'district': district, 'address': address})
+        localStorage.setItem('address', obj)
+    },
+    geolocationInit: function (AMap) {
+        var geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            position: 'RB',    //定位按钮的停靠位置
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
+            getCityWhenFail: true,
+            needAddress: true
+        });
+        this.geolocation = geolocation
+        geolocation.getCurrentPosition(function (status, result) {
+            if (status === 'complete') {
+                // console.log(result);
+                if (result.status) {
+                    var addBtn = document.getElementById("address-input")
+                    if (addBtn) {
+                        new AMap.Autocomplete().search(result.formattedAddress, function (status, res) {
+                            if (res.count > 0) {
+                                addBtn.value = res.tips[0].name
+                                addBtn.style.width = "fit-content"
+                                document.getElementById("ad-name").value = res.tips[0].name
+                                document.getElementById("ad-district").value = res.tips[0].district
+                                document.getElementById("ad-address").value = res.tips[0].address
+                                oneMap.save2local(res.tips[0].name, res.tips[0].district, res.tips[0].address)
+                            }
+                        })
+                    }
+                } else {
+
+                }
+            } else {
+                $.message({
+                    title: '定位失败',
+                    message: '失败原因排查信息:' + result.message,
+                    type: 'error'
+                })
+            }
+        });
+    },
+    autoCompleteInit: function (AMap) {
+        // init auto complete
+        var add_name = document.getElementById("ad-name")
+        if (add_name) {
+            var autoOptions = {
+                city: '全国',
+                input: 'address-input'
+            }
+            this.autoComplete = new AMap.Autocomplete(autoOptions)
+            this.autoComplete.on("select", function (e) {
+                add_name.value = e.poi.name
+                document.getElementById("ad-district").value = e.poi.district
+                document.getElementById("ad-address").value = e.poi.address
+                oneMap.save2local(e.poi.name, e.poi.district, e.poi.address)
+            })
+        }
+
+    },
+    mapContainerInit: function (AMap, geoLocation) {
+        if (!this.geocoder || !this.marker) {
+            this.geocoder = new AMap.Geocoder({});
+            this.marker = new AMap.Marker();
+        }
+
+        if (document.getElementById("amap-container")) {
+            var map = new AMap.Map('amap-container', {
+                resizeEnable: true,
+                zoom: 15,
+                mapStyle: "amap://styles/fresh"
+            });
+            var addr = utils.getQueryString('name') // this is for neighbor widget
+            if (addr) {
+                var marker = this.marker
+                this.geocoder.getLocation(district + addr, function (status, result) {
+                    if (status === 'complete' && result.geocodes.length) {
+                        var lnglat = result.geocodes[0].location
+                        marker.setPosition(lnglat)
+                        map.add(marker)
+                        map.setFitView(marker)
+                    } else {
+                        console.error('根据地址查询位置失败')
+                    }
+                });
+            } else {
+                map.addControl(geoLocation)
+            }
+        }
+
+    }
+}
+
+// 浮动按钮
+var floatEle = {
+    init: function () {
+        this.fabtns = $('#float_action_buttons')
+        this.backToTopBtn = $('#fabtn_back_to_top')
+        this.toggleSidesBtn = $('#fabtn_toggle_sides')
+        this.readingProgressBar = $('#fabtn_reading_progress_bar')
+        this.readingProgressDetails = $('#fabtn_reading_progress_details')
+        this.goToComment = $('#fabtn_go_to_comment')
+        this.isScrolling = false
+        this.eventInit()
+        this.changefabtnDisplayStatus()
+    },
+    eventInit: function () {
+        var that = this
+        this.backToTopBtn.on("click", function () {
+            if (!floatEle.isScrolling) {
+                floatEle.isScrolling = true;
+                setTimeout(function () {
+                    floatEle.isScrolling = false;
+                }, 600);
+                $("body,html").animate({
+                    scrollTop: 0
+                }, 600);
+            }
+        })
+
+        if ($("#comment").length > 0) {
+            $("#fabtn_go_to_comment").removeClass("d-none")
+        } else {
+            $("#fabtn_go_to_comment").addClass("d-none")
+        }
+        //
+        this.goToComment.on("click", function () {
+            gotoHash("#comment", 600)
+            $("#post_comment_content").focus()
+        })
+        if (localStorage['Argon_fabs_Floating_Status'] === "left") {
+            this.fabtns.addClass("fabtns-float-left");
+        }
+        this.toggleSidesBtn.on("click", function () {
+            that.fabtns.addClass("fabtns-unloaded");
+            setTimeout(function () {
+                that.fabtns.toggleClass("fabtns-float-left");
+                if (that.fabtns.hasClass("fabtns-float-left")) {
+                    localStorage['Argon_fabs_Floating_Status'] = "left"
+                } else {
+                    localStorage['Argon_fabs_Floating_Status'] = "right"
+                }
+                that.fabtns.removeClass("fabtns-unloaded")
+                that.hideAlltoolTip()
+            }, 300);
+        })
+        this.fabtns.removeClass("fabtns-unloaded")
+    },
+    changefabtnDisplayStatus: function () {
+        //阅读进度
+        var readingProgress = $(window).scrollTop() / Math.max($(document).height() - $(window).height(), 0.01);
+        this.readingProgressDetails.html((readingProgress * 100).toFixed(0) + "%");
+        this.readingProgressBar.css("width", (readingProgress * 100).toFixed(0) + "%");
+        //是否显示回顶
+        if ($(window).scrollTop() >= 400 || readingProgress >= 0.5) {
+            this.backToTopBtn.removeClass("fabtn-hidden");
+        } else {
+            this.backToTopBtn.addClass("fabtn-hidden");
+        }
+    },
+    hideAlltoolTip: function () {
+        $("#float_action_buttons button").tooltip('hide')
+    }
+
+}
+var blog = {
+    init:function () {
+        this.init_load_more()
+    },
+    pjax_complete:function () {
+        this.init_load_more()
+    },
+    eventInit:function () {
+
+    },
+    /* 初始化加载更多 */
+    init_load_more:function () {
+        var _this = this;
+        var jloadmore = $('.j-loadmore a')
+        jloadmore.attr('data-href', jloadmore.attr('href'));
+        jloadmore.removeAttr('href');
+        jloadmore.on('click', function () {
+            if ($(this).attr('disabled')) return;
+            $(this).html('loading...');
+            $(this).attr('disabled', true);
+            var url = $(this).attr('data-href');
+            var that = this
+            if (!url) return;
+            $.ajax({
+                url: url,
+                type: 'get',
+                success:function (data){
+                    $(that).removeAttr('disabled');
+                    $(that).html('查看更多');
+                    var list = $(data).find('.article-list:not(.sticky)');
+                    $('.j-index-article.article').append(list);
+                    // window.scroll({
+                    //     top: $(list).first().offset().top - ($('.j-header').height() + 20),
+                    //     behavior: 'smooth'
+                    // });
+                    var newURL = $(data).find('.j-loadmore a').attr('href');
+                    if (newURL) {
+                        $(that).attr('data-href', newURL);
+                    } else {
+                        $('.j-loadmore').remove();
+                    }
+                }
+            });
+        });
+    }
+}
+
+var utils = {
+    getQueryString: function (name) {
+        name = name.replace(/[]/, "\[").replace(/[]/, "\[").replace(/[]/, "\\\]")
+        var regexS = "[\\?&]" + name + "=([^&#]*)"
+        var regex = new RegExp(regexS)
+        var results = regex.exec(window.parent.location.href)
+        if (results == null)
+            return ""
+        else {
+            return decodeURI(results[1])
+        }
+    },
+    debounce: function (func, wait, immediate) {
+        var timeout, args, context, timestamp, result;
+        if (null == wait) wait = 100;
+
+        function later() {
+            var last = Date.now() - timestamp;
+
+            if (last < wait && last >= 0) {
+                timeout = setTimeout(later, wait - last);
+            } else {
+                timeout = null;
+                if (!immediate) {
+                    result = func.apply(context, args);
+                    context = args = null;
+                }
+            }
+        }
+
+        var debounced = function () {
+            context = this;
+            args = arguments;
+            timestamp = Date.now();
+            var callNow = immediate && !timeout;
+            if (!timeout) timeout = setTimeout(later, wait);
+            if (callNow) {
+                result = func.apply(context, args);
+                context = args = null;
+            }
+
+            return result;
+        };
+
+        debounced.clear = function () {
+            if (timeout) {
+                clearTimeout(timeout);
+                timeout = null;
+            }
+        };
+
+        debounced.flush = function () {
+            if (timeout) {
+                result = func.apply(context, args);
+                context = args = null;
+
+                clearTimeout(timeout);
+                timeout = null;
+            }
+        };
+
+        return debounced;
+    }
+
+}
+
+// rady
 $(function () {
     // comment
     $(window).unbind("scroll").bind("scroll", function () {
-        var scroHei = $(window).scrollTop();
-        var backtotop = $('.back-to-top')
-        if (scroHei > 400) {
-            backtotop.addClass('animate__fadeInDown')
-            backtotop.css("display", "block")
-            // $('.back-to-top').slideDown('fast');
-        } else {
-
-            // $('.back-to-top').slideUp('fast');
-            backtotop.css("display", "none")
-
-
-        }
+        // 阅读进度
+        floatEle.changefabtnDisplayStatus()
     })
-    $('.back-to-top').unbind('click').bind('click', function () {
-        $('body,html').animate({
-            scrollTop: 0
-        }, 600);
-    })
-
+    window.onscroll = utils.debounce(function () {
+        floatEle.hideAlltoolTip()
+    }, 300)
     indexInput.init()
     tagsManageInit.init()
     recommendInit.init()
     archiveInit.init()
-
+    floatEle.init()
+    blog.init()
 })
 
-var pjaxInit = function() {
+var pjaxInit = function () {
     indexInput.pjax_complete()
     archiveInit.init()
     recommendInit.pjax_complete()
     owoInit();
     //
     tagsManageInit.pjax_complete()
+    oneMap.pjax_complete()
+    blog.pjax_complete()
+    if ($("article.post")) {
+        Prism.highlightAll()
+    }
 }
+
 // post article
 function postArticle(data, needRefresh) {
     $.post(gconf.oneaction, {
@@ -1157,7 +1556,7 @@ function postArticle(data, needRefresh) {
         if (res.code) {
             // console.log(res)
             $.ajax({
-                url: gconf.index+'/action/contents-post-edit?do=publish&_=' + res.data,
+                url: gconf.index + '/action/contents-post-edit?do=publish&_=' + res.data,
                 type: 'post',
                 data: data,
                 success: function (res) {
@@ -1179,7 +1578,7 @@ function postArticle(data, needRefresh) {
                 error: function (err) {
                     return $.message({
                         title: "提示",
-                        message: "code:"+err.status+"err:" +err.responseText+ err,
+                        message: "code:" + err.status + "err:" + err.responseText + err,
                         type: "error"
                     })
                 }
@@ -1194,7 +1593,57 @@ function postArticle(data, needRefresh) {
         return false
     })
 }
-
+// delete comments
+function delComments(url,needRefresh) {
+    if (confirm("您真的确定要删除吗？")){
+        $.post(gconf.oneaction, {
+            type: 'getsecuritytoken'
+        }, function (res) {
+            if (res !== 'error') {
+                // console.log(res)
+                $.ajax({
+                    url: gconf.index + url+'&_=' + res,
+                    type: 'post',
+                    success: function (re) {
+                        if (needRefresh) {
+                            setTimeout(function () {
+                                $.pjax.reload('#pjax-container', {
+                                    container: '#pjax-container',
+                                    fragment: '#pjax-container',
+                                    timeout: 8000
+                                })
+                                $.message({
+                                    title: "提示",
+                                    message: "删除成功",
+                                    type: "success"
+                                })
+                            }, 800)
+                        }
+                        if (re.success){
+                            $.message({
+                                title: "提示",
+                                message: "删除成功",
+                                type: "success"
+                            })
+                        }
+                        return false;
+                    },
+                    error: function (err) {
+                        $.message({
+                            title: "提示",
+                            message: "code:" + err.status + "err:" + err.responseText + err,
+                            type: "error"
+                        })
+                        return false;
+                    }
+                })
+                return false;
+            }
+            return false;
+        })
+    }
+    return false;
+}
 // index input prev link click event
 function submitForm(ele) {
     // jquery 表单提交
@@ -1323,6 +1772,9 @@ function submitForm(ele) {
         'fields[articleType]': indexInput.nowtype,
         'markdown': 1,
         'category[]': cmid,
+        name: $("#ad-name").val(),
+        district: $("#ad-district").val(),
+        address: $("#ad-address").val(),
         visibility: 'publish',
         allowComment: 1,
         allowPing: 1,
@@ -1330,17 +1782,6 @@ function submitForm(ele) {
         do: 'publish'
     }
     postArticle(data, true);
-
-    // inputForm.ajaxSubmit(function (result) {
-    //     setTimeout(function () {
-    //         $.pjax.reload('#pjax-container', {
-    //             container: '#pjax-container',
-    //             fragment: '#pjax-container',
-    //             timeout: 8000
-    //         })
-    //     }, 1000)
-    // });
-
     return false;
 }
 
@@ -1357,7 +1798,7 @@ function del_article(this_, $cid) {
                 $.message({
                     title: "提示",
                     message: "删除成功！",
-                    type: "info"
+                    type: "success"
                 })
             },
             error: function (res) {
@@ -1365,7 +1806,7 @@ function del_article(this_, $cid) {
                 $.message({
                     title: "提示",
                     message: "删除成功！",
-                    type: "info"
+                    type: "success"
                 })
             }
         })
@@ -1402,4 +1843,17 @@ function checkURL(URL) {
     return objExp.test(str) === true;
 }
 
-
+function gotoHash(hash, durtion) {
+    if (hash.length === 0) {
+        return;
+    }
+    if ($(hash).length === 0) {
+        return;
+    }
+    if (durtion == null) {
+        durtion = 200;
+    }
+    $("body,html").animate({
+        scrollTop: $(hash).offset().top - 80
+    }, durtion);
+}

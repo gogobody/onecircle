@@ -5,6 +5,7 @@
 $this->row = [];
 $this->stack = [];
 $this->length = 0;
+
 $type = explode('_', $this->db->getAdapterName());
 $type = array_pop($type);
 if($type == "SQLite"){
@@ -26,5 +27,4 @@ if($type == "SQLite"){
         ->order('RAND()')
         ->page($this->_currentPage, $this->parameter->pageSize);
 }
-
 $this->db->fetchAll($select, array($this, 'push'));

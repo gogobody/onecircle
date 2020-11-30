@@ -1,5 +1,5 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
@@ -12,8 +12,7 @@
     <!-- 文章 CSS -->
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/post.min.css'); ?>">
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/owo/owo.min.css'); ?>">
-    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/main.min.css'); ?>">
-
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/onecircle.min.css'); ?>">
     <link crossorigin="anonymous" integrity="sha384-Q8BgkilbsFGYNNiDqJm69hvDS7NCJWOodvfK/cwTyQD4VQA0qKzuPpvqNER1UC0F"
           href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet">
     <title><?php $this->archiveTitle(array(
@@ -37,11 +36,43 @@
     <?php $this->options->cssEcho(); ?>
     <?php $this->options->headerEcho(); ?>
     <script>gconf={index:'<?_e(Helper::options()->index)?>',oneaction:'<?_e(Helper::options()->index)?>/oneaction'}</script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
+
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/responsive.min.css'); ?>" />
+
+    <style>
+        :root {
+            --theme:#4e7cf2;
+            --element: #409eff;
+            cursor: <?php echo $this->options->JCursorType !== 'off' ? 'url(' . THEME_URL . '\/assets\/cur\/' . $this->options->JCursorType . '), auto' : 'auto' ?>;
+            --classA: <?php echo $this->options->JClassA ? $this->options->JClassA : '#dcdfe6' ?>;
+            --classB: <?php echo $this->options->JClassB ? $this->options->JClassB : '#e4e7ed' ?>;
+            --classC: <?php echo $this->options->JClassC ? $this->options->JClassC : '#ebeef5' ?>;
+            --classD: <?php echo $this->options->JClassD ? $this->options->JClassD : '#f2f6fc' ?>;
+            --main: <?php echo $this->options->JMainColor ? $this->options->JMainColor : '#303133' ?>;
+            --routine: <?php echo $this->options->JRoutineColor ? $this->options->JRoutineColor : '#606266' ?>;
+            --minor: <?php echo $this->options->JMinorColor ? $this->options->JMinorColor : '#909399' ?>;
+            --seat: <?php echo $this->options->JSeatColor ? $this->options->JSeatColor : '#c0c4cc' ?>;
+            --success: <?php echo $this->options->JSuccessColor ? $this->options->JSuccessColor : '#67c23a' ?>;
+            --warning: <?php echo $this->options->JWarningColor ? $this->options->JWarningColor : '#e6a23c' ?>;
+            --danger: <?php echo $this->options->JDangerColor ? $this->options->JDangerColor : '#f56c6c' ?>;
+            --info: <?php echo $this->options->JInfoColor ? $this->options->JInfoColor : '#909399' ?>;
+            --radius-pc: <?php echo $this->options->JRadiusPC ? $this->options->JRadiusPC : '10px'?>;
+            --radius-wap: <?php echo $this->options->JRadiusWap ?>;
+            --text-shadow: <?php echo $this->options->JTextShadow ? $this->options->JTextShadow : '0 1px 2px rgba(0, 0, 0, 0.25)' ?>;
+            --box-shadow: <?php echo $this->options->JBoxShadow ? $this->options->JBoxShadow : '0px 0px 20px -5px rgba(158, 158, 158, 0.22)' ?>;
+            --background: <?php echo $this->options->JCardBackground ? $this->options->JCardBackground : '#fff' ?>;
+        ;
+            --swiper-theme-color: #fff !important;
+        }
+    </style>
+    <?php Typecho_Plugin::factory('SmmsPlugin')->header($this);?>
+
 </head>
-<body class="bright">
-<div id="allayout" class="app-header-fixed">
+<body class="bright" ontouchstart="">
+<div id="allayout" class="app app-aside-fix app-header-fixed">
     <header class="app-header">
-        <div class="container-lg">
+        <div class="container-xl">
             <div class="row navbar-expand-lg">
                 <div class="col-6 col-md-9 col-lg-8 col-xl-9 mobile-nopading">
                     <nav class="navbar navbar-expand-lg navbar-light">
@@ -187,10 +218,9 @@
 
                                 </li>
                             <?php endif;?>
-                            <!-- mobile-nav -->
+                            <!-- aside -->
                             <li class="nav-item d-md-none">
-                                <a class="nav-link d-block d-md-none mobile-nav" href="#" data-toggle="collapse" data-target="#mobile-nav"
-                                   aria-expanded="false" aria-controls="mobile-nav">
+                                <a class="nav-link d-block d-md-none aside-btn">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-sliders" fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"

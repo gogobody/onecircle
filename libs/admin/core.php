@@ -80,7 +80,7 @@ function GetCatalog()
 function ParseCode($text)
 {
     $text = preg_replace_callback('/<img src=\"(.*?)\" (.*?)>/i', function ($text) {
-        return '<img class="lazyload" src="' . GetLazyLoad()  . '" data-original="' . $text[1] . '">';
+        return '<img class="lazyload" src="' . GetLazyLoad()  . '" data-src="' . $text[1] . '">';
     }, $text);
 
     $text = preg_replace_callback('/\[tag type="(.*?)"\](.*?)\[\/tag\]/ism', function ($text) {
@@ -352,24 +352,30 @@ class Widget_Post_hot extends Widget_Abstract_Contents
 /* 随机图片 */
 function GetRandomThumbnail($widget)
 {
-    $random = THEME_URL . '/assets/img/random/' . rand(1, 25) . '.webp';
+    $random = THEME_URL . '/assets/blog/img/random/' . rand(1, 25) . '.webp';
     if (Helper::options()->Jmos) {
         $moszu = explode("\r\n", Helper::options()->Jmos);
         $random = $moszu[array_rand($moszu, 1)] . "?jrandom=" . mt_rand(0, 1000000);
     }
     $pattern = '/\<img.*?src\=\"(.*?)\"[^>]*>/i';
+    $patternlazy = '/\<img.*?data-src\=\"(.*?)\"[^>]*>/i';
     $patternMD = '/\!\[.*?\]\((http(s)?:\/\/.*?(jpg|jpeg|gif|png|webp))/i';
     $patternMDfoot = '/\[.*?\]:\s*(http(s)?:\/\/.*?(jpg|jpeg|gif|png|webp))/i';
     $t = preg_match_all($pattern, $widget->content, $thumbUrl);
     $img = $random;
     if ($widget->fields->thumb) {
         $img = $widget->fields->thumb;
-    } elseif ($t) {
+    } elseif ($t and $thumbUrl[1][0]) {
         $img = $thumbUrl[1][0];
     } elseif (preg_match_all($patternMD, $widget->content, $thumbUrl)) {
         $img = $thumbUrl[1][0];
     } elseif (preg_match_all($patternMDfoot, $widget->content, $thumbUrl)) {
         $img = $thumbUrl[1][0];
+    } else{
+        $t = preg_match_all($patternlazy, $widget->content, $thumbUrl);
+        if ($t and $thumbUrl[1][0]) {
+            $img = $thumbUrl[1][0];
+        }
     }
     echo $img;
 }

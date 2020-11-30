@@ -5,7 +5,7 @@ class UserFollow
 
     public static function init()
     {
-        // create circle follow table
+// create circle follow table
         $db = Typecho_Db::get();
         $prefix = $db->getPrefix();
         $type = explode('_', $db->getAdapterName());

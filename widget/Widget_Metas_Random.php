@@ -15,7 +15,6 @@ class Widget_Metas_Random extends Widget_Metas_Category_List
             $this->parameter->setDefault(array('order'=>'RAND()','limit'=>10));
         }
 
-
     }
     public function execute()
     {

@@ -31,7 +31,6 @@ class Widget_Post_Random extends Widget_Abstract_Contents
                 ->limit($this->parameter->pageSize)
                 ->order('RAND()');
         }
-
         $this->db->fetchAll($select, array($this, 'push'));
     }
 }

@@ -1,10 +1,10 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
 <?php $this->need('includes/header.php');
 ?>
-<div class="container-lg animate__animated animate__fadeIn" id="pjax-container">
-    <div class="row">
-        <?php $this->need('includes/nav.php'); ?>
-        <div class="col-xl-7 col-md-7 col-12 article-container">
+<?php $this->need('includes/body-layout.php');?>
+<div class="hbox hbox-auto-xs hbox-auto-sm index">
+    <div class="col center-part">
+        <div class="article-container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?php $this->options->siteUrl(); ?>">首页</a></li>
@@ -87,8 +87,8 @@
                             <circle cx="10" cy="10" r="10" fill="#03A9F5"></circle>
                             <circle cx="10" cy="10" r="5" fill="#A0E3FE"></circle>
                         </svg>
-                        <?php if(empty($this->categories[0]['name']))_e("未选择");else _e($this->categories[0]['name']);?>
-                        </a>
+                        <?php if(empty($this->categories[0]['name'])) _e("未选择");else _e($this->categories[0]['name']);?>
+                    </a>
                     <div class="sc-AxjAm sc-AxirZ kVrFww">
                         <div class="sc-AxjAm sc-AxirZ  IsObJ" >
                             <div class="sc-AxjAm sc-AxirZ dEkSi agree-btn" style="transform: none;" id="agree-btn" data-cid="<?php $this->cid(); ?>">
@@ -143,8 +143,8 @@
             <?php $this->need('includes/comments.php'); ?>
 
         </div>
-        <?php $this->need('includes/right.php'); ?>
     </div>
+    <?php $this->need('includes/right.php'); ?>
     <!-- Modal -->
     <div class="modal fade" id="repostModal" tabindex="-1" aria-labelledby="repostModalLabel" data-backdrop="false" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -174,4 +174,6 @@
         </div>
     </div>
 </div>
+<?php $this->need('includes/body-layout-end.php');?>
+
 <?php $this->need('includes/footer.php'); ?>
