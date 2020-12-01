@@ -1,11 +1,11 @@
 <?php
 /**
- * 一个圈子主题，改自@Lanstar https://dyedd.cn
- *
+ * 一个圈子主题
+ * OneCircle theme，也许是 typecho 第一个社交圈子主题
  * @package OneCircle
  * @author gogobody
- * @version 1.9
- * @link https://blog.gogobody.cn
+ * @version 3.0
+ * @link check https://github.com/
  */
 
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
