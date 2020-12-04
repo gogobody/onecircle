@@ -141,7 +141,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                             <h6 class="mt-0 mb-1"><?php $r_comments->author(false); ?></h6>
                             <a class="content" href="<?php $r_comments->permalink(); ?>"
                                target="<?php $this->options->sidebarLinkOpen(); ?>">
-                                <?php echo contents::parseHide($r_comments->excerpt(35, '...'));?>
+                                <?php $comm=trim(utils::substr($r_comments->content,35));if ($comm)echo contents::parseHide($comm);else echo "非文字回复"?>
                             </a>
                         </div>
                     </li>

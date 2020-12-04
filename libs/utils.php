@@ -445,5 +445,9 @@ class utils
         }
         return array();
     }
+
+    public static function substr($str,$length = 100, $trim = '...'){
+        return Typecho_Common::subStr(strip_tags($str), 0, $length, $trim);
+    }
 }
 
