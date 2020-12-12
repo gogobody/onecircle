@@ -8,6 +8,8 @@
 
 ## 主题文档  
 更多请查看[OneCircle 主题说明](https://www.yuque.com/docs/share/05f40cac-980f-4e53-8b92-ed9728b8dc50?#%E3%80%8AOneCircle%20%E4%B8%BB%E9%A2%98%E8%AF%B4%E6%98%8E%E3%80%8B)
+
+#### 交流群：1044509220
   
 (￢_￢)
 目前特色有：
