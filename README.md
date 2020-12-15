@@ -1,7 +1,7 @@
 ## onecircle 一个圈子，基于typecho
 
 ## 名字就叫一个圈子。
-## version：3.0
+## version：3.1
 ## 平台：typecho
 
 ### 想弄一个类社交圈子，开发了一部分，剩下慢慢折腾
@@ -21,6 +21,7 @@
 6. 支持给每个新注册用户添加个人签名和tag
 7. 支持免费的sm 图床
 8. 支持博客页
+9. 添加用户设置页，用户等级以及积分支持
 
 ## changeLog
 v1.6 支持 pjax，以及前台登录发布文章，加入progress动画  
@@ -143,10 +144,10 @@ links
 ![index](READMEimgs/follow.png)
 
 主题设置  
-![index](READMEimgs/follow.png)
+![index](READMEimgs/usersetting.png)
 
 签名设置  
-![index](READMEimgs/usersign.png)
+![index](READMEimgs/gexinghua.png)
 
 ### 感谢以下作者的辛苦付出
 - compress https://javascript-minifier.com/

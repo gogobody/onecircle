@@ -445,5 +445,27 @@ class utils
         }
         return array();
     }
+
+    /**
+     * @param $str
+     * @param int $length
+     * @param string $trim
+     * @return string
+     */
+    public static function substr($str,$length = 100, $trim = '...'){
+        return Typecho_Common::subStr(strip_tags($str), 0, $length, $trim);
+    }
+
+    /**
+     *
+     */
+    public static function creditsConvert($credits){
+        if ($credits <= 0) return array(0,0,0);
+        $gold = intval($credits/10000);
+        $res = $credits%10000;
+        $sliver = intval($res/100);
+        $copper = intval($res%100);
+        return array($gold,$sliver,$copper);
+    }
 }
 

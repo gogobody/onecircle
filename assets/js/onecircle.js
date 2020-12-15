@@ -1213,11 +1213,12 @@ var oneMap = { // use js only!
                         })
                     });
                 } else {
-                    $.message({
-                        type: "error",
-                        title: "提示",
-                        message: "获取amapJsKey失败"
-                    })
+                    console.log(json)
+                    // $.message({
+                    //     type: "error",
+                    //     title: "提示",
+                    //     message: "获取amapJsKey失败"
+                    // })
                 }
             }
         };

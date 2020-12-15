@@ -12,7 +12,6 @@ require_once 'widget/Widget_Users_Random.php';
 require_once 'widget/Widget_Metas_Random.php';
 /**
  * 注册文章解析 hook
- * From AlanDecode(https://imalan.cn)
  */
 Typecho_Plugin::factory('Widget_Abstract_Contents')->contentEx_1000 = array('contents', 'parseContent');
 Typecho_Plugin::factory('Widget_Abstract_Contents')->excerptEx_1000 = array('contents', 'parseContent');

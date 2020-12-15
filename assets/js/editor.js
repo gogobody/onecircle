@@ -22,7 +22,7 @@ $(function () {
         });
         $(document).on('click', '#wmd-hide-button', function () {
             myField = document.getElementById('text');
-            insertAtCursor(myField, '\n[hide]\n\n[/hide]\n');
+            insertAtCursor(myField, '\n[hide]\n\n[endhide]\n');
         });
         $(document).on('click', '#wmd-bili-button', function () {
             myField = document.getElementById('text');

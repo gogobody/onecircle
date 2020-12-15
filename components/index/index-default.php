@@ -3,7 +3,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 /**
  * 主页 显示 图文 default
  */
-$arr = getGirdPics($this)
+$arr = getGirdPics($this);
 ?>
 <div class="row">
 

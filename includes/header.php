@@ -84,7 +84,7 @@
                     </nav>
                 </div>
                 <div class="col-6 col-md-3 col-lg-4 col-xl-3 mobile-nopading">
-                    <div class="" id="">
+                    <div class="max-height">
                         <ul class="navbar navbar-nav navbar-right ml-auto header__content header__content--end">
 
                             <li class="nav-item search-block-icon" aria-expanded="false"
@@ -153,7 +153,7 @@
                                         </li>
                                         <!--个人设置(登录时候才会显示)-->
                                         <li>
-                                            <a target="_blank" href="<?php $this->options->adminUrl('profile.php')?>">
+                                            <a target="_blank" href="<?php _e($this->options->index . '/usercenter/setting'); ?>">
                                                 <svg t="1604126473824" class="icon login-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4129" width="1em" height="1em"><path d="M514.56 51.456a214.4 214.4 0 1 1 0 428.8 214.4 214.4 0 0 1 0-428.8z m0 42.88a171.52 171.52 0 1 0 0 343.04 171.52 171.52 0 0 0 0-343.04zM514.56 501.696a385.92 385.92 0 0 1 385.728 374.528l0.192 11.392c0 47.36-38.4 85.76-85.76 85.76H214.4c-47.36 0-85.76-38.4-85.76-85.76l0.192-11.392A385.92 385.92 0 0 1 514.56 501.76z m0 42.88a342.976 342.976 0 0 0-342.4 321.664l-0.448 10.624-0.192 10.752a42.88 42.88 0 0 0 37.888 42.56l4.992 0.32h600.32a42.88 42.88 0 0 0 42.624-37.376l0.256-4.864-0.128-10.752A343.04 343.04 0 0 0 514.56 544.576z" p-id="4130"></path></svg>
                                                 <span>个人设置</span></a>
                                         </li>

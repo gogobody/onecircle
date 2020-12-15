@@ -15,7 +15,7 @@ function themeConfig($form)
                     <li data-current="j-setting-global">公共设置</li>
                     <li data-current="j-setting-image">图片设置</li>
                     <li data-current="j-setting-post">文章设置</li>
-<!--                    <li data-current="j-setting-aside">侧栏设置</li>-->
+                    <li data-current="j-setting-jifen">积分设置</li>
 <!--                    <li data-current="j-setting-color">色彩圆角</li>-->
                     <li data-current="j-setting-index">博客设置</li>
                     <li data-current="j-setting-other">其他设置</li>
@@ -229,4 +229,28 @@ function themeConfig($form)
         0, _t('HTML压缩'), _t('默认关闭，启用则会对HTML代码进行压缩，可能与部分插件存在兼容问题，请酌情选择开启或者关闭'));
     $compressHtml->setAttribute('class', 'j-setting-content j-setting-other');
     $form->addInput($compressHtml);
+
+    /**
+     * 积分设置
+     */
+    //用户积分
+    $credits_register = new Typecho_Widget_Helper_Form_Element_Text('creditsRegister', NULL, 2000, _t('注册积分'),_t('用户注册后默认的积分'));
+    $credits_register->setAttribute('class', 'j-setting-content j-setting-jifen');
+    $form->addInput($credits_register);
+
+    $credits_login = new Typecho_Widget_Helper_Form_Element_Text('creditsLogin', NULL, 20, _t('登录积分'),_t('每日登录获取的积分'));
+    $credits_login->setAttribute('class', 'j-setting-content j-setting-jifen');
+    $form->addInput($credits_login);
+
+    $credits_publish = new Typecho_Widget_Helper_Form_Element_Text('creditsPublish', NULL, -10, _t('发布主题'),_t('用户发布主题加上或减少的积分'));
+    $credits_publish->setAttribute('class', 'j-setting-content j-setting-jifen');
+    $form->addInput($credits_publish);
+
+    $credits_reply = new Typecho_Widget_Helper_Form_Element_Text('creditsReply', NULL, -5, _t('发表回复'),_t('用户发表回复加上或减少的积分'));
+    $credits_reply->setAttribute('class', 'j-setting-content j-setting-jifen');
+    $form->addInput($credits_reply);
+
+    $credits_invite = new Typecho_Widget_Helper_Form_Element_Text('creditsInvite', NULL, 200, _t('邀请注册'),_t('邀请者和被邀请者所奖励的积分'));
+    $credits_invite->setAttribute('class', 'j-setting-content j-setting-jifen');
+    $form->addInput($credits_invite);
 }

@@ -1,5 +1,7 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+$credits_arr = utils::creditsConvert($this->user->credits);
+
 ?>
 <aside class="asideBar col w-md w-lg bg-white-only bg-auto no-border-xs" role="complementary">
     <div id="sidebar">
@@ -14,7 +16,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                             </div>
                         </a>
                         <div class="user-info-name">
-                            <a href="<?php echo $author_url?>"><?php echo $this->user->name;?></a>
+                            <a href="<?php echo $author_url?>"><?php echo $this->user->name;?></a><span class="badge bg-info m-l-xs text-xs">LV<?php _e($this->user->level); ?></span>
                         </div>
                         <div class="user-info-fans">
                             <a href="<?php echo $author_url?>"><span style="color: rgb(64, 64, 64);"><?php _e(UserFollow::getFollowNum($this->user->uid));?></span>关注</a>
@@ -28,6 +30,18 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                                     echo "太懒了，还没有个人签名!";
                                 }
                                 ?></span>
+                        </div>
+                        <div class="value">
+                            <a href="<?php _e($this->options->index . '/usercenter/credits'); ?>">
+                                <span class="coin">
+                                    <?php if ($this->user->credits == 0 ):?><span class="copper">0</span>
+                                    <?php else:?>
+                                        <?php if (!empty($credits_arr[0])):?><span class="gold"><?php _e($credits_arr[0]);?></span><?php endif;?>
+                                        <?php if (!empty($credits_arr[1])):?><span class="silver"><?php _e($credits_arr[1]);?></span><?php endif;?>
+                                        <?php if (!empty($credits_arr[2])):?><span class="copper"><?php _e($credits_arr[2]);?></span><?php endif;?>
+                                    <?php endif;?>
+                                </span>
+                            </a>
                         </div>
                     </div>
                 <?php else: ?>
@@ -141,7 +155,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                             <h6 class="mt-0 mb-1"><?php $r_comments->author(false); ?></h6>
                             <a class="content" href="<?php $r_comments->permalink(); ?>"
                                target="<?php $this->options->sidebarLinkOpen(); ?>">
-                                <?php echo contents::parseHide($r_comments->excerpt(35, '...'));?>
+                                <?php $comm=trim(utils::substr($r_comments->content,35));if ($comm)echo contents::parseHide($comm);else echo "非文字回复"?>
                             </a>
                         </div>
                     </li>

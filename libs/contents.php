@@ -106,15 +106,17 @@ class contents{
     {
         $reg = '/\[hide\](.*?)\[endhide\]/sm';
         if (preg_match($reg, $text)) {
-            if(!Typecho_Widget::widget('Widget_Archive')->is('single')){
-                $text = preg_replace($reg,'',$text);
-            }
+//            if(!Typecho_Widget::widget('Widget_Archive')->is('single')){
+//                $text = preg_replace($reg,'',$text);
+//            }
+
             $db = Typecho_Db::get();
             $sql = $db->select()->from('table.comments')
                 ->where('cid = ?',Typecho_Widget::widget('Widget_Archive')->cid)
                 ->where('mail = ?', Typecho_Widget::widget('Widget_Archive')->remember('mail',true))
                 ->limit(1);
             $result = $db->fetchAll($sql);
+
             if(Typecho_Widget::widget('Widget_User')->hasLogin() || $result) {
                 $text = preg_replace("/\[hide\](.*?)\[endhide\]/sm",'<div class="reply2view">$1</div>',$text);
             }
@@ -174,7 +176,7 @@ class contents{
     {
         $reg = '/\[bilibili bv="(.+?)" p="(.+?)"]/sm';
         if (preg_match($reg, $text)) {
-            $replacement = '<div class="embed-responsive embed-responsive-4by3"><iframe class="video embed-responsive-item lazyload" data-src="//player.bilibili.com/player.html?bvid=$1&page=$2&auto=0&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe></div>';
+            $replacement = '<div class="embed-responsive embed-responsive-4by3"><iframe class="video embed-responsive-item lazyload" data-src="//player.bilibili.com/player.html?bvid=$1&page=$2?auto=0&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe></div>';
             return preg_replace($reg, $replacement, $text);
         }
         return $text;
@@ -183,7 +185,7 @@ class contents{
     {
         $reg = '/\[video src="(.+?)"]/sm';
         if (preg_match($reg, $text)) {
-            $replacement = '<div class="embed-responsive embed-responsive-4by3"><iframe class="video lazyload" data-src="$1&auto=0&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>';
+            $replacement = '<div class="embed-responsive embed-responsive-4by3"><iframe class="video lazyload" data-src="$1?auto=0&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>';
             return preg_replace($reg, $replacement, $text);
         }
         return $text;
