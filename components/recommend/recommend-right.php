@@ -18,7 +18,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                                     src="<?php _e(getUserV2exAvatar($users->mail, $users->userAvatar)) ?>" alt="再多一点可爱"
                                     class="sc-AxjAm jZLHXc">
                             <div class="sc-AxjAm sc-AxirZ hkyonN">
-                                <div class="sc-AxjAm oDrAC"><?php $users->screenName() ?></div>
+                                <div class="sc-AxjAm oDrAC"><?php $users->screenName() ?><span class="badge bg-info m-l-xs text-xs">LV<?php _e($users->level); ?></span></div>
                                 <div class="sc-AxjAm hHqHSX ezzhLs"><?php if ($users->userSign) _e($users->userSign); else _e('太懒了还没有签名'); ?></div>
                             </div>
                         </a>
