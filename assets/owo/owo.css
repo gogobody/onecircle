@@ -41,7 +41,7 @@
     position: relative;
     display: inline-block;
     color: #888;
-    background: #fff;
+    background: var(--main);
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 13px;
@@ -61,7 +61,7 @@
     display: none;
     position: absolute;
     width: 400px;
-    background: #fff;
+    background: var(--main);
     border: 1px solid #ddd;
     z-index: 1;
     top: 21px;
@@ -121,7 +121,7 @@
     width: 100%;
     height: fit-content;
     border-top: 1px solid #ddd;
-    background: #fff;
+    background: var(--main);
     border-radius: 0 0 4px 4px;
     color: #444
 }

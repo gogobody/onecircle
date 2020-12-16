@@ -1,12 +1,12 @@
 @import url(prism.min.css);
 .breadcrumb {
-    background: #fff;
+    background: transparent;
     padding: 0;
 }
 .article-container {
     box-sizing: border-box;
     min-width: 0px;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--main);
     align-self: baseline;
     /*align-items: flex-start;*/
     /*flex-direction: column;*/
@@ -166,7 +166,7 @@ img.emoji {
     color: rgb(3, 169, 245);
     text-decoration: none;
     cursor: pointer;
-    background-color: rgb(242, 245, 248);
+    background-color: var(--panelColor);
     font-size: 14px;
     border-radius: 999px;
     padding: 4px 12px 4px 4px;
@@ -553,11 +553,14 @@ b站视频
 .comment-respond textarea{
     min-height: 2.2em;
 }
+.comment-respond textarea:focus{
+    background-color: var(--main);
+}
 .textarea-container {
     font-size: 14px;
     display: inline-block;
     box-sizing: border-box;
-    background-color: #f4f5f7;
+    background-color: transparent;
     border: 1px solid #e5e9ef;
     overflow: auto;
     border-radius: 4px;
@@ -612,7 +615,7 @@ b站视频
     top: 0;
     position: fixed;
     height: 100%;
-    background-color: #fff;
+    background-color: var(--main);
     transform: translateX(500px);
     transition: .3s;
     box-sizing: border-box;
@@ -828,7 +831,7 @@ article table td {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: var(--main);
 }
 .secret-label .on {
     color: #fff;

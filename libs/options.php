@@ -16,7 +16,7 @@ function themeConfig($form)
                     <li data-current="j-setting-image">图片设置</li>
                     <li data-current="j-setting-post">文章设置</li>
                     <li data-current="j-setting-jifen">积分设置</li>
-<!--                    <li data-current="j-setting-color">色彩圆角</li>-->
+                    <li data-current="j-setting-color">色彩背景</li>
                     <li data-current="j-setting-index">博客设置</li>
                     <li data-current="j-setting-other">其他设置</li>
                 </ul>
@@ -55,6 +55,27 @@ function themeConfig($form)
     $customNavIcon = new Typecho_Widget_Helper_Form_Element_Textarea('customNavIcon', NULL, NULL, _t('自定义导航小图标'), _t('请前往阿里巴巴 iconfront，找到你最喜欢的图标跑，点击复制svg <br>每行粘贴一个，自定义内导航栏左侧的小图标，留空则展示默认的图标按钮<hr>'));
     $customNavIcon->setAttribute('class', 'j-setting-content j-setting-image');
     $form->addInput($customNavIcon);
+
+
+    /**
+     * 色彩背景设置
+     */
+    $bgColor = new Typecho_Widget_Helper_Form_Element_Text('bgColor', NULL, "#eff3f6", _t('背景色'),_t('默认背景色 #eff3f6'));
+    $bgColor->setAttribute('class', 'j-setting-content j-setting-color');
+    $form->addInput($bgColor);
+
+    $bgImg = new Typecho_Widget_Helper_Form_Element_Text('bgImg', NULL, "https://pic.downk.cc/item/5fd996003ffa7d37b3f9a64c.jpg", _t('背景图'),_t('设置主页背景图:<br>https://ae01.alicdn.com/kf/HTB18ehESIfpK1RjSZFOq6y6nFXaf.jpg'));
+    $bgImg->setAttribute('class', 'j-setting-content j-setting-color');
+    $form->addInput($bgImg);
+
+    $JMainColor = new Typecho_Widget_Helper_Form_Element_Text('JMainColor', NULL, "rgb(255,255,255)", _t('主色调(透明色)'),_t('设置主色调：<br>默认白色: rgb(255,255,255)'));
+    $JMainColor->setAttribute('class', 'j-setting-content j-setting-color');
+    $form->addInput($JMainColor);
+
+    $Jtransparent = new Typecho_Widget_Helper_Form_Element_Text('Jtransparent', NULL, "0.3", _t('透明度'),_t('<br>设置全局透明度，0是透明，1是不透明，默认 0.3 '));
+    $Jtransparent->setAttribute('class', 'j-setting-content j-setting-color');
+    $form->addInput($Jtransparent);
+
     // 文章设置
     $jsPushBaidu = new Typecho_Widget_Helper_Form_Element_Select('jsPushBaidu', array('0' => '关闭', '1' => '开启'), '0', _t('自动推送'), _t('使用通用js自动推荐给百度引擎，增快收录'));
     $jsPushBaidu->setAttribute('class', 'j-setting-content j-setting-post');
@@ -230,6 +251,8 @@ function themeConfig($form)
     $compressHtml->setAttribute('class', 'j-setting-content j-setting-other');
     $form->addInput($compressHtml);
 
+
+
     /**
      * 积分设置
      */
@@ -253,4 +276,6 @@ function themeConfig($form)
     $credits_invite = new Typecho_Widget_Helper_Form_Element_Text('creditsInvite', NULL, 200, _t('邀请注册'),_t('邀请者和被邀请者所奖励的积分'));
     $credits_invite->setAttribute('class', 'j-setting-content j-setting-jifen');
     $form->addInput($credits_invite);
+
+
 }
