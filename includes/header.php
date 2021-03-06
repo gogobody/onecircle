@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/onecircle.min.css'); ?>">
     <link crossorigin="anonymous" integrity="sha384-Q8BgkilbsFGYNNiDqJm69hvDS7NCJWOodvfK/cwTyQD4VQA0qKzuPpvqNER1UC0F"
           href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet">
+    <?php if ($this->options->favicon): ?>
+        <link rel="shortcut icon" href="<?php $this->options->favicon(); ?>"><?php endif; ?>
     <title><?php $this->archiveTitle(array(
             'category' => _t('分类 %s 下的文章'),
             'search' => _t('包含关键字 %s 的文章'),
