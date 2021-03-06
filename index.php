@@ -76,13 +76,13 @@ $this->need('includes/header.php');
                     </a>
                 </div>
                 <?php endif; ?>
-                <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _e($this->options->index_middle_ads);?><div>
+                <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _e($this->options->index_middle_ads);?></div>
                 <div class="list">
                     <?php $cnt = 0; ?>
                     <?php while ($this->next()): ?>
                         <?php $cnt = $cnt+1;$this->need('components/index/article-content.php'); ?>
                         <?php if ($cnt%7 ==0):?>
-                        <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _e($this->options->list_middle_ads);?><div>
+                        <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _e($this->options->list_middle_ads);?></div>
                         <?php endif;?>
                     <?php endwhile; ?>
                 </div>
