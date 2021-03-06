@@ -48,7 +48,9 @@
                     <div class="article-data"><span><?php utils::getPostView($this); ?>阅读 <?php echo $agree['agree']; ?>点赞</span>
                     </div>
                 </div>
-                <!--     content-->
+                <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _e($this->options->article_top_ads);?></div>
+
+                    <!--     content-->
                 <div class="article-content">
                     <?php if ($this->hidden || $this->titleshow): ?>
                         <form action="<?php echo Typecho_Widget::widget('Widget_Security')->getTokenUrl($this->permalink); ?>"
@@ -128,7 +130,9 @@
                     </div>
                 </div>
             </article>
-            <!--            目录树-->
+            <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _e($this->options->article_bottom_ads);?></div>
+
+                <!--            目录树-->
             <section class="col-12 col-md-4 col-xl-3 article-catalog animate__animated animate__bounceInRight" id="tocTree">
                 <h3 class="article-catalog-title">
                     <?php _e('目录'); ?>

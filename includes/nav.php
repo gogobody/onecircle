@@ -5,7 +5,7 @@
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 ?>
-<aside id="aside" class="app-aside hidden-xs bg-light">
+<aside id="aside" class="app-aside hidden-xs">
     <div class="aside-wrap" layout="column">
         <div class="navi-wrap scroll-y scroll-hide" flex>
             <div class="nav-menu">

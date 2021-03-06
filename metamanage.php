@@ -16,7 +16,7 @@ define("MANAGEURL","/extending.php?panel=OneCircle%2Fmanage%2Fmanage-cat-tags.ph
     <div class="circle-management">
         <?php if ($this->user->hasLogin() and $this->user->pass('administrator', true)):?>
             <div class="alert alert-warning" role="alert">
-                <button type="button" class="btn btn-light"><a target="_blank" href="<?php echo Typecho_Common::url(MANAGEURL, $this->options->adminUrl) ?>">创建圈子分类</a></button>
+                <button type="button" class="btn btn-success"><a target="_blank" href="<?php echo Typecho_Common::url(MANAGEURL, $this->options->adminUrl) ?>">创建圈子分类</a></button>
             </div>
         <?endif;?>
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">

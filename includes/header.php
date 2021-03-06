@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/onecircle.min.css'); ?>">
     <link crossorigin="anonymous" integrity="sha384-Q8BgkilbsFGYNNiDqJm69hvDS7NCJWOodvfK/cwTyQD4VQA0qKzuPpvqNER1UC0F"
           href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet">
+    <?php if ($this->options->favicon): ?>
+        <link rel="shortcut icon" href="<?php $this->options->favicon(); ?>"><?php endif; ?>
     <title><?php $this->archiveTitle(array(
             'category' => _t('分类 %s 下的文章'),
             'search' => _t('包含关键字 %s 的文章'),
@@ -39,31 +41,47 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
 
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/responsive.min.css'); ?>" />
-
+    <?php
+        $rgb_pattern = '/rgb\((0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2})\)/';
+        if (preg_match($rgb_pattern,$this->options->JMainColor,$arr)){
+            if ($this->options->Jtransparent) $mainColor = sprintf('rgb(%d,%d,%d,%.2f)',$arr[1],$arr[2],$arr[3],$this->options->Jtransparent);
+            else $mainColor = sprintf('rgb(%d,%d,%d)',$arr[1],$arr[2],$arr[3]);
+        }else{
+            $mainColor = $this->options->JMainColor;
+        }
+        $setTansparent = $this->options->Jtransparent and $this->options->Jtransparent !== 1;
+    ?>
     <style>
         :root {
             --theme:#4e7cf2;
             --element: #409eff;
             cursor: <?php echo $this->options->JCursorType !== 'off' ? 'url(' . THEME_URL . '\/assets\/cur\/' . $this->options->JCursorType . '), auto' : 'auto' ?>;
-            --classA: <?php echo $this->options->JClassA ? $this->options->JClassA : '#dcdfe6' ?>;
-            --classB: <?php echo $this->options->JClassB ? $this->options->JClassB : '#e4e7ed' ?>;
-            --classC: <?php echo $this->options->JClassC ? $this->options->JClassC : '#ebeef5' ?>;
-            --classD: <?php echo $this->options->JClassD ? $this->options->JClassD : '#f2f6fc' ?>;
-            --main: <?php echo $this->options->JMainColor ? $this->options->JMainColor : '#303133' ?>;
-            --routine: <?php echo $this->options->JRoutineColor ? $this->options->JRoutineColor : '#606266' ?>;
-            --minor: <?php echo $this->options->JMinorColor ? $this->options->JMinorColor : '#909399' ?>;
-            --seat: <?php echo $this->options->JSeatColor ? $this->options->JSeatColor : '#c0c4cc' ?>;
-            --success: <?php echo $this->options->JSuccessColor ? $this->options->JSuccessColor : '#67c23a' ?>;
-            --warning: <?php echo $this->options->JWarningColor ? $this->options->JWarningColor : '#e6a23c' ?>;
-            --danger: <?php echo $this->options->JDangerColor ? $this->options->JDangerColor : '#f56c6c' ?>;
+            --classA: #dcdfe6;
+            --classB: #e4e7ed;
+            --classC: #ebeef5;
+            --classD: #f2f6fc;
+            --routine: #606266;
+            --minor: #909399;
+            --seat: #c0c4cc;
+            --success: #67c23a;
+            --warning: #e6a23c;
+            --danger: #f56c6c;
+            --main: <?php echo $mainColor ?>;
+            --panelColor: <?php if ($setTansparent) _e('rgb(242,245,248,'.$this->options->Jtransparent.');'); else _e('rgb(242,245,248);');?>;
+            --articleHover: <?php if ($setTansparent) _e('rgb(248,250,251,0.5);'); else _e('rgb(248,250,251);');?>;
+            --focusUserColor: <?php if ($setTansparent) _e('rgb(242,245,258,0.5);'); else _e('rgb(242,245,258);');?>;
+            --contentbg: <?php if ($setTansparent) _e('rgb(245,248,250,0.5);'); else _e('rgb(245,248,250);');?>;
             --info: <?php echo $this->options->JInfoColor ? $this->options->JInfoColor : '#909399' ?>;
             --radius-pc: <?php echo $this->options->JRadiusPC ? $this->options->JRadiusPC : '10px'?>;
             --radius-wap: <?php echo $this->options->JRadiusWap ?>;
             --text-shadow: <?php echo $this->options->JTextShadow ? $this->options->JTextShadow : '0 1px 2px rgba(0, 0, 0, 0.25)' ?>;
             --box-shadow: <?php echo $this->options->JBoxShadow ? $this->options->JBoxShadow : '0px 0px 20px -5px rgba(158, 158, 158, 0.22)' ?>;
             --background: <?php echo $this->options->JCardBackground ? $this->options->JCardBackground : '#fff' ?>;
-        ;
             --swiper-theme-color: #fff !important;
+            --indexcolor: <?php echo $this->options->bgColor ? $this->options->bgColor :'#eff3f6'?>;
+        }
+        body:before{
+            background-image: url("<?php echo $this->options->bgImg ? $this->options->bgImg :''?>");
         }
     </style>
     <?php Typecho_Plugin::factory('SmmsPlugin')->header($this);?>

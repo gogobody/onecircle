@@ -3,9 +3,9 @@
  * 一个圈子主题
  * OneCircle theme，也许是 typecho 第一个社交圈子主题
  * @package OneCircle
- * @author gogobody
- * @version 3.0
- * @link check https://github.com/
+ * @author gogobody <a href="https://www.ijkxs.com">即刻学术</a>
+ * @version 3.05
+ * @link check https://github.com/gogobody/onecircle
  */
 
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
@@ -76,9 +76,14 @@ $this->need('includes/header.php');
                     </a>
                 </div>
                 <?php endif; ?>
+                <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _e($this->options->index_middle_ads);?></div>
                 <div class="list">
+                    <?php $cnt = 0; ?>
                     <?php while ($this->next()): ?>
-                        <?php $this->need('components/index/article-content.php'); ?>
+                        <?php $cnt = $cnt+1;$this->need('components/index/article-content.php'); ?>
+                        <?php if ($cnt%7 ==0):?>
+                        <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _e($this->options->list_middle_ads);?></div>
+                        <?php endif;?>
                     <?php endwhile; ?>
                 </div>
                 <!--分页-->
