@@ -1,5 +1,6 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+error_reporting(0);
 ?>
 <aside class="asideBar col w-md w-lg bg-white-only bg-auto no-border-xs" role="complementary">
     <div id="sidebar">
@@ -60,7 +61,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <div class="card recent-box d-none d-md-block">
             <h2 class="title">最近回复</h2>
             <ul class="list-unstyled">
-                <?php $this->widget('Widget_Comments_Recent', 'pageSize=3')->to($comments); ?>
+                <?php @$this->widget('Widget_Comments_Recent', 'pageSize=3')->to($comments); ?>
                 <?php while ($comments->next()): ?>
                     <li class="media my-4">
                         <img class="recent-avatar mr-3"
