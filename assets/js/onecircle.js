@@ -1206,11 +1206,11 @@ var oneMap = { // use js only!
                         oneMap.init(AMap)
                     }).catch(function (e) {
                         console.error(e);  //加载错误提示
-                        $.message({
-                            type: "error",
-                            title: "提示",
-                            message: "获取amapJsKey失败"
-                        })
+                        // $.message({
+                        //     type: "error",
+                        //     title: "提示",
+                        //     message: "获取amapJsKey失败"
+                        // })
                     });
                 } else {
                     console.log(json)
