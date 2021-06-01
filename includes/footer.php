@@ -30,7 +30,7 @@
 <!-- 鼠标点击特效 -->
 <?php $this->need('blog/config/cursor.effect.php'); ?>
 
-<?php Typecho_Plugin::factory('SmmsPlugin')->footer($this); ?>
+<?php Typecho_Plugin::factory('SmmsForTypecho')->footer($this); ?>
 <?php
     $userId = -1; //save userid
     if ($this->user->hasLogin()){

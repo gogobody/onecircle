@@ -1,4 +1,8 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
+<?php $all = Typecho_Plugin::export();?>
+<?php if (!array_key_exists('SmmsForTypecho', $all['activated']) or !array_key_exists('OneCircle', $all['activated'])) : ?>
+    <?php die("请下载并开启 SmmsPlugin 插件 和 onecircle 配套插件，查看：<a href='https://www.yuque.com/docs/share/05f40cac-980f-4e53-8b92-ed9728b8dc50?#%E3%80%8AOneCircle%20%E4%B8%BB%E9%A2%98%E8%AF%B4%E6%98%8E%E3%80%8B'>使用说明</a>"); ?>
+<?php endif; ?>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -84,7 +88,8 @@
             background-image: url("<?php echo $this->options->bgImg ? $this->options->bgImg :''?>");
         }
     </style>
-    <?php Typecho_Plugin::factory('SmmsPlugin')->header($this);?>
+
+    <?php Typecho_Plugin::factory('SmmsForTypecho')->header($this);?>
 
 </head>
 <body class="bright" ontouchstart="">

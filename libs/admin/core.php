@@ -7,7 +7,7 @@ define("THEME_NAME", $str2[0]);
 /* 获取模板版本号 */
 function OnecircleVersion()
 {
-    return "3.05";
+    return "3.06";
 }
 
 /* 获取懒加载图片 */
