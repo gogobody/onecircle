@@ -37,12 +37,10 @@ v2.7 图床插件支持上传图片到本地，添加首页评论显示
 v2.8 添加 lazyload ，将默认的gallery 原始的background显示方式迁移至src显示
 v3.0 支持博客页  
 ## 安装
-下载 release 包：
-内含：
-onecircleTheme 主题
-onecirclePlugin 配套插件
-改版的注册登录美化插件
-免费的图床插件
+onecircleTheme 主题 https://github.com/gogobody/onecircle
+onecirclePlugin 配套插件 https://github.com/gogobody/OneCircle_Plugin
+后台美化插件 https://github.com/gogobody/SimpleAdmin
+免费的图床插件 https://github.com/gogobody/SmmsForTypecho
 
 安装主题启用插件即可
 
