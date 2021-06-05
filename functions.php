@@ -261,9 +261,9 @@ function isqq($email, $size = 100)
 //        }
         $email = md5($email);
 //        return "https://dn-qiniu-avatar.qbox.me/avatar/".$email."?&s=".$size;
-        return "//cdn.v2ex.com/gravatar/" . $email . "?&s=" . $size;
+        return "//dn-qiniu-avatar.qbox.me/avatar/" . $email . "?&s=" . $size;
     } else {
-        return "//cdn.v2ex.com/gravatar/null?&s=" . $$size;
+        return "//dn-qiniu-avatar.qbox.me/avatar/null?s=" . $$size;
     }
 }
 
