@@ -9,7 +9,7 @@
         <a href="<?php echo $author_url ?>">
             <div class="text-center">
                 <img style="border-radius: 50%!important;"
-                     src="<?php echo $this->user->userAvatar ?>" class="rounded" alt="...">
+                     src="<?php echo $this->user->userAvatar ?>" class="rounded" alt="..." width="150x" height="150px">
             </div>
         </a>
         <div class="h6 m-t-xs m-b-xs"><?php _e($this->user->screenName); ?><span class="badge bg-info m-l-xs text-xs">LV<?php _e($this->user->level); ?></span></div>
