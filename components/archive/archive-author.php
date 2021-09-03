@@ -14,7 +14,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
     <div class="biCwrr">
         <div class="sc-AxjAm sc-AxirZ fUlriR" data-authorhref="<?php _e($this->getPageRow()['permalink']);?>">
             <div class="sc-AxjAm sc-AxirZ jnzuaU"><img src="<?php echo getUserV2exAvatar($this->getPageRow()['mail'],$this->getPageRow()['userAvatar']) ?>" class="sc-AxjAm author-avatar"></div>
-            <h2 class="sc-AxjAm author_page-name"><?php echo $this->author() ?><span class="badge bg-info m-l-xs text-xs">LV<?php _e($this->getPageRow()['level']); ?></span></h2>
+            <h2 class="sc-AxjAm author_page-name"><?php _e($this->getPageRow()['screenName']);  ?><span class="badge bg-info m-l-xs text-xs">LV<?php _e($this->getPageRow()['level']); ?></span></h2>
             <div class="sc-AxjAm sc-AxirZ dZfkqf">
                 <a href="" class="sc-AxjAm OAorY  ffrrSB"><span><?php _e(UserFollow::getFollowNum($this->getPageRow()['uid']));?></span> 关注</a>
                 <a href="" class="sc-AxjAm OAorY  dDeaQZ"><span><?php _e(UserFollow::getOtherFollowNum($this->getPageRow()['uid']));?></span> 被关注</a>
@@ -42,8 +42,10 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <div class="sc-AxjAm sc-AxirZ kLKIKx">
             <button data-author_page="1" data-authorid="<?php echo $this->getPageRow()['uid'] ?>"
             <?php
+            $followStatus = 0;
             if ($this->user->hasLogin()){
-                if (UserFollow::statusFollow($this->user->uid,$this->getPageRow()['uid'])){
+                $followStatus = UserFollow::statusFollow($this->user->uid,$this->getPageRow()['uid']);
+                if ($followStatus){
                     echo 'class="fansed fan-event">已关注';
                 }else{
                     echo 'class="fans fan-event">关注';
@@ -53,6 +55,9 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             }
             ?>
             </button>
+            <?php if ($followStatus && ($this->user->uid!=$this->getPageRow()['uid'])): ?>
+                <br><button class="fans fan-event"><a href="<?php echo $this->options->index.'/usercenter/messages?uid='.$this->getPageRow()['uid']; ?>">聊天</a></button>
+            <?php endif; ?>
         </div>
     </div>
 </div>

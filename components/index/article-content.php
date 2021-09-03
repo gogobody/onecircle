@@ -96,7 +96,7 @@ $neighbor_addr = Typecho_Common::url('/neighbor/'.$district.'?name='.$addr,$this
                     <!-- link-->
                     <?php $this->need('components/index/index-link.php'); ?>
 
-                <?php elseif ($this->fields->articleType == "default"): ?>
+                <?php elseif ($this->fields->articleType == "default" ||$this->fields->articleType==null): ?>
                     <!-- default-->
                     <?php $this->need('components/index/index-default.php'); ?>
 

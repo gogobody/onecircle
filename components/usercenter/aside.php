@@ -9,7 +9,7 @@
         <a href="<?php echo $author_url ?>">
             <div class="text-center">
                 <img style="border-radius: 50%!important;"
-                     src="<?php echo $this->user->userAvatar ?>" class="rounded" alt="..." width="150x" height="150px">
+                     src="<?php _e(getUserV2exAvatar($this->user->mail,$this->user->userAvatar)); ?>" class="rounded" alt="...">
             </div>
         </a>
         <div class="h6 m-t-xs m-b-xs"><?php _e($this->user->screenName); ?><span class="badge bg-info m-l-xs text-xs">LV<?php _e($this->user->level); ?></span></div>
@@ -25,7 +25,7 @@
                                 p-id="10330" fill="#545a5f"></path></svg></span>
                     个人中心</a></li>
             <li class="list-group-item <?php if ($this->is('sysmsg')) _e('active');?>"><a
-                    href="javascript:$.message({title:'提示',message:'开发中',type:'success'});"><span><svg
+                    href="<?php _e($this->options->index . '/usercenter/notice');?>"><span><svg
                             t="1607948450949" class="icon" viewBox="0 0 1059 1024" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" p-id="6178" width="200"
                             height="200"><path
@@ -33,7 +33,7 @@
                                 p-id="6179" fill="#545a5f"></path></svg></span>
                     系统消息</a></li>
             <li class="list-group-item <?php if ($this->is('mymsg')) _e('active');?>"><a
-                    href="javascript:$.message({title:'提示',message:'开发中',type:'success'});"><span><svg
+                    href="<?php _e($this->options->index . '/usercenter/messages');?>"><span><svg
                             t="1607948677436" class="icon" viewBox="0 0 1024 1024" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" p-id="6978" width="200"
                             height="200"><path

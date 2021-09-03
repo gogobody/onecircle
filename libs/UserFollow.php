@@ -60,6 +60,16 @@ class UserFollow
             }
             $insert = $db->insert('table.user_follow')->rows(array('uid' => $uid, 'fid' => $fid));
             $db->query($insert);
+            // 添加到系统事件 notice
+            $obj = $db->fetchObject($db->select()->from('table.notices')->where('uid=?',$uid)->where('srcId=?',$fid));
+            if(!$obj->id){
+                $created = new Typecho_Date();
+                $follower = self::getUserWidget($uid);
+                $fname = empty($follower->screenName)?$follower->name:$follower->screenName;
+                $text = '<a href="'.$follower->permalink.'" target="_blank">'. $fname .'</a> 关注了你！';
+                $insert = $db->insert('table.notices')->rows(array('uid' => $fid,'type'=>'follow', 'srcId' => $uid,'created'=>$created->time(),'text'=>$text));
+                $db->query($insert);
+            }
             return true;
         }
         return false;
@@ -134,7 +144,27 @@ class UserFollow
         $newArr = [];
         for ($i = 0; $i < count($arr) && $i < $num; $i++) {
             $obj = $db->fetchRow($db->select('uid', 'name', 'mail','screenName','userSign','userAvatar','userBackImg')->from('table.users')->where('uid = ?', $arr[$i]));
-            array_push($newArr, $obj);
+            if(!empty($obj)){
+                array_push($newArr, $obj);
+            }
+        }
+        return $newArr;
+    }
+    // 模糊查询
+    public static function getFollowObjLike($uid,$name, $num = 20)
+    {
+        $db = Typecho_Db::get();
+        $arr = $db->fetchAll($db->select('fid')->from('table.user_follow')->where('uid = ?', $uid));
+        $newArr = [];
+        for ($i = 0; $i < count($arr) && $i < $num; $i++) {
+            $obj = $db->fetchRow($db->select('uid', 'name', 'mail','screenName','userAvatar')->from('table.users')->where('uid = ?', $arr[$i])
+            ->where('screenName LIKE ?','%'.$name.'%'));
+            if(!empty($obj)){
+                if(empty($obj['userAvatar'])){
+                    $obj['userAvatar'] = getUserV2exAvatar($obj['mail'],$obj['userAvatar']);
+                }
+                array_push($newArr, $obj);
+            }
         }
         return $newArr;
     }
@@ -161,6 +191,11 @@ class UserFollow
         $db = Typecho_Db::get();
         return $db->fetchRow($db->select('uid','name','mail','userSign','userAvatar','userBackImg')->from('table.users')->where('uid = ?', $uid));
 
+    }
+
+    public static function getUserWidget($uid)
+    {
+        return Typecho_Widget::widget('Widget_Users_Author@user_'.$uid,['uid' => $uid]);
     }
 
     public static function getUserObjFromMail($mail)

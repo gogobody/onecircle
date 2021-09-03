@@ -7,6 +7,7 @@ require_once 'libs/utils.php';
 require_once 'libs/pageNav.php';
 require_once 'libs/UserFollow.php';
 require_once 'libs/CircleFollow.php';
+require_once 'libs/UserMessage.php';
 require_once 'libs/route.php';
 require_once 'widget/Widget_Users_Random.php';
 require_once 'widget/Widget_Metas_Random.php';
@@ -252,6 +253,7 @@ function getRandRecommendImgs($cnt_ = 10)
  */
 function isqq($email, $size = 100)
 {
+    $avatarsource=empty(Helper::options()->avatarSource)?"https://gravatar.helingqi.com/wavatar/":Helper::options()->avatarSource;
     if ($email) {
 //        if(strpos($email,"@qq.com") !==false){
 //            $email=str_replace('@qq.com','',$email);
@@ -259,11 +261,12 @@ function isqq($email, $size = 100)
 //        }else{
 //
 //        }
-        $email = md5($email);
+        $address = strtolower( trim( $email ) );
+        $email = md5($address);
 //        return "https://dn-qiniu-avatar.qbox.me/avatar/".$email."?&s=".$size;
-        return "//dn-qiniu-avatar.qbox.me/avatar/" . $email . "?&s=" . $size;
+        return $avatarsource . $email . "?&s=" . $size;
     } else {
-        return "//dn-qiniu-avatar.qbox.me/avatar/null?s=" . $$size;
+        return $avatarsource."null?&s=" . $$size;
     }
 }
 

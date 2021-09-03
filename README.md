@@ -40,11 +40,22 @@ v2.8 添加 lazyload ，将默认的gallery 原始的background显示方式迁�
 v3.0 支持博客页  
 ## 安装
 onecircleTheme 主题 https://github.com/gogobody/onecircle
+
 onecirclePlugin 配套插件 https://github.com/gogobody/OneCircle_Plugin
+
 后台美化插件 https://github.com/gogobody/SimpleAdmin
+
 免费的图床插件 https://github.com/gogobody/SmmsForTypecho
 
 安装主题启用插件即可
+
+## 关于文章类型
+目前文章有一个自定义字段：  
+articleType：  
+default：默认解析  
+link： 解析为前台链接形式  
+video or bilibili：视频  
+repost：转发  
 
 ## 注意：
 因为 typecho 的bug，导致每次在个人设置里都会显示之前的缓存内容，而不是用户最新填写的数据，给用户带来困扰 - -  
