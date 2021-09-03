@@ -91,7 +91,13 @@ class UserMessage
 
     public static function createMsg($data)
     {
-
+        $options = Helper::options();
+        if(!$options->enableMessage){
+            return json_encode([
+                'msg' => '管理员禁用了私聊',
+                'code' => 0
+            ]);
+        }
         $uid = $data['uid'];
         $fid = $data['fid'];
         $type = 'message';

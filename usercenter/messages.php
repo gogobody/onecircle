@@ -21,7 +21,7 @@ $credits_arr = utils::creditsConvert($this->user->credits);
                         <aside>
                             <aside id="user-messages">
                                 <header class="header bg-light lt">
-                                    <ul class="nav nav-tabs nav-white">
+                                    <ul id="chat-tabs" class="nav nav-tabs nav-white">
                                         <li class="nav-item"><a class="nav-link active" href="#contact-list"
                                                                 data-toggle="tab" aria-expanded="true">联系人</a></li>
                                         <li class="nav-item" id="chat-tab" style="display: none;"><a class="nav-link" href="#contact-chat" data-toggle="tab" aria-expanded="false"></a></li>
@@ -98,35 +98,6 @@ $credits_arr = utils::creditsConvert($this->user->credits);
                                     <div id="contact-chat" class="tab-pane fade panel">
                                         <div id="contact-messages" class="contact-messages scrollable">
                                             <div id="contact-message-list">
-                                                <div class="media sender">
-                                                    <div class="media-content">
-                                                        <div class="media-left">
-                                                            <figure class="image is-circle is-32"><img
-                                                                        src="https://cravatar.cn/avatar/gogobody&amp;s=48"
-                                                                        title="gogobody"> <!----></figure>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <div class="contact-message-item">在吗</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="media-right text-xs text-muted">2020-10-17 11:02:33
-                                                    </div>
-                                                </div>
-                                                <div class="media receiver">
-                                                    <div class="media-content">
-                                                        <div class="media-left">
-                                                            <figure class="image is-circle is-32"><!----> <img
-                                                                        src="https://cravatar.cn/avatar/xtcraft&amp;s=48"
-                                                                        title="xtcraft"></figure>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <div class="contact-message-item">你能把这个主题和你的JKHelper插件结合起来吗
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="media-right text-xs text-muted">2021-06-05 20:57:30
-                                                    </div>
-                                                </div>
                                             </div>
                                             <p class="text-center text-muted" style="display: none;">没有更多消息了～</p></div>
                                         <div class="panel-footer">
@@ -145,8 +116,7 @@ $credits_arr = utils::creditsConvert($this->user->credits);
         </div>
     </div>
 </div>
-<script crossorigin="anonymous" integrity="sha384-LVoNJ6yst/aLxKvxwp6s2GAabqPczfWh6xzm38S/YtjUyZ+3aTKOnD/OJVGYLZDl"
-        src="//lib.baomitu.com/jquery/3.5.0/jquery.min.js"></script>
+<script crossorigin="anonymous" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         $("#personal-OneCircle>h3").hide()

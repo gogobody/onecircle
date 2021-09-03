@@ -344,7 +344,7 @@ var indexInput = {
 
         // search blk
         var topicSearchBlk = $("#topic-search-downshift-input")
-        topicSearchBlk.autoComplete({
+        topicSearchBlk && topicSearchBlk.autoComplete({
             minChars: 0,
             source: function (term, suggest) {
                 term = term.toLowerCase();
@@ -1347,7 +1347,7 @@ var oneMap = { // use js only!
                         // })
                     });
                 } else {
-                    console.log("获取amapJsKey失败")
+                    // console.log("获取amapJsKey失败")
                     // $.message({
                     //     type: "error",
                     //     title: "提示",
@@ -1585,7 +1585,11 @@ var userMsg = {
                     })
                     msglist.html(html)
                     contab.show()
-                    contab.children('a').tab('show')
+                    let ctabs = document.querySelector("#chat-tab a")
+                    if(ctabs){
+                        let tmp = new bootstrap.Tab(ctabs)
+                        tmp.show()
+                    }
                 }
             }
             userMsg.scrollToBottom()
@@ -1595,6 +1599,9 @@ var userMsg = {
     scrollToBottom:function () {
         let contactArea = $("#contact-messages")
         contactArea.scrollTop(contactArea[0].scrollHeight)
+    },
+    pjax_complete:function () {
+
     }
 
 }
@@ -1839,6 +1846,7 @@ $(function () {
 })
 
 var pjaxInit = function () {
+    $('[data-toggle="tooltip"]').tooltip()
     indexInput.pjax_complete()
     archiveInit.init()
     recommendInit.pjax_complete()
@@ -1850,6 +1858,8 @@ var pjaxInit = function () {
     if ($("article.post")) {
         Prism.highlightAll()
     }
+    // reinit tabs
+    userMsg.pjax_complete()
 }
 
 // post article
