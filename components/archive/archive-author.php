@@ -56,7 +56,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             ?>
             </button>
             <?php if ($followStatus && ($this->user->uid!=$this->getPageRow()['uid'])): ?>
-                <br><button class="fans fan-event"><a href="<?php $this->options->siteUrl(); ?>/usercenter/messages?uid=<?php _e($this->getPageRow()['uid']);?>">聊天</a></button>
+                <br><button class="fans fan-event"><a href="<?php echo $this->options->index.'/usercenter/messages?uid='.$this->getPageRow()['uid']; ?>">聊天</a></button>
             <?php endif; ?>
         </div>
     </div>

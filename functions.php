@@ -253,7 +253,7 @@ function getRandRecommendImgs($cnt_ = 10)
  */
 function isqq($email, $size = 100)
 {
-    $avatarsource=Helper::options()->avatarSource;
+    $avatarsource=empty(Helper::options()->avatarSource)?"https://gravatar.helingqi.com/wavatar/":Helper::options()->avatarSource;
     if ($email) {
 //        if(strpos($email,"@qq.com") !==false){
 //            $email=str_replace('@qq.com','',$email);

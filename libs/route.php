@@ -41,7 +41,6 @@ function rootRouteFunc($archive)
     $request = $archive->request;
     if (!empty($request)) {
         $requestObject = new Typecho_Request();
-        $requestObject->setParams($request);
     } else {
         $requestObject = Typecho_Request::getInstance();
     }
