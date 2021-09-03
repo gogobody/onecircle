@@ -18,7 +18,7 @@ $(function () {
             api: apiUrl,
             position: 'down',
             width: '400px',
-            maxHeight: '250px'
+            maxHeight: '215px'
         });
         $(document).on('click', '#wmd-hide-button', function () {
             myField = document.getElementById('text');

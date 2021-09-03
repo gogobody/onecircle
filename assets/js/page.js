@@ -14,7 +14,7 @@ var owoInit = function () {
             api: apiUrl,
             position: 'up',
             width: '400px',
-            maxHeight: '250px'
+            maxHeight: '215px'
         });
     }
     var catalog_btn = document.getElementById('article-list-btn');

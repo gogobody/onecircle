@@ -10,7 +10,16 @@
 .OwO:hover .OwO-logo {
     color: #444
 }
-
+/* fix onecircle theme*/
+#wmd-owo-button {
+    --main: #b6d5ff8a;
+    width: 50px;
+    height: 30px;
+    .OwO .OwO-logo, .OwO .OwO-logo:hover span {
+        display: table-cell;
+        vertical-align: middle;
+    }
+}
 .OwO.OwO-open .OwO-logo {
     border-radius: 4px 4px 0 0;
     border-bottom: none;

@@ -74,7 +74,7 @@ function _classCallCheck(instance, Constructor) {
                 target: document.getElementsByTagName('textarea')[0],
                 position: 'down',
                 width: '100%',
-                maxHeight: '250px',
+                maxHeight: '215px',
                 api: 'https://api.anotherhome.net/OwO/OwO.json'
             };
             for (var defaultKey in defaultOption) {
