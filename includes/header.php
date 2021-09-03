@@ -43,7 +43,7 @@
     <?php $this->options->headerEcho(); ?>
     <script>gconf={index:'<?_e(Helper::options()->index)?>',oneaction:'<?_e(Helper::options()->index)?>/oneaction'}</script>
     <script src="https://cdn.bootcdn.net/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
-
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.min.css">-->
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/responsive.min.css'); ?>" />
     <?php
         $rgb_pattern = '/rgb\((0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2})\)/';

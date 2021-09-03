@@ -119,6 +119,7 @@ var indexInput = {
         this.asideEventInit()
         this.messagePageInit()
         this.userCenterInit()
+        this.hightInit()
     },
     resetInputStatus: function () {// reset status when change nowtype
         this.additionArray = []
@@ -704,6 +705,16 @@ var indexInput = {
     },
     userCenterInit:function () {
       userCenter.persenalInit()
+    },
+    hightInit:function () {
+        let pres = $("pre")
+        if (pres.length > 0){
+            pres.addClass("line-numbers").css("white-space", "pre-wrap");
+            window.onload = function() {
+                pres.before('<div class="pre-mac"><span></span><span></span><span></span></div>');
+            }
+        }
+        Prism.highlightAll();
     },
     pjax_complete: function () {
         this.init()
@@ -1714,6 +1725,7 @@ var floatEle = {
     }
 
 }
+
 var blog = {
     init: function () {
         this.init_load_more()

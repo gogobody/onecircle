@@ -37,7 +37,11 @@ $credits_arr = utils::creditsConvert($this->user->credits);
                                             <?php
                                             // 解析 url 参数
                                             $urlParams = utils::parseUrlQuery($this->request->getRequestUrl());
-                                            $talkUid = $urlParams['uid'];
+                                            if(in_array('uid',$urlParams)){
+                                                $talkUid = $urlParams['uid'];
+                                            }else{
+                                                $talkUid=null;
+                                            }
                                             $contactUser=null;
                                             if(!empty($talkUid) && UserFollow::statusFollow($this->user->uid,$talkUid)){
                                                 $contactUser=UserFollow::getUserWidget($talkUid);

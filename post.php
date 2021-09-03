@@ -33,7 +33,7 @@
                          alt="<?php $this->author() ?>"/>
                     <a href="<?php $this->author->permalink(); ?>"><span><?php $this->author(); ?></span></a>
                     <?php if ($this->user->hasLogin() && checkPermission($this->author->uid,$this->user->uid)): ?>
-                        <a href="<?php $this->options->adminUrl(); ?>write-post.php?cid=<?php echo $this->cid; ?>">编辑</a>
+                        <a href="<?php $this->options->adminUrl('/write-post.php?cid='.$this->cid); ?>">编辑</a>
                         <?php Typecho_Widget::widget('Widget_Security')->to($security); ?>
                         <a href="<?php $security->index('/action/contents-post-edit?do=delete&cid='.$this->cid); ?>" onclick="javascript:return del_article(this,<?php _e($this->cid);?>)">删除</a>
                     <?php endif; ?>

@@ -1,16 +1,11 @@
-var owoInit = function () {
-    var pres = document.querySelectorAll('pre');
-    var lineNumberClassName = 'line-numbers';
-    pres.forEach(function (item, index) {
-        item.className = item.className === '' ? lineNumberClassName : item.className + ' ' + lineNumberClassName;
-    });
+const owoInit = function () {
     var owo_ = $(".OwO")
-    if(owo_.length > 0){
+    if (owo_.length > 0) {
         var apiUrl = owo_.data("owo")
         new OwO({
             logo: 'OωO',
             container: document.getElementsByClassName('OwO')[0],
-            target: document.getElementsByClassName('owo-textarea')[0]||document.getElementById('text'),
+            target: document.getElementsByClassName('owo-textarea')[0] || document.getElementById('text'),
             api: apiUrl,
             position: 'up',
             width: '400px',
@@ -19,7 +14,7 @@ var owoInit = function () {
     }
     var catalog_btn = document.getElementById('article-list-btn');
     if (catalog_btn) {
-        catalog_btn.addEventListener('click',function () {
+        catalog_btn.addEventListener('click', function () {
             //生成文章目录
             var index = 0;
             var depth = 0;
@@ -53,26 +48,26 @@ var owoInit = function () {
         })
         // 关闭
         document.getElementById('catalog-close').addEventListener('click',
-            function() {
+            function () {
                 document.getElementById('tocTree').classList.remove('animate__bounceInRight')
                 document.getElementById('tocTree').classList.add('animate__bounceOutRight')
                 // document.getElementById('tocTree').classList.remove('on');
             });
     }
-    $('.protected-btn').click(function() {
-        var surl=$(".protected").attr("action");
+    $('.protected-btn').click(function () {
+        var surl = $(".protected").attr("action");
         $.ajax({
             type: "POST",
-            url:surl,
-            data:$('.protected').serialize(),
-            error: function(request) {
+            url: surl,
+            data: $('.protected').serialize(),
+            error: function (request) {
                 alert("密码提交失败，请刷新页面重试！");
             },
-            success: function(data) {
+            success: function (data) {
 
-                if(data.indexOf("密码错误") >= 0 && data.indexOf("<title>Error</title>") >= 0) {
+                if (data.indexOf("密码错误") >= 0 && data.indexOf("<title>Error</title>") >= 0) {
                     alert("密码错误，请重试！");
-                }else{
+                } else {
                     location.reload();
                 }
             }
@@ -82,13 +77,13 @@ var owoInit = function () {
 // 私密
     $('#secret-button').click(function () {
         var textareaDom = $('.comment-respond textarea');
-        if($(this).is(':checked')) {
+        if ($(this).is(':checked')) {
             textareaDom.attr('placeholder', '私密回复中')
-        }else {
+        } else {
             textareaDom.attr('placeholder', holder)
         }
     })
-}
+};
 
 //增加行号
 $(function () {
