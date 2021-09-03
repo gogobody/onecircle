@@ -11,6 +11,18 @@ var stripscript = function (s) {
     return rs;
 }
 
+// obj 2 arr
+function toArray(obj) {
+    let arr = [];
+    for (let k in obj) {
+        if (obj.hasOwnProperty(k)) {
+            /*检测obj对象中是否有k这个属性*/
+            arr.push(obj[k])
+        }
+
+    }
+    return arr;
+}
 
 //初始化tooltip
 $(function () {
@@ -105,6 +117,8 @@ var indexInput = {
         this.searchEventInit()
         this.articleClickInit()
         this.asideEventInit()
+        this.messagePageInit()
+        this.userCenterInit()
     },
     resetInputStatus: function () {// reset status when change nowtype
         this.additionArray = []
@@ -184,11 +198,11 @@ var indexInput = {
                         that.addLinkBtn.siblings().removeClass('btn-disable')
                         return false;
                     })
-                }else {
+                } else {
                     $.message({
-                        title:"提示",
-                        message:"解析失败",
-                        type:"error"
+                        title: "提示",
+                        message: "解析失败",
+                        type: "error"
                     })
                     console.log(res)
                 }
@@ -572,6 +586,125 @@ var indexInput = {
             $("#aside").toggleClass("off-screen")
         })
     },
+    messagePageInit: function () {
+
+        // 搜索 联系 人
+        let csearch = $('#contact-search');
+        if (csearch) {
+            csearch.autoComplete({
+                minChars: 1,
+                source: function (term, suggest) {
+                    term = term.toLowerCase();
+                    $.post(gconf.index, {
+                            getallfollowers: 1,
+                            type: "getallfollowers",
+                            uid: userId,
+                            keyword: term
+                        }, function (res) {
+                            res = JSON.parse(res)
+                            let su =[];
+                            res.forEach(function (val,index) {
+                                su.push(toArray(val))
+                            })
+                            suggest(su);
+                        }
+                    )
+
+                },
+                renderItem: function (item, search) {
+                    search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                    let re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+                    let name = item[3] ? item[3] : item[1];
+                    return '<div class="autocomplete-suggestion" style="background: #fff" data-uid="' + item[0] + '"><img class="sc-AxjAm jZLHXc" src="'+item[4]+'">' + name.replace(re, "<b>$1</b>") + '</div>';
+                },
+                onSelect: function (e, term, item) {
+                    // alert('Item "' + item.data('langname') + ' (' + item.data('lang') + ')" selected by ' + (e.type == 'keydown' ? 'pressing enter' : 'mouse click') + '.');
+                    let uid = item.data('uid');
+                    userMsg.buildChatBox(uid)
+                }
+            });
+        }
+        // 初始化联系人点击
+        $("#contact-list ul.list-group.contact-list li").unbind('click').bind('click',function (e) {
+            let uid = $(this).data('uid')
+            if(uid){
+                userMsg.buildChatBox(uid)
+                let oldName = $(this).children('.media-body p.font-bold')
+                oldName.text(oldName.text().replace("[未读]",""))
+            }
+        })
+
+        // 初始化 发消息
+        let sendBtn = $("#sendUserMsg")
+        let msgarea = $("#usermsg-input")
+        sendBtn.unbind('click').bind('click',function (e) {
+            let to = $('#chat-tab a').data('uid')
+            if(to){
+                let text = $("#usermsg-input").val()
+                text = text.trim()
+                text = safe.stripscript(text)
+                if(text.length<2){
+                    return $.message({
+                        title:'提示',
+                        message:'输入字符太少',
+                        type:'info'
+                    })
+                }
+                if(text.length > 500){
+                    return $.message({
+                        title:'提示',
+                        message:'输入字符太多',
+                        type:'info'
+                    })
+                }
+                sendBtn.text('发送中..')
+                sendBtn.attr('disabled',"true")
+                let time = 3 ;//倒计时初值
+                timer = setInterval(function () {
+                    if ( time === 0){
+                        clearInterval(timer) ;
+                        sendBtn.removeAttr("disabled");
+                        sendBtn.text("发送");
+                    } else{
+                        sendBtn.text("还剩" + time + "秒" );
+                        time--;
+                    }
+                },1000)//1秒钟递减一次
+                userMsg.sendMsg(to,text,function (res) {
+                    if (res.code){
+                        $("#usermsg-input").val('')
+                        let sender = res.data.sender
+                        let obj = {
+                            text:text,
+                            datetime: '刚刚'
+                        }
+                        let msglist = $('#contact-message-list')
+                        msglist.append(userMsg.gensSenderTemplate(sender,obj))
+                    }else{
+                        $.message({
+                            title:'提示',
+                            message: "错误："+res.msg,
+                            type:'error'
+                        })
+                    }
+
+                })
+
+            }else {
+                $.message({
+                    title:'提示',
+                    message:'获取联系人出错',
+                    type:'error'
+                })
+            }
+        })
+
+        // 消息事件
+        userMsg.eventInit()
+    },
+    userCenterInit:function () {
+      userCenter.persenalInit()
+    },
     pjax_complete: function () {
         this.init()
         // this.loginBan()
@@ -952,7 +1085,7 @@ var archiveInit = {
                 $.ajax({
                     url: $(this).attr('action'),
                     type: 'post',
-                    data: $(this).serializeArray(),
+                    data: formdata,
                     error: function () {
                         alert("提交失败，请检查网络并重试或者联系管理员。");
                         commentBtn.attr("disabled", false)
@@ -1196,7 +1329,7 @@ var oneMap = { // use js only!
             if (httpRequest.readyState === 4 && httpRequest.status === 200) {//验证请求是否发送成功
                 var json = httpRequest.responseText;//获取到服务端返回的数据
                 json = JSON.parse(json)
-                if (json.status) {
+                if (json.status && json.data.jskey) {
                     localStorage.setItem("amapkey", json.data)
                     AMapLoader.load({
                         "key": json.data.jskey,              // 申请好的Web端开发者Key，首次调用 load 时必填
@@ -1213,7 +1346,7 @@ var oneMap = { // use js only!
                         // })
                     });
                 } else {
-                    console.log(json)
+                    console.log("获取amapJsKey失败")
                     // $.message({
                     //     type: "error",
                     //     title: "提示",
@@ -1331,7 +1464,176 @@ var oneMap = { // use js only!
 
     }
 }
+var userMsg = {
+    eventInit:function (){
+        // 定时刷新未读消息
+        let title=$("title");
+        let oldtittle = title.html()
+        let msgTip = $("#msg-tip")
+        // 闪烁标题
+        function start(){
+            let flag=true
+            let change=function(){
+                if(flag){
+                    flag=false;
+                    title.html('【新消息】'+oldtittle);
+                    msgTip.hide()
+                }else {
+                    flag=true;
+                    title.html('【　　　】'+ oldtittle);
+                    msgTip.show()
+                }
+                window._titleMsgTime=setTimeout(function () {
+                    change();
+                },600);
+            };
+            change();
+        }
+        function stop(){
+            if(!title) return;
+            title.html(oldtittle)
+            window.clearTimeout(window._titleMsgTime)
+        }
 
+        this.getUnread(function (res) {
+            if(res.code){
+                if(res.data.num > 0){
+                    start()
+                }else{
+                    stop()
+                }
+            }else{
+                stop()
+            }
+        })
+        // 消息框滚动事件
+        let contab = $('#chat-tab')
+        contab.unbind('shown.bs.tab').bind('shown.bs.tab',function (event){
+            userMsg.scrollToBottom()
+        })
+    },
+    getUnread:function (func) {
+        if(userId === "" || userId===undefined){
+            return
+        }
+        $.post(gconf.index, {
+            handleMsg: 1,
+            type: "getUnRead",
+        },function (res) {
+            res=JSON.parse(res)
+            if(res.code){
+                if(res.data.num > 0){
+                    let headmsg = $("#my-message")
+                    headmsg.html(headmsg.html()+` (${res.data.num})`)
+                }
+            }
+            func(res)
+        })
+    },
+    getMsg:function (fid,func) {
+        $.post(gconf.index, {
+            handleMsg: 1,
+            type: "getUserMsg",
+            fid: fid,
+        },function (res) {
+            res=JSON.parse(res)
+            func(res)
+            userMsg.scrollToBottom()
+        })
+    },
+    sendMsg:function (to, text, func){
+        $.post(gconf.index, {
+            handleMsg: 1,
+            type: "sendMsg",
+            to: to,
+            text: text
+        },function (res) {
+            res=JSON.parse(res)
+            func(res)
+            userMsg.scrollToBottom()
+        })
+    },
+    gensSenderTemplate: function (sender,val) {
+        return `<div class="media sender"><div class="media-content"><div class="media-left"><figure class="image is-circle is-32"><img src="${sender.avatar}" title="gogobody"></figure></div>
+                                            <div class="media-body"><div class="contact-message-item">${val.text}</div></div></div>
+                                            <div class="media-right text-xs text-muted">${val.datetime}</div></div>`
+    },
+    gensReceiverTemplate: function (receiver,val) {
+        return `<div class="media receiver"><div class="media-content"><div class="media-left"><figure class="image is-circle is-32"><img src="${receiver.avatar}" title="gogobody"></figure></div>
+                                            <div class="media-body"><div class="contact-message-item">${val.text}</div></div></div>
+                                            <div class="media-right text-xs text-muted">${val.datetime}</div></div>`
+    },
+    buildChatBox:function (uid) {
+        userMsg.getMsg(uid,function (res) {
+            if(res.code){
+                let receiver = res.data.receiver
+                let sender = res.data.sender
+                let contab = $('#chat-tab')
+                let msglist = $('#contact-message-list')
+                if(receiver.uid){
+                    contab.children('a').text(receiver.name)
+                    contab.children('a').data('uid',receiver.uid)
+                    let msgs = res.data.message
+                    let html =''
+                    msgs.forEach(function (val) {
+                        if(val.from === "sender"){
+                            html+= userMsg.gensSenderTemplate(sender,val)
+                        }else{
+                            html+= userMsg.gensReceiverTemplate(receiver,val)
+                        }
+                    })
+                    msglist.html(html)
+                    contab.show()
+                    contab.children('a').tab('show')
+                }
+            }
+            userMsg.scrollToBottom()
+        })
+    },
+    // 滚动聊天框到底部
+    scrollToBottom:function () {
+        let contactArea = $("#contact-messages")
+        contactArea.scrollTop(contactArea[0].scrollHeight)
+    }
+
+}
+var userCenter = {
+    persenalInit:function () {
+        let personalForm = $("#OneCircle")
+        let personalFormBtn = $("#OneCircle button[type='submit']")
+        personalFormBtn.unbind('click').bind('click', function (e) {
+            $(this).attr("disabled", true)
+            personalForm.submit()
+        })
+        personalForm.submit(function () {
+            let formdata = $(this).serializeArray()
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'post',
+                data: formdata,
+                error: function () {
+                    alert("提交失败，请检查网络并重试或者联系管理员。");
+                    personalFormBtn.attr("disabled", false)
+                    return false
+                },
+                success: function (d) {
+                    personalFormBtn.attr("disabled", false)
+                    window.location.reload()
+                }
+            });
+            return false
+        })
+        // avatar uploader
+        let uploader = $("#avatar-uploader")
+        uploader.show()
+    }
+}
+
+var safe = {
+    stripscript:function (s) {
+        return s.replace(/<script.*?>.*?<\/script>/ig, '');
+    }
+}
 // 浮动按钮
 var floatEle = {
     init: function () {
@@ -1405,17 +1707,17 @@ var floatEle = {
 
 }
 var blog = {
-    init:function () {
+    init: function () {
         this.init_load_more()
     },
-    pjax_complete:function () {
+    pjax_complete: function () {
         this.init_load_more()
     },
-    eventInit:function () {
+    eventInit: function () {
 
     },
     /* 初始化加载更多 */
-    init_load_more:function () {
+    init_load_more: function () {
         var _this = this;
         var jloadmore = $('.j-loadmore a')
         jloadmore.attr('data-href', jloadmore.attr('href'));
@@ -1430,7 +1732,7 @@ var blog = {
             $.ajax({
                 url: url,
                 type: 'get',
-                success:function (data){
+                success: function (data) {
                     $(that).removeAttr('disabled');
                     $(that).html('查看更多');
                     var list = $(data).find('.article-list:not(.sticky)');
@@ -1584,7 +1886,7 @@ function postArticle(data, needRefresh) {
                     })
                 }
             })
-        }else {
+        } else {
             $.message({
                 title: "提示",
                 message: "请检查插件是否正确安装！",
@@ -1594,16 +1896,17 @@ function postArticle(data, needRefresh) {
         return false
     })
 }
+
 // delete comments
-function delComments(url,needRefresh) {
-    if (confirm("您真的确定要删除吗？")){
+function delComments(url, needRefresh) {
+    if (confirm("您真的确定要删除吗？")) {
         $.post(gconf.oneaction, {
             type: 'getsecuritytoken'
         }, function (res) {
-            if (res !== 'error') {
+            if (res.code) {
                 // console.log(res)
                 $.ajax({
-                    url: gconf.index + url+'&_=' + res,
+                    url: gconf.index + url + '&_=' + res.data,
                     type: 'post',
                     success: function (re) {
                         if (needRefresh) {
@@ -1620,7 +1923,7 @@ function delComments(url,needRefresh) {
                                 })
                             }, 800)
                         }
-                        if (re.success){
+                        if (re.success) {
                             $.message({
                                 title: "提示",
                                 message: "删除成功",
@@ -1645,6 +1948,7 @@ function delComments(url,needRefresh) {
     }
     return false;
 }
+
 // index input prev link click event
 function submitForm(ele) {
     // jquery 表单提交
@@ -1759,11 +2063,11 @@ function submitForm(ele) {
             if (val[1] === cmid) inAllcate = true
         })
         if (inAllcate === false) cmid = allCategories[0][1] // 默认使用第一个的mid
-    }else {
+    } else {
         $.message({
-            title:"提示",
-            message:"还没有创建圈子",
-            type:"error"
+            title: "提示",
+            message: "还没有创建圈子",
+            type: "error"
         })
         return false
     }

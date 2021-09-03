@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link crossorigin="anonymous" integrity="sha512-oc9+XSs1H243/FRN9Rw62Fn8EtxjEYWHXRvjS43YtueEewbS6ObfXcJNyohjHqVKFPoXXUxwc+q1K7Dee6vv9g==" href="//lib.baomitu.com/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+    <link crossorigin="anonymous" integrity="sha512-oc9+XSs1H243/FRN9Rw62Fn8EtxjEYWHXRvjS43YtueEewbS6ObfXcJNyohjHqVKFPoXXUxwc+q1K7Dee6vv9g==" href="https://lib.baomitu.com/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
     <!-- 文章 CSS -->
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/owo/owo.min.css'); ?>">
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/onecircle.min.css'); ?>">
     <link crossorigin="anonymous" integrity="sha384-Q8BgkilbsFGYNNiDqJm69hvDS7NCJWOodvfK/cwTyQD4VQA0qKzuPpvqNER1UC0F"
-          href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet">
+          href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet">
     <?php if ($this->options->favicon): ?>
         <link rel="shortcut icon" href="<?php $this->options->favicon(); ?>"><?php endif; ?>
     <title><?php $this->archiveTitle(array(
@@ -131,14 +131,24 @@
                                         <span class="hidden-sm hidden-md hidden-lg"><?php _e($this->user->name);?></span>
                                         <b class="caret "></b><!--下三角符号-->
                                         <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm">
-                                    <img class="img-circle img-40px" src="<?_e(getUserV2exAvatar($this->user->mail,$this->user->userAvatar))?>">
-                                    <i class="on md b-white bottom"></i>
+                                    <img class="img-circle img-40px" src="<?php _e(getUserV2exAvatar($this->user->mail,$this->user->userAvatar))?>">
+                                    <i id="msg-tip" class="on md b-white bottom"></i>
                                 </span>
                                     </a>
                                     <!-- dropdown(已经登录) -->
                                     <ul class="dropdown-menu animate__fadeInRight login-dropdown header__dropdown-menu " id="Logged-in">
-
-                                        <!--文章RSS订阅-->
+                                        <li>
+                                            <a target="_blank" href="<?php _e($this->options->index . '/usercenter/messages');?>">
+                                                <span style="width: 30px;display: inline-block;text-align: center"><svg height="1em" aria-hidden="true" focusable="false" data-prefix="far" data-icon="comment-dots" class="svg-inline--fa fa-comment-dots fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M144 208c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32zm112 0c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32zm112 0c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32zM256 32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26S14.4 480 24 480c61.5 0 110-25.7 139.1-46.3C192 442.8 223.2 448 256 448c141.4 0 256-93.1 256-208S397.4 32 256 32zm0 368c-26.7 0-53.1-4.1-78.4-12.1l-22.7-7.2-19.5 13.8c-14.3 10.1-33.9 21.4-57.5 29 7.3-12.1 14.4-25.7 19.9-40.2l10.6-28.1-20.6-21.8C69.7 314.1 48 282.2 48 240c0-88.2 93.3-160 208-160s208 71.8 208 160-93.3 160-208 160z"></path></svg></span>
+                                                <span id="my-message">我的私信</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href="<?php _e($this->options->index . '/usercenter/notice');?>">
+                                                <span style="width: 30px;display: inline-block;text-align: center"><svg height="1em" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="envelope-square" class="svg-inline--fa fa-envelope-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM178.117 262.104C87.429 196.287 88.353 196.121 64 177.167V152c0-13.255 10.745-24 24-24h272c13.255 0 24 10.745 24 24v25.167c-24.371 18.969-23.434 19.124-114.117 84.938-10.5 7.655-31.392 26.12-45.883 25.894-14.503.218-35.367-18.227-45.883-25.895zM384 217.775V360c0 13.255-10.745 24-24 24H88c-13.255 0-24-10.745-24-24V217.775c13.958 10.794 33.329 25.236 95.303 70.214 14.162 10.341 37.975 32.145 64.694 32.01 26.887.134 51.037-22.041 64.72-32.025 61.958-44.965 81.325-59.406 95.283-70.199z"></path></svg></span>
+                                                <span>系统消息</span>
+                                            </a>
+                                        </li>
                                         <li>
                                             <a target="_blank" href="<?php $this->options->adminUrl('write-post.php')?>">
                                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square login-svg" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -148,7 +158,6 @@
                                                 <span>新建文章</span>
                                             </a>
                                         </li>
-                                        <!--评论RSS订阅-->
                                         <li>
                                             <a target="_blank" href="<?php $this->options->adminUrl('manage-comments.php')?>">
                                                 <svg width="1em" height="1em" viewBox="0 0 16 16"

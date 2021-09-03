@@ -4,7 +4,7 @@
     if (count($tArr) == 0){
         $tabIndex = 0;
     }else{
-        $tabIndex = $tArr['tabindex'];
+        $tabIndex = $tArr['tabindex']?$tArr['tabindex']:0;
     }
     if ($tabIndex == 3) { // 热门标签，根据点赞量排序
         //清空原有文章的列队
@@ -69,7 +69,7 @@
                                                         src="<?php _e(getUserV2exAvatar($fobj[$i]['mail'],$fobj[$i]['userAvatar']))?>"
                                                         alt="再多一点可爱" class="sc-AxjAm jZLHXc">
                                                 <div  class="sc-AxjAm sc-AxirZ hkyonN">
-                                                    <div class="sc-AxjAm oDrAC"><?php _e($fobj[$i]['name'])?></div>
+                                                    <div class="sc-AxjAm oDrAC"><?php _e($fobj[$i]['screenName'])?></div>
                                                     <div class="sc-AxjAm hHqHSX ezzhLs"><?php _e($fobj[$i]['userSign']);?></div>
                                                 </div>
                                             </a>
@@ -106,7 +106,7 @@
                                                         src="<?php _e(getUserV2exAvatar($fobj[$i]['mail'],$fobj[$i]['userAvatar']))?>"
                                                         alt="再多一点可爱" class="sc-AxjAm jZLHXc">
                                                 <div  class="sc-AxjAm sc-AxirZ hkyonN">
-                                                    <div class="sc-AxjAm oDrAC"><?php _e($fobj[$i]['name'])?></div>
+                                                    <div class="sc-AxjAm oDrAC"><?php _e($fobj[$i]['screenName'])?></div>
                                                     <div class="sc-AxjAm hHqHSX ezzhLs"><?php _e($fobj[$i]['userSign']);?></div>
                                                 </div>
                                             </a>

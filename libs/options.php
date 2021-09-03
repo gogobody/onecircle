@@ -47,6 +47,14 @@ function themeConfig($form)
     $useInfiniteScroll->setAttribute('class', 'j-setting-content j-setting-global');
     $form->addInput($useInfiniteScroll);
     // 图片设置
+    $avatarSource = new Typecho_Widget_Helper_Form_Element_Text('avatarSource',
+        null,"https://cravatar.cn/avatar/","头像源设置","例如：https://gravatar.helingqi.com/wavatar/ <br>
+         其他：非必填，默认头像源为https://cravatar.cn/avatar/ <br>
+         注意：填写时，务必保证最后有一个/字符，否则不起作用！"
+    );
+    $avatarSource->setAttribute('class', 'j-setting-content j-setting-image');
+    $form->addInput($avatarSource);
+
     $logoUrl = new Typecho_Widget_Helper_Form_Element_Text('logoUrl', NULL, "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2592033302,3451533765&fm=26&gp=0.jpg", _t('<h2>普通设置</h2>站点 LOGO 地址'), _t('在这里填入一个图片 URL 地址, 以在网站标题前加上一个 LOGO'));
     $logoUrl->setAttribute('class', 'j-setting-content j-setting-image');
     $form->addInput($logoUrl);

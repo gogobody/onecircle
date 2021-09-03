@@ -487,7 +487,7 @@ button:focus{
     outline: none;
 }
 .navbar.navbar-expand-lg.navbar-light{
-    padding: 0;!important;
+    padding: 0!important;
 }
 @media (max-width: 768px){
     .navbar.navbar-nav.navbar-right.ml-auto {
@@ -1392,6 +1392,7 @@ archive
     -webkit-box-align: center;
     align-items: center;
     display: flex;
+    flex-direction: column;
 }
 .fansed {
     box-sizing: border-box;
@@ -4024,7 +4025,189 @@ usercenter
     background-color: #F3BF9E;
     box-shadow: 0px 1px 2px 1px #DC795C, inset 1px 2px 3px 1px #C75131;
 }
+/* notice */
+.font-bold {
+    font-weight: 700;
+}
+.i-sm {
+    font-size: 0.75em;
+}
+.l-h {
+    line-height: 1.5;
+}
+.pull-right {
+    float: right !important;
+}
+// page 公共的
+.media-left, .media-right, .media-body {
+    display: table-cell;
+    vertical-align: top;
+}
+.media-left, .media > .pull-left {
+    padding-right: 10px;
+}
+.image.is-circle, .image.is-circle .cover, .image.is-circle img {
+    border-radius: 50%;
+}
+.image.is-48 {
+    height: 48px;
+    width: 48px;
+}
 
+.media-body{
+    width: 100%;
+}
+.media, .media-body {
+    overflow: hidden;
+    zoom: 1;
+}
+.media:first-child {
+    margin-top: 0;
+}
+
+.media-left, .media > .pull-left {
+    padding-right: 10px;
+}
+.font-bold {
+    font-weight: 700;
+}
+.m-b-none {
+    margin-bottom: 0;
+}
+.i-sm {
+    font-size: 0.75em;
+}
+.pull-right {
+    float: right !important;
+}
+.text-muted {
+    color: #939aa0;
+}
+.image.is-32 {
+    height: 32px;
+    width: 32px;
+}
+.text-xs {
+    font-size: 12px;
+}
+
+.scrollable {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.notice-page,.message-page{
+    .header .nav-tabs, .footer .nav-tabs {
+        border: none;
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+    .header{
+        min-height: 50px;
+        padding: 0 15px;
+        p{
+            margin-top: 15px;
+            display: inline-block;
+        }
+    }
+    .image img {
+        display: block;
+        height: auto;
+        width: 100%;
+    }
+    p {
+        margin: 0 0 10px;
+    }
+
+}
+
+.notice-page{
+
+    .scrollable{
+        .no-borders{
+            border: none;
+            ul{
+                li{
+                    border: none;
+                }
+            }
+        }
+    }
+}
+.message-page{
+
+    .tab-content{
+        .contact-search{
+            background: #f2f4f8;
+            border-radius: 3px;
+            input{
+                background: #fff;
+                font-size: 13px;
+            }
+        }
+        #contact-chat{
+            .contact-messages {
+                padding: 10px;
+                min-height: 240px;
+                max-height: 400px;
+                background-color: #c3c8d852;
+                .media {
+                    border: none;
+                    position: relative;
+                    padding-top: 20px;
+                    .media-body .contact-message-item {
+                        background-color: #e6e6e6;
+                        padding: 8px 15px;
+                        border-radius: 4px;
+                        display: inline-block;
+                        max-width: 80%;
+                        text-align: start;
+                        word-break: break-all;
+                    }
+                    .media-right {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        margin: 0;
+                        display: block;
+                        text-align: center;
+                    }
+                }
+                .media-content{
+                    width: 100%;
+                    margin: 10px 0;
+                }
+                .media.sender{
+                    display: block;
+                    .media-content{
+                        display: flex;
+                        flex-direction: row-reverse;
+                    }
+                }
+                .media.sender .media-left {
+                    margin-left: 15px;
+                    margin-right: 0;
+                }
+                .media.sender .media-body {
+                    text-align: right;
+                }
+                .media.sender .media-body .contact-message-item {
+                    background-color: #209cee;
+                    color: #fff;
+                }
+
+            }
+            .panel-footer{
+                .form-group{
+                    .form-control{
+                        background-color: #ffffff82;
+                    }
+                }
+            }
+        }
+
+    }
+}
 /**
 mobile fix
  */
@@ -4361,6 +4544,9 @@ mobile fix
     }
     .post-cover-img{
         height: 220px;
+    }
+    .usercenter-container{
+        flex-direction: column;
     }
 }
 

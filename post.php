@@ -167,7 +167,7 @@
                         <input type="text" id="repostComment" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                value='<a href="<?php $this->author->permalink(); ?>">@<?php $this->author(); ?></a>:<?php $this->excerpt(10);?>'
                             data-username="<?php $this->author() ?>" data-excerpt="<?php $this->excerpt(70);?>" data-category='<?$this->category(' ')?>'
-                        data-posthref="<?php _e($this->permalink());?>">
+                        data-posthref="<?php $this->permalink();?>">
                     </div>
                 </div>
                 <div class="modal-footer">

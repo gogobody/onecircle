@@ -45,7 +45,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             </button>
         </div>
         <div class="p-2">
-            <button class="button post-action btn-like" data-link="<?php _e($this->permalink()) ?>"
+            <button class="button post-action btn-like" data-link="<?php $this->permalink() ?>"
                     data-cid="<?php $this->cid(); ?>">
                 <span class="post-icon" style="display: flex;align-items: center;">
                     <svg width="20" height="20" viewBox="0 0 16 16"
