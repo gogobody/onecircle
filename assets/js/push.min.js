@@ -1,0 +1,1 @@
+!function(){var t=document.createElement("script"),e=window.location.protocol.split(":")[0];t.src="https"===e?"https://zz.bdstatic.com/linksubmit/push.js":"http://push.zhanzhang.baidu.com/push.js";e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}();
