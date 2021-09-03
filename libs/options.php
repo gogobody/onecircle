@@ -28,6 +28,13 @@ function themeConfig($form)
         <div class="j-setting-notice"><iframe src="https://www.yuque.com/docs/share/05f40cac-980f-4e53-8b92-ed9728b8dc50?# 《OneCircle 主题说明》" frameborder="no" scrolling="yes" height="100%" width="100%"></iframe></div>
         <script src="<?php $options->themeUrl('/assets/admin/js/one.setting.min.js')?>"></script>
     <?php
+    $enableMessage = new Typecho_Widget_Helper_Form_Element_Radio('enableMessage',
+        array(1 => _t('启用'),
+            0 => _t('关闭')),
+        1, _t('是否启用全局私聊'), _t('开启私聊可以用，关了就不能用'));
+    $enableMessage->setAttribute('class', 'j-setting-content j-setting-global');
+    $form->addInput($enableMessage);
+
     $favicon = new Typecho_Widget_Helper_Form_Element_Text('favicon', NULL, NULL, _t('favicon'), _t('favicon 图片'));
     $favicon->setAttribute('class', 'j-setting-content j-setting-global');
     $form->addInput($favicon);

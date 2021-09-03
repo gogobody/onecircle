@@ -1,10 +1,33 @@
 ## onecircle 一个圈子，基于typecho
 
 ## 名字就叫一个圈子。
-## version：3.1
-## 平台：typecho
+## version：4.0
+## 平台：typecho  
 
-### 想弄一个类社交圈子，开发了一部分，剩下慢慢折腾
+### 想弄一个类社交圈子，开发了一部分，剩下慢慢折腾  
+  
+## 下载说明：
+4.0 之后懒得发 release 了，直接下载。如果是更新，把主题插件全部禁用启用一遍。    
+必须装的：  
+[主题最新版下载](https://github.com/gogobody/onecircle/archive/refs/heads/master.zip)  
+[主题配套插件下载](https://github.com/gogobody/OneCircle_Plugin/archive/refs/heads/main.zip)  
+[图床插件下载](https://github.com/gogobody/SmmsForTypecho/archive/refs/heads/main.zip)  
+下载后修改主题目录名 onecircle，修改插件目录名 OneCircle，图床插件目录名 SmmsForTypecho
+
+可选【建议】：  
+后台美化插件 https://github.com/gogobody/SimpleAdmin
+
+以上的开源地址：  
+
+onecircleTheme 主题 https://github.com/gogobody/onecircle  
+
+onecirclePlugin 配套插件 https://github.com/gogobody/OneCircle_Plugin
+
+后台美化插件 https://github.com/gogobody/SimpleAdmin
+
+免费的图床插件 https://github.com/gogobody/SmmsForTypecho
+
+安装主题启用插件即可，下载最新的，点绿色按钮 code -> download ZIP
 
 ## 主题文档  
 更多请查看[OneCircle 主题说明](https://www.yuque.com/docs/share/05f40cac-980f-4e53-8b92-ed9728b8dc50?#%E3%80%8AOneCircle%20%E4%B8%BB%E9%A2%98%E8%AF%B4%E6%98%8E%E3%80%8B)
@@ -38,16 +61,7 @@ v2.6 修复评论bug，修改link 显示
 v2.7 图床插件支持上传图片到本地，添加首页评论显示  
 v2.8 添加 lazyload ，将默认的gallery 原始的background显示方式迁移至src显示
 v3.0 支持博客页  
-## 安装
-onecircleTheme 主题 https://github.com/gogobody/onecircle
 
-onecirclePlugin 配套插件 https://github.com/gogobody/OneCircle_Plugin
-
-后台美化插件 https://github.com/gogobody/SimpleAdmin
-
-免费的图床插件 https://github.com/gogobody/SmmsForTypecho
-
-安装主题启用插件即可
 
 ## 关于文章类型
 目前文章有一个自定义字段：  

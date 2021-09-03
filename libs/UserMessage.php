@@ -91,11 +91,25 @@ class UserMessage
 
     public static function createMsg($data)
     {
-
+        $options = Helper::options();
+        if(!$options->enableMessage){
+            return json_encode([
+                'msg' => '管理员禁用了私聊',
+                'code' => 0
+            ]);
+        }
         $uid = $data['uid'];
         $fid = $data['fid'];
         $type = 'message';
         $text = $data['text'];
+        // xss 过滤
+        $text = utils::filterWords($text);
+        if(strlen($text)<2){
+            return json_encode([
+                'msg' => '消息错误',
+                'code' => 0
+            ]);
+        }
         $date = new Typecho_Date();
         $widget = Typecho_Widget::widget('Widget_Abstract_Messages');
         $ret = $widget->insert([

@@ -467,5 +467,16 @@ class utils
         $copper = intval($res%100);
         return array($gold,$sliver,$copper);
     }
+
+    static public function filterWords($str)
+    {
+        $farr = array(
+            "/<(\\/?)(script|i?frame|style|html|body|title|link|meta|object|\\?|\\%)([^>]*?)>/isU",
+            "/(<[^>]*)on[a-zA-Z]+\s*=([^>]*>)/isU",
+            "/select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile|dump/is"
+        );
+        $str = preg_replace($farr,'',$str);
+        return $str;
+    }
 }
 
