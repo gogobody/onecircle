@@ -1073,6 +1073,7 @@ var archiveInit = {
         })
         commentForm.submit(function () {
             var formdata = $(this).serializeArray()
+            formdata[0]["value"] = safe.stripscript(formdata[0]["value"])
             if ($.trim(formdata[0]["value"]) === "") {
                 $.message({
                     title: "提示",
