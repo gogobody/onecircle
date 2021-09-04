@@ -377,7 +377,12 @@ function GetRandomThumbnail($widget)
             $img = $thumbUrl[1][0];
         }
     }
-    echo $img;
+    $check = "/^((https|http|ftp|rtsp|mms)?:\/\/)?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/i";
+    if(preg_match_all($check,$img,$ret)){
+        echo $img;
+    }else{
+        echo $random;
+    }
 }
 
 

@@ -14,9 +14,9 @@
     <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
     <!-- 文章 CSS -->
-    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/post.min.css'); ?>">
-    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/owo/owo.min.css'); ?>">
-    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/onecircle.min.css'); ?>">
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/post.min.css'); ?>?version=<?php themeVersion() ?>">
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/owo/owo.min.css'); ?>?version=<?php themeVersion() ?>">
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/onecircle.min.css'); ?>?version=<?php themeVersion() ?>">
     <link crossorigin="anonymous" integrity="sha384-Q8BgkilbsFGYNNiDqJm69hvDS7NCJWOodvfK/cwTyQD4VQA0qKzuPpvqNER1UC0F"
           href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet">
     <?php if ($this->options->favicon): ?>
@@ -43,8 +43,7 @@
     <?php $this->options->headerEcho(); ?>
     <script>gconf={index:'<?_e(Helper::options()->index)?>',oneaction:'<?_e(Helper::options()->index)?>/oneaction'}</script>
     <script src="https://cdn.bootcdn.net/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
-<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.min.css">-->
-    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/responsive.min.css'); ?>" />
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/responsive.min.css'); ?>?version=<?php themeVersion() ?>" />
     <?php
         $rgb_pattern = '/rgb\((0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2})\)/';
         if (preg_match($rgb_pattern,$this->options->JMainColor,$arr)){

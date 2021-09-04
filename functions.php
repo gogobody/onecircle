@@ -28,7 +28,6 @@ Typecho_Plugin::factory('admin/write-page.php')->bottom_1000 = array('utils', 'a
 Typecho_Plugin::factory('Widget_Abstract_Comments')->contentEx_1000 = array('comments', 'parseContent');
 Typecho_Plugin::factory('Widget_Feedback')->comment_1000 = array('comments', 'insertSecret');
 
-
 /**
  * 文章与独立页自定义字段
  * @param Typecho_Widget_Helper_Layout $layout

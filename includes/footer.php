@@ -22,11 +22,11 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.js"></script>
 <?php $this->options->jsEcho(); ?>
 
-<script src="<?php $this->options->themeUrl('assets/owo/owo_02.js'); ?>"></script>
-<script src="<?php $this->options->themeUrl('assets/js/page.min.js'); ?>"></script>
+<script src="<?php $this->options->themeUrl('assets/owo/owo_02.js'); ?>?version=<?php themeVersion() ?>"></script>
+<script src="<?php $this->options->themeUrl('assets/js/page.min.js'); ?>?version=<?php themeVersion() ?>"></script>
 <script crossorigin="anonymous" integrity="sha384-Zm+UU4tdcfAm29vg+MTbfu//q5B/lInMbMCr4T8c9rQFyOv6PlfQYpB5wItcXWe7" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
-<script src="<?php $this->options->themeUrl('assets/js/prism.min.js'); ?>"></script>
+<script src="<?php $this->options->themeUrl('assets/js/prism.min.js'); ?>?version=<?php themeVersion() ?>"></script>
 
 <!-- 鼠标点击特效 -->
 <?php $this->need('blog/config/cursor.effect.php'); ?>
@@ -39,7 +39,7 @@
     }
 ?>
 <script>userId=<?echo $userId?></script>
-<script src="<?php $this->options->themeUrl('assets/js/onecircle.min.js'); ?>"></script>
+<script src="<?php $this->options->themeUrl('assets/js/onecircle.min.js'); ?>?version=<?php themeVersion() ?>"></script>
 <?php if ($this->options->jsPushBaidu):?>
     <script src="<?php $this->options->themeUrl('assets/js/push.js'); ?>"></script>
 <!--    // 加载不出时触发-->
