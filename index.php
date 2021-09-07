@@ -55,16 +55,16 @@ $this->need('includes/header.php');
                         <?php $imgs = getRandRecommendImgs(8); foreach ($imgs as $rimg):?>
                             <?php $archive_ = null;
                             $this->widget('Widget_Archive@_'.$rimg['cid'], 'pageSize=1&type=post', 'cid='.$rimg['cid'])->to($archive_);?>
-                            <a href="<?php _e($archive_->permalink()); ?>" class="diary-item">
+                            <a href="<?php $archive_->permalink?_e($archive_->permalink):''; ?>" class="diary-item">
                                 <div class="circle-diary-bg">
                                     <div class="diary-img">
-                                        <img src="<?php _t($loading)?>" data-src="<? _e($rimg['img']); ?>" class="lazyload">
+                                        <img src="<?php $loading?_t($loading):''?>" data-src="<? _e($rimg['img']); ?>" class="lazyload">
                                     </div>
                                     <div class="circle-diary-bottom">
                                         <div class="circle-diary-avatar"><img class="img-circle img-thumbnail"
                                                                               src="<? _e(getUserV2exAvatar($rimg['email'], $rimg['userAvatar'])); ?>">
                                         </div>
-                                        <div class="circle-diary-name"><? _e($rimg['screenName']); ?></div>
+                                        <div class="circle-diary-name"><?php $rimg['screenName']?_e($rimg['screenName']):''; ?></div>
                                     </div>
                                 </div>
                             </a>

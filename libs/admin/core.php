@@ -4,10 +4,12 @@ $str1 = explode('/themes/', (THEME_URL . '/'));
 $str2 = explode('/', $str1[1]);
 define("THEME_NAME", $str2[0]);
 
-/* 获取模板版本号 */
+/* typecho 获取模板版本号 */
 function OnecircleVersion()
 {
-    return "3.06";
+    $oneIndex = Helper::options()->themeFile('onecircle','index.php');
+    $info = Typecho_Plugin::parseInfo($oneIndex);
+    return $info['version'];
 }
 
 /* 获取懒加载图片 */
