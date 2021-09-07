@@ -5,7 +5,7 @@ class contents{
     {
         $text = empty($last) ? $data : $last;
         if ($widget instanceof Widget_Archive) {
-            if($widget->fields->articleType == 'default' || $widget->fields->articleType == 'link' || $widget->is('page')){
+            if($widget->fields->articleType == 'ajaxContent' || $widget->fields->articleType == 'default' || $widget->fields->articleType == 'link' || $widget->is('page')){
                 $text = contents::fancybox($text,$widget);
 
                 $text = contents::parsePureLink($text);
