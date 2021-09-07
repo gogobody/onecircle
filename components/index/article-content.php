@@ -99,7 +99,9 @@ $neighbor_addr = Typecho_Common::url('/neighbor/'.$district.'?name='.$addr,$this
                 <?php elseif ($this->fields->articleType == "default" ||$this->fields->articleType==null): ?>
                     <!-- default-->
                     <?php $this->need('components/index/index-default.php'); ?>
-
+                <?php elseif ($this->fields->articleType == "ajaxContent"): ?>
+                    <!-- default-->
+                    <?php $this->need('components/index/index-ajaxContent.php'); ?>
                 <?php elseif ($this->fields->articleType == "video" || $this->fields->articleType == "bilibili"): ?>
                     <!-- videos -->
                     <?php $this->need('components/index/index-videos.php'); ?>

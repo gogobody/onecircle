@@ -70,6 +70,7 @@ default：默认解析
 link： 解析为前台链接形式  
 video or bilibili：视频  
 repost：转发  
+ajaxContent: 前台显示完整内容
 
 ## 注意：
 因为 typecho 的bug，导致每次在个人设置里都会显示之前的缓存内容，而不是用户最新填写的数据，给用户带来困扰 - -  

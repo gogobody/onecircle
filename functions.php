@@ -42,7 +42,8 @@ function themeFields(Typecho_Widget_Helper_Layout $layout)
             'video' => '视频',
             'bilibili' => 'B站',
             'focususer' => '关注用户',
-            'repost' => '转发'
+            'repost' => '转发',
+            'ajaxContent' => '前台显示完整文章内容'
         ), 'default', _t('文章类型'), _t('见wiki说明'));
         $layout->addItem($articleType);
 
