@@ -41,6 +41,7 @@ if($sticky && $this->is('index') || $this->is('front')){
 
     if ($this->_currentPage == 1) foreach($db->fetchAll($select1) as $sticky_post){ //首页第一页才显示
         $sticky_post['sticky'] = $sticky_html;
+
         $this->push($sticky_post); //压入列队
     }
     $uid = $this->user->uid; //登录时，显示用户各自的私密文章

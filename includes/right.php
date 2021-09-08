@@ -151,7 +151,7 @@ $credits_arr = utils::creditsConvert($this->user->credits);
                 <?php while ($r_comments->next()): ?>
                     <li class="media my-4">
                         <img class="recent-avatar mr-3"
-                             src="<?php echo getUserV2exAvatar($r_comments->mail,UserFollow::getUserObjFromMail($r_comments->mail)['userAvatar'],40); ?>"/>
+                             src="<?php $uavatar=UserFollow::getUserObjFromMail($comments->mail);echo getUserV2exAvatar($r_comments->mail,empty((array)$uavatar)?'':$uavatar->userAvatar); ?>"/>
                         <div class="media-body">
                             <h6 class="mt-0 mb-1"><?php $r_comments->author(false); ?></h6>
                             <a class="content" href="<?php $r_comments->permalink(); ?>"

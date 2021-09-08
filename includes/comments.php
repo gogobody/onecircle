@@ -29,7 +29,7 @@ function threadedComments($comments, $options)
                         <?php elseif ($comments->url): ?>
                         <a href="<?php echo $comments->url ?>" target="_blank" rel="external nofollow">
                             <?php endif; ?>
-                            <img class="avatar" src="<?php echo getUserV2exAvatar($comments->mail,UserFollow::getUserObjFromMail($comments->mail)['userAvatar']); ?>" />
+                            <img class="avatar" src="<?php $uavatar=UserFollow::getUserObjFromMail($comments->mail);echo getUserV2exAvatar($comments->mail,empty((array)$uavatar)?'':$uavatar->userAvatar); ?>" />
                             <?php $comments->author(); ?>
                             <?php if ($comments->authorId === $comments->ownerId): ?>
                                 <span class="comment-author-title">作者</span>

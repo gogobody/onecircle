@@ -271,7 +271,7 @@ function isqq($email, $size = 100)
 }
 
 
-function getUserV2exAvatar($mail_, $userAvatar, $size = 100)
+function getUserV2exAvatar($mail_, $userAvatar = '', $size = 100)
 {
     if ($userAvatar && $userAvatar != '') {
         return $userAvatar;

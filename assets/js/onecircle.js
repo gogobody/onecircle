@@ -1992,7 +1992,7 @@ function submitForm(ele) {
     var datetime = year + "/" + mon + "/" + date
 
     if (val.length > 0 && val !== '') {
-        title.val(val.substring(0, 25))
+        title.val(val.substring(0, 40))
     }
     if (indexInput.nowtype === 'default') {
         if (val.length === 0 || val === '') {

@@ -201,6 +201,6 @@ class UserFollow
     public static function getUserObjFromMail($mail)
     {
         $db = Typecho_Db::get();
-        return $db->fetchRow($db->select('uid','name','mail','userSign','userAvatar','userBackImg')->from('table.users')->where('mail = ?', $mail));
+        return $db->fetchObject($db->select('uid','name','mail','userSign','userAvatar','userBackImg')->from('table.users')->where('mail = ?', $mail));
     }
 }

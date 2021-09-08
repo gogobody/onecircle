@@ -52,63 +52,65 @@ $(document).pjax('a[href^="<?php Helper::options()->siteUrl()?>"]:not(a[target="
     container: '#pjax-container',//
     fragment: '#pjax-container',
     timeout: 8000
-})
+});
 $(document).on('pjax:send',
     function() {
         NProgress.start();
-    })
+    });
 
-$(document).on('pjax:complete',function (){})
-$(document).on('pjax:end',function (){ NProgress.done();})
+$(document).on('pjax:complete',function (){});
+$(document).on('pjax:end',function (){ NProgress.done();});
 $(document).on('pjax:start', function() {});
 $(document).on('ready pjax:end', function(event) {
     pjaxInit();
     if (typeof smms_node!="undefined" && typeof smms!="undefined"){
-        smms_node.init()
-        smms.init()
+        smms_node.init();
+        smms.init();
     }
     if (typeof smms!="undefined"){
-        smms.init()
+        smms.init();
     }
-})
+});
 </script>
-<!--<script>// 禁止f12-->
-<!--    ((function() {-->
-<!--        var callbacks = [],-->
-<!--            timeLimit = 50,-->
-<!--            open = false;-->
-<!--        setInterval(loop, 1);-->
-<!--        return {-->
-<!--            addListener: function(fn) {-->
-<!--                callbacks.push(fn);-->
-<!--            },-->
-<!--            cancleListenr: function(fn) {-->
-<!--                callbacks = callbacks.filter(function(v) {-->
-<!--                    return v !== fn;-->
-<!--                });-->
-<!--            }-->
-<!--        }-->
-<!--        function loop() {-->
-<!--            var startTime = new Date();-->
-<!--            debugger;-->
-<!--            if (new Date() - startTime > timeLimit) {-->
-<!--                if (!open) {-->
-<!--                    callbacks.forEach(function(fn) {-->
-<!--                        fn.call(null);-->
-<!--                    });-->
-<!--                }-->
-<!--                open = true;-->
-<!--                window.stop();-->
-<!--                alert('不要扒我了');-->
-<!--                window.location.reload();-->
-<!--            } else {-->
-<!--                open = false;-->
-<!--            }-->
-<!--        }-->
-<!--    })()).addListener(function() {-->
-<!--        window.location.reload();-->
-<!--    });-->
-<!--</script>-->
+<?php if ($this->options->f12disable): ?>
+<script>// 禁止f12
+    ((function() {
+        var callbacks = [],
+            timeLimit = 50,
+            open = false;
+        setInterval(loop, 1);
+        return {
+            addListener: function(fn) {
+                callbacks.push(fn);
+            },
+            cancleListenr: function(fn) {
+                callbacks = callbacks.filter(function(v) {
+                    return v !== fn;
+                });
+            }
+        }
+        function loop() {
+            var startTime = new Date();
+            debugger;
+            if (new Date() - startTime > timeLimit) {
+                if (!open) {
+                    callbacks.forEach(function(fn) {
+                        fn.call(null);
+                    });
+                }
+                open = true;
+                window.stop();
+                alert('不要扒我了');
+                window.location.reload();
+            } else {
+                open = false;
+            }
+        }
+    })()).addListener(function() {
+        window.location.reload();
+    });
+</script>
+<?php endif; ?>
 <?php $this->footer(); ?>
 
 <?php if ($this->options->compressHtml): $html_source = ob_get_contents(); ob_clean(); print utils::compressHtml($html_source); ob_end_flush(); endif; ?>

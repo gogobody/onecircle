@@ -2,8 +2,14 @@
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 //require_once('admin/core.php');
 include_once 'admin/core.php';
+/**
+ * @throws Typecho_Plugin_Exception
+ */
 function themeConfig($form)
-{  $options = Helper::options();
+{   $options = Helper::options();
+    if (version_compare( phpversion(), '7.0.0', '<' ) ) {
+        throw new Typecho_Plugin_Exception('请升级到 php 7 以上');
+    }
     ?>
     <div class="j-setting-contain">
         <link href="<?php $options->themeUrl('/assets/admin/css/one.setting.min.css') ?>" rel="stylesheet" type="text/css" />
@@ -269,7 +275,12 @@ function themeConfig($form)
     $compressHtml->setAttribute('class', 'j-setting-content j-setting-other');
     $form->addInput($compressHtml);
 
-
+    $f12disable = new Typecho_Widget_Helper_Form_Element_Radio('f12disable',
+        array(1 => _t('启用'),
+            0 => _t('关闭')),
+        0, _t('启用代码防偷'), _t('默认关闭'));
+    $f12disable->setAttribute('class', 'j-setting-content j-setting-other');
+    $form->addInput($f12disable);
 
     /**
      * 积分设置

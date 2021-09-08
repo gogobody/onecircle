@@ -65,7 +65,7 @@ error_reporting(0);
                 <?php while ($comments->next()): ?>
                     <li class="media my-4">
                         <img class="recent-avatar mr-3"
-                             src="<?php echo getUserV2exAvatar($comments->mail,UserFollow::getUserObjFromMail($comments->mail)['userAvatar']); ?>"/>
+                             src="<?php $uavatar=UserFollow::getUserObjFromMail($comments->mail);echo getUserV2exAvatar($comments->mail,empty((array)$uavatar)?'':$uavatar->userAvatar); ?>"/>
                         <div class="media-body">
                             <h6 class="mt-0 mb-1"><?php $comments->author(false); ?></h6>
                             <a class="content" href="<?php $comments->permalink(); ?>"
