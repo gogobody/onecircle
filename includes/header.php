@@ -28,20 +28,18 @@
             'author' => _t('%s 发布的文章')
         ), '', ' - '); ?><?php $this->options->title(); ?></title>
     <!-- 通过自有函数输出HTML头部信息 -->
-    <meta itemprop="image"
-          content="<?php if ($this->fields->banner && $this->fields->banner != ''):$this->fields->banner();
-          else: echo explode(PHP_EOL, $this->options->bannerUrl)[0]; endif; ?>"/>
-    <meta name="description" itemprop="description" content="<?php if ($this->is('index')) {
-        $this->options->description();
-    } elseif ($this->is('category')) {
-        echo $this->getDescription();
-    } elseif ($this->is('single')) {
-        $this->excerpt(200, '');
-    } ?>">
+    <meta itemprop="image" content="<?php $this->options->JShare_QQ_Image() ?>" />
+
+    <?php if ($this->is('single')) : ?>
+        <meta name="keywords" content="<?php echo !empty($this->fields->keywords) ? $this->fields->keywords : htmlspecialchars($this->_keywords); ?>" />
+        <meta name="description" content="<?php echo !empty($this->fields->description) ? $this->fields->description : htmlspecialchars($this->_description); ?>" />
+    <?php else : ?>
+        <?php $this->header(); ?>
+    <?php endif; ?>
     <?php $this->header('description=&generator=&template='); ?>
     <?php $this->options->cssEcho(); ?>
     <?php $this->options->headerEcho(); ?>
-    <script>gconf={index:'<?_e(Helper::options()->index)?>',oneaction:'<?_e(Helper::options()->index)?>/oneaction'}</script>
+    <script>gconf={index:'<?_e(Helper::options()->index)?>',oneaction:'<?php _e(Helper::options()->index)?>/oneaction'}</script>
     <script src="https://cdn.bootcdn.net/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/responsive.min.css'); ?>?version=<?php themeVersion() ?>" />
     <?php

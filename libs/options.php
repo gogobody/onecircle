@@ -41,9 +41,11 @@ function themeConfig($form)
     $enableMessage->setAttribute('class', 'j-setting-content j-setting-global');
     $form->addInput($enableMessage);
 
-    $favicon = new Typecho_Widget_Helper_Form_Element_Text('favicon', NULL, NULL, _t('favicon'), _t('favicon 图片'));
-    $favicon->setAttribute('class', 'j-setting-content j-setting-global');
-    $form->addInput($favicon);
+    $announcement = new Typecho_Widget_Helper_Form_Element_Textarea('announcement', NULL, NULL, _t('公告'), _t('首页公告内容（默认左下角），不填不显示,可以填写 html'));
+    $announcement->setAttribute('class', 'j-setting-content j-setting-global');
+    $form->addInput($announcement);
+
+
     // 公共设置
     $recordNo = new Typecho_Widget_Helper_Form_Element_Text('recordNo', NULL, NULL, _t('网站备案号'), _t('根据要求，每个备案网站必须填写备案号'));
     $recordNo->setAttribute('class', 'j-setting-content j-setting-global');
@@ -67,6 +69,14 @@ function themeConfig($form)
     );
     $avatarSource->setAttribute('class', 'j-setting-content j-setting-image');
     $form->addInput($avatarSource);
+
+    $JShare_QQ_Image = new Typecho_Widget_Helper_Form_Element_Text('JShare_QQ_Image', NULL, NULL, _t('qq分享图'), _t('qq分享图 图片'));
+    $JShare_QQ_Image->setAttribute('class', 'j-setting-content j-setting-image');
+    $form->addInput($JShare_QQ_Image);
+
+    $favicon = new Typecho_Widget_Helper_Form_Element_Text('favicon', NULL, NULL, _t('favicon'), _t('favicon 图片,浏览器显示的小logo'));
+    $favicon->setAttribute('class', 'j-setting-content j-setting-image');
+    $form->addInput($favicon);
 
     $logoUrl = new Typecho_Widget_Helper_Form_Element_Text('logoUrl', NULL, "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2592033302,3451533765&fm=26&gp=0.jpg", _t('<h2>普通设置</h2>站点 LOGO 地址'), _t('在这里填入一个图片 URL 地址, 以在网站标题前加上一个 LOGO'));
     $logoUrl->setAttribute('class', 'j-setting-content j-setting-image');
@@ -96,7 +106,7 @@ function themeConfig($form)
     $JMainColor->setAttribute('class', 'j-setting-content j-setting-color');
     $form->addInput($JMainColor);
 
-    $Jtransparent = new Typecho_Widget_Helper_Form_Element_Text('Jtransparent', NULL, "0.3", _t('透明度'),_t('<br>设置全局透明度，0是透明，1是不透明，默认 0.3 '));
+    $Jtransparent = new Typecho_Widget_Helper_Form_Element_Text('Jtransparent', NULL, "0.7", _t('透明度'),_t('<br>设置全局透明度，0是透明，1是不透明，默认 0.7 '));
     $Jtransparent->setAttribute('class', 'j-setting-content j-setting-color');
     $form->addInput($Jtransparent);
 

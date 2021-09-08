@@ -120,6 +120,7 @@ var indexInput = {
         this.messagePageInit()
         this.userCenterInit()
         this.hightInit()
+        this.annouceInit()
     },
     resetInputStatus: function () {// reset status when change nowtype
         this.additionArray = []
@@ -715,6 +716,15 @@ var indexInput = {
             }
         }
         Prism.highlightAll();
+    },
+    annouceInit:function () {
+        let toast_ = $("#liveToast");
+        let tco = OneLocalStorage.get('one_toast');
+        if(toast_.length > 0 && !tco){
+            toast_.toast('show');
+            let date = new Date().getTime();
+            OneLocalStorage.set('one_toast', '1',date + 604800)
+        }
     },
     pjax_complete: function () {
         this.init()
@@ -1839,6 +1849,24 @@ var utils = {
 
 }
 
+const OneLocalStorage = {
+    set: function (key, value, ttl_s) {
+        var data = { value: value, expirse: new Date(ttl_s*1000).getTime() };
+        localStorage.setItem(key, JSON.stringify(data));
+    },
+    get: function (key) {
+        var data = JSON.parse(localStorage.getItem(key));
+        if (data !== null) {
+            debugger
+            if (data.expirse != null && data.expirse < new Date().getTime()) {
+                localStorage.removeItem(key);
+            } else {
+                return data.value;
+            }
+        }
+        return null;
+    }
+}
 // rady
 $(function () {
     // comment

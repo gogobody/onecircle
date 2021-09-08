@@ -1,5 +1,21 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
-
+<?php /*公告*/ if ($this->options->announcement):?>
+<div class="position-fixed bottom-0 left-0 p-3" style="z-index: 5; left: 0; bottom: 0;">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+        <div class="toast-header">
+            <img src="<?php $this->options->favicon(); ?>" class="rounded mr-2" style="height: 26px;" alt="icon">
+            <strong class="mr-auto">站长公告</strong>
+            <small class="text-muted">just now~</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <?php $this->options->announcement() ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
 </div> <!--close header app layout-->
 
 
