@@ -15,6 +15,12 @@ class comments
         return $text;
     }
 
+    public static function parseText($text)
+    {
+        $text = contents::parseOwo($text);
+        $text = self::parseSecret($text);
+        return $text;
+    }
     public static function parseSecret($text)
     {
         $reg = '/\[secret\](.*?)\[secret\]/sm';
