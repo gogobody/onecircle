@@ -110,7 +110,7 @@ $(document).on('ready pjax:end', function(event) {
                     return v !== fn;
                 });
             }
-        }
+        };
         function loop() {
             var startTime = new Date();
             debugger;
