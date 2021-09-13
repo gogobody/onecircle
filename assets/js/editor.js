@@ -19,18 +19,7 @@ $(function () {
             width: '400px',
             maxHeight: '215px'
         });
-        $(document).on('click', '#wmd-tip-button', function () {
-            myField = document.getElementById('text');
-            insertAtCursor(myField, '\n[tip type="info"]\n\n[/tip]\n');
-        });
-        $(document).on('click', '#wmd-collapse-button', function () {
-            myField = document.getElementById('text');
-            insertAtCursor(myField, '\n[collapse]\n[collapse-item label="标题"]\n\n[/collapse-item]\n[/collapse]\n');
-        });
-        $(document).on('click', '#wmd-tabs-button', function () {
-            myField = document.getElementById('text');
-            insertAtCursor(myField, '\n[tabs]\n[tab-pane label="标题"]\n\n[/tab-pane]\n[/tabs]\n');
-        });
+
         $(document).on('click', '#wmd-hide-button', function () {
             myField = document.getElementById('text');
             insertAtCursor(myField, '\n[hide]\n\n[endhide]\n');

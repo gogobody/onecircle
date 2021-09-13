@@ -185,7 +185,9 @@ class contents{
     {
         $reg = '/\[video src="(.+?)"]/sm';
         if (preg_match($reg, $text)) {
-            $replacement = '<div class="embed-responsive embed-responsive-4by3"><iframe class="video lazyload" data-src="$1?auto=0&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>';
+            $player = Helper::options()->JCustomPlayer ? Helper::options()->JCustomPlayer : Helper::options()->themeUrl('libs/player.php?url=','onecircle');
+            $replacement = '<div class="embed-responsive embed-responsive-4by3"><iframe class="video lazyload" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" data-src="'.$player.'$1"></iframe></div>';
+
             return preg_replace($reg, $replacement, $text);
         }
         return $text;

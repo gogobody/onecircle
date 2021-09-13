@@ -1,4 +1,5 @@
 <?php
+
 /**
  * circle follow by gogobody
  * Class UserFollow
@@ -13,11 +14,11 @@ class CircleFollow
         $prefix = $db->getPrefix();
         $type = explode('_', $db->getAdapterName());
         $type = array_pop($type);
-        if($type == "SQLite"){
-            $sql ="SELECT count(*) FROM sqlite_master WHERE type='table' AND name='".$prefix."circle_follow';";
+        if ($type == "SQLite") {
+            $sql = "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='" . $prefix . "circle_follow';";
             $checkTabel = $db->query($sql);
             $row = $checkTabel->fetchAll();
-            if ($row[0]["count(*)"] == '0'){
+            if ($row[0]["count(*)"] == '0') {
                 $res = $db->query('CREATE TABLE `' . $prefix . 'circle_follow` (
                                   `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                                   `uid` bigint(20) NOT NULL DEFAULT 0 ,
@@ -25,7 +26,7 @@ class CircleFollow
                                   `createtime` int(10) DEFAULT 0 
                                 )');
             }
-        }else{
+        } else {
             $sql = 'SHOW TABLES LIKE "' . $prefix . 'circle_follow' . '"';
             $checkTabel = $db->query($sql);
             $row = $checkTabel->fetchAll();
@@ -79,7 +80,7 @@ class CircleFollow
         $prefix = $db->getPrefix();
         if (is_numeric($uid) && is_numeric($mid)) {
 //            $insert = $db->delete('table.circle_follow')->rows(array('uid' => $uid, 'mid' => $mid)); // delete all
-            $insert = $db->delete('table.circle_follow')->where('uid = ? and mid = ?',$uid,$mid);
+            $insert = $db->delete('table.circle_follow')->where('uid = ? and mid = ?', $uid, $mid);
             $db->query($insert);
             return true;
         }
@@ -136,7 +137,7 @@ class CircleFollow
      * @throws Typecho_Db_Exception
      * @throws Typecho_Exception
      */
-    public static function getFollowObj($uid, $num = 20,$url='')
+    public static function getFollowObj($uid, $num = 20, $url = '')
     {
         $db = Typecho_Db::get();
         $arr = $db->fetchAll($db->select('mid')->from('table.circle_follow')->where('uid = ?', $uid)->limit($num));
@@ -165,7 +166,7 @@ class CircleFollow
         $arr = $db->fetchAll($db->select('uid')->from('table.circle_follow')->where('mid = ?', $mid));
         $newArr = [];
         for ($i = 0; $i < count($arr) && $i < $num; $i++) {
-            $obj = $db->fetchRow($db->select('uid', 'name', 'mail','screenName')->from('table.users')->where('uid = ?', $arr[$i]));
+            $obj = $db->fetchRow($db->select('uid', 'name', 'mail', 'screenName')->from('table.users')->where('uid = ?', $arr[$i]));
             array_push($newArr, $obj);
         }
         return $newArr;
@@ -174,8 +175,18 @@ class CircleFollow
     public static function getMetaObj($mid)
     {
         $db = Typecho_Db::get();
-        return $db->fetchRow($db->select('mid', 'name', 'slug','description')->from('table.metas')->where('mid = ?', $mid));
+        return $db->fetchRow($db->select('mid', 'name', 'slug', 'description')->from('table.metas')->where('mid = ?', $mid));
 
+    }
+
+    public static function parseDesc2Img($desc)
+    {
+        $preg = '/^<(.*)>([\s\S]*)/';
+        preg_match($preg, $desc, $res);
+        if (isset($res[1])) {
+            return $res[1];
+        }
+        return '';
     }
 
     /**
@@ -183,9 +194,30 @@ class CircleFollow
      * @param $mid
      * @param $changetomid
      */
-    public static function changeCircleCat($mid,$changetomid){
+    public static function changeCircleCat($mid, $changetomid)
+    {
         $db = Typecho_Db::get();
-        $update = $db->update('table.metas')->rows(array('tagid'=>$changetomid))->where('mid = ?',$mid);
+        $update = $db->update('table.metas')->rows(array('tagid' => $changetomid))->where('mid = ?', $mid);
         return $db->query($update);
+    }
+
+    /**
+     * 获取热门圈子
+     */
+    public static function getHotCircles()
+    {
+        $db = Typecho_Db::get();
+        $hots = $db->fetchAll($db->select('count(uid) num', 'mid')->from('table.circle_follow')
+            ->group('mid')->order('num', Typecho_Db::SORT_DESC)->limit(15));
+        $data = [];
+        foreach ($hots as $val) {
+            $obj = self::getMetaObj($val['mid']);
+            array_push($data, [
+                'mid' => $obj->mid,
+                'topic_name' => $obj->name,
+                'cover_img' => self::parseDesc2Img($obj->description),
+            ]);
+        }
+        return $data;
     }
 }

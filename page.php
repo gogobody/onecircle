@@ -16,8 +16,8 @@
             </nav>
             <article class="post">
                 <h1 class="article-title"><a href="<?php $this->permalink() ?>"><?php $this->title() ?></a></h1>
-                <div class="article-content">
-                    <?php $this->content(); ?>
+                <div class="article-content joe_detail__article">
+                    <?php _parseContent($this, $this->user->hasLogin()) ?>
                 </div>
             </article>
             <?php $this->need('includes/comments.php'); ?>

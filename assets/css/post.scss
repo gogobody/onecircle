@@ -9,39 +9,47 @@
     border-radius: 5px;
 }
 
+.article-content{
+    pre {
+        position: relative;
+        margin: 0 0 18px;
+        padding: 30px 0 0;
+        font-size: 14px;
+        border-radius: var(--radius-inner);
+        overflow: hidden;
+        code {
+            display: block;
+            overflow: auto;
+            padding: 0 15px 12px;
+        }
+        &::before {
+            content: '';
+            position: absolute;
+            top: 9px;
+            left: 15px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #fc625d;
+            box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+            z-index: 1;
+        }
+        .copy {
+            position: absolute;
+            top: 9px;
+            right: 15px;
+            z-index: 5;
+            color: #909399;
+            transition: color 0.35s;
+            cursor: pointer;
+            user-select: none;
+            &:hover {
+                color: #c0c4cc;
+            }
+        }
+    }
+}
 
-pre[class*="language-"].line-numbers {
-    position: relative;
-    padding: 3px; /*修改*/
-    padding-left: 3.8em;
-    counter-reset: linenumber;
-    max-height: 500px;/*修改*/
-    background: #151515;/*修改*/
-    border: none;
-}
-.pre-mac{
-    position: absolute;
-    top: 7px;
-    left: 10px;
-    width: 100px;
-    z-index: 99;
-}
-.pre-mac>span{
-    float: left;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 5px;
-}
-.pre-mac>span:nth-child(1){
-    background: red;
-}
-.pre-mac>span:nth-child(2){
-    background: sandybrown;
-}
-.pre-mac>span:nth-child(3){
-    background: limegreen;
-}
 
 /* end */
 .breadcrumb {
@@ -726,122 +734,7 @@ b站视频
 .required-password {
     margin-left: 146px;
 }
-/**
-标签内容的美化
- */
-article table {
-    color: #5b6064;
-    border-spacing: 0;
-    text-align: center;
-    border-collapse: collapse;
-    box-shadow: 0 0 0 1px #eee;
-    display: inline-block;
-    max-width: 100%;
-    overflow: auto;
-    /*white-space: nowrap;*/
-    margin: auto;
-}
-article table thead {
-    border-bottom: 1px solid #eee;
-    background-color: #f8f8f8;
-}
-article table thead tr {
-    background-color: #f8f8f8!important;
-}
-article table tr:nth-child(odd) {
-    background-color: #fff;
-}
 
-article table tr:nth-child(2n) {
-    background-color: #f8f8f8;
-}
-article table th {
-    border-right: 1px solid #eee;
-    padding: 13px 26px;
-    font-weight: 400;
-}
-article table td {
-    border-right: 1px solid #eee;
-    padding: 13px 26px;
-}
-.article-content h1, .article-content h2, .article-content h3, .article-content h4, .article-content h5, .article-content h6 {
-    color: #4a4a4a;
-    margin: 20px 0;
-}
-.article-content h1 {
-    font-size: 1.625rem;
-}
-.article-content h1::before {
-    content: '#';
-    color:  rgb(29, 161, 242);
-    margin-right: 7px;
-    font-weight: 600;
-}
-.article-content h2 {
-    font-size: 1.25rem;
-    border-left: 3px solid #1da1f2;
-    padding-left: 15px;
-}
-.article-content h3 {
-    position: relative;
-    font-size: 1.125rem;
-    padding-left: 20px;
-}
-.article-content h3:before {
-    content: '';
-    position: absolute;
-    top: 6px;
-    left: 0;
-    height: 8px;
-    width: 8px;
-    border-radius: 20px;
-    background-color: #00b5e5;
-}
-.article-content h4:before, .article-content h5:before, .article-content h6:before {
-    display: inline-block;
-    margin-right: 1px;
-    content: '#';
-    color: #00b5e5;
-}
-.article-content h4 {
-    font-size: 1rem;
-    padding-bottom: .5rem;
-    border-bottom: 1px solid #e6ecf0;
-}
-.article-content h5, .article-content h6 {
-    font-size: .875rem;
-}
-.article-content blockquote {
-    position: relative;
-    padding: 0 40px 0 80px;
-    margin: 40px 0;
-    border: 0;
-}
-.article-content blockquote::before {
-    content: "\201C";
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 0;
-    width: 80px;
-    height: 60px;
-    font-size: 70px;
-    line-height: 60px;
-    color: #222;
-    font-family: sans-serif;
-    text-align: center;
-    z-index: 1;
-}
-.article-content blockquote p {
-    line-height: 1.6;
-    color: #222;
-}
-.article-content blockquote img {
-    margin-left: -105px;
-}
-.article-content p {
-    margin-bottom: 10px;
-}
 .reply2view {
     background:#f8f8f8;
     padding:10px 10px 10px 40px;

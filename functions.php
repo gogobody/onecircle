@@ -9,6 +9,7 @@ require_once 'libs/UserFollow.php';
 require_once 'libs/CircleFollow.php';
 require_once 'libs/UserMessage.php';
 require_once 'libs/route.php';
+require_once 'core/core.php';
 require_once 'widget/Widget_Users_Random.php';
 require_once 'widget/Widget_Metas_Random.php';
 /**
@@ -266,7 +267,7 @@ function isqq($email, $size = 100)
 //        return "https://dn-qiniu-avatar.qbox.me/avatar/".$email."?&s=".$size;
         return $avatarsource . $email . "?&s=" . $size;
     } else {
-        return $avatarsource."null?&s=" . $$size;
+        return $avatarsource."null?&s=" . $size;
     }
 }
 

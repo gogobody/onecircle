@@ -13,12 +13,22 @@
     <link crossorigin="anonymous" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" href="https://lib.baomitu.com/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typecho-joe-next@6.0.0/plugin/qmsg/qmsg.css">
+
     <!-- 文章 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <?php if ($this->options->JPrismTheme) : ?>
+        <link rel="stylesheet" href="<?php $this->options->JPrismTheme() ?>">
+    <?php else : ?>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.min.css">
+    <?php endif; ?>
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/post.min.css'); ?>?version=<?php themeVersion() ?>">
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/owo/owo.min.css'); ?>?version=<?php themeVersion() ?>">
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/onecircle.min.css'); ?>?version=<?php themeVersion() ?>">
     <link crossorigin="anonymous" integrity="sha384-Q8BgkilbsFGYNNiDqJm69hvDS7NCJWOodvfK/cwTyQD4VQA0qKzuPpvqNER1UC0F"
           href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet">
+
     <?php if ($this->options->favicon): ?>
         <link rel="shortcut icon" href="<?php $this->options->favicon(); ?>"><?php endif; ?>
     <title><?php $this->archiveTitle(array(
@@ -39,7 +49,7 @@
     <?php $this->header('description=&generator=&template='); ?>
     <?php $this->options->cssEcho(); ?>
     <?php $this->options->headerEcho(); ?>
-    <script>gconf={index:'<?_e(Helper::options()->index)?>',oneaction:'<?php _e(Helper::options()->index)?>/oneaction'}</script>
+    <script>gconf={index:'<?php _e(Helper::options()->index)?>',oneaction:'<?php _e(Helper::options()->index)?>/oneaction',IS_MOBILE: /windows phone|iphone|android/gi.test(window.navigator.userAgent)}</script>
     <script src="https://cdn.bootcdn.net/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/responsive.min.css'); ?>?version=<?php themeVersion() ?>" />
     <?php
@@ -72,17 +82,18 @@
             --articleHover: <?php if ($setTansparent) _e('rgb(248,250,251,0.5);'); else _e('rgb(248,250,251);');?>;
             --focusUserColor: <?php if ($setTansparent) _e('rgb(242,245,258,0.5);'); else _e('rgb(242,245,258);');?>;
             --contentbg: <?php if ($setTansparent) _e('rgb(245,248,250,0.5);'); else _e('rgb(245,248,250);');?>;
-            --info: <?php echo $this->options->JInfoColor ? $this->options->JInfoColor : '#909399' ?>;
-            --radius-pc: <?php echo $this->options->JRadiusPC ? $this->options->JRadiusPC : '10px'?>;
-            --radius-wap: <?php echo $this->options->JRadiusWap ?>;
-            --text-shadow: <?php echo $this->options->JTextShadow ? $this->options->JTextShadow : '0 1px 2px rgba(0, 0, 0, 0.25)' ?>;
-            --box-shadow: <?php echo $this->options->JBoxShadow ? $this->options->JBoxShadow : '0px 0px 20px -5px rgba(158, 158, 158, 0.22)' ?>;
-            --background: <?php echo $this->options->JCardBackground ? $this->options->JCardBackground : '#fff' ?>;
+            --info: #909399;
+            --radius-pc: 10px;
+            --radius-wap: 4px;
+            --text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+            --box-shadow: 0px 0px 20px -5px rgba(158, 158, 158, 0.22);
+            --background: #fff;
             --swiper-theme-color: #fff !important;
-            --indexcolor: <?php echo $this->options->bgColor ? $this->options->bgColor :'#eff3f6'?>;
+            --indexcolor: #eff3f6;
+            --navMcolor: <?php $this->options->JnavMenuColor(); ?>
         }
         body:before{
-            background-image: url("<?php echo $this->options->bgImg ? $this->options->bgImg :''?>");
+            background-image: url("<?php echo !empty($this->options->bgImg) ? $this->options->bgImg :''?>");
         }
     </style>
 

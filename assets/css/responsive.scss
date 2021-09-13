@@ -19,7 +19,14 @@
         transform: translate3d(0, 0, 0)
     }
 }
+// min width
+@media (min-width: 1800px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl {
+        max-width: 1300px;
+    }
+}
 
+//max width
 @media (max-width: 1200px) {
     .j-index .main .index-banner {
         display: block;
