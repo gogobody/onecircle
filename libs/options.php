@@ -415,7 +415,7 @@ function themeConfig($form)
 
     $JCommentSMTPSecure = new Typecho_Widget_Helper_Form_Element_Select(
         'JCommentSMTPSecure',
-        array('ssl' => 'ssl（默认）', 'tsl' => 'tsl'),
+        array('ssl' => 'ssl（默认）', 'tls' => 'tls'),
         'ssl',
         '加密方式',
         '介绍：用于选择登录鉴权加密方式'
