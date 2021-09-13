@@ -4,7 +4,7 @@
  * OneCircle theme，也许是 typecho 第一个社交圈子主题，编辑器移植于joe，经过 joe 授权，感谢 joe
  * @package OneCircle
  * @author gogobody <a href="https://www.ijkxs.com">即刻学术</a>
- * @version 4.2
+ * @version 4.3
  * @link check https://github.com/gogobody/onecircle
  */
 

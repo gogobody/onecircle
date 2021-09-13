@@ -690,6 +690,22 @@ function checkCircleEditPermission($login_uid)
     return false;
 }
 
+
+/* 判断敏感词是否在字符串内 */
+function _checkSensitiveWords($words_str, $str)
+{
+    $words = explode("||", $words_str);
+    if (empty($words)) {
+        return false;
+    }
+    foreach ($words as $word) {
+        if (false !== strpos($str, trim($word))) {
+            return true;
+        }
+    }
+    return false;
+}
+
 /**
  * only those permission can send post
  * @param $group
