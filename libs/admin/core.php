@@ -352,7 +352,7 @@ class Widget_Post_hot extends Widget_Abstract_Contents
 }
 
 /* 随机图片 */
-function GetRandomThumbnail($widget)
+function GetRandomThumbnail($widget,$retu=0)
 {
     $random = THEME_URL . '/assets/blog/img/random/' . rand(1, 25) . '.webp';
     if (Helper::options()->Jmos) {
@@ -381,8 +381,10 @@ function GetRandomThumbnail($widget)
     }
     $check = "/^((https|http|ftp|rtsp|mms)?:\/\/)?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/i";
     if(preg_match_all($check,$img,$ret)){
+        if($retu) return $img;
         echo $img;
     }else{
+        if($retu) return $img;
         echo $random;
     }
 }

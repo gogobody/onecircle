@@ -198,10 +198,7 @@ class contents{
         if (preg_match_all($reg, $text, $matches)) {
             $db = Typecho_Db::get();
             foreach ($matches[1] as $match) {
-                $result = $db->fetchAll($db->select()->from('table.fields')
-                    ->where('cid = ?',$match)
-                );
-                $articleArr = $db->fetchAll($db->select()->from('table.contents')
+                $articleArr = $db->fetchRow($db->select()->from('table.contents')
                     ->where('status = ?','publish')
                     ->where('type = ?', 'post')
                     ->where('cid = ?',$match)
@@ -210,22 +207,33 @@ class contents{
                     $text =  preg_replace($reg, '<br>文章cid错误<br>', $text, 1);
                     return $text;
                 }
-                $val = Typecho_Widget::widget('Widget_Abstract_Contents')->push($articleArr[0]);
-                if ($result[0]['name'] =="banner"){
-                    $banner = empty($result[0]['str_value'])?'/usr/themes/onecircle/assets/img/default.png':$result[0]['str_value'];
+                $widget = Typecho_Widget::widget('Widget_Abstract_Contents');
+                $widget->push($articleArr);
+                $thumb = GetRandomThumbnail($widget,1);
 
-                }else{
-                    $banner = '/usr/themes/onecircle/assets/img/default.png';
-                }
-
-                $replacement = '<div class="card cid-card text-white">
-                              <img src="'.$banner.'" class="card-img" alt="文章卡片">
-                              <div class="card-img-overlay">
-                                <span class="card-title"><a href="'.$val['permalink'].'">'.$val['title'].'</a></span>
-                                <p class="card-text">'.$result[1]['excerpt'].'</p>
-                                <p class="card-text">'.date('Y-m-d H:i:s', $val['modified']).'</p>
-                              </div>
-                            </div>';
+                $replacement = '<div class="pcenter"><div class="insert-post"><span class="insert-post-bg">
+        <picture class="picture"><img class="lazyload" data-src="'.$thumb.'" alt=""></picture>
+        </span><div class="insert-post-thumb">
+            <a href="'.$widget->permalink.'" target="_blank">
+            <picture class="picture"><img class="lazyload b2-radius" data-src="'.$thumb.'" alt=""></picture>
+            </a>
+        </div><div class="insert-post-content">
+                <div class="bh2"><span><a href="'.$widget->permalink.'" target="_blank">'.$widget->title.'</a></span></div>
+                <div class="insert-post-meta">
+                    <div class="insert-post-meta-avatar"><img alt="'.$widget->title.'" class="avatar loading" src="'.getUserV2exAvatar($widget->author->mail,$widget->author->userAvatar).'" data-was-processed="true"><a href="'.$widget->author->permalink.'">'.$widget->author->screenName.'</a></div>
+                    <ul class="post-meta">
+                        <li class="single-date">
+                            <time class="b2timeago" itemprop="datePublished">'.date('Y-m-d ', $widget->modified).'</time>
+                        </li>
+                        <li class="single-like">
+                            <i class="fa fa-heart"></i>'.$widget->likes.'
+                        </li>
+                        <li class="single-eye">
+                            <i class="fa fa-eye"></i>'.$widget->views.'
+                        </li>
+                    </ul>
+                </div>
+            </div></div></div>';
                 $text =  preg_replace($reg, $replacement, $text, 1);
             }
         }

@@ -1,4 +1,5 @@
 $(function () {
+
     let wmdBtn = $('#wmd-button-row')
     if (wmdBtn.length > 0) {
         wmdBtn.append('<li class="wmd-spacer wmd-spacer1"></li><li class="wmd-button" id="wmd-hide-button" style="" title="插入隐藏内容"><i class="far fa-eye-slash"></i></li>');
@@ -70,4 +71,5 @@ $(function () {
             })
         })
     }
+
 });

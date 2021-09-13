@@ -870,4 +870,48 @@ export default class JoeAction {
 			}
 		});
 	}
+	// OneCircle Add
+	handleOneCid(cm) {
+		this._openModal({
+			title: '插入文章 cid',
+			innerHtml: `
+				<div class="fitem">
+					<label>输入文章 cid</label>
+					<input autocomplete="off" name="insetCids" placeholder="输入文章 cid"/>
+				</div>
+            `,
+			confirm: () => {
+				const cids = $(".cm-modal input[name='insetCids']").val();
+				const str = `\n[cid="${cids}"]\n\n`;
+				if (this._getLineCh(cm)) this._replaceSelection(cm, '\n' + str);
+				else this._replaceSelection(cm, str);
+				cm.focus();
+			}
+		});
+	}
+
+	handleOneLink(cm) {
+		this._openModal({
+			title: '插入 OneCircle 样式链接',
+			innerHtml: `
+				<div class="fitem">
+					<label>输入链接文字</label>
+					<input autocomplete="off" name="OneLinkText" placeholder="输入链接文字"/>
+				</div>
+				<div class="fitem">
+					<label>输入链接地址</label>
+					<input autocomplete="off" name="OneLinkAddr" placeholder="输入链接地址"/>
+				</div>
+            `,
+			confirm: () => {
+				const text = $(".cm-modal input[name='OneLinkText']").val();
+				const addr = $(".cm-modal input[name='OneLinkAddr']").val();
+
+				const str = `\n[pureLink comment="" text="${text}" link="${addr}"]\n\n`;
+				if (this._getLineCh(cm)) this._replaceSelection(cm, '\n' + str);
+				else this._replaceSelection(cm, str);
+				cm.focus();
+			}
+		});
+	}
 }

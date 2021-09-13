@@ -442,6 +442,7 @@ function parseDesc2text($desc)
 function getGirdPics($this_)
 {
     $images = getPostImg($this_);
+    $images = array_values(array_unique($images));
     $length = count($images);
     return array(
         "images" => $images,
