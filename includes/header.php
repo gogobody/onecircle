@@ -89,8 +89,8 @@
             --box-shadow: 0px 0px 20px -5px rgba(158, 158, 158, 0.22);
             --background: #fff;
             --swiper-theme-color: #fff !important;
-            --indexcolor: #eff3f6;
-            --navMcolor: <?php $this->options->JnavMenuColor(); ?>
+            --navMcolor: <?php $this->options->JnavMenuColor(); ?>;
+            --indexcolor: <?php $this->options->bgColor();/*主页背景色*/ ?>;
         }
         body:before{
             background-image: url("<?php echo !empty($this->options->bgImg) ? $this->options->bgImg :''?>");
