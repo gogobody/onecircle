@@ -30,6 +30,14 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
                         <span class="nav-item-text"><?php _e('博客'); ?></span>
                     </div>
                 </a>
+                <?php $poptions = Helper::options()->plugin('OneCircle');if ($poptions->enableResource):?>
+                <a class="nav-link" href="<?php _e($this->options->index); ?>/resources">
+                    <div class="nav-item nav-icon">
+                        <?php $this->options->NavResource(); ?>
+                        <span class="nav-item-text"><?php _e('资源'); ?></span>
+                    </div>
+                </a>
+                <?php endif;?>
                 <?php $pages = null;
                 $this->widget('Widget_Contents_Page_List')->to($pages); ?>
 

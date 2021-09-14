@@ -37,7 +37,7 @@ class comments
             if ($user->hasLogin() || $result) {
                 $text = preg_replace($reg, '<div class="secret">${1}</div>', $text);
             } else {
-                $text = preg_replace($reg, '<div class="secret text-center">该评论仅登录用户及评论双方可见</div>', $text);
+                $text = preg_replace($reg, '<div class="secret text-center">私密消息</div>', $text);
             }
         }
         return $text;

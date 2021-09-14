@@ -31,7 +31,7 @@ $arr = getGirdPics($this);
     <?php else: ?>
         <div class="post-cover col-xl-12">
             <div class="post-cover-img-container" onclick="">
-                <?php ehco9gridPics($arr['images'], $arr['length']); ?>
+                <?php echo9gridPics($arr['images'], $arr['length']); ?>
             </div>
         </div>
     <?php endif; ?>

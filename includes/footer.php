@@ -62,6 +62,9 @@
 ?>
 <script>userId=<?php echo $userId?></script>
 <script src="<?php $this->options->themeUrl('assets/js/onecircle.min.js'); ?>?version=<?php themeVersion() ?>"></script>
+<?php $poptions = Helper::options()->plugin('OneCircle');if ($poptions->enableResource):?>
+<script src="<?php $this->options->themeUrl('assets/js/resources.min.js'); ?>?version=<?php themeVersion() ?>"></script>
+<?php endif;?>
 <?php if ($this->options->jsPushBaidu):?>
     <script src="<?php $this->options->themeUrl('assets/js/push.js'); ?>"></script>
 <!--    // 加载不出时触发-->
@@ -91,6 +94,9 @@ $(document).on('ready pjax:end', function(event) {
     }
     if (typeof smms!="undefined"){
         smms.init();
+    }
+    if (window.JKHelperInstance){
+        window.JKHelperInstance.init()
     }
 });
 </script>

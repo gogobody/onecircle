@@ -55,6 +55,22 @@ function themeFields(Typecho_Widget_Helper_Layout $layout)
 
 
     }
+
+    $price = new Typecho_Widget_Helper_Form_Element_Text('jifenPay',
+        null,
+        null,
+        '积分查阅',
+        '输入积分数，不输入不生效，默认0'
+    );
+    $layout->addItem($price);
+
+    $resourceField = new Typecho_Widget_Helper_Form_Element_Radio('resourceField',
+        array('独家' => _t('独家'),
+            '已测试' => _t('已测试'),
+        ),
+        '', '资源字段', _t('将在资源页显示'));
+    $layout->addItem($resourceField);
+
     $thumb = new Typecho_Widget_Helper_Form_Element_Text(
         'thumb',
         NULL,
@@ -146,7 +162,13 @@ function getPostImg($archive)
     $img = array_merge($allImg[1], $allImg2[1], $echoAllImg[1]);
 
     /*    preg_match_all("/<img.*?src=\"(.*?)\".*?\/?>/i", $archive->content, $img);*/
-
+    $pay_img = '/usr/plugins/OneCircle/assets/img/icon.png';
+    foreach ($img as $key => $item) {
+        if(strpos($item,$pay_img) !== false){
+            unset($img[$key]);
+        }
+    }
+    $img = array_values($img);
     //  判断是否匹配到图片
     if (!empty($img)) {
         return $img;
@@ -222,7 +244,7 @@ function getRandRecommendImgs($cnt_ = 10)
 {
     $db = Typecho_Db::get();
     $prefix = $db->getPrefix();
-    $select = "SELECT t.cid,t.text,t.authorId,f.str_value as ftype FROM " . $prefix . "contents t LEFT JOIN " . $prefix . "fields f ON t.cid = f.cid AND t.type = 'post' AND t.status = 'publish' AND f.name = 'articleType' AND f.str_value = 'default' WHERE f.str_value = 'default'";
+    $select = "SELECT t.cid,t.text,t.authorId,f.str_value as ftype FROM " . $prefix . "contents t LEFT JOIN " . $prefix . "fields f ON t.cid = f.cid AND t.type = 'post' AND t.status = 'publish' AND f.name = 'articleType' AND f.str_value = 'default' WHERE f.str_value = 'default' limit ".$cnt_;
     $rows = $db->fetchAll($select);
     shuffle($rows);
     $cnt = 0;
@@ -232,6 +254,7 @@ function getRandRecommendImgs($cnt_ = 10)
             break;
         }
         $res = parseMarkdownFirstImg($row['text']);
+
         if (!empty($res)) {
             $cnt = $cnt + 1;
             $usersec = $db->select('screenName', 'mail', 'userAvatar')->from('table.users')->where('uid = ?', $row['authorId']);
@@ -451,7 +474,7 @@ function getGirdPics($this_)
     );
 }
 
-function ehco9gridPics($images, $length)
+function echo9gridPics($images, $length)
 {
     $loading = Helper::options()->defaultLoadingUrl();
     if ($length > 0) {

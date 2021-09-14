@@ -372,6 +372,9 @@ class Joe extends JoeAction {
 						case 'onelink':
 							super.handleOneLink(this.cm);
 							break;
+						case 'onejifen':
+							super.handleOneJifen(this.cm);
+							break;
 						case 'preview':
 							el.toggleClass('active');
 							if (el.hasClass('active')) window.JoeConfig.canPreview = true;

@@ -391,7 +391,13 @@ var indexInput = {
         $(".post-content-inner-link a").click(function (event) {
             event.stopPropagation();
         })
-
+        // lazy load
+        document.addEventListener('lazybeforeunveil', function (e) {
+            let bg = e.target.getAttribute('data-bg');
+            if (bg) {
+                e.target.style.backgroundImage = 'url(' + bg + ')';
+            }
+        });
         /* 头部滚动 */
         {
             if (!gconf.IS_MOBILE) {

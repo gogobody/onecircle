@@ -914,4 +914,23 @@ export default class JoeAction {
 			}
 		});
 	}
+
+	handleOneJifen(cm) {
+		this._openModal({
+			title: '插入 OneCircle 积分资源',
+			innerHtml: `
+				<div class="fitem">
+					<label>加密内容</label>
+					<textarea autocomplete="off" name="OneJifenText" placeholder="请输入内容"></textarea>
+				</div>
+            `,
+			confirm: () => {
+				const text = $(".cm-modal textarea[name='OneJifenText']").val();
+				const str = `\n<!--jkhelper start-->${text}<!--jkhelper end-->\n\n`;
+				if (this._getLineCh(cm)) this._replaceSelection(cm, '\n' + str);
+				else this._replaceSelection(cm, str);
+				cm.focus();
+			}
+		});
+	}
 }

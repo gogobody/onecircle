@@ -53,6 +53,7 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/responsive.min.css'); ?>?version=<?php themeVersion() ?>" />
     <?php
+        $poptions = Helper::options()->plugin('OneCircle');
         $rgb_pattern = '/rgb\((0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2})\)/';
         if (preg_match($rgb_pattern,$this->options->JMainColor,$arr)){
             if ($this->options->Jtransparent) $mainColor = sprintf('rgb(%d,%d,%d,%.2f)',$arr[1],$arr[2],$arr[3],$this->options->Jtransparent);
@@ -98,6 +99,16 @@
     </style>
 
     <?php Typecho_Plugin::factory('SmmsForTypecho')->header($this);?>
+    <?php if ($poptions->enableResource):?>
+    <script>
+        window.JKConfig = {
+            ARCHIVE: '<?php $this->getArchiveType() ?>',
+            ARCHIVE_SLUG: '<?php $this->getArchiveSlug()?>',
+            DOCUMENT_LOAD_MORE: '<?php $poptions->JPageStatus() ?>'
+        }
+    </script>
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/resources.min.css') ?>" media="all"/>
+    <?php endif;?>
 
 </head>
 <body class="bright" ontouchstart="">
