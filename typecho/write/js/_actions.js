@@ -926,7 +926,7 @@ export default class JoeAction {
             `,
 			confirm: () => {
 				const text = $(".cm-modal textarea[name='OneJifenText']").val();
-				const str = `\n<!--jkhelper start-->${text}<!--jkhelper end-->\n\n`;
+				const str = `\n<!--jkhelper start-->\n${text}\n<!--jkhelper end-->\n\n`;
 				if (this._getLineCh(cm)) this._replaceSelection(cm, '\n' + str);
 				else this._replaceSelection(cm, str);
 				cm.focus();
