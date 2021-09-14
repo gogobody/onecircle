@@ -29,10 +29,11 @@ if($sticky && $this->is('index') || $this->is('front')){
     $this->length = 0;
     $order = '';
 
+
+
     // select 只显示 关注的 category里面的
+    $select1->where('table.contents.cid IN ?', $sticky_cids);
     foreach($sticky_cids as $i => $cid) {
-        if($i == 0) $select1->where('table.contents.cid = ?', $cid);
-        else $select1->orWhere('table.contents.cid = ?', $cid);
         $order .= " when $cid then $i";
         $select2->where('table.contents.cid != ?', $cid); //避免重复
     }
@@ -45,7 +46,7 @@ if($sticky && $this->is('index') || $this->is('front')){
         $this->push($sticky_post); //压入列队
     }
     $uid = $this->user->uid; //登录时，显示用户各自的私密文章
-    if($uid) $select2->orWhere('authorId = ? && status = ?',$uid,'private');
+    if($uid) $select2->orwhere('authorId = ? && status = ?',$uid,'private');
     $sticky_posts = $db->fetchAll($select2->order('table.contents.created', Typecho_Db::SORT_DESC)->page($this->_currentPage, $this->parameter->pageSize));
 //    var_dump($sticky_posts);
 //    echo $select2->order('table.contents.created', Typecho_Db::SORT_DESC)->page($this->_currentPage, $this->parameter->pageSize);
