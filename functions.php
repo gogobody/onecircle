@@ -98,7 +98,8 @@ function get_user_group($name = NULL)
         $profile = $db->fetchRow($db->select('group', 'uid')->from('table.users')->where('uid = ?', intval(Typecho_Cookie::get('__typecho_uid'))));
     else
         $profile = $db->fetchRow($db->select('group', 'name', 'screenName')->from('table.users')->where('name=? OR screenName=?', $name, $name));
-    return $profile['group'];
+
+    return array_key_exists('group',$profile)?$profile['group']:[];
 }
 
 function get_comment($coid)

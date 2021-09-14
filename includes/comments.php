@@ -91,7 +91,7 @@ function threadedComments($comments, $options)
                     </div>
                 <?php else: ?>
                     <div class="comment-respond-author">
-                        <img class="user-head" src="//cdn.v2ex.com/gravatar/<?php echo ''; ?>?s=64&d=mp" />
+                        <img class="user-head" src="<?php echo getUserV2exAvatar(''); ?>?s=64&d=mp" />
                         <div class="form-row">
                             <div class="col-6 col-md-4">
                                 <input type="text" name="author" class="form-control form-control-sm"

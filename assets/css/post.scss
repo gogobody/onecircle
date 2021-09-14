@@ -933,6 +933,7 @@ b站视频
 }
 
 
+
 /**
 归档页面
  */
@@ -944,5 +945,8 @@ b站视频
     .comment-list .comment-time{
         position: inherit;
         font-size: 10px;
+    }
+    .insert-post-meta-avatar {
+        display: none!important;
     }
 }
