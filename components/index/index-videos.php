@@ -9,7 +9,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <?php if ($this->fields->excerpt && $this->fields->excerpt != ''): ?>
             <?php echo $this->fields->excerpt; ?>
         <?php else: ?>
-            <?php echo $this->excerpt(70); ?>
+            <?php $this->excerpt(70) ?>
         <?php endif; ?>
     </div>
     <div class="post-cover col-xl-12">

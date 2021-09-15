@@ -15,8 +15,8 @@ require_once 'widget/Widget_Metas_Random.php';
 /**
  * 注册文章解析 hook
  */
-Typecho_Plugin::factory('Widget_Abstract_Contents')->contentEx_1000 = array('contents', 'parseContent');
-Typecho_Plugin::factory('Widget_Abstract_Contents')->excerptEx_1000 = array('contents', 'parseContent');
+Typecho_Plugin::factory('Widget_Abstract_Contents')->contentEx_1100 = array('contents', 'parseContent');
+Typecho_Plugin::factory('Widget_Abstract_Contents')->excerptEx_1100 = array('contents', 'parseContent');
 /**
  * 后台编辑按钮
  */
