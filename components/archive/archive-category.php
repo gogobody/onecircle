@@ -8,7 +8,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 <div class="archive-header">
     <div class="archive-header-top">
         <div class="header-top-img"
-             style='background-image: url(<?php _e(parseDesc2img($this->options->defaultSlugUrl,$this->categories[0]['description'])); ?>)'>
+             style='background-image: url(<?php _e(parseDesc2img($this->options->defaultSlugUrl,$this->getDescription())); ?>)'>
             <div class="header-top-img-inner"></div>
         </div>
     </div>
