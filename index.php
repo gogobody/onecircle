@@ -4,7 +4,7 @@
  * OneCircle theme，也许是 typecho 第一个社交圈子主题，编辑器移植于joe，经过 joe 授权，感谢 joe
  * @package OneCircle
  * @author gogobody <a href="https://www.ijkxs.com">即刻学术</a>
- * @version 4.5
+ * @version 4.6
  * @link check https://github.com/gogobody/onecircle
  */
 
@@ -15,7 +15,7 @@ $tArr = utils::parseUrlQuery(utils::GetCurUrl());
 if (count($tArr) == 0) {
     $recommend = NULL;
 } else {
-    $recommend = $tArr['recommend'];
+    $recommend = array_key_exists('recommend',$tArr) ? $tArr['recommend']:'';
 }
 // if login show index
 if ($this->user->hasLogin()){
@@ -77,17 +77,33 @@ $this->need('includes/header.php');
                 </div>
                 <?php endif; ?>
                 <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _e($this->options->index_middle_ads);?></div>
-                <div class="list">
-                    <?php $cnt = 0; ?>
-                    <?php while ($this->next()): ?>
-                        <?php $cnt = $cnt+1;$this->need('components/index/article-content.php'); ?>
-                        <?php if ($cnt%7 ==0):?>
-                        <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _e($this->options->list_middle_ads);?></div>
-                        <?php endif;?>
-                    <?php endwhile; ?>
+                <div class="react-tabs" data-tabs="true">
+                    <?php if($recommend and $this->options->enableTravel):?>
+                    <div class="line"></div>
+                    <ul id="recommend-tabs" class="react-tabs__tab-list">
+                        <li data-tabindex="0" class="react-tabs-1 react-tabs__tab react-tabs__tab--selected">本站</li>
+                        <li data-tabindex="1" class="react-tabs-2 react-tabs__tab">十年</li>
+                    </ul>
+                    <a href="https://foreverblog.cn/go.html" target="_blank" style="text-decoration: none">
+                        <div class="tenyear-hole">
+                            <div class="text">随机访问十年之约友链博客 »</div>
+                        </div>
+                    </a>
+                    <?php endif; ?>
+                    <div class="item-container">
+                        <div class="list react-tabs__tab-panel react-tabs__tab-panel--selected">
+                            <?php $cnt = 0; ?>
+                            <?php while ($this->next()): ?>
+                                <?php $cnt = $cnt+1;$this->need('components/index/article-content.php'); ?>
+                                <?php if ($cnt%7 ==0):?>
+                                <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _e($this->options->list_middle_ads);?></div>
+                                <?php endif;?>
+                            <?php endwhile; ?>
+                        </div>
+                        <!--分页-->
+                        <?php $this->need('includes/post-pagination.php');?>
+                    </div>
                 </div>
-                <!--分页-->
-                <?php $this->need('includes/post-pagination.php');?>
             </div>
         </div>
         <?php

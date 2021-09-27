@@ -1,13 +1,13 @@
 ## onecircle 一个圈子，基于typecho
 
 ## 名字就叫一个圈子。
-## version：4.4
+## version：4.6
 ## 平台：typecho  
 
 ### 想弄一个类社交圈子，开发了一部分，剩下慢慢折腾  
   
 ## 下载说明：
-4.0 之后懒得发 release 了，直接下载。如果是更新，把主题插件全部禁用启用一遍。    
+4.0 之后懒得发 release 了，直接下载。如果是更新，把主题插件全部禁用启用一遍。 更新建议看看 changeLog
 必须装的：  
 [主题最新版下载](https://github.com/gogobody/onecircle/archive/refs/heads/master.zip)  
 [主题配套插件下载](https://github.com/gogobody/OneCircle_Plugin/archive/refs/heads/main.zip)  
@@ -63,6 +63,7 @@ v2.8 添加 lazyload ，将默认的gallery 原始的background显示方式迁�
 v3.0 支持博客页  
 ...  
 v4.3 支持私聊，支持 joe 主题编辑器（已获得作者授权），xxx 一系列更新
+v4.6 修复登录bug，添加十年之约（更新，插件、主题）
 
 ## 关于文章类型
 目前文章有一个自定义字段：  

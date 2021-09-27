@@ -3895,6 +3895,27 @@ blog
     transition: transform 0.35s, -webkit-transform 0.35s;
     font-size: 14px;
 }
+
+.content-action{
+    position: relative;
+}
+.tenyear-hole {
+    color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    background: #000 url(/usr/themes/onecircle/assets/img/wormhole_1.gif) no-repeat right 20px center;
+    margin-bottom: 8px;
+}
+
+.tenyear-hole .text {
+    margin-right: 90px;
+    line-height: 20px;
+    height: 20px;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 /**
 usercenter
  */

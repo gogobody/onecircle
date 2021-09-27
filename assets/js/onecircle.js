@@ -94,6 +94,26 @@ $(function () {
     });
 })
 
+Date.prototype.format = function(fmt) {
+    var o = {
+        "M+" : this.getMonth()+1,                 //月份
+        "d+" : this.getDate(),                    //日
+        "h+" : this.getHours(),                   //小时
+        "m+" : this.getMinutes(),                 //分
+        "s+" : this.getSeconds(),                 //秒
+        "q+" : Math.floor((this.getMonth()+3)/3), //季度
+        "S"  : this.getMilliseconds()             //毫秒
+    };
+    if(/(y+)/.test(fmt)) {
+        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+    }
+    for(var k in o) {
+        if(new RegExp("("+ k +")").test(fmt)){
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+        }
+    }
+    return fmt;
+}
 
 var indexInput = {
     init: function () {
@@ -122,6 +142,7 @@ var indexInput = {
         this.hightInit()
         this.annouceInit()
     },
+
     resetInputStatus: function () {// reset status when change nowtype
         this.additionArray = []
 
@@ -279,6 +300,47 @@ var indexInput = {
             }
         })
     },
+    load_10years_blog: function (page,load=false) {
+        if (load){
+            $(".j-loadmore a").text('loading...')
+        }
+        $.post({
+            url: gconf.index,
+            data:{
+                recommendRest: 1,
+                type: "fetch10apis",
+                page: page,
+            },
+            success: function (res) {
+                res=JSON.parse(res);
+                if (res.code===1){
+                    let data = res.data.data;
+                    let current_page= res.data.current_page;
+                    let total_page = res.data.last_page;
+                    let genhtml='';
+                    data.forEach(function (ele) {
+                        let tmp = `<article class="post-article"><div class="post-article-left"><a href="javascript:void(0);"><img class="avatar" src="${ele.avatar}" alt="${ele.author}"></a></div><div class="post-article-right"><div class="post-author"><div class="author-name"><a href="javascript:void(0);">${ele.author}</a></div><div class="post-addr"><a href="javascript:void(0);"><time>${new Date(ele.created_at).format("yyyy-MM-dd hh:mm")}</time></a></div></div><div class="post-content"><div class="row"><div class="post-content-inner-link col-xl-12"><p></p><div class=""><p>${ele.desc?ele.desc:ele.title}</p><a class="link-a" href="${ele.link}" target="_blank"><div class="link-container link-a"><div class="link-banner"><img src="/usr/themes/onecircle/assets/img/link.png"><div class="link-text">${ele.title}</div></div></div></a></div><p></p></div></div></div></div></article>`;
+                        genhtml=genhtml+tmp;
+                    })
+                    let next = current_page+1;
+                    if(next < total_page){
+                        genhtml=genhtml+`<div class="j-loadmore" data-type="article"><a onclick="indexInput.load_10years_blog(${next},true)" class="next" title="">查看更多</a></div>`;
+                    }
+                    if(load){
+                        // 删掉之前的 load
+                        $(".j-loadmore").remove();
+                        $(".item-container").append(genhtml);
+                    }else{
+                        $(".item-container").html(genhtml);
+                    }
+                }
+                $.rmloading();
+                index_tab_loadfinish=true;
+                $(".j-loadmore a").text('查看更多')
+
+            }
+        })
+    },
     indexEventInit: function () {
         // init input
         var that = this
@@ -362,7 +424,7 @@ var indexInput = {
             renderItem: function (item, search) {
                 // search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
                 // var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
-                var tmpArr = new Array()
+                var tmpArr = []
                 tmpArr[0] = item[0]
                 tmpArr[1] = item[1]
                 if (item[1] === -1) {
@@ -445,7 +507,73 @@ var indexInput = {
                 $('.joe_aside__item.flatterer .change').on('click', () => toggle());
             }
         }
+        {
 
+            let react_tabs = $("#recommend-tabs")
+            if (react_tabs.length > 0) {
+                const baseoffset = react_tabs.first().offset().left;
+                const line = $('.line');
+                clicktabs=-1;// 防止重复点击
+                index_tab_loadfinish=false;
+                react_tabs.children().each(function (index, val) {
+                    $(val).click(function (e) {
+                        var tabindex = $(val).data("tabindex")
+                        $(this).addClass('react-tabs__tab--selected').siblings().removeClass('react-tabs__tab--selected');
+                        line.width($(val).width());
+                        var left = $(val).offset().left - baseoffset;
+                        line.css({
+                            'transform': 'translateX(' + left + 'px)'
+                        })
+                        if(tabindex === clicktabs && index_tab_loadfinish === false) return;
+                        clicktabs = tabindex;
+                        index_tab_loadfinish=false;
+                        // gen url
+                        let tmp_url='';
+                        $.showloading({
+                            selector:'.react-tabs .item-container',
+                            choice: 'prepend'
+                        })
+                        if(tabindex===0){
+                            tmp_url = '/';
+                            $.ajax({
+                                url: tmp_url,
+                                method: 'get',
+                                success: function (res) {
+                                    var html_node = $.parseHTML(res)
+                                    try {
+                                        var items = $(".item-container", html_node)
+                                        if (items.length <= 0) {
+                                            return $.message({
+                                                title: "通知",
+                                                message: "服务器返回错误，请重试",
+                                                type: "error"
+                                            })
+                                        } else {
+                                            var real_html = items.html()
+                                            $(".item-container").html(real_html)
+                                            // 删除某个前缀开头的类
+                                            var archiveContent = $(".archive-content")
+                                            archiveContent.removeClass(function (index, className) {
+                                                return (className.match(/(^|\s)tabindex-\S+/g) || []).join('');
+                                            });
+                                            archiveContent.addClass('tabindex-' + tabindex)
+                                        }
+                                    } catch (e) {
+                                        console.log(e)
+                                    }
+                                    $.rmloading();
+                                    index_tab_loadfinish=true
+                                }
+                            })
+                        }else if(tabindex===1){
+                            let page = 1;
+                            indexInput.load_10years_blog(page)
+                        }
+
+                    })
+                })
+            }
+        }
     },
     searchEventInit: function () {
         // search blk
@@ -1025,7 +1153,6 @@ var archiveInit = {
             setTimeout(function () { // 延迟100s 让css 充分渲染
                 var baseoffset = react_tabs.first().offset().left
                 var init_offset = react_tabs_li.first().offset().left - baseoffset
-                // alert(baseoffset+",  "+react_tabs_li.first().offset().left +",  "+init_offset)
                 var line = $('.line')
                 line.css({
                     'transform': 'translateX(' + init_offset + 'px)'
@@ -1042,11 +1169,11 @@ var archiveInit = {
     },
     archAuthorTabsClickInit: function () {
         // archive tabs
-        var that = this
-        var react_tabs = $(".react-tabs__tab-list")
+        let that = this
+        let react_tabs = $("#archive_tabs")
         if (react_tabs.length > 0) {
-            var baseoffset = react_tabs.first().offset().left
-            var line = $('.line')
+            const baseoffset = react_tabs.first().offset().left;
+            const line = $('.line');
             react_tabs.children().each(function (index, val) {
                 $(val).click(function (e) {
                     var tabindex = $(val).data("tabindex")

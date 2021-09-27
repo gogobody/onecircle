@@ -43,7 +43,7 @@
                 <div class="outer">
                     <div class="react-tabs" data-tabs="true">
                         <div class="line"></div>
-                        <ul class="react-tabs__tab-list">
+                        <ul class="react-tabs__tab-list" id="archive_tabs">
                             <li id="react-tabs-1" data-tabindex="0" class="react-tabs__tab <?if($tabIndex==0){_e("react-tabs__tab--selected");}?>">动态</li>
                             <?php if ($this->is('author')):?>
                             <li id="react-tabs-2" data-tabindex="1" class="react-tabs__tab <?if($tabIndex==1){_e("react-tabs__tab--selected");}?>">关注</li>

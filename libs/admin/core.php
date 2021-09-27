@@ -196,6 +196,34 @@ function ParseCode($text)
 
 
 /* 请求 */
+function curl_get($url){
+    $header = array(
+        'Accept: application/json',
+    );
+    $curl = curl_init();
+    //设置抓取的url
+    curl_setopt($curl, CURLOPT_URL, $url);
+    //设置头文件的信息作为数据流输出
+    curl_setopt($curl, CURLOPT_HEADER, 0);
+    // 超时设置,以秒为单位
+    curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+    // 设置请求头
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+    //设置获取的信息以文件流的形式返回，而不是直接输出。
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+    $data = curl_exec($curl);
+
+    if (curl_error($curl)) {
+        print "Error: " . curl_error($curl);
+        return curl_error($curl);
+    } else {
+        curl_close($curl);
+        return $data;
+    }
+}
+
 function GetRequest($curl, $method = 'post', $data = null, $https = true)
 {
     $ch = curl_init(); //初始化

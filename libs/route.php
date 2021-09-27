@@ -107,6 +107,16 @@ function rootRouteFunc($archive)
             }
             exit('error handle msg');
         }
+        else if($archive->request->recommendRest){
+            if($archive->request->type=='fetch10apis'){
+                $page = $archive->request->page;
+                if(!$page) $page=1;
+                $baseUrl = "https://www.foreverblog.cn/api/v1/blog/feeds?page=".$page;
+                $ret = curl_get($baseUrl);
+                exit($ret);
+            }
+            exit('error handle msg');
+        }
 //        header("HTTP/1.1 404 OK");
 //        exit('error');
     }

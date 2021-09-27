@@ -16,7 +16,7 @@ function themeConfig($form)
         <div>
             <div class="j-aside">
                 <div class="logo">ONE <?php echo OnecircleVersion() ?><br><small style="font-size: 10px">设置模板来自Joe的typecho主题</small><br>
-                    <a href="http://localhost/admin/options-plugin.php?config=OneCircle">点我去插件设置</a></div>
+                    <a href="/admin/options-plugin.php?config=OneCircle" target="_self">点我去插件设置</a></div>
                 <ul class="j-setting-tab">
                     <li data-current="j-setting-notice">最新公告</li>
                     <li data-current="j-setting-global">公共设置</li>
@@ -36,6 +36,13 @@ function themeConfig($form)
         <div class="j-setting-notice"><iframe src="https://www.yuque.com/docs/share/05f40cac-980f-4e53-8b92-ed9728b8dc50?# 《OneCircle 主题说明》" frameborder="no" scrolling="yes" height="100%" width="100%"></iframe></div>
         <script src="<?php $options->themeUrl('/assets/admin/js/one.setting.min.js')?>"></script>
     <?php
+    $enableTravel = new Typecho_Widget_Helper_Form_Element_Radio('enableTravel',
+        array(1 => _t('启用'),
+            0 => _t('关闭')),
+        1, _t('是否启用十年之约'), _t('开启后会在动态显示十年之约的内容，了解十年之约：https://www.foreverblog.cn/'));
+    $enableTravel->setAttribute('class', 'j-setting-content j-setting-global');
+    $form->addInput($enableTravel);
+
     $enableMessage = new Typecho_Widget_Helper_Form_Element_Radio('enableMessage',
         array(1 => _t('启用'),
             0 => _t('关闭')),
