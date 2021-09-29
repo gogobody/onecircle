@@ -8,7 +8,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
     <div class="post-content-inner col-xl-12">
         <?php
-          $this->content();
+           _parseContent($this, $this->user->hasLogin())
         ?>
 
     </div>
