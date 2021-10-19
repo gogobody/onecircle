@@ -382,7 +382,7 @@ class Widget_Post_hot extends Widget_Abstract_Contents
 /* 随机图片 */
 function GetRandomThumbnail($widget,$retu=0)
 {
-    $random = THEME_URL . '/assets/blog/img/random/' . rand(1, 25) . '.webp';
+    $random = Helper::options()->themeUrl('/assets/blog/img/random/' . rand(1, 25) . '.webp','onecircle');
     if (Helper::options()->Jmos) {
         $moszu = explode("\r\n", Helper::options()->Jmos);
         $random = $moszu[array_rand($moszu, 1)] . "?jrandom=" . mt_rand(0, 1000000);
