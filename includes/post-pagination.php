@@ -1,6 +1,7 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 $next_page_link = "";
+$currentPage = empty($this->_currentPage)?$this->currentPage:$this->_currentPage;
 if ($this->have()) {
     if (empty($this->_pageNav)) {
         $query = Typecho_Router::url($this->parameter->type .
@@ -8,7 +9,7 @@ if ($this->have()) {
             $this->_pageRow, $this->options->index);
         $this->need('/widget/Widget_Pagination.php');
         $this->_widget_pageNav = new Widget_Pagination($this->getTotal(),
-            $this->_currentPage, $this->parameter->pageSize, $query);
+            $currentPage, $this->parameter->pageSize, $query);
         $next_page_link = $this->_widget_pageNav->getPageLink('next');
     }
 }

@@ -19,7 +19,7 @@ if ($this->options->commentsPageBreak) {
             $next_page_link = "";
         }else{
             $next_page_link = Typecho_Router::url('comment_page',
-                    $pageRow, $this->options->index) . '#' . $comments->theId;
+            $pageRow, $this->options->index) . '#' . $comments->theId;
         }
     }else { // 正序
         $pageRow = array('permalink' => $comments->parentContent['pathinfo'], 'commentPage' => $currentPage + 1);
