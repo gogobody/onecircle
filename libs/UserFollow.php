@@ -106,7 +106,7 @@ class UserFollow
     {
         $db = Typecho_Db::get();
         $row = $db->fetchRow($db->select('fid')->from('table.user_follow')->where('uid = ?', $uid)->where('fid = ?', $fid));
-        if (count($row) > 0) {
+        if (is_array($row) and count($row) > 0) {
             return true;
         }
         return false;
