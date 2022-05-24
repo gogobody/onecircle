@@ -26,8 +26,8 @@
 
 <body>
     <div id="dplayer"></div>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@0.14.16/dist/hls.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dplayer@1.26.0/dist/DPlayer.min.js"></script>
+    <script src="https://unpkg.zhimg.com/hls.js@0.14.16/dist/hls.min.js"></script>
+    <script src="https://unpkg.zhimg.com/dplayer@1.26.0/dist/DPlayer.min.js"></script>
     <script>
         new DPlayer({
             container: document.getElementById('dplayer'), // 播放器容器元素

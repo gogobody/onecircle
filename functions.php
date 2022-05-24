@@ -115,7 +115,7 @@ function get_user_group($name = NULL)
     else
         $profile = $db->fetchRow($db->select('group', 'name', 'screenName')->from('table.users')->where('name=? OR screenName=?', $name, $name));
 
-    return array_key_exists('group',$profile)?$profile['group']:[];
+    return isset($profile) and array_key_exists('group',$profile)?$profile['group']:[];
 }
 
 function get_comment($coid)

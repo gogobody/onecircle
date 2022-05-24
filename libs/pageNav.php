@@ -14,9 +14,18 @@ class Typecho_Widget_Helper_PageNavigator_Box extends Typecho_Widget_Helper_Page
      */
     public function render($prevWord = 'PREV', $nextWord = 'NEXT', $splitPage = 3, $splitWord = '...', array $template = array())
     {
-        if ($this->_total < 1) {
+        if($this->currentPage){
+            $this->_currentPage = $this->currentPage;
+            $this->_totalPage = $this->totalPage;
+            $this->_pageHolder = $this->pageHolder;
+            $this->_pageTemplate = $this->pageTemplate;
+            $this->_anchor = $this->anchor;
+            $this->_total = $this->total;
+        }
+        if ($this->_total and $this->_total < 1) {
             return;
         }
+
 
         $default = array(
             'itemTag'       =>  'li',
@@ -52,6 +61,7 @@ class Typecho_Widget_Helper_PageNavigator_Box extends Typecho_Widget_Helper_Page
             . (empty($nextClass) ? '' : ' class="' . $nextClass . '"') . '>')
             : $linkBegin;
         $linkEnd = '</a>';
+
 
         $from = max(1, $this->_currentPage - $splitPage);
         $to = min($this->_totalPage, $this->_currentPage + $splitPage);

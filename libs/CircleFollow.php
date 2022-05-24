@@ -98,7 +98,7 @@ class CircleFollow
     {
         $db = Typecho_Db::get();
         $row = $db->fetchRow($db->select('mid')->from('table.circle_follow')->where('uid = ?', $uid)->where('mid = ?', $mid));
-        if (count($row) > 0) {
+        if (isset($row) and count($row) > 0) {
             return true;
         }
         return false;

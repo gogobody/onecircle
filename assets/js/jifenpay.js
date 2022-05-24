@@ -2,7 +2,7 @@ function callJifenPay() {
     if (typeof jQuery == "undefined") {
         var fileref = document.createElement("script")
         fileref.setAttribute("type", "text/javascript")
-        fileref.setAttribute("src", "https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js")
+        fileref.setAttribute("src", "https://unpkg.zhimg.com/jquery@3.5.1/dist/jquery.min.js")
         document.getElementsByTagName("head")[0].appendChild(fileref)
     }
 

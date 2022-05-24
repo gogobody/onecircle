@@ -18,7 +18,7 @@ function GetLazyLoad()
     if (Helper::options()->JLazyLoad) {
         return Helper::options()->JLazyLoad;
     } else {
-        return "https://cdn.jsdelivr.net/npm/typecho_joe_theme@3.1.3/assets/img/lazyload.jpg";
+        return "https://unpkg.zhimg.com/typecho_joe_theme@3.1.3/assets/img/lazyload.jpg";
     }
 }
 

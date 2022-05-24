@@ -13,15 +13,15 @@
     <link crossorigin="anonymous" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" href="https://lib.baomitu.com/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typecho-joe-next@6.0.0/plugin/qmsg/qmsg.css">
+    <link rel="stylesheet" href="https://unpkg.zhimg.com/typecho-joe-next@6.0.0/plugin/qmsg/qmsg.css">
 
     <!-- 文章 CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unpkg.zhimg.com/aplayer@1.10.1/dist/APlayer.min.css">
+    <link rel="stylesheet" href="https://unpkg.zhimg.com/font-awesome@4.7.0/css/font-awesome.min.css">
     <?php if ($this->options->JPrismTheme) : ?>
         <link rel="stylesheet" href="<?php $this->options->JPrismTheme() ?>">
     <?php else : ?>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.min.css">
+        <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.min.css">
     <?php endif; ?>
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/post.min.css'); ?>?version=<?php themeVersion() ?>">
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/owo/owo.min.css'); ?>?version=<?php themeVersion() ?>">
@@ -96,6 +96,11 @@
         body:before{
             background-image: url("<?php echo !empty($this->options->bgImg) ? $this->options->bgImg :''?>");
         }
+        <?php
+        if (!$this->options->commentUploader){
+            echo ".comment-action .zz-add-img{display:none}";
+        }
+        ?>
     </style>
 
     <?php Typecho_Plugin::factory('SmmsForTypecho')->header($this);?>

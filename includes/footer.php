@@ -31,11 +31,11 @@
     <span class="footer-item">&nbsp;|&nbsp;Powered by <a target="_blank" href="http://www.typecho.org">Typecho</a>&nbsp;|&nbsp;Designed by <b title="author info"><a target="_blank" href="https://github.com/gogobody/onecircle">gogobody</a></b></span>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/typecho-joe-next@6.0.0/plugin/qmsg/qmsg.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/typecho-joe-next@6.2.4/plugin/prism/prism.min.js"></script>
+<script src="https://unpkg.zhimg.com/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/typecho-joe-next@6.0.0/plugin/qmsg/qmsg.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/typecho-joe-next@6.2.4/plugin/prism/prism.min.js"></script>
 <script crossorigin="anonymous" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://unpkg.zhimg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
 
 <script src="<?php $this->options->themeUrl('assets/js/joe.short.min.js?v=7.2.9'); ?>"></script>
 
