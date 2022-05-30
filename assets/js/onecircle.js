@@ -1259,12 +1259,12 @@ var archiveInit = {
     },
     commentInit: function () {
         var $body = $('html,body');
-        var g = '.comment-list'
-            , h = '.comment-num'
-            , i = '.comment-reply a'
-            , j = '#textarea'
-            , k = ''
-            , l = '';
+        var g = '.comment-list',
+            h = '.comment-num',
+            i = '.comment-reply a',
+            j = '#textarea',
+            k = '',
+            l = '';
         c();
         var commentForm = $('#comment-form')
         var commentBtn = $(".submit.btn.comment-submit")
@@ -1272,76 +1272,30 @@ var archiveInit = {
             $(this).attr("disabled", true)
             commentForm.submit()
         })
+
         commentForm.submit(function () {
             var formdata = $(this).serializeArray()
-            formdata[0]["value"] = safe.stripscript(formdata[0]["value"])
-            if ($.trim(formdata[0]["value"]) === "") {
-                $.message({
-                    title: "提示",
-                    message: "请输入内容",
-                    type: "error"
-                })
-                commentBtn.attr("disabled", false)
-                return false;
+            // 区分登陆和未登陆 ，登陆 检查内容
+            if (formdata.length < 3) {
+                if (safe.stripscript(formdata[0]["value"]).length < 2) {
+                    showCommentErr('请输入内容')
+                    return false
+                } else {
+                    sendComment($(this).attr('action'), formdata)
+                    return false
+                }
             } else {
-                $.ajax({
-                    url: $(this).attr('action'),
-                    type: 'post',
-                    data: formdata,
-                    error: function () {
-                        alert("提交失败，请检查网络并重试或者联系管理员。");
-                        commentBtn.attr("disabled", false)
-                        return false
-                    },
-                    success: function (d) {
-                        commentBtn.attr("disabled", false)
-                        if (!$(g, d).length) {
-                            alert("您输入的内容不符合规则或者回复太频繁，请修改内容或者稍等片刻。");
-                            return false
-                        } else {
-                            k = $(g, d).html().match(/id=\"?comment-\d+/g).join().match(/\d+/g).sort(function (a, b) {
-                                return a - b
-                            }).pop();
-                            if ($('.page-navigator .prev').length && l == "") {
-                                k = ''
-                            }
-                            if (l) {
-                                d = $('#comment-' + k, d).hide();
-                                if ($('#' + l).find(".comment-children").length <= 0) {
-                                    $('#' + l).append("<div class='comment-children'><ol class='comment-list'><\/ol><\/div>")
-                                }
-                                if (k)
-                                    $('#' + l + " .comment-children .comment-list").prepend(d);
-                                l = ''
-                            } else {
-                                d = $('#comment-' + k, d).hide();
-                                if (!$(g).length)
-                                    $('.comment-detail').prepend("<h2 class='comment-num'>0 条评论<\/h2><ol class='comment-list'><\/ol>");
-                                $(g).prepend(d)
-                            }
-                            $('#comment-' + k).fadeIn();
-                            var f;
-                            $(h).length ? (f = parseInt($(h).text().match(/\d+/)),
-                                $(h).html($(h).html().replace(f, f + 1))) : 0;
-                            TypechoComment.cancelReply();
-                            $(j).val('');
-                            $(i + ', #cancel-comment-reply-link').unbind('click');
-                            c();
-                            if (k) {
-                                $body.animate({
-                                    scrollTop: $('#comment-' + k).offset().top - 50
-                                }, 300)
-                            } else {
-                                $body.animate({
-                                    scrollTop: $('#comments').offset().top - 50
-                                }, 300)
-                            }
-                        }
-                    }
-                });
-                return false
+                // 未登陆，检查昵称，邮箱，内容
+                if (safe.stripscript(formdata[0]["value"]) === "" ||
+                    safe.stripscript(formdata[2]["value"]) === "" ||
+                    safe.stripscript(formdata[3]["value"]) === "") {
+                    showCommentErr('昵称，邮箱，内容都是必填的哦')
+                    return false
+                } else {
+                    sendComment($(this).attr('action'), formdata)
+                    return false
+                }
             }
-
         });
 
         function c() {
@@ -1351,6 +1305,74 @@ var archiveInit = {
             $('#cancel-comment-reply-link').click(function () {
                 l = ''
             })
+        }
+
+        // 错误 toast 函数
+        const showCommentErr = (errText) => {
+            $.message({
+                title: "提示",
+                message: errText || "请输入内容",
+                type: "error"
+            })
+            commentBtn.attr("disabled", false)
+        }
+        // 评论业务函数
+        const sendComment = (url, formdata) => {
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: formdata,
+                error: function () {
+                    alert("提交失败，您的网络有问题或者回复太频繁。", );
+                    commentBtn.attr("disabled", false)
+                    return false
+                },
+                success: function (d) {
+                    commentBtn.attr("disabled", false)
+                    if (!$(g, d).length) {
+                        alert("您输入的内容不符合规则或者回复太频繁，请修改内容或者稍等片刻。");
+                        return false
+                    } else {
+                        k = $(g, d).html().match(/id=\"?comment-\d+/g).join().match(/\d+/g).sort(function (a, b) {
+                            return a - b
+                        }).pop();
+                        if ($('.page-navigator .prev').length && l == "") {
+                            k = ''
+                        }
+                        if (l) {
+                            d = $('#comment-' + k, d).hide();
+                            if ($('#' + l).find(".comment-children").length <= 0) {
+                                $('#' + l).append("<div class='comment-children'><ol class='comment-list'><\/ol><\/div>")
+                            }
+                            if (k)
+                                $('#' + l + " .comment-children .comment-list").prepend(d);
+                            l = ''
+                        } else {
+                            d = $('#comment-' + k, d).hide();
+                            if (!$(g).length)
+                                $('.comment-detail').prepend("<h2 class='comment-num'>0 条评论<\/h2><ol class='comment-list'><\/ol>");
+                            $(g).prepend(d)
+                        }
+                        $('#comment-' + k).fadeIn();
+                        var f;
+                        $(h).length ? (f = parseInt($(h).text().match(/\d+/)),
+                            $(h).html($(h).html().replace(f, f + 1))) : 0;
+                        TypechoComment.cancelReply();
+                        $(j).val('');
+                        $(i + ', #cancel-comment-reply-link').unbind('click');
+                        c();
+                        if (k) {
+                            $body.animate({
+                                scrollTop: $('#comment-' + k).offset().top - 50
+                            }, 300)
+                        } else {
+                            $body.animate({
+                                scrollTop: $('#comments').offset().top - 50
+                            }, 300)
+                        }
+                    }
+                }
+            });
         }
     },
     lazyloadInit: function () {

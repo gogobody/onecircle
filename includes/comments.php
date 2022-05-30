@@ -95,7 +95,7 @@ function threadedComments($comments, $options)
                         <div class="form-row">
                             <div class="col-6 col-md-4">
                                 <input type="text" name="author" class="form-control form-control-sm"
-                                       placeholder="昵称" required value="<?php $this->remember('author'); ?>" />
+                                       placeholder="*昵称" required value="<?php $this->remember('author'); ?>" />
                             </div>
                             <div class="col-6 col-md-4">
                                 <input type="text" name="url" class="form-control form-control-sm"
@@ -104,7 +104,7 @@ function threadedComments($comments, $options)
                             </div>
                             <div class="col">
                                 <input type="text" name="mail" class="form-control form-control-sm"
-                                       placeholder="邮箱" value="<?php $this->remember('mail'); ?>"
+                                       placeholder="*邮箱" required value="<?php $this->remember('mail'); ?>"
                                     <?php if ($this->options->commentsRequireMail): ?> required<?php endif; ?> />
                             </div>
                         </div>
