@@ -1,3 +1,9 @@
+原onecircle主题地址：https://github.com/gogobody/onecircle ，后续可能不再怎么更新了
+
+新OneCirclePro主题链接：https://one.ijkxs.com/circle
+
+-----
+
 ## onecircle 一个圈子，基于typecho
 
 ## 名字就叫一个圈子。
