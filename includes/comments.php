@@ -25,7 +25,7 @@ function threadedComments($comments, $options)
             <div class="comment-meta">
                 <div class="comment-author">
                     <?php if ($comments->authorId > 0): ?>
-                    <a href="<?php $author_url = Typecho_Common::url('/author/'.$comments->authorId.'/',$options->index);_e($author_url)?>" rel="external nofollow">
+                    <a href="<?php $author_url = Typecho_Common::url('/author/'.$comments->authorId.'/',$options->index);_oc_e($author_url)?>" rel="external nofollow">
                         <?php elseif ($comments->url): ?>
                         <a href="<?php echo $comments->url ?>" target="_blank" rel="external nofollow">
                             <?php endif; ?>
@@ -135,6 +135,6 @@ function threadedComments($comments, $options)
         <script>(function(){window.TypechoComment={dom:function(id){return document.getElementById(id)},create:function(tag,attr){var el=document.createElement(tag);for(var key in attr){el.setAttribute(key,attr[key])}return el},reply:function(cid,coid){var comment=this.dom(cid),parent=comment.parentNode,response=this.dom('<?php $this->respondId(); ?>'),input=this.dom('comment-parent'),form='form'==response.tagName?response:response.getElementsByTagName('form')[0],textarea=response.getElementsByTagName('textarea')[0];if(null==input){input=this.create('input',{'type':'hidden','name':'parent','id':'comment-parent'});form.appendChild(input)}input.setAttribute('value',coid);if(null==this.dom('comment-form-place-holder')){var holder=this.create('div',{'id':'comment-form-place-holder'});response.parentNode.insertBefore(holder,response)}comment.appendChild(response);this.dom('cancel-comment-reply-link').style.display='';if(null!=textarea&&'text'==textarea.name){textarea.focus()}return false},cancelReply:function(){var response=this.dom('<?php $this->respondId(); ?>'),holder=this.dom('comment-form-place-holder'),input=this.dom('comment-parent');if(null!=input){input.parentNode.removeChild(input)}if(null==holder){return true}this.dom('cancel-comment-reply-link').style.display='none';holder.parentNode.insertBefore(response,holder);return false}}})();</script>
     <?php endif; ?>
     <?php else: ?>
-        <h2 id="comment-closed"><?php _e('评论功能已关闭'); ?></h2>
+        <h2 id="comment-closed"><?php _oc_e('评论功能已关闭'); ?></h2>
     <?php endif; ?>
 </div>

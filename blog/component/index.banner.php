@@ -9,7 +9,7 @@
             <div id="carouselSwiperCaptions" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <?php for ($j = 0; $j < $long; $j++):?>
-                    <li data-target="#carouselSwiperCaptions" data-slide-to="<?php _e($j);?>"  class="<?php if ($j == 0) _e('active');?>"></li>
+                    <li data-target="#carouselSwiperCaptions" data-slide-to="<?php _oc_e($j);?>"  class="<?php if ($j == 0) _oc_e('active');?>"></li>
                     <?php endfor;?>
                 </ol>
                 <div class="carousel-inner">
@@ -18,7 +18,7 @@
                         $url = explode("||", $string_arr[$i])[1];
                         $title = explode("||", $string_arr[$i])[2];
                     ?>
-                    <div class="carousel-item <?php if ($i == 0) _e('active');?>">
+                    <div class="carousel-item <?php if ($i == 0) _oc_e('active');?>">
                         <a target="_blank" title="<?php echo $title ?>" href="<?php echo $url ?>" class="swiper-slide">
                             <img src="<?php echo GetLazyLoad() ?>" data-src="<?php echo $img ?>" class="d-block w-100 lazyload" alt="...">
                             <div class="carousel-caption d-none d-md-block">

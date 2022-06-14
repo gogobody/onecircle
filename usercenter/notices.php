@@ -21,7 +21,7 @@ $credits_arr = utils::creditsConvert($this->user->credits);
                         <aside>
                             <header class="header bg-light lt">
                                 <p class="l-h font-bold">系统消息 </p>
-                                <p class="pull-right i-sm">共收到了 <?php _e($this->notices->getTotal());?> 条消息</p>
+                                <p class="pull-right i-sm">共收到了 <?php _oc_e($this->notices->getTotal());?> 条消息</p>
                             </header>
                             <section class="scrollable">
                                 <div class="panel no-borders">
@@ -29,8 +29,8 @@ $credits_arr = utils::creditsConvert($this->user->credits);
                                         <?php if($this->notices->have()):?>
                                         <?php while ($this->notices->next()):?>
                                         <li class="list-group-item">
-                                            <span><?php _e($this->notices->text) ?></span>
-                                            <time class="pull-right text-muted"><?php _e($this->notices->date->word()); ?></time>
+                                            <span><?php _oc_e($this->notices->text) ?></span>
+                                            <time class="pull-right text-muted"><?php _oc_e($this->notices->date->word()); ?></time>
                                         </li>
                                         <?php endwhile;?>
                                         <?php else:?>

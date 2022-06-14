@@ -37,9 +37,9 @@ $credits_arr = utils::creditsConvert($this->user->credits);
                                                     <span class="coin">
                                                         <?php if ($this->user->credits == 0 ):?><span class="copper">0</span>
                                                         <?php else:?>
-                                                            <?php if (!empty($credits_arr[0])):?><span class="gold"><?php _e($credits_arr[0]);?></span><?php endif;?>
-                                                            <?php if (!empty($credits_arr[1])):?><span class="silver"><?php _e($credits_arr[1]);?></span><?php endif;?>
-                                                            <?php if (!empty($credits_arr[2])):?><span class="copper"><?php _e($credits_arr[2]);?></span><?php endif;?>
+                                                            <?php if (!empty($credits_arr[0])):?><span class="gold"><?php _oc_e($credits_arr[0]);?></span><?php endif;?>
+                                                            <?php if (!empty($credits_arr[1])):?><span class="silver"><?php _oc_e($credits_arr[1]);?></span><?php endif;?>
+                                                            <?php if (!empty($credits_arr[2])):?><span class="copper"><?php _oc_e($credits_arr[2]);?></span><?php endif;?>
                                                         <?php endif;?>
                                                     </span>
                                                     <a style="font-size: 12px" href="javascript:alert('开发中')" data-dev="" class="btn btn-xs btn-danger pull-right">兑换</a>

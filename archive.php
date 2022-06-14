@@ -39,18 +39,18 @@
             <?php elseif ($this->is('category')): ?>
                 <?php $this->need('components/archive/archive-category.php') ?>
             <?php endif; ?>
-            <div class="archive-content tabindex-<?_e($tabIndex);?>">
+            <div class="archive-content tabindex-<?_oc_e($tabIndex);?>">
                 <div class="outer">
                     <div class="react-tabs" data-tabs="true">
                         <div class="line"></div>
                         <ul class="react-tabs__tab-list" id="archive_tabs">
-                            <li id="react-tabs-1" data-tabindex="0" class="react-tabs__tab <?if($tabIndex==0){_e("react-tabs__tab--selected");}?>">动态</li>
+                            <li id="react-tabs-1" data-tabindex="0" class="react-tabs__tab <?if($tabIndex==0){_oc_e("react-tabs__tab--selected");}?>">动态</li>
                             <?php if ($this->is('author')):?>
-                            <li id="react-tabs-2" data-tabindex="1" class="react-tabs__tab <?if($tabIndex==1){_e("react-tabs__tab--selected");}?>">关注</li>
-                            <li id="react-tabs-3" data-tabindex="2" class="react-tabs__tab <?if($tabIndex==2){_e("react-tabs__tab--selected");}?>">被关注</li>
+                            <li id="react-tabs-2" data-tabindex="1" class="react-tabs__tab <?if($tabIndex==1){_oc_e("react-tabs__tab--selected");}?>">关注</li>
+                            <li id="react-tabs-3" data-tabindex="2" class="react-tabs__tab <?if($tabIndex==2){_oc_e("react-tabs__tab--selected");}?>">被关注</li>
 
                             <?php else:?>
-                            <li id="react-tabs-4" data-tabindex="3" class="react-tabs__tab <?if($tabIndex==3){_e("react-tabs__tab--selected");}?>">热门</li>
+                            <li id="react-tabs-4" data-tabindex="3" class="react-tabs__tab <?if($tabIndex==3){_oc_e("react-tabs__tab--selected");}?>">热门</li>
                             <?php endif;?>
                         </ul>
                         <div class="item-container">
@@ -64,18 +64,18 @@
                                     <?php if (count($fobj)>0):?>
                                     <?php for($i=0;$i<count($fobj);$i++): ?>
                                         <div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr">
-                                            <a href="<?php $author_url = Typecho_Common::url('/author/'.$fobj[$i]['uid'].'/',$this->options->index);_e($author_url)?>"
+                                            <a href="<?php $author_url = Typecho_Common::url('/author/'.$fobj[$i]['uid'].'/',$this->options->index);_oc_e($author_url)?>"
                                                class="sc-AxjAm sc-AxirZ eGdPrb"><img
-                                                        src="<?php _e(getUserV2exAvatar($fobj[$i]['mail'],$fobj[$i]['userAvatar']))?>"
+                                                        src="<?php _oc_e(getUserV2exAvatar($fobj[$i]['mail'],$fobj[$i]['userAvatar']))?>"
                                                         alt="再多一点可爱" class="sc-AxjAm jZLHXc">
                                                 <div  class="sc-AxjAm sc-AxirZ hkyonN">
-                                                    <div class="sc-AxjAm oDrAC"><?php _e($fobj[$i]['screenName'])?></div>
-                                                    <div class="sc-AxjAm hHqHSX ezzhLs"><?php _e($fobj[$i]['userSign']);?></div>
+                                                    <div class="sc-AxjAm oDrAC"><?php _oc_e($fobj[$i]['screenName'])?></div>
+                                                    <div class="sc-AxjAm hHqHSX ezzhLs"><?php _oc_e($fobj[$i]['userSign']);?></div>
                                                 </div>
                                             </a>
 
                                             <div class="sc-AxjAm sc-AxirZ hsyNhw">
-                                                <button data-authorid="<?php _e($fobj[$i]['uid'])?>" <?php
+                                                <button data-authorid="<?php _oc_e($fobj[$i]['uid'])?>" <?php
                                                 if ($this->user->hasLogin()){
                                                     if (UserFollow::statusFollow($this->user->uid,$fobj[$i]['uid'])){
                                                         echo 'class="fansed-little fan-event">已关注';
@@ -92,7 +92,7 @@
                                     <?php endfor;?>
                                     <?php else:?>
                                         <article class="post-article">
-                                            <h6 class="post-title"><?php _e('还没关注别人'); ?></h6>
+                                            <h6 class="post-title"><?php _oc_e('还没关注别人'); ?></h6>
                                         </article>
                                     <?php endif ?>
                                 <?php elseif($tabIndex==2):?>
@@ -101,17 +101,17 @@
 
                                         <?php for ($i = 0; $i < count($fobj); $i++): ?>
                                         <div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr">
-                                            <a href="<?php $author_url = Typecho_Common::url('/author/'.$fobj[$i]['uid'].'/',$this->options->index);_e($author_url)?>"
+                                            <a href="<?php $author_url = Typecho_Common::url('/author/'.$fobj[$i]['uid'].'/',$this->options->index);_oc_e($author_url)?>"
                                                class="sc-AxjAm sc-AxirZ eGdPrb"><img
-                                                        src="<?php _e(getUserV2exAvatar($fobj[$i]['mail'],$fobj[$i]['userAvatar']))?>"
+                                                        src="<?php _oc_e(getUserV2exAvatar($fobj[$i]['mail'],$fobj[$i]['userAvatar']))?>"
                                                         alt="再多一点可爱" class="sc-AxjAm jZLHXc">
                                                 <div  class="sc-AxjAm sc-AxirZ hkyonN">
-                                                    <div class="sc-AxjAm oDrAC"><?php _e($fobj[$i]['screenName'])?></div>
-                                                    <div class="sc-AxjAm hHqHSX ezzhLs"><?php _e($fobj[$i]['userSign']);?></div>
+                                                    <div class="sc-AxjAm oDrAC"><?php _oc_e($fobj[$i]['screenName'])?></div>
+                                                    <div class="sc-AxjAm hHqHSX ezzhLs"><?php _oc_e($fobj[$i]['userSign']);?></div>
                                                 </div>
                                             </a>
                                             <div class="sc-AxjAm sc-AxirZ hsyNhw">
-                                                <button data-authorid="<?php _e($fobj[$i]['uid'])?>" <?php
+                                                <button data-authorid="<?php _oc_e($fobj[$i]['uid'])?>" <?php
                                                 if ($this->user->hasLogin()){
                                                     if (UserFollow::statusFollow($this->user->uid,$fobj[$i]['uid'])){
                                                         echo 'class="fansed-little fan-event">已关注';
@@ -128,7 +128,7 @@
                                     <?php endfor;?>
                                     <?php else:?>
                                     <article class="post-article">
-                                        <h6 class="post-title"><?php _e('还没有人关注你哦'); ?></h6>
+                                        <h6 class="post-title"><?php _oc_e('还没有人关注你哦'); ?></h6>
                                     </article>
                                     <?php endif ?>
                                 <?php elseif($tabIndex==3 && $this->have()):?>
@@ -138,7 +138,7 @@
 
                                 <?php else: ?>
                                     <article class="post-article">
-                                        <h6 class="post-title"><?php _e('还没有发布内容'); ?></h6>
+                                        <h6 class="post-title"><?php _oc_e('还没有发布内容'); ?></h6>
                                     </article>
                                 <?php endif; ?>
                             </div>

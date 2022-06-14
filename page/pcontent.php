@@ -91,7 +91,7 @@ $payPlugin = $this->getPageRow()['payPlugin'];
                                         <?php foreach ($showTags as $showt): ?>
                                             <li><a no-pjax
                                                    href="<?php echo genPermalink('tag', ['type' => 'tag', 'slug' => $showt['slug']]) ?>"
-                                                   data-mid="<?php echo $showt ['mid'] ?>"><?php _e($showt['name']); ?></a>
+                                                   data-mid="<?php echo $showt ['mid'] ?>"><?php _oc_e($showt['name']); ?></a>
                                             </li>
                                         <?php endforeach; ?>
                                     </ul>
@@ -223,7 +223,7 @@ $payPlugin = $this->getPageRow()['payPlugin'];
                                                                         </time>
                                                                     </li>
                                                                     <?php if ($this->fields->resourceField): ?>
-                                                                        <div class="jing-theme-tag"><?php _e($this->fields->resourceField); ?></div>
+                                                                        <div class="jing-theme-tag"><?php _oc_e($this->fields->resourceField); ?></div>
                                                                     <?php endif; ?>
                                                                     <li class="meta-price">
                                                                 <span>
@@ -232,7 +232,7 @@ $payPlugin = $this->getPageRow()['payPlugin'];
                                                                     if ($payPlugin == 'TePass'){
                                                                         echo $this->post_price;
                                                                     }else {
-                                                                        _e($this->price);
+                                                                        _oc_e($this->price);
                                                                     }
                                                                     ?>
                                                                 </span>

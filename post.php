@@ -35,20 +35,20 @@
                     <?php if ($this->user->hasLogin() && checkPermission($this->author->uid,$this->user->uid)): ?>
                         <a href="<?php $this->options->adminUrl('/write-post.php?cid='.$this->cid); ?>">编辑</a>
                         <?php Typecho_Widget::widget('Widget_Security')->to($security); ?>
-                        <a href="<?php $security->index('/action/contents-post-edit?do=delete&cid='.$this->cid); ?>" onclick="javascript:return del_article(this,<?php _e($this->cid);?>)">删除</a>
+                        <a href="<?php $security->index('/action/contents-post-edit?do=delete&cid='.$this->cid); ?>" onclick="javascript:return del_article(this,<?php _oc_e($this->cid);?>)">删除</a>
                     <?php endif; ?>
                 </div>
                 <!--     元数据-->
                 <div class="article-meta">
                     <span class="article-category">
-                        <?php if (empty($this->category)) _e("未选择"); else $this->category(','); ?>
+                        <?php if (empty($this->category)) _oc_e("未选择"); else $this->category(','); ?>
                     </span>
                     <time class="create-time" datetime="<?php $this->date('c'); ?>"><?php $this->date(); ?></time>
                     <?php $agree = $this->hidden ? array('agree' => 0, 'recording' => true) : utils::agreeNum($this->cid); ?>
                     <div class="article-data"><span><?php utils::getPostView($this); ?>阅读 <?php echo $agree['agree']; ?>点赞</span>
                     </div>
                 </div>
-                <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _e($this->options->article_top_ads);?></div>
+                <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _oc_e($this->options->article_top_ads);?></div>
 
                     <!--     content-->
                 <div class="article-content joe_detail__article">
@@ -100,13 +100,13 @@
                 <!--点赞-->
                 <div class="sc-AxjAm sc-AxirZ bseKGM">
 
-                    <a href="<?php _e($this->categories[0]['permalink'])?>" class="sc-AxjAm bqBMQE hWYvmd">
+                    <a href="<?php _oc_e($this->categories[0]['permalink'])?>" class="sc-AxjAm bqBMQE hWYvmd">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                              class="dfDGBV">
                             <circle cx="10" cy="10" r="10" fill="#03A9F5"></circle>
                             <circle cx="10" cy="10" r="5" fill="#A0E3FE"></circle>
                         </svg>
-                        <?php if(empty($this->categories[0]['name'])) _e("未选择");else _e($this->categories[0]['name']);?>
+                        <?php if(empty($this->categories[0]['name'])) _oc_e("未选择");else _oc_e($this->categories[0]['name']);?>
                     </a>
                     <div class="sc-AxjAm sc-AxirZ kVrFww">
                         <div class="sc-AxjAm sc-AxirZ  IsObJ" >
@@ -147,12 +147,12 @@
                     </div>
                 </div>
             </article>
-            <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _e($this->options->article_bottom_ads);?></div>
+            <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _oc_e($this->options->article_bottom_ads);?></div>
 
                 <!--            目录树-->
             <section class="col-12 col-md-4 col-xl-3 article-catalog animate__animated animate__bounceInRight" id="tocTree">
                 <h3 class="article-catalog-title">
-                    <?php _e('目录'); ?>
+                    <?php _oc_e('目录'); ?>
                     <button type="button" class="close" aria-label="Close" id="catalog-close">
                         <span aria-hidden="true">&times;</span>
                     </button>

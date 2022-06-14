@@ -14,17 +14,17 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
             while ($users->next()):
                 ?>
                 <div class="sc-AxjAm sc-AxirZ kQHfHM bITJVr">
-                    <a href="<?php _e($users->permalink); ?>" class="sc-AxjAm sc-AxirZ eGdPrb"><img
-                                src="<?php _e(getUserV2exAvatar($users->mail, $users->userAvatar)) ?>" alt="再多一点可爱"
+                    <a href="<?php _oc_e($users->permalink); ?>" class="sc-AxjAm sc-AxirZ eGdPrb"><img
+                                src="<?php _oc_e(getUserV2exAvatar($users->mail, $users->userAvatar)) ?>" alt="再多一点可爱"
                                 class="sc-AxjAm jZLHXc">
                         <div class="sc-AxjAm sc-AxirZ hkyonN">
-                            <div class="sc-AxjAm oDrAC"><div class="text-overflow"><?php $users->screenName() ?></div><span class="badge bg-info m-l-xs text-xs">LV<?php _e($users->level); ?></span></div>
-                            <div class="sc-AxjAm hHqHSX ezzhLs"><?php if ($users->userSign) _e($users->userSign); else _e('太懒了还没有签名'); ?></div>
+                            <div class="sc-AxjAm oDrAC"><div class="text-overflow"><?php $users->screenName() ?></div><span class="badge bg-info m-l-xs text-xs">LV<?php _oc_e($users->level); ?></span></div>
+                            <div class="sc-AxjAm hHqHSX ezzhLs"><?php if ($users->userSign) _oc_e($users->userSign); else _oc_e('太懒了还没有签名'); ?></div>
                         </div>
                     </a>
 
                     <div class="sc-AxjAm sc-AxirZ hsyNhw">
-                        <button data-authorid="<?php _e($users->uid); ?>" <?php
+                        <button data-authorid="<?php _oc_e($users->uid); ?>" <?php
                         if ($this->user->hasLogin()) {
                             if (UserFollow::statusFollow($this->user->uid, $users->uid)) {
                                 echo 'class="fansed-little fan-event">已关注';
@@ -45,7 +45,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
     <div class="card d-md-block mycicle">
         <div class="mycicle-title">
             <h2>推荐圈子</h2>
-            <a href="<?php _e(Typecho_Common::url('/metas', $this->options->index)); ?>">
+            <a href="<?php _oc_e(Typecho_Common::url('/metas', $this->options->index)); ?>">
                 <svg t="1603601049059" class="icon" viewBox="0 0 1024 1024" version="1.1"
                      xmlns="http://www.w3.org/2000/svg" p-id="3178" width="24" height="24">
                     <path d="M391.88 600.132c17.667 0 31.988 14.321 31.988 31.987v271.894c0 17.666-14.321 31.987-31.987 31.987H119.987C102.321 936 88 921.679 88 904.013V632.119c0-17.666 14.321-31.987 31.987-31.987h271.894z m463.818 0c17.667 0 31.988 14.321 31.988 31.987v271.894c0 17.666-14.321 31.987-31.988 31.987H583.805c-17.666 0-31.987-14.321-31.987-31.987V632.119c0-17.666 14.321-31.987 31.987-31.987h271.893zM734.374 97.369L926.63 289.626c12.492 12.492 12.492 32.746 0 45.238L734.374 527.12c-12.492 12.492-32.746 12.492-45.238 0L496.88 334.864c-12.492-12.492-12.492-32.746 0-45.238L689.136 97.37c12.492-12.492 32.746-12.492 45.238 0zM391.88 136.314c17.666 0 31.987 14.321 31.987 31.988v271.893c0 17.666-14.321 31.987-31.987 31.987H119.987c-17.666 0-31.987-14.321-31.987-31.987V168.302c0-17.667 14.321-31.988 31.987-31.988h271.894z m319.874 40.22L576.044 312.245l135.711 135.711 135.711-135.711-135.711-135.711z"

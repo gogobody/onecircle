@@ -51,13 +51,13 @@ $credits_arr = utils::creditsConvert($this->user->credits);
                                             // 主要是从参数获取
                                             if ($contactUser):
                                             ?>
-                                            <li data-uid="<?php _e($contactUser->uid);?>" class="list-group-item media">
+                                            <li data-uid="<?php _oc_e($contactUser->uid);?>" class="list-group-item media">
                                                 <div class="media-left">
                                                     <figure class="image is-circle is-48"><img
                                                                 src="<?php echo getUserV2exAvatar($contactUser->mail,$contactUser->userAvatar)?>"
-                                                                title="<?php _e($contactUser->screenName) ?>"></figure>
+                                                                title="<?php _oc_e($contactUser->screenName) ?>"></figure>
                                                 </div>
-                                                <div class="media-body"><p class="font-bold"><?php _e($showName) ?></p>
+                                                <div class="media-body"><p class="font-bold"><?php _oc_e($showName) ?></p>
                                                     <p class="text-muted m-b-none">新聊天<span class="pull-right i-sm">刚刚</span></p>
                                                 </div>
                                             </li>
@@ -78,15 +78,15 @@ $credits_arr = utils::creditsConvert($this->user->credits);
                                                     }
 
                                                     ?>
-                                            <li data-uid="<?php _e($contactUser->uid);?>" class="list-group-item media">
+                                            <li data-uid="<?php _oc_e($contactUser->uid);?>" class="list-group-item media">
                                                 <div class="media-left">
                                                     <figure class="image is-circle is-48"><img
                                                                 src="<?php echo getUserV2exAvatar($contactUser->mail,$contactUser->userAvatar)?>"
-                                                                title="<?php _e($contactUser->screenName) ?>"></figure>
+                                                                title="<?php _oc_e($contactUser->screenName) ?>"></figure>
                                                 </div>
-                                                <div class="media-body"><p class="font-bold"><?php _e($showName) ?></p>
-                                                    <p class="text-muted m-b-none"><?php _e(utils::substr($this->messages->text,30)) ?>
-                                                        <span class="pull-right i-sm"><?php _e((new Typecho_Date($this->messages->created))->word()) ?></span>
+                                                <div class="media-body"><p class="font-bold"><?php _oc_e($showName) ?></p>
+                                                    <p class="text-muted m-b-none"><?php _oc_e(utils::substr($this->messages->text,30)) ?>
+                                                        <span class="pull-right i-sm"><?php _oc_e((new Typecho_Date($this->messages->created))->word()) ?></span>
                                                     </p>
                                                 </div>
                                             </li>

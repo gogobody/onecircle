@@ -40,7 +40,7 @@ Typecho_Widget::widget('Widget_Security')->to($security);
                                         <div class="form-group row clearfix">
                                             <label for="L_id" class="col-lg-4 col-md-3 control-label">UID</label>
                                             <div class="col-lg-8 col-md-9">
-                                                <input type="text" id="L_id" value="<?php _e($this->user->uid); ?>"
+                                                <input type="text" id="L_id" value="<?php _oc_e($this->user->uid); ?>"
                                                        class="form-control" disabled="">
                                                 <div class="help-block m-b-none">UID无法修改</div>
                                             </div>
@@ -49,7 +49,7 @@ Typecho_Widget::widget('Widget_Security')->to($security);
                                         <div class="form-group row clearfix">
                                             <label for="L_name" class="col-lg-4 col-md-3 control-label">用户名</label>
                                             <div class="col-lg-8 col-md-9">
-                                                <input type="text" id="L_name" value="<?php _e($this->user->name); ?>"
+                                                <input type="text" id="L_name" value="<?php _oc_e($this->user->name); ?>"
                                                        class="form-control" disabled="">
                                                 <div class="help-block m-b-none">用户名设置后将无法修改</div>
                                             </div>

@@ -8,7 +8,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 <div class="archive-header">
     <div class="archive-header-top">
         <div class="header-top-img"
-             style='background-image: url(<?php _e(parseDesc2img($this->options->defaultSlugUrl,$this->getDescription())); ?>)'>
+             style='background-image: url(<?php _oc_e(parseDesc2img($this->options->defaultSlugUrl,$this->getDescription())); ?>)'>
             <div class="header-top-img-inner"></div>
         </div>
     </div>
@@ -17,14 +17,14 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <div class="header-top-bottom-avatar"><img src="<?php
             $imgurl = parseDesc2img($this->options->defaultSlugUrl,$this->getDescription());
             if ($imgurl) {
-                _e($imgurl);
+                _oc_e($imgurl);
             } else {
-                _e($this->options->defaultSlugUrl());
+                _oc_e($this->options->defaultSlugUrl());
             } ?>" alt="">
         </div>
         <div class="header-top-bottom-text">
             <div class="htbt-left">
-                <h2><?php _e($this->getArchiveTitle()) ?></h2>
+                <h2><?php _oc_e($this->getArchiveTitle()) ?></h2>
                 <div class="htbt-intr">
                     <div class="htbt-intr-text">
                         <?php if ($this->getTotal() > 0) {

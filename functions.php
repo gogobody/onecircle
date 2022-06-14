@@ -758,3 +758,11 @@ function themeVersion()
     $info = Typecho_Plugin::parseInfo(__DIR__ . '/index.php');
     return $info['version'];
 }
+
+
+if (!function_exists('_oc_e')){
+    function _oc_e($str)
+    {
+        echo $str;
+    }
+}

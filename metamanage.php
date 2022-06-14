@@ -26,7 +26,7 @@ define("CIRCLE_MANAGEURL","/extending.php?panel=OneCircle%2Fmanage%2Fmanage-cat-
                 </li>
             <?endif;?>
             <li class="nav-item" role="presentation">
-                <a class="nav-link <?if (!$this->user->hasLogin()) _e('active');?>" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="false">所有圈子</a>
+                <a class="nav-link <?if (!$this->user->hasLogin()) _oc_e('active');?>" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="false">所有圈子</a>
             </li>
 
         </ul>
@@ -61,7 +61,7 @@ define("CIRCLE_MANAGEURL","/extending.php?panel=OneCircle%2Fmanage%2Fmanage-cat-
                                                     </div>
                                                 </a>
                                                 <div class="htbt-right">
-                                                    <button data-categoryid="<?php _e($arr[$i][0]) ?>"
+                                                    <button data-categoryid="<?php _oc_e($arr[$i][0]) ?>"
                                                     <?php
                                                     if ($this->user->hasLogin()){
                                                         if (CircleFollow::statusFollow($this->user->uid,$arr[$i][0])){
@@ -100,9 +100,9 @@ define("CIRCLE_MANAGEURL","/extending.php?panel=OneCircle%2Fmanage%2Fmanage-cat-
                                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <?php foreach($total_category_data as $k => $data):?>
                                         <?php if ($k == 'all_'):?> <!-- 所有 ，默认active-->
-                                            <a class="nav-link active" id="v-pills-<?php _e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _e($data['id']);?>" aria-selected="true"><?php _e($data['name']);?></a>
+                                            <a class="nav-link active" id="v-pills-<?php _oc_e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _oc_e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _oc_e($data['id']);?>" aria-selected="true"><?php _oc_e($data['name']);?></a>
                                         <?php else:?>
-                                            <a class="nav-link" id="v-pills-<?php _e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _e($data['id']);?>" aria-selected="false"><?php _e($data['name']);?></a>
+                                            <a class="nav-link" id="v-pills-<?php _oc_e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _oc_e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _oc_e($data['id']);?>" aria-selected="false"><?php _oc_e($data['name']);?></a>
                                         <?php endif;?>
                                     <?php endforeach;?>
                                 </div>
@@ -111,7 +111,7 @@ define("CIRCLE_MANAGEURL","/extending.php?panel=OneCircle%2Fmanage%2Fmanage-cat-
                                 <div class="tab-content" id="v-pills-tabContent">
                                     <!--输出对应分类圈子-->
                                     <?php foreach($total_category_data as $k => $data):?>
-                                        <div class="tab-pane fade <?php if ($k == 'all_') _e('show active');?> mycicle-content" id="v-pills-<?php _e($data['id']);?>" role="tabpanel" aria-labelledby="v-pills-<?php _e($data['id']);?>-tab">
+                                        <div class="tab-pane fade <?php if ($k == 'all_') _oc_e('show active');?> mycicle-content" id="v-pills-<?php _oc_e($data['id']);?>" role="tabpanel" aria-labelledby="v-pills-<?php _oc_e($data['id']);?>-tab">
                                             <?php foreach ($data['categories'] as $val):?>
                                                 <?php $entry = Typecho_Widget::widget('Widget_Abstract_Metas')->filter(array(
                                                     'type'=>"category",
@@ -120,19 +120,19 @@ define("CIRCLE_MANAGEURL","/extending.php?panel=OneCircle%2Fmanage%2Fmanage-cat-
                                                 $url_ = Typecho_Router::url("category", array("slug"=>$val['slug']), $this->options->index);
                                                 ?>
                                                 <div class="circle-item">
-                                                    <a href="<?php _e($url_) ?>" class="circle-item-link">
+                                                    <a href="<?php _oc_e($url_) ?>" class="circle-item-link">
                                                         <img src="<?php echo parseDesc2img($this->options->defaultSlugUrl,$val['description']) ?>">
                                                         <div class="circle-item-link-right">
-                                                            <div class="circle-item-link-title"><?php _e($val['name']); ?></div>
+                                                            <div class="circle-item-link-title"><?php _oc_e($val['name']); ?></div>
                                                             <div class="circle-item-link-info"><?php echo parseDesc2text($val['description']) ?></div>
                                                         </div>
                                                     </a>
 
                                                     <div class="htbt-right edit-btn">
-                                                        <button data-categoryid="<?php _e($val['mid']) ?>" data-name="<?php _e($val['name']); ?>" type="button">编辑</button>
+                                                        <button data-categoryid="<?php _oc_e($val['mid']) ?>" data-name="<?php _oc_e($val['name']); ?>" type="button">编辑</button>
                                                     </div>
                                                     <div class="htbt-right">
-                                                        <button data-categoryid="<?php _e($val['mid']) ?>"
+                                                        <button data-categoryid="<?php _oc_e($val['mid']) ?>"
                                                         <?php
                                                         if ($this->user->hasLogin()){
                                                             if (CircleFollow::statusFollow($this->user->uid,$val['mid'])){
@@ -162,9 +162,9 @@ define("CIRCLE_MANAGEURL","/extending.php?panel=OneCircle%2Fmanage%2Fmanage-cat-
                                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <?php foreach($total_category_data as $k => $data):?>
                                         <?php if ($k == 'all_'):?> <!-- 所有 ，默认active-->
-                                            <a class="nav-link active" id="v-pills-<?php _e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _e($data['id']);?>" aria-selected="true"><?php _e($data['name']);?></a>
+                                            <a class="nav-link active" id="v-pills-<?php _oc_e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _oc_e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _oc_e($data['id']);?>" aria-selected="true"><?php _oc_e($data['name']);?></a>
                                         <?php else:?>
-                                            <a class="nav-link" id="v-pills-<?php _e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _e($data['id']);?>" aria-selected="false"><?php _e($data['name']);?></a>
+                                            <a class="nav-link" id="v-pills-<?php _oc_e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _oc_e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _oc_e($data['id']);?>" aria-selected="false"><?php _oc_e($data['name']);?></a>
                                         <?php endif;?>
                                     <?php endforeach;?>
                                 </div>
@@ -173,7 +173,7 @@ define("CIRCLE_MANAGEURL","/extending.php?panel=OneCircle%2Fmanage%2Fmanage-cat-
                                 <div class="tab-content" id="v-pills-tabContent">
                                     <!--输出对应分类圈子-->
                                     <?php foreach($total_category_data as $k => $data):?>
-                                        <div class="tab-pane fade <?php if ($k == 'all_') _e('show active');?> mycicle-content" id="v-pills-<?php _e($data['id']);?>" role="tabpanel" aria-labelledby="v-pills-<?php _e($data['id']);?>-tab">
+                                        <div class="tab-pane fade <?php if ($k == 'all_') _oc_e('show active');?> mycicle-content" id="v-pills-<?php _oc_e($data['id']);?>" role="tabpanel" aria-labelledby="v-pills-<?php _oc_e($data['id']);?>-tab">
                                             <?php foreach ($data['categories'] as $val):?>
                                                 <?php $entry = Typecho_Widget::widget('Widget_Abstract_Metas')->filter(array(
                                                     'type'=>"category",
@@ -182,16 +182,16 @@ define("CIRCLE_MANAGEURL","/extending.php?panel=OneCircle%2Fmanage%2Fmanage-cat-
                                                 $url_ = Typecho_Router::url("category", array("slug"=>$val['slug']), $this->options->index);
                                                 ?>
                                                 <div class="circle-item">
-                                                    <a href="<?php _e($url_) ?>" class="circle-item-link">
+                                                    <a href="<?php _oc_e($url_) ?>" class="circle-item-link">
                                                         <img src="<?php echo parseDesc2img($this->options->defaultSlugUrl,$val['description']) ?>">
                                                         <div class="circle-item-link-right">
-                                                            <div class="circle-item-link-title"><?php _e($val['name']); ?></div>
+                                                            <div class="circle-item-link-title"><?php _oc_e($val['name']); ?></div>
                                                             <div class="circle-item-link-info"><?php echo parseDesc2text($val['description']) ?></div>
                                                         </div>
                                                     </a>
 
                                                     <div class="htbt-right">
-                                                        <button data-categoryid="<?php _e($val['mid']) ?>"
+                                                        <button data-categoryid="<?php _oc_e($val['mid']) ?>"
                                                         <?php
                                                         if ($this->user->hasLogin()){
                                                             if (CircleFollow::statusFollow($this->user->uid,$val['mid'])){
@@ -222,9 +222,9 @@ define("CIRCLE_MANAGEURL","/extending.php?panel=OneCircle%2Fmanage%2Fmanage-cat-
                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 <?php foreach($total_category_data as $k => $data):?>
                                     <?php if ($k == 'all_'):?> <!-- 所有 ，默认active-->
-                                        <a class="nav-link active" id="v-pills-<?php _e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _e($data['id']);?>" aria-selected="true"><?php _e($data['name']);?></a>
+                                        <a class="nav-link active" id="v-pills-<?php _oc_e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _oc_e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _oc_e($data['id']);?>" aria-selected="true"><?php _oc_e($data['name']);?></a>
                                     <?php else:?>
-                                        <a class="nav-link" id="v-pills-<?php _e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _e($data['id']);?>" aria-selected="false"><?php _e($data['name']);?></a>
+                                        <a class="nav-link" id="v-pills-<?php _oc_e($data['id']);?>-tab" data-toggle="pill" href="#v-pills-<?php _oc_e($data['id']);?>" role="tab" aria-controls="v-pills-<?php _oc_e($data['id']);?>" aria-selected="false"><?php _oc_e($data['name']);?></a>
                                     <?php endif;?>
                                 <?php endforeach;?>
                             </div>
@@ -233,7 +233,7 @@ define("CIRCLE_MANAGEURL","/extending.php?panel=OneCircle%2Fmanage%2Fmanage-cat-
                             <div class="tab-content" id="v-pills-tabContent">
                                 <!--输出对应分类圈子-->
                                 <?php foreach($total_category_data as $k => $data):?>
-                                    <div class="tab-pane fade <?php if ($k == 'all_') _e('show active');?> mycicle-content" id="v-pills-<?php _e($data['id']);?>" role="tabpanel" aria-labelledby="v-pills-<?php _e($data['id']);?>-tab">
+                                    <div class="tab-pane fade <?php if ($k == 'all_') _oc_e('show active');?> mycicle-content" id="v-pills-<?php _oc_e($data['id']);?>" role="tabpanel" aria-labelledby="v-pills-<?php _oc_e($data['id']);?>-tab">
                                         <?php foreach ($data['categories'] as $val):?>
                                             <?php $entry = Typecho_Widget::widget('Widget_Abstract_Metas')->filter(array(
                                                 'type'=>"category",
@@ -242,15 +242,15 @@ define("CIRCLE_MANAGEURL","/extending.php?panel=OneCircle%2Fmanage%2Fmanage-cat-
                                             $url_ = Typecho_Router::url("category", array("slug"=>$val['slug']), $this->options->index);
                                             ?>
                                             <div class="circle-item">
-                                                <a href="<?php _e($url_) ?>" class="circle-item-link">
+                                                <a href="<?php _oc_e($url_) ?>" class="circle-item-link">
                                                     <img src="<?php echo parseDesc2img($this->options->defaultSlugUrl,$val['description']) ?>">
                                                     <div class="circle-item-link-right">
-                                                        <div class="circle-item-link-title"><?php _e($val['name']); ?></div>
+                                                        <div class="circle-item-link-title"><?php _oc_e($val['name']); ?></div>
                                                         <div class="circle-item-link-info"><?php echo parseDesc2text($val['description']) ?></div>
                                                     </div>
                                                 </a>
                                                 <div class="htbt-right">
-                                                    <button data-categoryid="<?php _e($val['mid']) ?>"
+                                                    <button data-categoryid="<?php _oc_e($val['mid']) ?>"
                                                     <?php
                                                     if ($this->user->hasLogin()){
                                                         if (CircleFollow::statusFollow($this->user->uid,$val['mid'])){
@@ -297,7 +297,7 @@ define("CIRCLE_MANAGEURL","/extending.php?panel=OneCircle%2Fmanage%2Fmanage-cat-
                             <label for="changeCircle">更改分类</label>
                             <select class="form-control" id="changeCircle">
                                 <?php foreach($total_tags as $k => $data):?>
-                                    <option value="<?_e($data['id'])?>"><?_e($data['name'])?></option>
+                                    <option value="<?_oc_e($data['id'])?>"><?_oc_e($data['name'])?></option>
                                 <?php endforeach;?>
                             </select>
                         </div>

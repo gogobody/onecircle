@@ -49,7 +49,7 @@
     <?php $this->header('description=&generator=&template='); ?>
     <?php $this->options->cssEcho(); ?>
     <?php $this->options->headerEcho(); ?>
-    <script>gconf={index:'<?php _e(Helper::options()->index)?>',oneaction:'<?php _e(Helper::options()->index)?>/oneaction',IS_MOBILE: /windows phone|iphone|android/gi.test(window.navigator.userAgent)}</script>
+    <script>gconf={index:'<?php _oc_e(Helper::options()->index)?>',oneaction:'<?php _oc_e(Helper::options()->index)?>/oneaction',IS_MOBILE: /windows phone|iphone|android/gi.test(window.navigator.userAgent)}</script>
     <script src="https://cdn.bootcdn.net/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
     <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/responsive.min.css'); ?>?version=<?php themeVersion() ?>" />
     <?php
@@ -79,10 +79,10 @@
             --warning: #e6a23c;
             --danger: #f56c6c;
             --main: <?php echo $mainColor ?>;
-            --panelColor: <?php if ($setTansparent) _e('rgb(242,245,248,'.$this->options->Jtransparent.');'); else _e('rgb(242,245,248);');?>;
-            --articleHover: <?php if ($setTansparent) _e('rgb(248,250,251,0.5);'); else _e('rgb(248,250,251);');?>;
-            --focusUserColor: <?php if ($setTansparent) _e('rgb(242,245,258,0.5);'); else _e('rgb(242,245,258);');?>;
-            --contentbg: <?php if ($setTansparent) _e('rgb(245,248,250,0.5);'); else _e('rgb(245,248,250);');?>;
+            --panelColor: <?php if ($setTansparent) _oc_e('rgb(242,245,248,'.$this->options->Jtransparent.');'); else _oc_e('rgb(242,245,248);');?>;
+            --articleHover: <?php if ($setTansparent) _oc_e('rgb(248,250,251,0.5);'); else _oc_e('rgb(248,250,251);');?>;
+            --focusUserColor: <?php if ($setTansparent) _oc_e('rgb(242,245,258,0.5);'); else _oc_e('rgb(242,245,258);');?>;
+            --contentbg: <?php if ($setTansparent) _oc_e('rgb(245,248,250,0.5);'); else _oc_e('rgb(245,248,250);');?>;
             --info: #909399;
             --radius-pc: 10px;
             --radius-wap: 4px;
@@ -152,23 +152,23 @@
                                     <a class="nav-link" href="#" id="navbarDropdown" role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                                        <span class="hidden-sm hidden-md hidden-lg"><?php _e($this->user->name);?></span>
+                                        <span class="hidden-sm hidden-md hidden-lg"><?php _oc_e($this->user->name);?></span>
                                         <b class="caret "></b><!--下三角符号-->
                                         <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm">
-                                    <img class="img-circle img-40px" src="<?php _e(getUserV2exAvatar($this->user->mail,$this->user->userAvatar))?>">
+                                    <img class="img-circle img-40px" src="<?php _oc_e(getUserV2exAvatar($this->user->mail,$this->user->userAvatar))?>">
                                     <i id="msg-tip" class="on md b-white bottom"></i>
                                 </span>
                                     </a>
                                     <!-- dropdown(已经登录) -->
                                     <ul class="dropdown-menu animate__fadeInRight login-dropdown header__dropdown-menu " id="Logged-in">
                                         <li>
-                                            <a target="_blank" href="<?php _e($this->options->index . '/usercenter/messages');?>">
+                                            <a target="_blank" href="<?php _oc_e($this->options->index . '/usercenter/messages');?>">
                                                 <span style="width: 30px;display: inline-block;text-align: center"><svg height="1em" aria-hidden="true" focusable="false" data-prefix="far" data-icon="comment-dots" class="svg-inline--fa fa-comment-dots fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M144 208c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32zm112 0c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32zm112 0c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32zM256 32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26S14.4 480 24 480c61.5 0 110-25.7 139.1-46.3C192 442.8 223.2 448 256 448c141.4 0 256-93.1 256-208S397.4 32 256 32zm0 368c-26.7 0-53.1-4.1-78.4-12.1l-22.7-7.2-19.5 13.8c-14.3 10.1-33.9 21.4-57.5 29 7.3-12.1 14.4-25.7 19.9-40.2l10.6-28.1-20.6-21.8C69.7 314.1 48 282.2 48 240c0-88.2 93.3-160 208-160s208 71.8 208 160-93.3 160-208 160z"></path></svg></span>
                                                 <span id="my-message">我的私信</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a target="_blank" href="<?php _e($this->options->index . '/usercenter/notice');?>">
+                                            <a target="_blank" href="<?php _oc_e($this->options->index . '/usercenter/notice');?>">
                                                 <span style="width: 30px;display: inline-block;text-align: center"><svg height="1em" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="envelope-square" class="svg-inline--fa fa-envelope-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM178.117 262.104C87.429 196.287 88.353 196.121 64 177.167V152c0-13.255 10.745-24 24-24h272c13.255 0 24 10.745 24 24v25.167c-24.371 18.969-23.434 19.124-114.117 84.938-10.5 7.655-31.392 26.12-45.883 25.894-14.503.218-35.367-18.227-45.883-25.895zM384 217.775V360c0 13.255-10.745 24-24 24H88c-13.255 0-24-10.745-24-24V217.775c13.958 10.794 33.329 25.236 95.303 70.214 14.162 10.341 37.975 32.145 64.694 32.01 26.887.134 51.037-22.041 64.72-32.025 61.958-44.965 81.325-59.406 95.283-70.199z"></path></svg></span>
                                                 <span>系统消息</span>
                                             </a>
@@ -209,7 +209,7 @@
                                         </li>
                                         <!--个人设置(登录时候才会显示)-->
                                         <li>
-                                            <a target="_blank" href="<?php _e($this->options->index . '/usercenter/setting'); ?>">
+                                            <a target="_blank" href="<?php _oc_e($this->options->index . '/usercenter/setting'); ?>">
                                                 <svg t="1604126473824" class="icon login-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4129" width="1em" height="1em"><path d="M514.56 51.456a214.4 214.4 0 1 1 0 428.8 214.4 214.4 0 0 1 0-428.8z m0 42.88a171.52 171.52 0 1 0 0 343.04 171.52 171.52 0 0 0 0-343.04zM514.56 501.696a385.92 385.92 0 0 1 385.728 374.528l0.192 11.392c0 47.36-38.4 85.76-85.76 85.76H214.4c-47.36 0-85.76-38.4-85.76-85.76l0.192-11.392A385.92 385.92 0 0 1 514.56 501.76z m0 42.88a342.976 342.976 0 0 0-342.4 321.664l-0.448 10.624-0.192 10.752a42.88 42.88 0 0 0 37.888 42.56l4.992 0.32h600.32a42.88 42.88 0 0 0 42.624-37.376l0.256-4.864-0.128-10.752A343.04 343.04 0 0 0 514.56 544.576z" p-id="4130"></path></svg>
                                                 <span>个人设置</span></a>
                                         </li>
@@ -297,10 +297,10 @@
                     </button>
                     <h4>搜索</h4>
                     <form name="search" method="post" action="<?php $this->options->siteUrl(); ?>" role="search">
-                        <label for="s" class="sr-only"><?php _e('搜索关键字'); ?></label>
+                        <label for="s" class="sr-only"><?php _oc_e('搜索关键字'); ?></label>
                         <input type="text" id="s" name="s" class="text form-control"
-                               placeholder="<?php _e('输入关键字搜索'); ?>"/>
-                        <button type="submit" class="btn btn-primary float-right search-button"><?php _e('搜索'); ?></button>
+                               placeholder="<?php _oc_e('输入关键字搜索'); ?>"/>
+                        <button type="submit" class="btn btn-primary float-right search-button"><?php _oc_e('搜索'); ?></button>
                     </form>
 
                 </div>

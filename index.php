@@ -9,6 +9,7 @@
  */
 
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
 $loading = Helper::options()->defaultLoadingUrl();
 // recommend page
 $tArr = utils::parseUrlQuery(utils::GetCurUrl());
@@ -46,25 +47,25 @@ $this->need('includes/header.php');
                 <?php if($recommend):?>
                 <!-- 圈友日记 -->
                 <div class="diary-content">
-                    <a href="<?php $meta_url = Typecho_Common::url('/metas',$this->options->index);_e($meta_url);?>">
+                    <a href="<?php $meta_url = Typecho_Common::url('/metas',$this->options->index);_oc_e($meta_url);?>">
                     <div class="mycicle-title">
                         <h2>圈友日记</h2>
-                        <a href="<?php _e($meta_url);?>"><h2>更多</h2></a>
+                        <a href="<?php _oc_e($meta_url);?>"><h2>更多</h2></a>
                     </div>
                     <div class="circle-diary">
                         <?php $imgs = getRandRecommendImgs(8); foreach ($imgs as $rimg):?>
                             <?php $archive_ = null;
                             $this->widget('Widget_Archive@_'.$rimg['cid'], 'pageSize=1&type=post', 'cid='.$rimg['cid'])->to($archive_);?>
-                            <a href="<?php $archive_->permalink?_e($archive_->permalink):''; ?>" class="diary-item">
+                            <a href="<?php $archive_->permalink?_oc_e($archive_->permalink):''; ?>" class="diary-item">
                                 <div class="circle-diary-bg">
                                     <div class="diary-img">
-                                        <img src="<?php $loading?_t($loading):''?>" data-src="<?php _e($rimg['img']); ?>" class="lazyload">
+                                        <img src="<?php $loading?_t($loading):''?>" data-src="<?php _oc_e($rimg['img']); ?>" class="lazyload">
                                     </div>
                                     <div class="circle-diary-bottom">
                                         <div class="circle-diary-avatar"><img class="img-circle img-thumbnail"
-                                                                              src="<?php _e(getUserV2exAvatar($rimg['email'], $rimg['userAvatar'])); ?>">
+                                                                              src="<?php _oc_e(getUserV2exAvatar($rimg['email'], $rimg['userAvatar'])); ?>">
                                         </div>
-                                        <div class="circle-diary-name"><?php $rimg['screenName']?_e($rimg['screenName']):''; ?></div>
+                                        <div class="circle-diary-name"><?php $rimg['screenName']?_oc_e($rimg['screenName']):''; ?></div>
                                     </div>
                                 </div>
                             </a>
@@ -76,7 +77,7 @@ $this->need('includes/header.php');
                     </a>
                 </div>
                 <?php endif; ?>
-                <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _e($this->options->index_middle_ads);?></div>
+                <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _oc_e($this->options->index_middle_ads);?></div>
                 <div class="react-tabs" data-tabs="true">
                     <?php if($recommend and $this->options->enableTravel):?>
                     <div class="line"></div>
@@ -96,7 +97,7 @@ $this->need('includes/header.php');
                             <?php while ($this->next()): ?>
                                 <?php $cnt = $cnt+1;$this->need('components/index/article-content.php'); ?>
                                 <?php if ($cnt%7 ==0):?>
-                                <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _e($this->options->list_middle_ads);?></div>
+                                <div style="width:100%;overflow:hidden;max-height: 90px;"><?php _oc_e($this->options->list_middle_ads);?></div>
                                 <?php endif;?>
                             <?php endwhile; ?>
                         </div>

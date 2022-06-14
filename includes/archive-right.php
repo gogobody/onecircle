@@ -5,7 +5,7 @@ error_reporting(0);
 <aside id="sidebar" class="asideBar col w-md w-lg bg-white-only bg-auto no-border-xs" role="complementary">
     <?php if ($this->is('author')):?>
     <div class="card user-container">
-        <div class="mycicle-title"><h2><?php _e($this->getArchiveTitle()) ?></h2></div>
+        <div class="mycicle-title"><h2><?php _oc_e($this->getArchiveTitle()) ?></h2></div>
         <div class="iwNods">
             <div class="daMYau">
                 <span><?php
@@ -22,10 +22,10 @@ error_reporting(0);
     <?php elseif ($this->is('category')):?>
         <div class="card user-container">
 
-            <div class="mycicle-title"><h2><?php _e($this->getArchiveTitle()) ?></h2></div>
+            <div class="mycicle-title"><h2><?php _oc_e($this->getArchiveTitle()) ?></h2></div>
             <div class="iwNods">
                 <div class="daMYau">
-                <span><?php _e(parseDesc2text($this->getDescription())); ?>
+                <span><?php _oc_e(parseDesc2text($this->getDescription())); ?>
                 </span>
                 </div>
             </div>
